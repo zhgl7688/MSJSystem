@@ -225,7 +225,7 @@ FirstPPT firstPPt = new FirstPPT();
                         sAgentResult.销售利润 = summary16.O;
                         break;
                 }
-                firstPPt.AddsAgentInfos(sAgentInfo);
+                firstPPt.AddsAgentResult(sAgentResult);
 
 
             }

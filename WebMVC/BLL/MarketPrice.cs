@@ -25,10 +25,10 @@ namespace WebMVC.BLL
     {
 
         public string 阶段 { get; set; }
-        public int CM { get; set; }
-        public int DF { get; set; }
-        public int DE { get; internal set; }
-        public int CO { get; internal set; }
-        public int CN { get; internal set; }
+        public decimal CM { get; set; }
+        public decimal DF { get; set; }
+        public decimal DE { get; internal set; }
+        public decimal CO { get; internal set; }
+        public decimal CN { get; internal set; }
     }
 }

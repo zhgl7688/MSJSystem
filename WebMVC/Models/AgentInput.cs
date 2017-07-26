@@ -10,9 +10,9 @@ namespace WebMVC.Models
         /// <summary>
         /// 主键 编号
         /// </summary>
-        public int AgentId { get; set; }
+        public decimal AgentId { get; set; }
         /// <summary>
-        /// 主键 编号
+        /// 代理商
         /// </summary>
         public string AgentName { get; set; }
         /// <summary>
@@ -22,43 +22,43 @@ namespace WebMVC.Models
         /// <summary>
         /// 终端形象
         /// </summary>
-        public int EndImage { get; set; }
+        public decimal EndImage { get; set; }
         /// <summary>
         /// 导购员
         /// </summary>
-        public int Salesperson { get; set; }
+        public decimal Salesperson { get; set; }
         /// <summary>
         /// 店内促销
         /// </summary>
-        public int HousePromote { get; set; }
+        public decimal HousePromote { get; set; }
         /// <summary>
         /// 演示员
         /// </summary>
-        public int demonstrator { get; set; }
+        public decimal demonstrator { get; set; }
         /// <summary>
         /// 户外活动
         /// </summary>
-        public int outdoorActivity { get; set; }
+        public decimal outdoorActivity { get; set; }
         /// <summary>
         /// 推广小分队
         /// </summary>
-        public int promotionTeam { get; set; }
+        public decimal promotionTeam { get; set; }
         /// <summary>
         /// 服务
         /// </summary>
-        public int servet { get; set; }
+        public decimal servet { get; set; }
         /// <summary>
         /// 银行贷款
         /// </summary>
-        public int bankLoan { get; set; }
+        public decimal bankLoan { get; set; }
         /// <summary>
         /// 零售价
         /// </summary>
-        public int retailPrice { get; set; }
+        public decimal retailPrice { get; set; }
         /// <summary>
         /// 零售系统供价
         /// </summary>
-        public int SystemPrice { get; set; }
+        public decimal SystemPrice { get; set; }
         /// <summary>
         /// 品牌代理商
         /// </summary>
@@ -66,19 +66,19 @@ namespace WebMVC.Models
         /// <summary>
         /// 起始进货
         /// </summary>
-        public int purchase { get; set; }
+        public decimal purchase { get; set; }
         /// <summary>
         /// 起始实际销售
         /// </summary>
-        public int actualSale { get; set; }
+        public decimal actualSale { get; set; }
         /// <summary>
         /// 起始库存
         /// </summary>
-        public int Inventory { get; set; }
+        public decimal Inventory { get; set; }
         /// <summary>
         /// 第一阶段进货
         /// </summary>
-        public int FirstPurchase { get; set; }
+        public decimal FirstPurchase { get; set; }
 
     }
 }

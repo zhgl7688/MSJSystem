@@ -15,27 +15,27 @@ namespace WebMVC.Models
 
         public string 代理方 { get; set; }
 
-        public int 期初 { get; set; }
+        public decimal 期初 { get; set; }
 
-        public int 期末 { get; set; }
+        public decimal 期末 { get; set; }
 
-        public int 销售量 { get; set; }
+        public decimal 销售量 { get; set; }
 
-        public int 销售金额 { get; set; }
+        public decimal 销售金额 { get; set; }
 
-        public int 数量 { get; set; }
+        public decimal 数量 { get; set; }
 
-        public int 金额 { get; set; }
+        public decimal 金额 { get; set; }
 
-        public int 销售利润 { get; set; }
+        public decimal 销售利润 { get; set; }
 
-        public int 借款利息 { get; set; }
+        public decimal 借款利息 { get; set; }
 
-        public int 库存跌价损失计提 { get; set; }
+        public decimal 库存跌价损失计提 { get; set; }
 
-        public int 最终经营利润 { get; set; }
+        public decimal 最终经营利润 { get; set; }
 
-        public int 现金流 { get; set; }
+        public decimal 现金流 { get; set; }
 
 
     }

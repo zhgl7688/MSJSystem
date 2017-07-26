@@ -17,6 +17,6 @@ namespace WebMVC.BLL
     public class ShareMarket
     {
         public string 品牌方 { get; internal set; }
-        public int C { get; internal set; }
+        public decimal C { get; internal set; }
     }
 }

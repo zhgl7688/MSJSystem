@@ -10,17 +10,17 @@ namespace WebMVC.Models
     /// </summary>
     public class BrandProfit
     {
-        public int M { get; set; }
-        public int S1 { get; set; }
+        public decimal M { get; set; }
+        public decimal S1 { get; set; }
 
-        public int S2 { get; set; }
+        public decimal S2 { get; set; }
 
-        public int S3 { get; set; }
-        public int S4 { get; set; }
-        public int J { get; set; }
-        public int SM { get; set; }
-        public int SS { get; set; }
-        public int SJ { get; set; }
+        public decimal S3 { get; set; }
+        public decimal S4 { get; set; }
+        public decimal J { get; set; }
+        public decimal SM { get; set; }
+        public decimal SS { get; set; }
+        public decimal SJ { get; set; }
 
     }
 }

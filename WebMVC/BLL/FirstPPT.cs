@@ -39,7 +39,7 @@ namespace WebMVC.BLL
         SummaryAssent summaryAssent;
         LastBrand lastBrand;
         InvoicingReport invoicingReport;
-FirstPPT firstPPt = new FirstPPT();
+        FirstPPT firstPPt = new FirstPPT();
         public FirstPPTOperstion(MarketPrice marketPrice, InvestmentTable inverstmentTable, InvertmentTable1 invertmentTable1)
         {
             this.marketPrice = marketPrice;
@@ -52,7 +52,7 @@ FirstPPT firstPPt = new FirstPPT();
         /// </summary>
         public void BrandInfoadd()
         {
-            
+
             var firstMarketPrice = marketPrice.Get().FirstOrDefault(s => s.阶段 == "第一阶段");
             var firstInverstment = inverstmentTable.get().FirstOrDefault(s => s.阶段 == "第一期");
             var firstinvertmentTable1 = invertmentTable1.getAgentInputs().FirstOrDefault(s => s.Stage == "第一阶段");
@@ -104,7 +104,7 @@ FirstPPT firstPPt = new FirstPPT();
         {
             var summary = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "销售利润");
 
-            firstPPt.BrandProfit = new BrandProfit 
+            firstPPt.BrandProfit = new BrandProfit
             {
                 M = summary.B,
                 S1 = summary.C,
@@ -116,9 +116,9 @@ FirstPPT firstPPt = new FirstPPT();
                 SS = GetC("S"),
                 SJ = GetC("J")
             };
-            
+
         }
-        public int GetC(string brand)
+        public decimal GetC(string brand)
         {
             var shareMark = lastBrand.Get().FirstOrDefault(s => s.品牌方 == brand);
             return shareMark != null ? shareMark.C : 0;
@@ -126,28 +126,29 @@ FirstPPT firstPPt = new FirstPPT();
         #endregion
 
         #region S品牌代理商信息表
-         public void sAgentInfosAdd()
+        public void sAgentInfosAdd()
         {
             var agentInputs = invertmentTable1.getAgentInputs();
             foreach (var item in agentInputs)
             {
-              var sAgentInfo=new SAgentInfo
+                var sAgentInfo = new SAgentInfo
                 {
                     代理方 = item.AgentName,
                     供货价 = item.retailPrice,
                     零售价 = item.SystemPrice,
-                     终端形象=item.EndImage,
-                      导购员=item.Salesperson,
-                       店内促销=item.HousePromote,
-                        演示员=item.demonstrator,
-                         户外活动=item.outdoorActivity,
-                          推广小分队=item.promotionTeam,
-                           服务=item.servet,
-                  };
+                    终端形象 = item.EndImage,
+                    导购员 = item.Salesperson,
+                    店内促销 = item.HousePromote,
+                    演示员 = item.demonstrator,
+                    户外活动 = item.outdoorActivity,
+                    推广小分队 = item.promotionTeam,
+                    服务 = item.servet,
+                };
                 var firstInverstment = inverstmentTable.get().FirstOrDefault(s => s.阶段 == "第一期");
                 switch (sAgentInfo.代理方)
                 {
-                    case "代1":sAgentInfo.S品牌费用补贴支持 = firstInverstment.AR;
+                    case "代1":
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.AR;
                         break;
                     case "代2":
                         sAgentInfo.S品牌费用补贴支持 = firstInverstment.BA;
@@ -167,7 +168,7 @@ FirstPPT firstPPt = new FirstPPT();
                 }
                 firstPPt.AddsAgentInfos(sAgentInfo);
             }
-          
+
         }
         #endregion
 
@@ -175,9 +176,9 @@ FirstPPT firstPPt = new FirstPPT();
         public void sAgentResultAdd()
         {
             var agentInputs = invertmentTable1.getAgentInputs();
-            var summary20 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "经营中损失的销售"); 
-                 var summary21 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "经营中损失的金额");
-            var summary16 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "销售利润"); 
+            var summary20 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "经营中损失的销售");
+            var summary21 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "经营中损失的金额");
+            var summary16 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "销售利润");
             var summary17 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "应支付银行利息");
             var summary18 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "库存需按照10%计提跌价损失");
             var summary19 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "扣除计提跌价损失及银行利息后的利润");
@@ -188,18 +189,18 @@ FirstPPT firstPPt = new FirstPPT();
                 var sAgentResult = new SAgentResult
                 {
                     代理方 = item.AgentName,
-                   
+
                 };
                 var invoicing = invoicingReport.Get().FirstOrDefault(s => s.代理方 == sAgentResult.代理方);
                 sAgentResult.期初 = invoicing.D;
                 sAgentResult.期末 = invoicing.I;
                 sAgentResult.销售量 = invoicing.G;
                 sAgentResult.销售金额 = invoicing.H;
-                 
+
                 switch (sAgentResult.代理方)
                 {
                     case "代1":
-                        sAgentResult.数量= summary20.J;
+                        sAgentResult.数量 = summary20.J;
                         sAgentResult.金额 = summary21.J;
                         sAgentResult.销售利润 = summary16.J;
                         sAgentResult.库存跌价损失计提 = summary18.J;

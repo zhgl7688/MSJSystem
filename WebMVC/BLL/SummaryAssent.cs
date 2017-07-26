@@ -19,17 +19,17 @@ namespace WebMVC.BLL
     public class Summary
     {
         public string 科目 { get; set; }
-        public int B { get; internal set; }
-        public int C { get; internal set; }
-        public int E { get; internal set; }
-        public int D { get; internal set; }
-        public int F { get; internal set; }
-        public int I { get; internal set; }
-        public int J { get; internal set; }
-        public int K { get; internal set; }
-        public int L { get; internal set; }
-        public int M { get; internal set; }
-        public int N { get; internal set; }
-        public int O { get; internal set; }
+        public decimal B { get; internal set; }
+        public decimal C { get; internal set; }
+        public decimal E { get; internal set; }
+        public decimal D { get; internal set; }
+        public decimal F { get; internal set; }
+        public decimal I { get; internal set; }
+        public decimal J { get; internal set; }
+        public decimal K { get; internal set; }
+        public decimal L { get; internal set; }
+        public decimal M { get; internal set; }
+        public decimal N { get; internal set; }
+        public decimal O { get; internal set; }
     }
 }

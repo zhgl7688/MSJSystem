@@ -25,23 +25,23 @@ namespace WebMVC.BLL
        
 
         public string 阶段 { get; set; }
-        public int J { get; internal set; }
-        public int M { get; internal set; }
-        public int N { get; internal set; }
-        public int O { get; internal set; }
-        public int Q { get; internal set; }
-        public int P { get; internal set; }
-        public int R { get; internal set; }
-        public int K { get; internal set; }
-        public int L { get; internal set; }
-        public int S { get; internal set; }
-        public int T { get; internal set; }
-        public int U { get; internal set; }
-        public int AR { get; internal set; }
-        public int BA { get; internal set; }
-        public int BJ { get; internal set; }
-        public int BS { get; internal set; }
-        public int CB { get; internal set; }
-        public int CK { get; internal set; }
+        public decimal J { get; internal set; }
+        public decimal M { get; internal set; }
+        public decimal N { get; internal set; }
+        public decimal O { get; internal set; }
+        public decimal Q { get; internal set; }
+        public decimal P { get; internal set; }
+        public decimal R { get; internal set; }
+        public decimal K { get; internal set; }
+        public decimal L { get; internal set; }
+        public decimal S { get; internal set; }
+        public decimal T { get; internal set; }
+        public decimal U { get; internal set; }
+        public decimal AR { get; internal set; }
+        public decimal BA { get; internal set; }
+        public decimal BJ { get; internal set; }
+        public decimal BS { get; internal set; }
+        public decimal CB { get; internal set; }
+        public decimal CK { get; internal set; }
     }
 }

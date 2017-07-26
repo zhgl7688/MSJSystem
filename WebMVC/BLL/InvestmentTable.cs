@@ -10,10 +10,37 @@ namespace WebMVC.BLL
     /// </summary>
     public class InvestmentTable
     {
-        List<Investment> investments = new List<Investment>();
-        public void add(Investment investment)
+       
+        public void Add( InvertmentTable1 invertMentTable1)
         {
-            investments.Add(investment);
+
+        }
+        List<Investment> investments = new List<Investment>();
+        public void add(List<Invertment1> invertMentTable1)
+        {
+            foreach (var item in invertMentTable1)
+            {
+                var investment = investments.FirstOrDefault(s => s.阶段 == item.Stage);
+                if (investment == null) investment = new Investment();
+                switch (item.Brand)
+                {
+                    case "M":
+                        investment.J = item.advertise;
+                        investment.M = item.sur;
+                        break;
+                    case "S":
+                        investment.K = item.advertise;
+                        break;
+                    case "J":
+                        investment.L = item.advertise;
+                        break;
+                    default:
+                        break;
+                }
+                investments.Add(investment);
+            }
+             
+         
         }
         public List<Investment> get()
         {

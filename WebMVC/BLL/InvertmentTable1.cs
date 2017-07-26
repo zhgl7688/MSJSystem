@@ -190,9 +190,9 @@ namespace WebMVC.BLL
         {
             get
             {
-                return this.FunctionSum + this.materialSum + this.SurfaceSum +
+                return this.advertise+ this.FunctionSum + this.materialSum + this.SurfaceSum +
                      this.EndImage + this.Salesperson + this.HousePromote + this.demonstrator
-                     + this.outdoorActivity + promotionTeam + servet;
+                     + this.outdoorActivity +this. promotionTeam +this. servet;
             }
         }
     }

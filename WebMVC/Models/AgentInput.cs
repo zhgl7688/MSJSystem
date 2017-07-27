@@ -54,11 +54,27 @@ namespace WebMVC.Models
         /// <summary>
         /// 零售价
         /// </summary>
-        public decimal retailPrice { get; set; }
+        public decimal retailPriceRC1 { get; set; }
         /// <summary>
         /// 零售系统供价
         /// </summary>
-        public decimal SystemPrice { get; set; }
+        public decimal SystemPriceRC1 { get; set; }
+        /// <summary>
+        /// 零售价
+        /// </summary>
+        public decimal retailPriceRC2 { get; set; }
+        /// <summary>
+        /// 零售系统供价
+        /// </summary>
+        public decimal SystemPriceRC2 { get; set; }
+        /// <summary>
+        /// 零售价
+        /// </summary>
+        public decimal retailPriceRC3 { get; set; }
+        /// <summary>
+        /// 零售系统供价
+        /// </summary>
+        public decimal SystemPriceRC3 { get; set; }
         /// <summary>
         /// 品牌代理商
         /// </summary>
@@ -79,6 +95,14 @@ namespace WebMVC.Models
         /// 第一阶段进货
         /// </summary>
         public decimal FirstPurchase { get; set; }
+        public decimal InputSum
+        {
+            get
+            {
+                return this.EndImage + this.Salesperson + this.HousePromote + this.demonstrator
+                     + this.outdoorActivity + this.promotionTeam + this.servet;
+            }
+        }
 
     }
 }

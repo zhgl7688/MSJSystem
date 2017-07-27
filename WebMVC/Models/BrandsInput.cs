@@ -95,6 +95,32 @@ namespace WebMVC.Models
         /// 零售系统供价
         /// </summary>
         public decimal SystemPrice { get; set; }
+        /// <summary>
+        /// 新增单品成本价
+        /// </summary>
+        public decimal NewCostPrice { get; set; }
+        /// <summary>
+        /// 新增单品出厂价
+        /// </summary>
+        public decimal NewFactoryPrice { get; set; }
+        /// <summary>
+        /// 新增单品零售价R2
+        /// </summary>
+        public decimal NewRetailPriceR2 { get; set; }
+        /// <summary>
+        /// 新增单品系统供价R2
+        /// </summary>
+        public decimal NewSystemPriceR2 { get; set; }
+        /// <summary>
+        /// 新增单品系统供价R3
+        /// </summary>
+        public decimal NewSystemPriceR3 { get; set; }
+        /// <summary>
+        /// 新增单品零售价R3
+        /// </summary>
+        public decimal NewRetailPriceR3 { get; set; }
+
 
     }
+
 }

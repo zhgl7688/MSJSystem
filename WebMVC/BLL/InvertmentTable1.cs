@@ -26,8 +26,8 @@ namespace WebMVC.BLL
                 outdoorActivity = 98,
                 promotionTeam = 49,
                 servet = 1,
-                retailPrice = 709.8M,
-                SystemPrice = 845,
+                retailPriceRC1 = 709.8M,
+                SystemPriceRC1 = 845,
                 AgentName = "代1",
                 purchase = 31,
                 actualSale = 30,
@@ -45,8 +45,8 @@ namespace WebMVC.BLL
                 outdoorActivity = 196,
                 promotionTeam = 98,
                 servet = 80,
-                retailPrice = 839,
-                SystemPrice = 746,
+                retailPriceRC1 = 839,
+                SystemPriceRC1 = 746,
                 AgentName = "代2",
                 purchase = 31,
                 actualSale = 30,
@@ -64,8 +64,8 @@ namespace WebMVC.BLL
                 outdoorActivity = 230,
                 promotionTeam = 115,
                 servet = 200,
-                retailPrice = 839,
-                SystemPrice = 746.71M,
+                retailPriceRC1 = 839,
+                SystemPriceRC1 = 746.71M,
                 AgentName = "代3",
                 purchase = 31,
                 actualSale = 30,
@@ -83,8 +83,8 @@ namespace WebMVC.BLL
                 outdoorActivity = 100,
                 promotionTeam = 70,
                 servet = 100,
-                retailPrice = 799,
-                SystemPrice = 623,
+                retailPriceRC1 = 799,
+                SystemPriceRC1 = 623,
                 AgentName = "代4",
                 purchase = 31,
                 actualSale = 30,
@@ -186,13 +186,19 @@ namespace WebMVC.BLL
                 return this.materialRC1 + this.materialRC2 + this.MaterialRC3;
             }
         }
+        public decimal InputSum
+        {
+            get
+            {
+                return  this.EndImage + this.Salesperson + this.HousePromote + this.demonstrator
+                     + this.outdoorActivity + this.promotionTeam + this.servet;
+            }
+        }
         public decimal Sum
         {
             get
             {
-                return this.advertise+ this.FunctionSum + this.materialSum + this.SurfaceSum +
-                     this.EndImage + this.Salesperson + this.HousePromote + this.demonstrator
-                     + this.outdoorActivity +this. promotionTeam +this. servet;
+                return this.advertise + this.FunctionSum + this.materialSum + this.SurfaceSum + InputSum;
             }
         }
     }

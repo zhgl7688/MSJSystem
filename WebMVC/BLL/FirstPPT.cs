@@ -40,11 +40,12 @@ namespace WebMVC.BLL
         LastBrand lastBrand;
         InvoicingReport invoicingReport;
         FirstPPT firstPPt = new FirstPPT();
-        public FirstPPTOperstion(MarketPrice marketPrice, InvestmentTable inverstmentTable, InvertmentTable1 invertmentTable1)
+        public FirstPPTOperstion(MarketPrice marketPrice, InvestmentTable inverstmentTable)
         {
+            
             this.marketPrice = marketPrice;
             this.inverstmentTable = inverstmentTable;
-            this.invertmentTable1 = invertmentTable1;
+            this.invertmentTable1 =new InvertmentTable1();
         }
         #region 品牌商竞争信息表BrandInfo
         /// <summary>
@@ -65,29 +66,29 @@ namespace WebMVC.BLL
                     出厂价 = firstMarketPrice.CM,
                     指导零售价 = firstMarketPrice.DE,
                     品牌广告 = firstInverstment.J,
-                    外观创新 = firstInverstment.M,
-                    功能创新 = firstInverstment.N,
-                    材料创新 = firstInverstment.O
+                    外观创新 = firstInverstment.M.SurfaceRC1,
+                    功能创新 = firstInverstment.N.FunctionRC1,
+                    材料创新 = firstInverstment.O.materialRC1
                 };
                 firstPPt.AddBrandInfo(brandInfo);
 
 
                 brandInfo.品牌方 = Brand.S品牌;
                 brandInfo.出厂价 = firstMarketPrice.CN;
-                brandInfo.指导零售价 = firstinvertmentTable1.retailPrice;
+                brandInfo.指导零售价 = firstinvertmentTable1.retailPriceRC1;
                 brandInfo.品牌广告 = firstInverstment.K;
-                brandInfo.外观创新 = firstInverstment.P;
-                brandInfo.功能创新 = firstInverstment.Q;
-                brandInfo.材料创新 = firstInverstment.R;
+                brandInfo.外观创新 = firstInverstment.P.SurfaceRC1;
+                brandInfo.功能创新 = firstInverstment.Q.FunctionRC1;
+                brandInfo.材料创新 = firstInverstment.R.materialRC1;
 
                 firstPPt.AddBrandInfo(brandInfo);
                 brandInfo.品牌方 = Brand.J品牌;
                 brandInfo.出厂价 = firstMarketPrice.CO;
                 brandInfo.指导零售价 = firstMarketPrice.DF;
                 brandInfo.品牌广告 = firstInverstment.L;
-                brandInfo.外观创新 = firstInverstment.S;
-                brandInfo.功能创新 = firstInverstment.T;
-                brandInfo.材料创新 = firstInverstment.U;
+                brandInfo.外观创新 = firstInverstment.S.SurfaceRC1;
+                brandInfo.功能创新 = firstInverstment.T.FunctionRC2;
+                brandInfo.材料创新 = firstInverstment.U.materialRC1;
 
                 firstPPt.AddBrandInfo(brandInfo);
             }
@@ -134,8 +135,8 @@ namespace WebMVC.BLL
                 var sAgentInfo = new SAgentInfo
                 {
                     代理方 = item.AgentName,
-                    供货价 = item.retailPrice,
-                    零售价 = item.SystemPrice,
+                    供货价 = item.retailPriceRC1,
+                    零售价 = item.SystemPriceRC1,
                     终端形象 = item.EndImage,
                     导购员 = item.Salesperson,
                     店内促销 = item.HousePromote,
@@ -148,22 +149,22 @@ namespace WebMVC.BLL
                 switch (sAgentInfo.代理方)
                 {
                     case "代1":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.AR;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.AR.AR;
                         break;
                     case "代2":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BA;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BA.AR;
                         break;
                     case "代3":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BJ;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BJ.AR;
                         break;
                     case "代4":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BS;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BS.AR;
                         break;
                     case "代5":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.CB;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.CB.AR;
                         break;
                     case "代6":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.CK;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.CK.AR;
                         break;
                 }
                 firstPPt.AddsAgentInfos(sAgentInfo);

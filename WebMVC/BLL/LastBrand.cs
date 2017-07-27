@@ -5,6 +5,9 @@ using System.Web;
 
 namespace WebMVC.BLL
 {
+    /// <summary>
+    /// 最终三个品牌的市场占有率
+    /// </summary>
     public class LastBrand
     {
         List<ShareMarket> shareMarkets = new List<ShareMarket>();

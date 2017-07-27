@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMVC.Models;
 
 namespace WebMVC.BLL
 {
     public class PriceControl
     {
         List<PriceControlTable> priceControlTables = new List<PriceControlTable>();
-        InvertmentTable1 invertmenetTable1 = new InvertmentTable1();
-        public void add()
+        InvertmentTable1 invertmenetTable1;
+        public PriceControl()
+        {
+            invertmenetTable1 = new InvertmentTable1();
+            init();
+        }
+        public void init()
         {
             var brandsInputs = invertmenetTable1.getBrandsInputs();
             foreach (var agentItem in brandsInputs)
@@ -21,13 +27,16 @@ namespace WebMVC.BLL
                     if (agentItem.Stage == "第一阶段")
                     {
                         priceControlt.Agents.Add(1, new AgentRC() { RCName = "RC1" });
+                        priceControlt.SystemPrices.Add(1, new SystemPrice());
                     }
                     if (agentItem.Stage == "第二阶段")
                     {
+                        priceControlt.SystemPrices.Add(2, new SystemPrice());
                         priceControlt.Agents.Add(2, new AgentRC() { RCName = "RC2" });
                     }
                     if (agentItem.Stage == "第三阶段")
                     {
+                        priceControlt.SystemPrices.Add(3, new SystemPrice());
                         priceControlt.Agents.Add(3, new AgentRC() { RCName = "RC3" });
                     }
                     priceControlTables.Add(priceControlt);
@@ -58,62 +67,62 @@ namespace WebMVC.BLL
                 }
                 foreach (var item in priceControlt.Agents.Keys)
                 {
-
-                    if (item == 1)
-                    {
-                        SetAgents(agentItem.AgentName, priceControlt.Agents,item, agentItem.SystemPriceRC1);
-
-                    }
-
-                }
+                             SetAgents(agentItem, priceControlt, item);
+                 }
 
             }
         }
-        public void SetAgents(string agentName ,Dictionary<int, AgentRC> agentDic,int item,decimal value)
+        public void SetAgents(Models.AgentInput agentInput,PriceControlTable priceControlt, int item)
         {
+            Dictionary<int, AgentRC> agentDic = priceControlt.Agents;
+            var systemPriceDic = priceControlt.SystemPrices;
+            string agentName = agentInput.AgentName;
+
+            decimal systemPriceRC = agentInput.GetRC(item, Common.RCType.SystemPriceRC);
+            decimal retailPriceRC = agentInput.GetRC(item, Common.RCType.retailPriceRC);
             switch (agentName)
             {
                 case "代1":
-                    agentDic[item].Agent1 = value;
+                    agentDic[item].Agent1 = retailPriceRC;
+                    systemPriceDic[item].Price1 = systemPriceRC;
                     break;
                 case "代2":
-                    agentDic[item].Agent2 = value;
+                    agentDic[item].Agent2 = retailPriceRC;
+                    systemPriceDic[item].Price2 = systemPriceRC;
                     break;
                 case "代3":
-                    agentDic[item].Agent3 = value;
+                    agentDic[item].Agent3 = retailPriceRC;
+                    systemPriceDic[item].Price3 = systemPriceRC;
                     break;
                 case "代4":
-                    agentDic[item].Agent4 = value;
+                    agentDic[item].Agent4 = retailPriceRC;
+                    systemPriceDic[item].Price4 = systemPriceRC;
                     break;
                 case "代5":
-                    agentDic[item].Agent5 = value;
+                    agentDic[item].Agent5 = retailPriceRC;
+                    systemPriceDic[item].Price5 = systemPriceRC;
                     break;
                 case "代6":
-                    agentDic[item].Agent6 = value;
+                    agentDic[item].Agent6 = retailPriceRC;
+                    systemPriceDic[item].Price6 = systemPriceRC;
                     break;
                 default:
                     break;
             }
         }
-
+        public List<PriceControlTable> Get()
+        {
+            return priceControlTables;
+        }
     }
     public class PriceControlTable
     {
         public string 阶段 { get; set; }
         public CompeteRC Competes { get; set; } = new CompeteRC();
         public Dictionary<int, AgentRC> Agents { get; set; } = new Dictionary<int, AgentRC>();
-        public List<SystemPrice> SystemPrices { get; set; } = new List<SystemPrice>();
+        public Dictionary<int, SystemPrice> SystemPrices { get; set; } = new Dictionary<int, SystemPrice>();
     }
-    public class CompeteRC
-    {
-        public decimal RC1M { get; set; }
-        public decimal RC1J { get; set; }
-        public decimal RC2M { get; set; }
-        public decimal RC2J { get; set; }
-        public decimal RC3M { get; set; }
-        public decimal RC3J { get; set; }
-
-    }
+ 
     public class AgentRC
     {
         public string RCName { get; set; }

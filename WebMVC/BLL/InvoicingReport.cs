@@ -5,6 +5,9 @@ using System.Web;
 
 namespace WebMVC.BLL
 {
+    /// <summary>
+    /// 进销存报表
+    /// </summary>
     public class InvoicingReport
     {
         List<Invoicing> invoicings = new List<Invoicing>();

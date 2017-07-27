@@ -51,6 +51,8 @@
     <Compile Include="BLL\InvertmentTable1Test.cs" />
     <Compile Include="BLL\FirstPPTTest.cs" />
     <Compile Include="BLL\InvertmentTableTest.cs" />
+    <Compile Include="BLL\PriceControlTest.cs" />
+    <Compile Include="BLL\MarketPriceTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

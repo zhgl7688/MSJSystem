@@ -10,4 +10,9 @@ namespace WebMVC.Common
         M品牌,S品牌,J品牌
 
     }
+   public enum RCType
+    {
+        retailPriceRC, SystemPriceRC
+
+    }
 }

@@ -40,10 +40,10 @@ namespace WebMVC.BLL
         LastBrand lastBrand;
         InvoicingReport invoicingReport;
         FirstPPT firstPPt = new FirstPPT();
-        public FirstPPTOperstion(MarketPrice marketPrice, InvestmentTable inverstmentTable)
+        public FirstPPTOperstion( InvestmentTable inverstmentTable)
         {
             
-            this.marketPrice = marketPrice;
+            this.marketPrice = new MarketPrice();
             this.inverstmentTable = inverstmentTable;
             this.invertmentTable1 =new InvertmentTable1();
         }

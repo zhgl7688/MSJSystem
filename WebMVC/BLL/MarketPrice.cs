@@ -36,10 +36,10 @@ namespace WebMVC.BLL
                         CM = RC1M,
                         CN = RC1S,
                         CO = RC1J,
-CompeteRC = item.Competes
+                        CompeteRC = item.Competes
                     };
-                   
-                 markets.Add(marketContext);
+
+                    markets.Add(marketContext);
                 }
 
             }

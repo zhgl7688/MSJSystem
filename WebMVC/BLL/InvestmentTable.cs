@@ -18,39 +18,40 @@ namespace WebMVC.BLL
         {
             invertMentTable1 = new InvertmentTable1().getBrandsInputs();
             agentInputs   = new InvertmentTable1().getAgentInputs();
-            add();
+            Init();
         }
 
         List<Investment> investments = new List<Investment>();
-        public void add()
+        private void Init()
         {
             foreach (var item in invertMentTable1)
             {
-                var investment = investments.FirstOrDefault(s => s.阶段 == item.Stage);
+                var investment = investments.FirstOrDefault(s => s.Stage == item.Stage);
                 if (investment == null)
                 {
-                    investment = new Investment { 阶段 = item.Stage };
+                    investment = new Investment { Stage = item.Stage };
                     investments.Add(investment);
                 }
                 var surfaceRC = new SurfaceRC { SurfaceRC1 = item.SurfaceRC1, SurfaceRC2 = item.SurfaceRC2, SurfaceRC3 = item.SurfaceRC3 };
                 var functionRC = new FunctionRC { FunctionRC1 = item.FunctionRC1, FunctionRC2 = item.FunctionRC2, FunctionRC3 = item.FunctionRC3 };
                 var materialRC = new MaterialRC { materialRC1 = item.materialRC1, materialRC2 = item.FunctionRC2, materialRC3 = item.FunctionRC3 };
-
-                switch (item.Brand)
+                Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
+                switch (brand)
                 {
-                    case "M":
+                    case Brand.M品牌:
                         investment.J = item.advertise;
                         investment.M = surfaceRC;
                         investment.N = functionRC;
                         investment.O = materialRC;
+
                         break;
-                    case "S":
+                    case Brand.S品牌:
                         investment.K = item.advertise;
                         investment.P = surfaceRC;
                         investment.Q = functionRC;
                         investment.R = materialRC;
                         break;
-                    case "J":
+                    case Brand.J品牌:
                         investment.L = item.advertise;
                         investment.S = surfaceRC;
                         investment.T = functionRC;
@@ -59,7 +60,7 @@ namespace WebMVC.BLL
                     default:
                         break;
                 }
-
+               
                
                 var agentInput1 = agentInputs.Where(s => s.Stage == item.Stage );
                
@@ -69,22 +70,22 @@ namespace WebMVC.BLL
                     switch (agentInput.AgentName)
                     {
                         case "代1":
-                            investment.AR = brandinput;
+                            investment.AJ = brandinput;
                             break;
                         case "代2":
-                            investment.BA = brandinput;
+                            investment.AS = brandinput;
                             break;
                         case "代3":
-                            investment.BJ = brandinput;
+                            investment.BB = brandinput;
                             break;
                         case "代4":
-                            investment.BS = brandinput;
+                            investment.BK = brandinput;
                             break;
                         case "代5":
-                            investment.CB = brandinput;
+                            investment.BT = brandinput;
                             break;
                         case "代6":
-                            investment.CK = brandinput;
+                            investment.CC = brandinput;
                             break;
  
                     }
@@ -95,7 +96,7 @@ namespace WebMVC.BLL
 
 
         }
-        public BrandInput getBrandInput(decimal aj, AgentInput agentInput1)
+        private BrandInput getBrandInput(decimal aj, AgentInput agentInput1)
         {
             var brandInput = new BrandInput() { AJ = aj };
                 brandInput.AK = Cal.EndImage(brandInput.AJ, agentInput1.InputSum, agentInput1.EndImage);
@@ -108,7 +109,7 @@ namespace WebMVC.BLL
 
             return brandInput;
         }
-        public List<Investment> get()
+        public List<Investment> Get()
         {
             return investments;
         }
@@ -117,10 +118,18 @@ namespace WebMVC.BLL
     {
 
 
-        public string 阶段 { get; set; }
+        public string Stage { get; set; }
+        /// <summary>
+        /// M品牌广告投入 
+        /// </summary>
         public decimal J { get; internal set; }
-
+        /// <summary>
+        /// S品牌广告投入
+        /// </summary>
         public decimal K { get; set; }
+        /// <summary>
+        /// J品牌广告投入
+        /// </summary>
         public decimal L { get; internal set; }
 
         public SurfaceRC M { get; internal set; } = new SurfaceRC();
@@ -135,14 +144,16 @@ namespace WebMVC.BLL
         public SurfaceRC S { get; internal set; } = new SurfaceRC();
         public FunctionRC T { get; internal set; } = new FunctionRC();
         public MaterialRC U { get; internal set; } = new MaterialRC();
-   
-        public BrandInput AR { get; set; }
+        public BrandInput V { get; set; }
+        public BrandInput AC { get; set; }
+
+        public BrandInput AJ { get; set; }
         
-        public BrandInput BA { get; set; }
-        public BrandInput BJ { get; set; }
-        public BrandInput BS { get; set; }
-        public BrandInput CB { get; set; }
-        public BrandInput CK { get; set; }
+        public BrandInput AS { get; set; }
+        public BrandInput BB { get; set; }
+        public BrandInput BK { get; set; }
+        public BrandInput BT { get; set; }
+        public BrandInput CC { get; set; }
     
         public decimal KPQR
         {

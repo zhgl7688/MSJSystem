@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMVC.Common;
 
 namespace WebMVC.BLL
 {
@@ -10,11 +11,72 @@ namespace WebMVC.BLL
     /// </summary>
     public class BrandStrength
     {
+        List<BrandStrengthT> brandStrengths = new List<BrandStrengthT>();
+        List<Investment> investMents;
+        public BrandStrength()
+        {
+              investMents = new InvestmentTable().Get();
+            Init();
+        }
+        public void Init()
+        {
+            BrandStrengthT initT = new BrandStrengthT
+            {
+                Stage= "起始阶段",
+                E = 33,
+                F = 33,
+                G = 33,
+                H = 800,
+                I = 800,
+                J = 800
+            };
+            brandStrengths.Add(initT);
+            var investMent1 = investMents.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), Stage.第一阶段));
+            if (investMent1!=null)
+            {
+                BrandStrengthT bst1 = GetBrandStrenthT(initT, investMent1);
+                brandStrengths.Add(bst1);
+                var investMent2 = investMents.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), Stage.第二阶段));
+                if (investMent2 != null)
+                {
+                    BrandStrengthT bst2 = GetBrandStrenthT(bst1, investMent1);
+                    brandStrengths.Add(bst2);
+                    var investMent3= investMents.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), Stage.第三阶段));
+                    if (investMent3 != null)
+                    {
+                        BrandStrengthT bst3 = GetBrandStrenthT(bst2, investMent1);
+                        brandStrengths.Add(bst3);
 
+                    }
+                }
+            }
+
+
+        }
+
+        private static BrandStrengthT GetBrandStrenthT(BrandStrengthT initT, Investment investMent1)
+        {
+            BrandStrengthT bst1 = new BrandStrengthT
+            {
+                Stage = Enum.GetName(typeof(Stage), Stage.第一阶段),
+                H = investMent1.J,
+                I = investMent1.K,
+                J = investMent1.L,
+            };
+            bst1.E = Cal.CBPI(initT.E, initT.K, initT.N, bst1.K, bst1.N);
+            bst1.F = Cal.CBPI(initT.F, initT.L, initT.N, bst1.L, bst1.N);
+            bst1.G = Cal.CBPI(initT.G, initT.M, initT.N, bst1.M, bst1.N);
+            return bst1;
+        }
+
+        public List<BrandStrengthT> Get()
+        {
+            return brandStrengths;
+        }
     }
     public class BrandStrengthT
     {
-        public string 阶段 { get; set; }
+        public string Stage { get; set; }
         public decimal B
         {
             get
@@ -36,12 +98,33 @@ namespace WebMVC.BLL
                 return G / (E + F + G);
             }
         }
+        /// <summary>
+        /// 品牌力指数 M
+        /// </summary>
         public decimal E { get; set; }
+        /// <summary>
+        /// 品牌力指数 S
+        /// </summary>
         public decimal F { get; set; }
+        /// <summary>
+        /// 品牌力指数 J
+        /// </summary>
         public decimal G { get; set; }
+        /// <summary>
+        /// 广告投放金额（包括大型活动投入）M
+        /// </summary>
         public decimal H { get; set; }
+        /// <summary>
+        /// 广告投放金额（包括大型活动投入）S
+        /// </summary>
         public decimal I { get; set; }
+        /// <summary>
+        /// 广告投放金额（包括大型活动投入）J
+        /// </summary>
         public decimal J { get; set; }
+        /// <summary>
+        /// 广告投放指数 M
+        /// </summary>
         public decimal K
         {
             get
@@ -49,18 +132,27 @@ namespace WebMVC.BLL
                 return H / (H + I + J);
             }
         }
+        /// <summary>
+        /// 广告投放指数 S
+        /// </summary>
         public decimal L {
             get
             {
                 return I/ (H + I + J);
             }
         }
+        /// <summary>
+        /// 广告投放指数 M
+        /// </summary>
         public decimal M {
             get
             {
                 return J/ (H + I + J);
             }
         }
+        /// <summary>
+        /// 广告投放指数的平均指数
+        /// </summary>
         public decimal N {
             get
             {

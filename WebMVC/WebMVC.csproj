@@ -148,7 +148,9 @@
     <Compile Include="BLL\InvoicingReport.cs" />
     <Compile Include="BLL\LastBrand.cs" />
     <Compile Include="BLL\MarketPrice.cs" />
+    <Compile Include="BLL\MarketPromotion.cs" />
     <Compile Include="BLL\PriceControl.cs" />
+    <Compile Include="BLL\ProductInnovation.cs" />
     <Compile Include="BLL\SummaryAssent.cs" />
     <Compile Include="Common\Cal.cs" />
     <Compile Include="Common\EnumsModel.cs" />
@@ -161,6 +163,7 @@
     <Compile Include="Models\BrandProfit.cs" />
     <Compile Include="Models\BrandsInput.cs" />
     <Compile Include="Models\CompeteRC.cs" />
+    <Compile Include="Models\RC.cs" />
     <Compile Include="Models\SAgentInfo.cs" />
     <Compile Include="Models\SAgentResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

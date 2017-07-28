@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMVC.Common;
 using WebMVC.Models;
 
 namespace WebMVC.BLL
@@ -98,7 +99,7 @@ namespace WebMVC.BLL
             invertment1s.Add(new Invertment1
             {
                 Stage = "第一阶段",
-                Brand = "S",
+                Brand = Brand.S品牌.ToString(),
                 advertise = 600,
                 SurfaceRC1 = 120,
                 FunctionRC1 = 200,
@@ -109,7 +110,7 @@ namespace WebMVC.BLL
             invertment1s.Add(new Invertment1
             {
                 Stage = "第一阶段",
-                Brand = "M",
+                Brand =Brand.M品牌.ToString(),
                 advertise = 640,
                 SurfaceRC1 = 48,
                 FunctionRC1 = 80,
@@ -128,7 +129,7 @@ namespace WebMVC.BLL
             invertment1s.Add(new Invertment1
             {
                 Stage = "第一阶段",
-                Brand = "J",
+                Brand = Brand.J品牌.ToString(),
                 advertise = 200,
                 SurfaceRC1 = 180,
                 FunctionRC1 = 300,

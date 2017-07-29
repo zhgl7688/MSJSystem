@@ -13,7 +13,7 @@ namespace WebMVC.BLL
     public class InvertmentTable1
     {
         List<AgentInput> agentInputs = new List<AgentInput>();
-        List<Invertment1> invertment1s = new List<Invertment1>();
+        List<BrandTable> brands = new List<BrandTable>();
         public InvertmentTable1()
         {
             #region 代理设定
@@ -29,7 +29,7 @@ namespace WebMVC.BLL
                 servet = 1,
                 retailPriceRC1 = 709.8M,
                 SystemPriceRC1 = 845,
-                AgentName = "代1",
+                AgentName =AgentName.代1.ToString(),
                 purchase = 31,
                 actualSale = 30,
                 Inventory = 1,
@@ -48,7 +48,7 @@ namespace WebMVC.BLL
                 servet = 80,
                 retailPriceRC1 = 839,
                 SystemPriceRC1 = 746,
-                AgentName = "代2",
+                AgentName = AgentName.代2.ToString(),
                 purchase = 31,
                 actualSale = 30,
                 Inventory = 1,
@@ -67,7 +67,7 @@ namespace WebMVC.BLL
                 servet = 200,
                 retailPriceRC1 = 839,
                 SystemPriceRC1 = 746.71M,
-                AgentName = "代3",
+                AgentName = AgentName.代3.ToString(),
                 purchase = 31,
                 actualSale = 30,
                 Inventory = 1,
@@ -86,7 +86,7 @@ namespace WebMVC.BLL
                 servet = 100,
                 retailPriceRC1 = 799,
                 SystemPriceRC1 = 623,
-                AgentName = "代4",
+                AgentName = AgentName.代4.ToString(),
                 purchase = 31,
                 actualSale = 30,
                 Inventory = 1,
@@ -96,7 +96,7 @@ namespace WebMVC.BLL
             #endregion
 
             #region 品牌设定
-            invertment1s.Add(new Invertment1
+            brands.Add(new BrandTable
             {
                 Stage = "第一阶段",
                 Brand = Brand.S品牌.ToString(),
@@ -107,10 +107,10 @@ namespace WebMVC.BLL
 
                 retailPrice = 799
             });
-            invertment1s.Add(new Invertment1
+            brands.Add(new BrandTable
             {
                 Stage = "第一阶段",
-                Brand =Brand.M品牌.ToString(),
+                Brand = Brand.M品牌.ToString(),
                 advertise = 640,
                 SurfaceRC1 = 48,
                 FunctionRC1 = 80,
@@ -126,7 +126,7 @@ namespace WebMVC.BLL
                 SystemPrice = 630
 
             });
-            invertment1s.Add(new Invertment1
+            brands.Add(new BrandTable
             {
                 Stage = "第一阶段",
                 Brand = Brand.J品牌.ToString(),
@@ -151,12 +151,52 @@ namespace WebMVC.BLL
         {
             return agentInputs;
         }
-        public List<Invertment1> getBrandsInputs()
+        public List<BrandTable> getBrandsInputs()
         {
-            return invertment1s;
+            return brands;
+        }
+        public List<AgentTable> getAgents()
+        {
+            List<AgentTable> agents = new List<AgentTable>();
+            foreach (var item in agentInputs)
+            {
+                var agent = agents.FirstOrDefault(s => s.Stage == item.Stage);
+                if (agent == null)
+                {
+                    agent = new AgentTable { Stage = item.Stage };
+                    agents.Add(agent);
+                }
+                var agentName = (AgentName)Enum.Parse(typeof(AgentName), item.AgentName);
+                switch (agentName)
+                {
+                    case AgentName.代1:
+                        agent.B = item.brandInput;
+                        break;
+                    case AgentName.代2:
+                        agent.J = item.brandInput;
+                        break;
+                    case AgentName.代3:
+                        agent.R = item.brandInput;
+                        break;
+                    case AgentName.代4:
+                        agent.Z = item.brandInput;
+                        break;
+                    case AgentName.代5:
+                        agent.AH = item.brandInput;
+                        break;
+                    case AgentName.代6:
+                        agent.AP = item.brandInput;
+                        break;
+                    default:
+                        break;
+                }
+            
+
+            }
+            return agents;
         }
     }
-    public class Invertment1 : BrandsInput
+    public class BrandTable : BrandsInput
     {
         /// <summary>
         /// 外观常规汇总
@@ -183,7 +223,8 @@ namespace WebMVC.BLL
         /// </summary>
         public decimal materialSum
         {
-            get { 
+            get
+            {
                 return this.materialRC1 + this.materialRC2 + this.MaterialRC3;
             }
         }
@@ -191,7 +232,7 @@ namespace WebMVC.BLL
         {
             get
             {
-                return  this.EndImage + this.Salesperson + this.HousePromote + this.demonstrator
+                return this.EndImage + this.Salesperson + this.HousePromote + this.demonstrator
                      + this.outdoorActivity + this.promotionTeam + this.servet;
             }
         }
@@ -202,5 +243,35 @@ namespace WebMVC.BLL
                 return this.advertise + this.FunctionSum + this.materialSum + this.SurfaceSum + InputSum;
             }
         }
+    }
+
+    public class AgentTable
+    {
+        public string Stage { get; set; }
+        /// <summary>
+        /// 代1
+        /// </summary>
+        public BrandInput B { get; set; } = new BrandInput();
+        /// <summary>
+        /// 代2
+        /// </summary>
+        public BrandInput J { get; set; } = new BrandInput();
+        /// <summary>
+        /// 代3
+        /// </summary>
+        public BrandInput R { get; set; } = new BrandInput();
+        /// <summary>
+        /// 代4
+        /// </summary>
+        public BrandInput Z { get; set; } = new BrandInput();
+        /// <summary>
+        /// 代5
+        /// </summary>
+        public BrandInput AH { get; set; } = new BrandInput();
+        /// <summary>
+        /// 代6
+        /// </summary>
+        public BrandInput AP { get; set; } = new BrandInput();
+
     }
 }

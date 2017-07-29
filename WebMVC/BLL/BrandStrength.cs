@@ -11,16 +11,16 @@ namespace WebMVC.BLL
     /// </summary>
     public class BrandStrength
     {
-        List<BrandStrengthT> brandStrengths = new List<BrandStrengthT>();
-        List<Investment> investMents;
+        List<BrandStrengthTable> brandStrengths = new List<BrandStrengthTable>();
+        List<InvestmentTable> investMents;
         public BrandStrength()
         {
-              investMents = new InvestmentTable().Get();
+              investMents = new Investment().Get();
             Init();
         }
         public void Init()
         {
-            BrandStrengthT initT = new BrandStrengthT
+            BrandStrengthTable initT = new BrandStrengthTable
             {
                 Stage= "起始阶段",
                 E = 33,
@@ -34,17 +34,17 @@ namespace WebMVC.BLL
             var investMent1 = investMents.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), Stage.第一阶段));
             if (investMent1!=null)
             {
-                BrandStrengthT bst1 = GetBrandStrenthT(initT, investMent1);
+                BrandStrengthTable bst1 = GetBrandStrenthT(initT, investMent1);
                 brandStrengths.Add(bst1);
                 var investMent2 = investMents.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), Stage.第二阶段));
                 if (investMent2 != null)
                 {
-                    BrandStrengthT bst2 = GetBrandStrenthT(bst1, investMent1);
+                    BrandStrengthTable bst2 = GetBrandStrenthT(bst1, investMent1);
                     brandStrengths.Add(bst2);
                     var investMent3= investMents.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), Stage.第三阶段));
                     if (investMent3 != null)
                     {
-                        BrandStrengthT bst3 = GetBrandStrenthT(bst2, investMent1);
+                        BrandStrengthTable bst3 = GetBrandStrenthT(bst2, investMent1);
                         brandStrengths.Add(bst3);
 
                     }
@@ -54,9 +54,9 @@ namespace WebMVC.BLL
 
         }
 
-        private static BrandStrengthT GetBrandStrenthT(BrandStrengthT initT, Investment investMent1)
+        private static BrandStrengthTable GetBrandStrenthT(BrandStrengthTable initT, InvestmentTable investMent1)
         {
-            BrandStrengthT bst1 = new BrandStrengthT
+            BrandStrengthTable bst1 = new BrandStrengthTable
             {
                 Stage = Enum.GetName(typeof(Stage), Stage.第一阶段),
                 H = investMent1.J,
@@ -69,12 +69,12 @@ namespace WebMVC.BLL
             return bst1;
         }
 
-        public List<BrandStrengthT> Get()
+        public List<BrandStrengthTable> Get()
         {
             return brandStrengths;
         }
     }
-    public class BrandStrengthT
+    public class BrandStrengthTable
     {
         public string Stage { get; set; }
         public decimal B

@@ -19,5 +19,11 @@ namespace MSJTest.BLL
             Assert.AreEqual(1020, ss.FirstOrDefault(s => s.Brand == "S").Sum);
             Assert.AreEqual(2000, ss.FirstOrDefault(s => s.Brand == "J").Sum);
         }
+        [TestMethod]
+        public void TestgetAgents()
+        {
+            var result = invertmentTable1.getAgents();
+            Assert.AreEqual(80, result[0].J.servet);
+        }
     }
 }

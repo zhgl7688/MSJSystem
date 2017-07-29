@@ -10,18 +10,20 @@ namespace WebMVC.BLL
     /// <summary>
     /// 投资表
     /// </summary>
-    public class InvestmentTable
+    public class Investment
     {
-        List<Invertment1> invertMentTable1;
+        List<BrandTable> invertMentTable1;
         List<AgentInput> agentInputs;
-        public InvestmentTable()
+        List<AgentTable> agents;
+        public Investment()
         {
             invertMentTable1 = new InvertmentTable1().getBrandsInputs();
-            agentInputs   = new InvertmentTable1().getAgentInputs();
+            agentInputs = new InvertmentTable1().getAgentInputs();
+            agents = new InvertmentTable1().getAgents();
             Init();
         }
 
-        List<Investment> investments = new List<Investment>();
+        List<InvestmentTable> investments = new List<InvestmentTable>();
         private void Init()
         {
             foreach (var item in invertMentTable1)
@@ -29,7 +31,7 @@ namespace WebMVC.BLL
                 var investment = investments.FirstOrDefault(s => s.Stage == item.Stage);
                 if (investment == null)
                 {
-                    investment = new Investment { Stage = item.Stage };
+                    investment = new InvestmentTable { Stage = item.Stage };
                     investments.Add(investment);
                 }
                 var surfaceRC = new SurfaceRC { SurfaceRC1 = item.SurfaceRC1, SurfaceRC2 = item.SurfaceRC2, SurfaceRC3 = item.SurfaceRC3 };
@@ -43,55 +45,33 @@ namespace WebMVC.BLL
                         investment.M = surfaceRC;
                         investment.N = functionRC;
                         investment.O = materialRC;
-
+                        investment.V = item.brandInput;
                         break;
                     case Brand.S品牌:
                         investment.K = item.advertise;
                         investment.P = surfaceRC;
                         investment.Q = functionRC;
                         investment.R = materialRC;
+
                         break;
                     case Brand.J品牌:
                         investment.L = item.advertise;
                         investment.S = surfaceRC;
                         investment.T = functionRC;
                         investment.U = materialRC;
+                        investment.AC = item.brandInput;
                         break;
                     default:
                         break;
                 }
-               
-               
-                var agentInput1 = agentInputs.Where(s => s.Stage == item.Stage );
-               
-                foreach (var agentInput in agentInput1)
-                {
-                    var brandinput=getBrandInput(investment.KPQR, agentInput);
-                    switch (agentInput.AgentName)
-                    {
-                        case "代1":
-                            investment.AJ = brandinput;
-                            break;
-                        case "代2":
-                            investment.AS = brandinput;
-                            break;
-                        case "代3":
-                            investment.BB = brandinput;
-                            break;
-                        case "代4":
-                            investment.BK = brandinput;
-                            break;
-                        case "代5":
-                            investment.BT = brandinput;
-                            break;
-                        case "代6":
-                            investment.CC = brandinput;
-                            break;
- 
-                    }
-                }
-
-                
+                var agent = agents.FirstOrDefault(s => s.Stage == item.Stage);
+                investment.CL = agent.B;
+                investment.CT = agent.J;
+                investment.DB = agent.R;
+                investment.DJ = agent.Z;
+                investment.DR = agent.AH;
+                investment.DZ = agent.AP;
+                investment.ItCAL();
             }
 
 
@@ -99,22 +79,22 @@ namespace WebMVC.BLL
         private BrandInput getBrandInput(decimal aj, AgentInput agentInput1)
         {
             var brandInput = new BrandInput() { AJ = aj };
-                brandInput.AK = Cal.EndImage(brandInput.AJ, agentInput1.InputSum, agentInput1.EndImage);
-                brandInput.AL = Cal.Salesperson(brandInput.AJ, agentInput1.InputSum, agentInput1.Salesperson,brandInput.AK);
-                brandInput.AQ = Cal.Servet(brandInput.AJ, agentInput1.InputSum, agentInput1.servet, brandInput.AK,brandInput.AL);
-                brandInput.AM= Cal.HousePromote(brandInput.AJ, agentInput1.InputSum, agentInput1.HousePromote, brandInput.AK,brandInput.AL,brandInput.AQ);
-                brandInput.AN = Cal.Demonstrator(brandInput.AJ, agentInput1.InputSum, agentInput1.demonstrator, brandInput.AK, brandInput.AL, brandInput.AQ,brandInput.AM);
-                brandInput.AO = Cal.OutdoorActivity(brandInput.AJ, agentInput1.InputSum, agentInput1.outdoorActivity, brandInput.AK, brandInput.AL, brandInput.AQ, brandInput.AM,brandInput.AN);
-                brandInput.AP = Cal.PromotionTeam(brandInput.AJ, agentInput1.InputSum, agentInput1.promotionTeam, brandInput.AK, brandInput.AL, brandInput.AQ, brandInput.AM, brandInput.AN,brandInput.AO);
+            brandInput.EndImage = Cal.EndImage(brandInput.AJ, agentInput1.InputSum, agentInput1.EndImage);
+            brandInput.Salesperson = Cal.Salesperson(brandInput.AJ, agentInput1.InputSum, agentInput1.Salesperson, brandInput.EndImage);
+            brandInput.servet = Cal.Servet(brandInput.AJ, agentInput1.InputSum, agentInput1.servet, brandInput.EndImage, brandInput.Salesperson);
+            brandInput.HousePromote = Cal.HousePromote(brandInput.AJ, agentInput1.InputSum, agentInput1.HousePromote, brandInput.EndImage, brandInput.Salesperson, brandInput.servet);
+            brandInput.demonstrator = Cal.Demonstrator(brandInput.AJ, agentInput1.InputSum, agentInput1.demonstrator, brandInput.EndImage, brandInput.Salesperson, brandInput.servet, brandInput.HousePromote);
+            brandInput.outdoorActivity = Cal.OutdoorActivity(brandInput.AJ, agentInput1.InputSum, agentInput1.outdoorActivity, brandInput.EndImage, brandInput.Salesperson, brandInput.servet, brandInput.HousePromote, brandInput.demonstrator);
+            brandInput.promotionTeam = Cal.PromotionTeam(brandInput.AJ, agentInput1.InputSum, agentInput1.promotionTeam, brandInput.EndImage, brandInput.Salesperson, brandInput.servet, brandInput.HousePromote, brandInput.demonstrator, brandInput.outdoorActivity);
 
             return brandInput;
         }
-        public List<Investment> Get()
+        public List<InvestmentTable> Get()
         {
             return investments;
         }
     }
-    public class Investment
+    public class InvestmentTable
     {
 
 
@@ -144,17 +124,46 @@ namespace WebMVC.BLL
         public SurfaceRC S { get; internal set; } = new SurfaceRC();
         public FunctionRC T { get; internal set; } = new FunctionRC();
         public MaterialRC U { get; internal set; } = new MaterialRC();
+        /// <summary>
+        /// M品牌市场推广
+        /// </summary>
         public BrandInput V { get; set; }
+        /// <summary>
+        /// J品牌市场推广
+        /// </summary>
         public BrandInput AC { get; set; }
 
         public BrandInput AJ { get; set; }
-        
+
         public BrandInput AS { get; set; }
         public BrandInput BB { get; set; }
         public BrandInput BK { get; set; }
         public BrandInput BT { get; set; }
         public BrandInput CC { get; set; }
-    
+        /// <summary>
+        /// 代1
+        /// </summary>
+        public BrandInput CL { get; set; }
+        /// <summary>
+        /// 代2
+        /// </summary>
+        public BrandInput CT { get; set; }
+        /// <summary>
+        /// 代3
+        /// </summary>
+        public BrandInput DB { get; set; }
+        /// <summary>
+        /// 代4
+        /// </summary>
+        public BrandInput DJ { get; set; }
+        /// <summary>
+        /// 代5
+        /// </summary>
+        public BrandInput DR { get; set; }
+        /// <summary>
+        /// 代6
+        /// </summary>
+        public BrandInput DZ { get; set; }
         public decimal KPQR
         {
             get
@@ -162,6 +171,36 @@ namespace WebMVC.BLL
                 var r = 2000 - K - P.SurfaceRC1 - Q.FunctionRC1 - R.materialRC1;
                 return r < 0 ? 0 : r;
             }
+        }
+        private BrandInput getBrandInput(decimal aj, BrandInput agentInput1)
+        {
+            var brandInput = new BrandInput() { AJ = aj };
+            brandInput.EndImage = Cal.EndImage(brandInput.AJ, agentInput1.InputSum, agentInput1.EndImage);
+            brandInput.Salesperson = Cal.Salesperson(brandInput.AJ, agentInput1.InputSum, agentInput1.Salesperson, brandInput.EndImage);
+            brandInput.servet = Cal.Servet(brandInput.AJ, agentInput1.InputSum, agentInput1.servet, brandInput.EndImage, brandInput.Salesperson);
+            brandInput.HousePromote = Cal.HousePromote(brandInput.AJ, agentInput1.InputSum, agentInput1.HousePromote, brandInput.EndImage, brandInput.Salesperson, brandInput.servet);
+            brandInput.demonstrator = Cal.Demonstrator(brandInput.AJ, agentInput1.InputSum, agentInput1.demonstrator, brandInput.EndImage, brandInput.Salesperson, brandInput.servet, brandInput.HousePromote);
+            brandInput.outdoorActivity = Cal.OutdoorActivity(brandInput.AJ, agentInput1.InputSum, agentInput1.outdoorActivity, brandInput.EndImage, brandInput.Salesperson, brandInput.servet, brandInput.HousePromote, brandInput.demonstrator);
+            brandInput.promotionTeam = Cal.PromotionTeam(brandInput.AJ, agentInput1.InputSum, agentInput1.promotionTeam, brandInput.EndImage, brandInput.Salesperson, brandInput.servet, brandInput.HousePromote, brandInput.demonstrator, brandInput.outdoorActivity);
+
+            return brandInput;
+        }
+        public void ItCAL()
+        {
+
+            AJ = getBrandInput(KPQR, CL);
+
+            AS = getBrandInput(KPQR, CT);
+
+            BB = getBrandInput(KPQR, DB);
+
+            BK = getBrandInput(KPQR, DJ);
+
+            BT = getBrandInput(KPQR, DR);
+
+            CC = getBrandInput(KPQR, DZ);
+
+
         }
 
     }
@@ -205,51 +244,5 @@ namespace WebMVC.BLL
         }
     }
 
-    public class BrandInput
-    {
 
-        /// <summary>
-        /// S品牌对代1最高可投入
-        /// </summary>
-        public decimal AJ { get; set; }
-        /// <summary>
-        /// 终端形象
-        /// </summary>
-        public decimal AK { get; set; }
-        /// <summary>
-        /// 导购员
-        /// </summary>
-        public decimal AL { get; set; }
-        /// <summary>
-        /// 店内促销
-        /// </summary>
-        public decimal AM { get; set; }
-        /// <summary>
-        /// 演示员
-        /// </summary>
-        public decimal AN { get; set; }
-        /// <summary>
-        /// 户外活动
-        /// </summary>
-        public decimal AO { get; set; }
-        /// <summary>
-        /// 推广小分队
-        /// </summary>
-        public decimal AP { get; set; }
-        /// <summary>
-        /// 服务
-        /// </summary>
-        public decimal AQ { get; set; }
-        /// <summary>
-        /// 实际投入小计
-        /// </summary>
-        public decimal AR
-        {
-            get
-            {
-                return AK + AL + AM + AN + AO + AP + AQ;
-            }
-        }
-
-    }
 }

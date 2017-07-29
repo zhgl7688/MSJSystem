@@ -120,9 +120,26 @@ namespace WebMVC.Common
         public static decimal MarketingIndex(decimal b,decimal c,decimal d,decimal j,decimal k,decimal l,decimal r,decimal s,
             decimal t, decimal z, decimal aa, decimal ab, decimal ah, decimal ai, decimal aj, decimal ap,decimal aq,decimal ar)
         {
+            var t1 = b + c + d;
+            var t2 = j + k + l;
+            var t3 = r + s + t;
+            var t4 = z + aa + ab;
+            var t5 = ah + ai + aj;
+            var t6 = ap + aq + ar;
+            if (t1 == 0 || t2 == 0 || t3 == 0 || t4 == 0 || t5 == 0 || t6 == 0) return 0;
             //=25%*B3/(B3+C3+D3)+25%*J3/(J3+K3+L3)+20%*R3/(R3+S3+T3)+15%*Z3/(Z3+AA3+AB3)+10%*AH3/(AH3+AI3+AJ3)+5%*AP3/(AP3+AQ3+AR3)
-            return 0.25m * b / (b + c + c) + 0.23m * j / (j + k + l) + 0.20m * r / (r + s + t) + 0.15m * z / (z + aa + ab)
-                + 0.10m * ah / (ah + ai + aj) + 0.5m * ap / (ap + aq + ar);
+            return 0.25m * b / t1 + 0.25m * j / t2 + 0.20m * r / t3 + 0.15m * z /t4 + 0.10m * ah / t5 + 0.05m * ap /t6;
+        }
+        /// <summary>
+        /// a / (a + b + c)
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static decimal Percent(decimal a,decimal b,decimal c)
+        {
+            return a + b + c == 0 ? 0 : a / (a + b + c);
         }
     }
 }

@@ -23,4 +23,14 @@ namespace WebMVC.Common
         第三阶段
 
     }
+    public enum AgentName
+    {
+        代1,
+        代2,
+        代3,
+        代4,
+        代5,
+        代6
+
+    }
 }

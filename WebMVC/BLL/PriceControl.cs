@@ -20,10 +20,10 @@ namespace WebMVC.BLL
             var brandsInputs = invertmenetTable1.getBrandsInputs();
             foreach (var agentItem in brandsInputs)
             {
-                var priceControlt = priceControlTables.FirstOrDefault(s => s.阶段 == agentItem.Stage);
+                var priceControlt = priceControlTables.FirstOrDefault(s => s.Stage == agentItem.Stage);
                 if (priceControlt == null)
                 {
-                    priceControlt = new PriceControlTable { 阶段 = agentItem.Stage };
+                    priceControlt = new PriceControlTable { Stage = agentItem.Stage };
                     if (agentItem.Stage == "第一阶段")
                     {
                         priceControlt.Agents.Add(1, new AgentRC() { RCName = "RC1" });
@@ -59,10 +59,10 @@ namespace WebMVC.BLL
             var agents = invertmenetTable1.getAgentInputs();
             foreach (var agentItem in agents)
             {
-                var priceControlt = priceControlTables.FirstOrDefault(s => s.阶段 == agentItem.Stage);
+                var priceControlt = priceControlTables.FirstOrDefault(s => s.Stage == agentItem.Stage);
                 if (priceControlt == null)
                 {
-                    priceControlt = new PriceControlTable { 阶段 = agentItem.Stage };
+                    priceControlt = new PriceControlTable { Stage = agentItem.Stage };
                     priceControlTables.Add(priceControlt);
                 }
                 foreach (var item in priceControlt.Agents.Keys)
@@ -117,7 +117,7 @@ namespace WebMVC.BLL
     }
     public class PriceControlTable
     {
-        public string 阶段 { get; set; }
+        public string Stage { get; set; }
         public CompeteRC Competes { get; set; } = new CompeteRC();
         public Dictionary<int, AgentRC> Agents { get; set; } = new Dictionary<int, AgentRC>();
         public Dictionary<int, SystemPrice> SystemPrices { get; set; } = new Dictionary<int, SystemPrice>();

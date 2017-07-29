@@ -142,7 +142,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLL\BrandStrength.cs" />
+    <Compile Include="BLL\ChannelService.cs" />
     <Compile Include="BLL\FirstPPT.cs" />
+    <Compile Include="BLL\IntentionIndex.cs" />
     <Compile Include="BLL\InvertmentTable1.cs" />
     <Compile Include="BLL\InvestmentTable.cs" />
     <Compile Include="BLL\InvoicingReport.cs" />
@@ -160,9 +162,12 @@
     </Compile>
     <Compile Include="Models\AgentInput.cs" />
     <Compile Include="Models\BrandInfo.cs" />
+    <Compile Include="Models\BrandInput.cs" />
     <Compile Include="Models\BrandProfit.cs" />
     <Compile Include="Models\BrandsInput.cs" />
     <Compile Include="Models\CompeteRC.cs" />
+    <Compile Include="Models\MJA.cs" />
+    <Compile Include="Models\MP.cs" />
     <Compile Include="Models\RC.cs" />
     <Compile Include="Models\SAgentInfo.cs" />
     <Compile Include="Models\SAgentResult.cs" />

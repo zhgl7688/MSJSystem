@@ -8,14 +8,14 @@ namespace MSJTest.BLL
     [TestClass]
     public class InvertmentTableTest
     {
-        InvestmentTable inverstmentTable = new InvestmentTable();
+        Investment inverstmentTable = new Investment();
         [TestMethod]
         public void TestMethod1()
         {
             var ss = inverstmentTable.Get();
-            Assert.AreEqual(48, ss.FirstOrDefault(s => s.Stage.Contains("第一")).M.SurfaceRC1);
-            Assert.AreEqual(493, ss.FirstOrDefault(s => s.Stage .Contains( "第一")).AJ.AR);
-            Assert.AreEqual(98, ss.FirstOrDefault(s => s.Stage.Contains("第一")).AS.AO);
+            Assert.AreEqual(980, ss.FirstOrDefault(s => s.Stage.Contains("第一")).BK.AJ);
+            Assert.AreEqual(2500, ss.FirstOrDefault(s => s.Stage .Contains( "第一")).DB.InputSum);
+            Assert.AreEqual(75, ss.FirstOrDefault(s => s.Stage.Contains("第一")).BB.demonstrator);
         }
     }
 }

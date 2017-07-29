@@ -9,13 +9,13 @@ namespace WebMVC.BLL
 {
     public class ProductInnovation
     {
-        List<ProductInnvoationT> productInnvoations = new List<ProductInnvoationT>();
-        List<BrandStrengthT> brandStrengths;
-        List<Investment> investments;
+        List<ProductInnvoationTable> productInnvoations = new List<ProductInnvoationTable>();
+        List<BrandStrengthTable> brandStrengths;
+        List<InvestmentTable> investments;
         public ProductInnovation()
         {
             brandStrengths = new BrandStrength().Get();
-            investments = new InvestmentTable().Get();
+            investments = new Investment().Get();
             Init();
         }
         private void Init()
@@ -28,7 +28,7 @@ namespace WebMVC.BLL
                 S = 0.45m,
                 J = 0.20m,
             };
-            ProductInnvoationT initT = new ProductInnvoationT()
+            ProductInnvoationTable initT = new ProductInnvoationTable()
             {
                 Stage = brandStrength0.Stage,
             };
@@ -59,7 +59,7 @@ namespace WebMVC.BLL
                 if (T1 == null)
                 {
 
-                    T1 = new ProductInnvoationT()
+                    T1 = new ProductInnvoationTable()
                     {
                         Stage = brandStrength1.Stage,
                     };
@@ -89,12 +89,12 @@ namespace WebMVC.BLL
 
 
         }
-        public List<ProductInnvoationT> Get()
+        public List<ProductInnvoationTable> Get()
         {
             return productInnvoations;
         }
     }
-    public class ProductInnvoationT
+    public class ProductInnvoationTable
     {
         public void PTCal()
         {

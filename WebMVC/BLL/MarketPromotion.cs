@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebMVC.Common;
+using WebMVC.Models;
 
 namespace WebMVC.BLL
 {
@@ -11,11 +12,11 @@ namespace WebMVC.BLL
     /// </summary>
     public class MarketPromotion
     {
-        List<MarketPromotionT> marketPromotions = new List<MarketPromotionT>();
-        List<Investment> inverstments;
-       public MarketPromotion()
+        List<MarketPromotionTable> marketPromotions = new List<MarketPromotionTable>();
+        List<InvestmentTable> inverstments;
+        public MarketPromotion()
         {
-              inverstments = new InvestmentTable().Get();
+            inverstments = new Investment().Get();
             init();
         }
         public void init()
@@ -23,24 +24,87 @@ namespace WebMVC.BLL
 
             foreach (var item in inverstments)
             {
-                var t1 = new MarketPromotionT()
+                var t1 = new MarketPromotionTable()
                 {
                     Stage = item.Stage,
-                  };
-                t1.B.M=item.
-               t1. MPCal();
+                };
+
+                #region 终端形象投入							
+                t1.B.M = item.V.EndImage;
+                t1.B.J = item.AC.EndImage;
+                t1.B.Agent1 = item.CL.EndImage;
+                t1.B.Agent2 = item.CT.EndImage;
+                t1.B.Agent3 = item.DB.EndImage;
+                t1.B.Agent4 = item.DJ.EndImage;
+                t1.B.Agent5 = item.DR.EndImage;
+                t1.B.Agent6 = item.DZ.EndImage;
+                #endregion
+
+                #region 导购派驻投入							
+                t1.J.M = item.V.Salesperson;
+                t1.J.J = item.AC.Salesperson;
+                t1.J.Agent1 = item.CL.Salesperson;
+                t1.J.Agent2 = item.CT.Salesperson;
+                t1.J.Agent3 = item.DB.Salesperson;
+                t1.J.Agent4 = item.DJ.Salesperson;
+                t1.J.Agent5 = item.DR.Salesperson;
+                t1.J.Agent6 = item.DZ.Salesperson;
+                #endregion
+
+                #region 店内促销投入							
+                t1.R.M = item.V.HousePromote;
+                t1.R.J = item.AC.HousePromote;
+                t1.R.Agent1 = item.CL.HousePromote;
+                t1.R.Agent2 = item.CT.HousePromote;
+                t1.R.Agent3 = item.DB.HousePromote;
+                t1.R.Agent4 = item.DJ.HousePromote;
+                t1.R.Agent5 = item.DR.HousePromote;
+                t1.R.Agent6 = item.DZ.HousePromote;
+                #endregion
+
+                #region 演示开展投入							
+                t1.Z.M = item.V.demonstrator;
+                t1.Z.J = item.AC.demonstrator;
+                t1.Z.Agent1 = item.CL.demonstrator;
+                t1.Z.Agent2 = item.CT.demonstrator;
+                t1.Z.Agent3 = item.DB.demonstrator;
+                t1.Z.Agent4 = item.DJ.demonstrator;
+                t1.Z.Agent5 = item.DR.demonstrator;
+                t1.Z.Agent6 = item.DZ.demonstrator;
+                #endregion
+
+                #region 户外活动投入							
+                t1.AH.M = item.V.outdoorActivity;
+                t1.AH.J = item.AC.outdoorActivity;
+                t1.AH.Agent1 = item.CL.outdoorActivity;
+                t1.AH.Agent2 = item.CT.outdoorActivity;
+                t1.AH.Agent3 = item.DB.outdoorActivity;
+                t1.AH.Agent4 = item.DJ.outdoorActivity;
+                t1.AH.Agent5 = item.DR.outdoorActivity;
+                t1.AH.Agent6 = item.DZ.outdoorActivity;
+                #endregion
+
+                #region 推广小分队投入							
+                t1.AP.M = item.V.promotionTeam;
+                t1.AP.J = item.AC.promotionTeam;
+                t1.AP.Agent1 = item.CL.promotionTeam;
+                t1.AP.Agent2 = item.CT.promotionTeam;
+                t1.AP.Agent3 = item.DB.promotionTeam;
+                t1.AP.Agent4 = item.DJ.promotionTeam;
+                t1.AP.Agent5 = item.DR.promotionTeam;
+                t1.AP.Agent6 = item.DZ.promotionTeam; 
+                #endregion
+                t1.MPCal();
                 marketPromotions.Add(t1);
             }
-          //  MarketPromotionT
-
-           //  .;
+ 
         }
-        public List<MarketPromotionT> Get()
+        public List<MarketPromotionTable> Get()
         {
             return marketPromotions;
         }
     }
-    public class MarketPromotionT
+    public class MarketPromotionTable
     {
         public string Stage { get; set; }
         public MP B { get; set; } = new MP();
@@ -49,8 +113,8 @@ namespace WebMVC.BLL
         public MP Z { get; set; } = new MP();
         public MP AH { get; set; } = new MP();
         public MP AP { get; set; } = new MP();
-        public MP1 AX { get; set; } = new MP1();
-        public MP1 BP { get; set; } = new MP1();
+        public MJA AX { get; set; } = new MJA();
+        public MJA BP { get; set; } = new MJA();
         public void MPCal()
         {
             #region 市场推广指数
@@ -74,60 +138,30 @@ namespace WebMVC.BLL
             AX.Agent6 = Cal.MarketingIndex(B.Agent6, B.J, B.M, J.Agent6, J.J, J.M, R.Agent6, R.J, R.M, Z.Agent6, Z.J, Z.M, AH.Agent6, AH.J, AH.M, AP.Agent6, AP.J, AP.M);
             #endregion
             #region 市场推广影响力
-            BP.M1 = AX.M1 / (AX.M1 + AX.J1 + AX.Agent1);
-            BP.M2 = AX.M2 / (AX.M2 + AX.J2 + AX.Agent2);
-            BP.M3 = AX.M3 / (AX.M3 + AX.J3 + AX.Agent3);
-            BP.M4 = AX.M4 / (AX.M4 + AX.J4 + AX.Agent4);
-            BP.M5 = AX.M5 / (AX.M5 + AX.J5 + AX.Agent5);
-            BP.M6 = AX.M6 / (AX.M6 + AX.J6 + AX.Agent6);
-            BP.J1 = AX.J1 / (AX.M1 + AX.J1 + AX.Agent1);
-            BP.J2 = AX.J2 / (AX.M2 + AX.J2 + AX.Agent2);
-            BP.J3 = AX.J3 / (AX.M3 + AX.J3 + AX.Agent3);
-            BP.J4 = AX.J4 / (AX.M4 + AX.J4 + AX.Agent4);
-            BP.J5 = AX.J5 / (AX.M5 + AX.J5 + AX.Agent5);
-            BP.J6 = AX.J6 / (AX.M6 + AX.J6 + AX.Agent6);
-            BP.Agent1 = AX.Agent1 / (AX.M1 + AX.J1 + AX.Agent1);
-            BP.Agent2 = AX.Agent2 / (AX.M2 + AX.J2 + AX.Agent2);
-            BP.Agent3 = AX.Agent3 / (AX.M3 + AX.J3 + AX.Agent3);
-            BP.Agent4 = AX.Agent4 / (AX.M4 + AX.J4 + AX.Agent4);
-            BP.Agent5 = AX.Agent5 / (AX.M5 + AX.J5 + AX.Agent5);
-            BP.Agent6 = AX.Agent6 / (AX.M6 + AX.J6 + AX.Agent6); 
+
+            BP.M1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.M1 / (AX.M1 + AX.J1 + AX.Agent1);
+            BP.M2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.M2 / (AX.M2 + AX.J2 + AX.Agent2);
+            BP.M3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.M3 / (AX.M3 + AX.J3 + AX.Agent3);
+            BP.M4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.M4 / (AX.M4 + AX.J4 + AX.Agent4);
+            BP.M5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.M5 / (AX.M5 + AX.J5 + AX.Agent5);
+            BP.M6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.M6 / (AX.M6 + AX.J6 + AX.Agent6);
+            BP.J1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.J1 / (AX.M1 + AX.J1 + AX.Agent1);
+            BP.J2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.J2 / (AX.M2 + AX.J2 + AX.Agent2);
+            BP.J3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.J3 / (AX.M3 + AX.J3 + AX.Agent3);
+            BP.J4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.J4 / (AX.M4 + AX.J4 + AX.Agent4);
+            BP.J5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.J5 / (AX.M5 + AX.J5 + AX.Agent5);
+            BP.J6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.J6 / (AX.M6 + AX.J6 + AX.Agent6);
+            BP.Agent1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.Agent1 / (AX.M1 + AX.J1 + AX.Agent1);
+            BP.Agent2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.Agent2 / (AX.M2 + AX.J2 + AX.Agent2);
+            BP.Agent3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.Agent3 / (AX.M3 + AX.J3 + AX.Agent3);
+            BP.Agent4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.Agent4 / (AX.M4 + AX.J4 + AX.Agent4);
+            BP.Agent5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.Agent5 / (AX.M5 + AX.J5 + AX.Agent5);
+            BP.Agent6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.Agent6 / (AX.M6 + AX.J6 + AX.Agent6);
             #endregion
 
         }
 
     }
-    public class MP
-    {
-        public decimal M { get; set; }
-        public decimal J { get; set; }
-        public decimal Agent1 { get; set; }
-        public decimal Agent2{ get; set; }
-        public decimal Agent3 { get; set; }
-        public decimal Agent4 { get; set; }
-        public decimal Agent5 { get; set; }
-        public decimal Agent6 { get; set; }
-
-    }
-    public class MP1
-    {
-        public decimal M1 { get; set; }
-        public decimal M2 { get; set; }
-        public decimal M3 { get; set; }
-        public decimal M4 { get; set; }
-        public decimal M5 { get; set; }
-        public decimal M6 { get; set; }
-        public decimal J1 { get; set; }
-        public decimal J2 { get; set; }
-        public decimal J3 { get; set; }
-        public decimal J4 { get; set; }
-        public decimal J5 { get; set; }
-        public decimal J6 { get; set; }
-        public decimal Agent1 { get; set; }
-        public decimal Agent2 { get; set; }
-        public decimal Agent3 { get; set; }
-        public decimal Agent4 { get; set; }
-        public decimal Agent5 { get; set; }
-        public decimal Agent6 { get; set; }
-    }
+     
+    
 }

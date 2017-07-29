@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace WebMVC.Models
+{
+    public class MJA
+    {
+        public decimal M1 { get; set; }
+        public decimal M2 { get; set; }
+        public decimal M3 { get; set; }
+        public decimal M4 { get; set; }
+        public decimal M5 { get; set; }
+        public decimal M6 { get; set; }
+        public decimal J1 { get; set; }
+        public decimal J2 { get; set; }
+        public decimal J3 { get; set; }
+        public decimal J4 { get; set; }
+        public decimal J5 { get; set; }
+        public decimal J6 { get; set; }
+        public decimal Agent1 { get; set; }
+        public decimal Agent2 { get; set; }
+        public decimal Agent3 { get; set; }
+        public decimal Agent4 { get; set; }
+        public decimal Agent5 { get; set; }
+        public decimal Agent6 { get; set; }
+        public decimal Average1 { get { return (M1 + J1 + Agent1) / 3; } }
+        public decimal Average2 { get { return (M2 + J2 + Agent2) / 3; } }
+        public decimal Average3 { get { return (M3 + J3 + Agent3) / 3; } }
+        public decimal Average4 { get { return (M4 + J4 + Agent4) / 3; } }
+        public decimal Average5 { get { return (M5 + J5 + Agent5) / 3; } }
+        public decimal Average6 { get { return (M6 + J6 + Agent6) / 3; } }
+    }
+}

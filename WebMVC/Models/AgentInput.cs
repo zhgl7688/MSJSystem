@@ -106,13 +106,14 @@ namespace WebMVC.Models
         }
         public decimal GetRC(int index, RCType type)
         {
-            decimal result=0;
- 
+            decimal result = 0;
+
             if (type == RCType.retailPriceRC)
             {
                 switch (index)
                 {
-                    case 1:result = this.retailPriceRC1;
+                    case 1:
+                        result = this.retailPriceRC1;
                         break;
                     case 2:
                         result = this.retailPriceRC2;
@@ -140,6 +141,23 @@ namespace WebMVC.Models
 
             }
             return result;
+        }
+        public BrandInput brandInput
+        {
+            get
+            {
+                return new BrandInput
+                {
+                    EndImage = EndImage,
+                    Salesperson = Salesperson,
+                    HousePromote = HousePromote,
+                    demonstrator = demonstrator,
+                    outdoorActivity = outdoorActivity,
+                    promotionTeam = promotionTeam,
+                    servet = servet,
+
+                };
+            }
         }
     }
 

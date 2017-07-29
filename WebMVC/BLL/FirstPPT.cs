@@ -34,13 +34,13 @@ namespace WebMVC.BLL
     public class FirstPPTOperstion
     {
         MarketPrice marketPrice;
-        InvestmentTable inverstmentTable;
+        Investment inverstmentTable;
         InvertmentTable1 invertmentTable1;
         SummaryAssent summaryAssent;
         LastBrand lastBrand;
         InvoicingReport invoicingReport;
         FirstPPT firstPPt = new FirstPPT();
-        public FirstPPTOperstion( InvestmentTable inverstmentTable)
+        public FirstPPTOperstion( Investment inverstmentTable)
         {
             
             this.marketPrice = new MarketPrice();
@@ -54,7 +54,7 @@ namespace WebMVC.BLL
         public void BrandInfoadd()
         {
 
-            var firstMarketPrice = marketPrice.Get().FirstOrDefault(s => s.阶段 == "第一阶段");
+            var firstMarketPrice = marketPrice.Get().FirstOrDefault(s => s.Stage == "第一阶段");
             var firstInverstment = inverstmentTable.Get().FirstOrDefault(s => s.Stage == "第一期");
             var firstinvertmentTable1 = invertmentTable1.getAgentInputs().FirstOrDefault(s => s.Stage == "第一阶段");
             if (firstMarketPrice != null && firstInverstment != null)
@@ -149,22 +149,22 @@ namespace WebMVC.BLL
                 switch (sAgentInfo.代理方)
                 {
                     case "代1":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.AJ.AR;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.AJ.InputSum;
                         break;
                     case "代2":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.AS.AR;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.AS.InputSum;
                         break;
                     case "代3":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BB.AR;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BB.InputSum;
                         break;
                     case "代4":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BK.AR;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BK.InputSum;
                         break;
                     case "代5":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BT.AR;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BT.InputSum;
                         break;
                     case "代6":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.CC.AR;
+                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.CC.InputSum;
                         break;
                 }
                 firstPPt.AddsAgentInfos(sAgentInfo);

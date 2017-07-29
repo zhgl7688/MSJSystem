@@ -120,7 +120,23 @@ namespace WebMVC.Models
         /// </summary>
         public decimal NewRetailPriceR3 { get; set; }
 
+        public BrandInput brandInput
+        {
+            get
+            {
+                return new BrandInput
+                {
+                    EndImage = EndImage,
+                    Salesperson = Salesperson,
+                    HousePromote = HousePromote,
+                    demonstrator = demonstrator,
+                    outdoorActivity = outdoorActivity,
+                    promotionTeam = promotionTeam,
+                    servet = servet,
 
+                };
+            }
+        }
     }
 
 }

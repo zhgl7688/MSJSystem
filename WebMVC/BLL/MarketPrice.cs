@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using WebMVC.Models;
+using WebMVC.Common;
 
 namespace WebMVC.BLL
 {
@@ -20,26 +21,39 @@ namespace WebMVC.BLL
         public MarketPrice()
         {
             priceControlTables = new PriceControl().Get();
-            Add();
+            Init();
         }
-        List<MarketCotext> markets = new List<MarketCotext>();
-        public void Add()
+        List<MarketTable> markets = new List<MarketTable>();
+        public void Init()
         {
             foreach (var item in priceControlTables)
             {
-                var markett = markets.FirstOrDefault(s => s.阶段 == item.阶段);
-                if (markett == null)
+                var market = markets.FirstOrDefault(s => s.Stage == item.Stage);
+                if (market == null)
                 {
-                    MarketCotext marketContext = new MarketCotext()
+                      market = new MarketTable()
                     {
-                        阶段 = item.阶段,
-                        CM = RC1M,
-                        CN = RC1S,
-                        CO = RC1J,
-                        CompeteRC = item.Competes
+                        Stage = item.Stage,
                     };
+                }
+                  var rcDic = new Dictionary<int, RC>();
+                Stage stage = (Stage)Enum.Parse(typeof(Stage), item.Stage);
+                switch (stage)
+                {
+                    case Stage.第一阶段:rcDic.Add(1, new RC { M=RC1M, S=RC1S, J=RC1J });
+                        break;
+                    case Stage.第二阶段:
+                        break;
+                    case Stage.第三阶段:
+                        break;
+                    default:
+                        break;
+                }
 
-                    markets.Add(marketContext);
+                market.CompeteRC = item.Competes;
+              
+
+                    markets.Add(market);
                 }
 
             }
@@ -47,27 +61,55 @@ namespace WebMVC.BLL
 
 
         }
-        public List<MarketCotext> Get()
+        public List<MarketTable> Get()
         {
             return markets;
         }
     }
-    public class MarketCotext
+    public class MarketTable
     {
 
-        public string 阶段 { get; set; }
+        public string Stage { get; set; }
         /// <summary>
-        ///品牌方决定"出厂价（元）" 常规单品（RC1）	 M
+        /// 竞品出货RC1
         /// </summary>
-        public decimal CM { get; set; }
+        public RC B { get; set; }
         /// <summary>
-        /// 品牌方决定"出厂价（元）" 常规单品（RC1）	 S
+        /// 我品市场零售容量
         /// </summary>
-        public decimal CN { get; internal set; }
+        public MJA D { get; set; } = new MJA();
         /// <summary>
-        /// 品牌方决定"出厂价（元）" 常规单品（RC1）	J
+        /// RCM
         /// </summary>
-        public decimal CO { get; internal set; }
+        public Dictionary<int, MJA> AB { get; set; }
+        
+        /// <summary>
+        /// RCJ
+        /// </summary>
+        public Dictionary<int, MJA> AT { get; set; }
+   
+        public Dictionary<int, MJA> BL { get; set; }
+     
+        public Dictionary<int, RC> CD { get; set; }
+     
+        public Dictionary<int, RC> CM { get; set; }
+     
+        public Dictionary<int, RC> CV { get; set; }
+         
+
+        public Dictionary<int,RC> DE { get; set; }
+        /// <summary>
+        /// 零售价
+        /// </summary>
+        public Dictionary<int,MJA> DK { get; set; }
+        /// <summary>
+        /// 供货价
+        /// </summary>
+        public Dictionary<int, MJA> EF { get; set; }
+
+
+
+        
         public decimal DE
         {
             get

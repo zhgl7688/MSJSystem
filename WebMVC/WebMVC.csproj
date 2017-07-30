@@ -143,6 +143,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLL\BrandStrength.cs" />
     <Compile Include="BLL\ChannelService.cs" />
+    <Compile Include="BLL\CurrentShare.cs" />
     <Compile Include="BLL\FirstPPT.cs" />
     <Compile Include="BLL\IntentionIndex.cs" />
     <Compile Include="BLL\InvertmentTable1.cs" />

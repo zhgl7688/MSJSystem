@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMVC.Models;
 
 namespace WebMVC.Common
 {
@@ -140,6 +141,12 @@ namespace WebMVC.Common
         public static decimal Percent(decimal a,decimal b,decimal c)
         {
             return a + b + c == 0 ? 0 : a / (a + b + c);
+        }
+        public static MJA SetMJA(this MJA mja)
+        {
+            //= IF(市场价格!$DF5 <= 599,$D$5 *$F5 * Z5, IF(市场价格!$DF5 <= 739,$D$6 *$F5 * Z5,$D$7 *$F5 * Z5))
+            mja.J1
+            return mja;
         }
     }
 }

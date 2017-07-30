@@ -56,7 +56,7 @@ namespace WebMVC.BLL
                     markets.Add(market);
                 }
 
-            }
+            
 
 
 

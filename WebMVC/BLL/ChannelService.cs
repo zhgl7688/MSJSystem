@@ -106,5 +106,47 @@ namespace WebMVC.BLL
                 Agent6 = Cal.Percent(J.Agent6, J.M6, J.J6),
             };
         }
+        public decimal AU
+        {
+            get
+            {
+                return AB.M1 + AB.J1 + AB.Agent1;
+            }
+        }
+        public decimal AV
+        {
+            get
+            {
+                return AB.M2 + AB.J2 + AB.Agent2;
+            }
+        }
+        public decimal AW
+        {
+            get
+            {
+                return AB.M3 + AB.J3 + AB.Agent3;
+            }
+        }
+        public decimal AX
+        {
+            get
+            {
+                return AB.M4 + AB.J4 + AB.Agent4;
+            }
+        }
+        public decimal AY
+        {
+            get
+            {
+                return AB.M5 + AB.J5 + AB.Agent5;
+            }
+        }
+        public decimal AZ
+        {
+            get
+            {
+                return AB.M6 + AB.J6 + AB.Agent6;
+            }
+        }
     }
 }

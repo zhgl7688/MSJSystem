@@ -45,9 +45,11 @@ namespace WebMVC.BLL
                 var channelService = channelServices.FirstOrDefault(s => s.Stage == item.Stage);
                 var marketPrice = marketPrices.FirstOrDefault(s => s.Stage == item.Stage);
 
-                //=IF((厂家主导的品牌力!$B4+厂家主导的产品创新力!$B6+'市场推广（包含促销投入）'!BP3+渠道服务!AB4+市场价格!AB5)/(厂家主导的品牌力!$P4+厂家主导的产品创新力!$DD6+'市场推广（包含促销投入）'!CI3+渠道服务!AU4+市场价格!EY5)<0,0,(厂家主导的品牌力!$B4+厂家主导的产品创新力!$B6+'市场推广（包含促销投入）'!BP3+渠道服务!AB4+市场价格!AB5)/(厂家主导的品牌力!$P4+厂家主导的产品创新力!$DD6+'市场推广（包含促销投入）'!CI3+渠道服务!AU4+市场价格!EY5))
-
-               // intentionIndex.B.M1=(brandStrength.B+productInnovation.B.RC1.M+item.BP.M1+channelService.AB.M1+marketPrice.AB[1].M1)/ brandStrength.P
+                //=IF((厂家主导的品牌力!$B4+厂家主导的产品创新力!$B6+'市场推广（包含促销投入）'!BP3+渠道服务!AB4+市场价格!AB5)/
+                //(厂家主导的品牌力!$P4+厂家主导的产品创新力!$DD6+'市场推广（包含促销投入）'!CI3+渠道服务!AU4+市场价格!EY5)<0,0,(厂家主导的品牌力!$B4+厂家主导的产品创新力!$B6+'市场推广（包含促销投入）'!BP3+渠道服务!AB4+市场价格!AB5)/(厂家主导的品牌力!$P4+厂家主导的产品创新力!$DD6+'市场推广（包含促销投入）'!CI3+渠道服务!AU4+市场价格!EY5))
+               
+                intentionIndex.B.M1 = (brandStrength.B + productInnovation.B.RC1.M + item.BP.M1 + channelService.AB.M1 + marketPrice.AB[1].M1) 
+                    / (brandStrength.P+productInnovation.DD+item.CI+channelService.;
             }
         }
         public List<IntentionIndexTable> Get()
@@ -154,4 +156,6 @@ namespace WebMVC.BLL
 
     }
 
+
+   
 }

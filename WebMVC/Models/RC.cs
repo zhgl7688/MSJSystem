@@ -17,7 +17,7 @@ namespace WebMVC.Models
         }
         public decimal Percent(int i)
         {
-            if (M + S + J == 0) return 0;
+            if (Sum == 0) return 0;
             switch (i)
             {
                 case 1: return M / (M + S + J);
@@ -37,6 +37,15 @@ namespace WebMVC.Models
             }
             return result;
              
+        }
+        public decimal Sum
+        {
+            get
+            {
+                return M + S + J;
+
+            }
+
         }
     }
 }

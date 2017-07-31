@@ -288,6 +288,28 @@ namespace WebMVC.BLL
         /// 材料创新带来的利润系数
         /// </summary>
         public ProfitFactor CT { get; set; } = new ProfitFactor();
+        public decimal DD
+        {
+            get
+            {
+                return B.RC1.Sum;
+
+            }
+        }
+        public decimal DE {
+            get
+            {
+                return B.RC2.Sum;
+
+            }
+        }
+        public decimal DF {
+            get
+            {
+                return B.RC3.Sum;
+
+            }
+        }
     }
     public class InnovationImpact
     {

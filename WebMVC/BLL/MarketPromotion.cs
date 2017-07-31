@@ -92,12 +92,12 @@ namespace WebMVC.BLL
                 t1.AP.Agent3 = item.DB.promotionTeam;
                 t1.AP.Agent4 = item.DJ.promotionTeam;
                 t1.AP.Agent5 = item.DR.promotionTeam;
-                t1.AP.Agent6 = item.DZ.promotionTeam; 
+                t1.AP.Agent6 = item.DZ.promotionTeam;
                 #endregion
                 t1.MPCal();
                 marketPromotions.Add(t1);
             }
- 
+
         }
         public List<MarketPromotionTable> Get()
         {
@@ -160,8 +160,49 @@ namespace WebMVC.BLL
             #endregion
 
         }
-
+        public decimal CI
+        {
+            get
+            {
+                return BP.M1 + BP.J1 + BP.Agent1;
+            }
+        }
+        public decimal CJ
+        {
+            get
+            {
+                return BP.M2 + BP.J2 + BP.Agent2;
+            }
+        }
+        public decimal CK
+        {
+            get
+            {
+                return BP.M3 + BP.J3 + BP.Agent3;
+            }
+        }
+        public decimal CL
+        {
+            get
+            {
+                return BP.M4 + BP.J4 + BP.Agent4;
+            }
+        }
+        public decimal CM
+        {
+            get
+            {
+                return BP.M5 + BP.J5 + BP.Agent5;
+            }
+        }
+        public decimal CN
+        {
+            get
+            {
+                return BP.M6 + BP.J6 + BP.Agent6;
+            }
+        }
     }
-     
-    
+
+
 }

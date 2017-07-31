@@ -31,6 +31,7 @@ namespace WebMVC.BLL
             PropertyInfo[] propertyList = t.GetProperties();
             foreach (var item in propertyList)
             {
+                if(item.CanWrite)
                 item.SetValue(channl0.J, 0.98m, null);
             }
             channelServices.Add(channl0);

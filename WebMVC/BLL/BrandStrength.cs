@@ -160,6 +160,12 @@ namespace WebMVC.BLL
             }
         }
 
-
+        public decimal P
+        {
+            get
+            {
+                return B + C + D;
+            }
+        }
     }
 }

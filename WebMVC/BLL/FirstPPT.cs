@@ -63,8 +63,8 @@ namespace WebMVC.BLL
                 BrandInfo brandInfo = new BrandInfo()
                 {
                     品牌方 = Brand.M品牌,
-                    出厂价 = firstMarketPrice.CM,
-                    指导零售价 = firstMarketPrice.DE,
+                    出厂价 = firstMarketPrice.CM[1].M,
+                    指导零售价 = firstMarketPrice.DE[1].M,
                     品牌广告 = firstInverstment.J,
                     外观创新 = firstInverstment.M.SurfaceRC1,
                     功能创新 = firstInverstment.N.FunctionRC1,
@@ -74,7 +74,7 @@ namespace WebMVC.BLL
 
 
                 brandInfo.品牌方 = Brand.S品牌;
-                brandInfo.出厂价 = firstMarketPrice.CN;
+                brandInfo.出厂价 = firstMarketPrice.CM[1].S;
                 brandInfo.指导零售价 = firstinvertmentTable1.retailPriceRC1;
                 brandInfo.品牌广告 = firstInverstment.K;
                 brandInfo.外观创新 = firstInverstment.P.SurfaceRC1;
@@ -83,8 +83,8 @@ namespace WebMVC.BLL
 
                 firstPPt.AddBrandInfo(brandInfo);
                 brandInfo.品牌方 = Brand.J品牌;
-                brandInfo.出厂价 = firstMarketPrice.CO;
-                brandInfo.指导零售价 = firstMarketPrice.DF;
+                brandInfo.出厂价 = firstMarketPrice.CM[1].J;
+                brandInfo.指导零售价 = firstMarketPrice.DE[1].J;
                 brandInfo.品牌广告 = firstInverstment.L;
                 brandInfo.外观创新 = firstInverstment.S.SurfaceRC1;
                 brandInfo.功能创新 = firstInverstment.T.FunctionRC2;

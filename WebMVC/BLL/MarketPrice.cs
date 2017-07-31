@@ -110,49 +110,49 @@ namespace WebMVC.BLL
 
 
         
-        public decimal DE
-        {
-            get
-            {
-                return CompeteRC.RC1M;
-            }
-        }
+        //public decimal DE
+        //{
+        //    get
+        //    {
+        //        return CompeteRC.RC1M;
+        //    }
+        //}
 
-        public decimal DF
-        {
-            get
-            {
-                return CompeteRC.RC1J;
-            }
-        }
-        public decimal DG
-        {
-            get
-            {
-                return CompeteRC.RC2M;
-            }
-        }
-        public decimal DH
-        {
-            get
-            {
-                return CompeteRC.RC2J;
-            }
-        }
-        public decimal DI
-        {
-            get
-            {
-                return CompeteRC.RC3M;
-            }
-        }
-        public decimal DJ
-        {
-            get
-            {
-                return CompeteRC.RC3J;
-            }
-        }
+        //public decimal DF
+        //{
+        //    get
+        //    {
+        //        return CompeteRC.RC1J;
+        //    }
+        //}
+        //public decimal DG
+        //{
+        //    get
+        //    {
+        //        return CompeteRC.RC2M;
+        //    }
+        //}
+        //public decimal DH
+        //{
+        //    get
+        //    {
+        //        return CompeteRC.RC2J;
+        //    }
+        //}
+        //public decimal DI
+        //{
+        //    get
+        //    {
+        //        return CompeteRC.RC3M;
+        //    }
+        //}
+        //public decimal DJ
+        //{
+        //    get
+        //    {
+        //        return CompeteRC.RC3J;
+        //    }
+        //}
         public CompeteRC CompeteRC { get; set; }
 
 

@@ -15,9 +15,12 @@ namespace WebMVC.BLL
 
         List<CurrentShareTable> currentShares = new List<CurrentShareTable>();
         List<IntentionIndexTable> intentionIndexs;
+        List<MarketTable> marketPrices;
         public CurrentShare()
         {
             intentionIndexs = new IntentionIndex().Get();
+              marketPrices = new MarketPrice().Get();
+            Init();
         }
         public void Init()
         {
@@ -44,8 +47,9 @@ namespace WebMVC.BLL
                 currentShare.AR.Add(1, item.AL);
                 currentShare.AR.Add(2, item.AR);
                 currentShare.AR.Add(3, item.AX);
-
-
+                var currentMarketPrice = marketPrices.FirstOrDefault(s => s.Stage == item.Stage);
+                currentShare.DE = currentMarketPrice.DE;
+                currentShare.DK = currentMarketPrice.DK;
 
 
             }
@@ -96,7 +100,7 @@ namespace WebMVC.BLL
                 return result;
             }
         }
-        public Dictionary<int, RC> DE { get; set; }
+       
 
         public Dictionary<int, MJA> CB
         {
@@ -134,6 +138,7 @@ namespace WebMVC.BLL
                 return result;
             }
         }
+        public Dictionary<int, RC> DE { get; set; }
         public Dictionary<int, MJA> DK { get; set; }
 
         public MJA Cal_MJA_M(MJA mja, decimal[] ds, decimal f, decimal de)

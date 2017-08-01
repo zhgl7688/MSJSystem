@@ -19,7 +19,7 @@ namespace WebMVC.BLL
             #region 代理设定
             agentInputs.Add(new AgentInput
             {
-                Stage = "第一阶段",
+                Stage = Common.Stage.第一阶段.ToString(),
                 EndImage = 247.5M,
                 Salesperson = 247.5M,
                 HousePromote = 196,
@@ -38,7 +38,7 @@ namespace WebMVC.BLL
             });
             agentInputs.Add(new AgentInput
             {
-                Stage = "第一阶段",
+                Stage = Common.Stage.第一阶段.ToString(),
                 EndImage = 450,
                 Salesperson = 450,
                 HousePromote = 392,
@@ -57,7 +57,7 @@ namespace WebMVC.BLL
             });
             agentInputs.Add(new AgentInput
             {
-                Stage = "第一阶段",
+                Stage = Common.Stage.第一阶段.ToString(),
                 EndImage = 575,
                 Salesperson = 575,
                 HousePromote = 460,
@@ -76,7 +76,7 @@ namespace WebMVC.BLL
             });
             agentInputs.Add(new AgentInput
             {
-                Stage = "第一阶段",
+                Stage = Common.Stage.第一阶段.ToString(),
                 EndImage = 230,
                 Salesperson = 280,
                 HousePromote = 200,
@@ -98,7 +98,7 @@ namespace WebMVC.BLL
             #region 品牌设定
             brands.Add(new BrandTable
             {
-                Stage = "第一阶段",
+                Stage = Common.Stage.第一阶段.ToString(),
                 Brand = Brand.S品牌.ToString(),
                 advertise = 600,
                 SurfaceRC1 = 120,
@@ -109,7 +109,7 @@ namespace WebMVC.BLL
             });
             brands.Add(new BrandTable
             {
-                Stage = "第一阶段",
+                Stage = Common.Stage.第一阶段.ToString(),
                 Brand = Brand.M品牌.ToString(),
                 advertise = 640,
                 SurfaceRC1 = 48,
@@ -128,7 +128,7 @@ namespace WebMVC.BLL
             });
             brands.Add(new BrandTable
             {
-                Stage = "第一阶段",
+                Stage = Common.Stage.第一阶段.ToString(),
                 Brand = Brand.J品牌.ToString(),
                 advertise = 200,
                 SurfaceRC1 = 180,
@@ -145,6 +145,30 @@ namespace WebMVC.BLL
                 retailPrice = 699,
                 SystemPrice = 538
             });
+            //brands.Add(new BrandTable
+            //{
+            //    Stage = Common.Stage.第二阶段.ToString(),
+            //    Brand = Brand.M品牌.ToString(),
+            //    advertise = 553,
+            //    SurfaceRC2 =71 ,
+            //    FunctionRC2 = 118,
+            //    materialRC2 = 47,
+            //    EndImage = 369,
+            //    Salesperson = 369,
+            //    HousePromote =295,
+            //    demonstrator = 221,
+            //    outdoorActivity = 147,
+            //    promotionTeam = 73,
+            //    servet = 369,
+            //   NewDevelopmentCost= 660,
+               
+            //    retailPrice = 759,
+            //    SystemPrice = 609,
+            //     NewCostPrice=350,
+            //      NewFactoryPrice=507,
+            //     NewRetailPriceR2=949,
+            //      NewSystemPriceR2=725
+            //});
             #endregion
         }
         public List<AgentInput> getAgentInputs()

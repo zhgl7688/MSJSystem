@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebMVC.BLL;
 using System.Linq;
-
+using WebMVC;
 
 namespace MSJTest.BLL
 {
@@ -15,9 +15,9 @@ namespace MSJTest.BLL
         {
             var ss = invertmentTable1.getBrandsInputs();
             Assert.AreEqual(3, ss.Count);
-            Assert.AreEqual(2000, ss.FirstOrDefault(s => s.Brand == "M").Sum);
-            Assert.AreEqual(1020, ss.FirstOrDefault(s => s.Brand == "S").Sum);
-            Assert.AreEqual(2000, ss.FirstOrDefault(s => s.Brand == "J").Sum);
+            Assert.AreEqual(2000, ss.FirstOrDefault(s => s.Brand ==WebMVC.Common.Brand.M品牌.ToString()).Sum);
+            Assert.AreEqual(1020, ss.FirstOrDefault(s => s.Brand == WebMVC.Common.Brand.S品牌.ToString()).Sum);
+            Assert.AreEqual(2000, ss.FirstOrDefault(s => s.Brand == WebMVC.Common.Brand.J品牌.ToString()).Sum);
         }
         [TestMethod]
         public void TestgetAgents()

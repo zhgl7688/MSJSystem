@@ -88,6 +88,10 @@ namespace WebMVC.Models
         /// </summary>
         public decimal servet { get; set; }
         /// <summary>
+        /// 新品开发费用
+        /// </summary>
+        public decimal NewDevelopmentCost { get; set; }
+        /// <summary>
         /// 零售价
         /// </summary>
         public decimal retailPrice { get; set; }

@@ -65,12 +65,16 @@ namespace WebMVC.BLL
                         break;
                 }
                 var agent = agents.FirstOrDefault(s => s.Stage == item.Stage);
-                investment.CL = agent.B;
-                investment.CT = agent.J;
-                investment.DB = agent.R;
-                investment.DJ = agent.Z;
-                investment.DR = agent.AH;
-                investment.DZ = agent.AP;
+                if (agent != null)
+                {
+                    investment.CL = agent.B;
+                    investment.CT = agent.J;
+                    investment.DB = agent.R;
+                    investment.DJ = agent.Z;
+                    investment.DR = agent.AH;
+                    investment.DZ = agent.AP;
+                }
+
                 investment.ItCAL();
             }
 
@@ -131,39 +135,39 @@ namespace WebMVC.BLL
         /// <summary>
         /// J品牌市场推广
         /// </summary>
-        public BrandInput AC { get; set; }
+        public BrandInput AC { get; set; } = new BrandInput();
 
-        public BrandInput AJ { get; set; }
-
-        public BrandInput AS { get; set; }
-        public BrandInput BB { get; set; }
-        public BrandInput BK { get; set; }
-        public BrandInput BT { get; set; }
-        public BrandInput CC { get; set; }
+        public BrandInput AJ { get; set; }   = new BrandInput();
+                                           
+        public BrandInput AS { get; set; }   = new BrandInput();
+        public BrandInput BB { get; set; }   = new BrandInput();
+        public BrandInput BK { get; set; }   = new BrandInput();
+        public BrandInput BT { get; set; }   = new BrandInput();
+        public BrandInput CC { get; set; } = new BrandInput();
         /// <summary>
         /// 代1
         /// </summary>
-        public BrandInput CL { get; set; }
+        public BrandInput CL { get; set; } = new BrandInput();
         /// <summary>
         /// 代2
         /// </summary>
-        public BrandInput CT { get; set; }
+        public BrandInput CT { get; set; } = new BrandInput();
         /// <summary>
         /// 代3
         /// </summary>
-        public BrandInput DB { get; set; }
+        public BrandInput DB { get; set; } = new BrandInput();
         /// <summary>
         /// 代4
         /// </summary>
-        public BrandInput DJ { get; set; }
+        public BrandInput DJ { get; set; } = new BrandInput();
         /// <summary>
         /// 代5
         /// </summary>
-        public BrandInput DR { get; set; }
+        public BrandInput DR { get; set; } = new BrandInput();
         /// <summary>
         /// 代6
         /// </summary>
-        public BrandInput DZ { get; set; }
+        public BrandInput DZ { get; set; } = new BrandInput();
         public decimal KPQR
         {
             get

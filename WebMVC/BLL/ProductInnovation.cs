@@ -12,6 +12,9 @@ namespace WebMVC.BLL
         List<ProductInnvoationTable> productInnvoations = new List<ProductInnvoationTable>();
         List<BrandStrengthTable> brandStrengths;
         List<InvestmentTable> investments;
+        /// <summary>
+        ///  厂家主导的产品创新力
+        /// </summary>
         public ProductInnovation()
         {
             brandStrengths = new BrandStrength().Get();

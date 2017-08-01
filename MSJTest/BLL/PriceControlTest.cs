@@ -9,11 +9,11 @@ namespace MSJTest.BLL
     {
         PriceControl priceControl = new PriceControl();
         [TestMethod]
-        public void TestMethod1()
+        public void TestPriceGet()
         {
             var ss = priceControl.Get();
             Assert.AreEqual(1, ss.Count);
-            Assert.AreEqual(531,Convert.ToInt16( ss[0].Agents[1].Average));
+            Assert.AreEqual(799,Convert.ToInt16( ss[0].B.RC1M));
         }
     }
 }

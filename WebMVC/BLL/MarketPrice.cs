@@ -21,9 +21,9 @@ namespace WebMVC.BLL
         List<CurrentShareTable> currentShares;
         public MarketPrice()
         {
-            priceControlTables = new PriceControl().Get();
-            productInnvoations = new ProductInnovation().Get();
-            currentShares = new CurrentShare().Get();
+            priceControlTables = new PriceControl().Get(); 
+            productInnvoations = new ProductInnovation().Get(); 
+            currentShares = new CurrentShare().Get(); 
             Init();
         }
         List<MarketTable> markets = new List<MarketTable>();

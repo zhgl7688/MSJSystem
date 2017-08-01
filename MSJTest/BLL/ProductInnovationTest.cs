@@ -69,11 +69,12 @@ namespace MSJTest.BLL
             // TODO:  在此处添加测试逻辑
             //
             var ss = productInnovation.Get();
-            Assert.AreEqual(2, ss.Count);
-            Assert.AreEqual(60, ss[0].T.RC1.M);
-            Assert.AreEqual(48, ss[1].T.RC1.M);
-            Assert.AreEqual(160, ss[1].AU.RC1.M);
-            Assert.AreEqual(0.14, ss[1].BD.RC1.M);
+            Assert.AreEqual(0.006m,decimal.Round( ss[1].CT.RC1.M,3));
+            Assert.AreEqual(1.15m, ss[1].CK.RC1.S);
+           Assert.AreEqual(1m, ss[1].CK.RC2.M);
+            Assert.AreEqual(0, ss[1].BD.RC2.M);
+            Assert.AreEqual(0, ss[1].BP.RC3.M);
+            Assert.AreEqual(1.2m, ss[1].CB.RC1.J);
         }
     }
 }

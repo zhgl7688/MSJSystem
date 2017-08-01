@@ -54,7 +54,7 @@ namespace WebMVC.Models
         /// <summary>
         /// 材料新增RC2
         /// </summary>
-        public decimal materialRC2 { get; set; }
+        public decimal MaterialRC2 { get; set; }
         /// <summary>
         /// 材料新增RC3
         /// </summary>

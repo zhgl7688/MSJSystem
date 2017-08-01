@@ -10,6 +10,9 @@ namespace WebMVC.BLL
     {
         List<PriceControlTable> priceControlTables = new List<PriceControlTable>();
         InvertmentTable1 invertmenetTable1;
+        /// <summary>
+        /// 价格管控表
+        /// </summary>
         public PriceControl()
         {
             invertmenetTable1 = new InvertmentTable1();

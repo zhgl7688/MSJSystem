@@ -29,7 +29,7 @@ namespace WebMVC.BLL
                 servet = 1,
                 retailPriceRC1 = 709.8M,
                 SystemPriceRC1 = 845,
-                AgentName =AgentName.代1.ToString(),
+                AgentName = AgentName.代1.ToString(),
                 purchase = 31,
                 actualSale = 30,
                 Inventory = 1,
@@ -107,6 +107,40 @@ namespace WebMVC.BLL
 
                 retailPrice = 799
             });
+            //brands.Add(new BrandTable
+            //{
+            //    Stage = Common.Stage.第二阶段.ToString(),
+            //    Brand = Brand.S品牌.ToString(),
+            //    advertise = 300,
+            //    SurfaceRC2 = 100,
+            //    FunctionRC2 = 200,
+            //    MaterialRC2 = 100,
+            //    NewDevelopmentCost = 100,
+            //    retailPrice = 699,
+            //    NewCostPrice = 315,
+            //    NewFactoryPrice = 450,
+            //    NewRetailPriceR2 = 845
+            //});
+            //brands.Add(new BrandTable
+            //{
+            //    Stage = Common.Stage.第三阶段.ToString(),
+            //    Brand = Brand.S品牌.ToString(),
+            //    advertise = 600,
+            //    SurfaceRC1=50,
+            //    SurfaceRC3 = 100,
+            //    FunctionRC2 = 100,
+            //    FunctionRC3=200,
+            //    MaterialRC2 = 100,
+            //    MaterialRC3=50,
+              
+            //    retailPrice = 599,
+            //    NewRetailPriceR2 = 799,
+            //    NewCostPrice = 320,
+            //    NewFactoryPrice = 490,
+            //    NewRetailPriceR3=999,
+     
+                
+            //});
             brands.Add(new BrandTable
             {
                 Stage = Common.Stage.第一阶段.ToString(),
@@ -161,7 +195,7 @@ namespace WebMVC.BLL
             //    promotionTeam = 73,
             //    servet = 369,
             //   NewDevelopmentCost= 660,
-               
+
             //    retailPrice = 759,
             //    SystemPrice = 609,
             //     NewCostPrice=350,
@@ -214,7 +248,7 @@ namespace WebMVC.BLL
                     default:
                         break;
                 }
-            
+
 
             }
             return agents;
@@ -249,7 +283,7 @@ namespace WebMVC.BLL
         {
             get
             {
-                return this.materialRC1 + this.materialRC2 + this.MaterialRC3;
+                return this.materialRC1 + this.MaterialRC2 + this.MaterialRC3;
             }
         }
         public decimal InputSum

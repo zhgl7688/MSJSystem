@@ -132,12 +132,12 @@ namespace WebMVC.BLL
             BD.RC1.M = T.RC1.Percent(1);
             BD.RC1.S = T.RC1.Percent(2);
             BD.RC1.J = T.RC1.Percent(3);
-            BD.RC2.M = T.RC1.Percent(1);
-            BD.RC2.S = T.RC1.Percent(2);
-            BD.RC2.J = T.RC1.Percent(3);
-            BD.RC3.M = T.RC1.Percent(1);
-            BD.RC3.S = T.RC1.Percent(2);
-            BD.RC3.J = T.RC1.Percent(3);
+            BD.RC2.M = T.RC2.Percent(1);
+            BD.RC2.S = T.RC2.Percent(2);
+            BD.RC2.J = T.RC2.Percent(3);
+            BD.RC3.M = T.RC3.Percent(1);
+            BD.RC3.S = T.RC3.Percent(2);
+            BD.RC3.J = T.RC3.Percent(3);
             #endregion
 
             #region 功能创新指数
@@ -145,13 +145,13 @@ namespace WebMVC.BLL
             BP.RC1.S = AC.RC1.Percent(2);
             BP.RC1.J = AC.RC1.Percent(3);
 
-            BP.RC2.M = AC.RC1.Percent(1);
-            BP.RC2.S = AC.RC1.Percent(2);
-            BP.RC2.J = AC.RC1.Percent(3);
+            BP.RC2.M = AC.RC2.Percent(1);
+            BP.RC2.S = AC.RC2.Percent(2);
+            BP.RC2.J = AC.RC2.Percent(3);
 
-            BP.RC3.M = AC.RC1.Percent(1);
-            BP.RC3.S = AC.RC1.Percent(2);
-            BP.RC3.J = AC.RC1.Percent(3);
+            BP.RC3.M = AC.RC3.Percent(1);
+            BP.RC3.S = AC.RC3.Percent(2);
+            BP.RC3.J = AC.RC3.Percent(3);
             #endregion
 
             #region 产出系数
@@ -168,19 +168,7 @@ namespace WebMVC.BLL
             CB.RC3.J = T.RC3.OutputCoefficient(3);
             #endregion
 
-            #region 材料创新带来的利润系数
-            CT.RC1.M = AL.RC1.M / 100 * 0.2M;
-            CT.RC1.S = AL.RC1.S / 100 * 0.2M;
-            CT.RC1.J = AL.RC1.J / 100 * 0.2M;
 
-            CT.RC2.M = AL.RC2.M / 100 * 0.2M;
-            CT.RC2.S = AL.RC2.S / 100 * 0.2M;
-            CT.RC2.J = AL.RC2.J / 100 * 0.2M;
-
-            CT.RC3.M = AL.RC3.M / 100 * 0.2M;
-            CT.RC3.S = AL.RC3.S / 100 * 0.2M;
-            CT.RC3.J = AL.RC3.J / 100 * 0.2M;
-            #endregion
 
         }
         public decimal InnovationIndexR1M
@@ -286,11 +274,53 @@ namespace WebMVC.BLL
         /// <summary>
         /// 功能创新产出
         /// </summary>
-        public FunctionOutput CK { get; set; } = new FunctionOutput();
+        public FunctionOutput CK
+        {
+            get
+            {
+                var result = new FunctionOutput();
+                result.RC1 = GetCK(AC.RC1);
+                result.RC2 = GetCK(AC.RC2);
+                result.RC3 = GetCK(AC.RC3);
+                return result;
+            }
+        }
+        private RC GetCK(RC rc)
+        {
+            var m = rc.M;
+            var s = rc.S;
+            var j = rc.J;
+            var Averaget = rc.Average;
+
+            //=IF(AND(AC5>AD5,AC5>ae),1.3,IF(AND(AC5<AD5,AC5<ae),(0.7),IF(AC5>AVERAGE(AC5:ae),1.15,IF(AC5=AVERAGE(AC5:ae),1,0.85))))
+            return new RC
+            {
+                M = m > s && m > j ? 1.3m : m < s && m < j ? 0.7m : m > Averaget ? 1.15m : m == Averaget ? 1 : 0.85m,
+                S = s > j && s > m ? 1.3m : s < j && s < m ? 0.7m : s > Averaget ? 1.15m : s == Averaget ? 1 : 0.85m,
+                J = j > m && j > s ? 1.3m : j < m && j < s ? 0.7m : j > Averaget ? 1.15m : j == Averaget ? 1 : 0.85m
+            };
+        }
         /// <summary>
         /// 材料创新带来的利润系数
         /// </summary>
-        public ProfitFactor CT { get; set; } = new ProfitFactor();
+        public ProfitFactor CT
+        {
+            get
+            {
+                var result = new ProfitFactor();
+                result.RC1.M = AL.RC1.M / 100 * 0.02M;
+                result.RC1.S = AL.RC1.S / 100 * 0.02M;
+                result.RC1.J = AL.RC1.J / 100 * 0.02M;
+                result.RC2.M = AL.RC2.M / 100 * 0.02M;
+                result.RC2.S = AL.RC2.S / 100 * 0.02M;
+                result.RC2.J = AL.RC2.J / 100 * 0.02M;
+                result.RC3.M = AL.RC3.M / 100 * 0.02M;
+                result.RC3.S = AL.RC3.S / 100 * 0.02M;
+                result.RC3.J = AL.RC3.J / 100 * 0.02M;
+                return result;
+            }
+        }
+
         public decimal DD
         {
             get
@@ -299,14 +329,16 @@ namespace WebMVC.BLL
 
             }
         }
-        public decimal DE {
+        public decimal DE
+        {
             get
             {
                 return B.RC2.Sum;
 
             }
         }
-        public decimal DF {
+        public decimal DF
+        {
             get
             {
                 return B.RC3.Sum;

@@ -33,7 +33,7 @@ namespace WebMVC.Models
             {
                 case 1:result= Common.Cal.OutputCoefficient(M,S,J,Average);break;
                 case 2:result= Common.Cal.OutputCoefficient(S,M,J,Average);break;
-                case 3:result= Common.Cal.OutputCoefficient(J,M,J,Average);break;
+                case 3:result= Common.Cal.OutputCoefficient(J,M,S,Average);break;
             }
             return result;
              

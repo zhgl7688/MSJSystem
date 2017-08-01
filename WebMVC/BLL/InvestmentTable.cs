@@ -74,7 +74,16 @@ namespace WebMVC.BLL
                     investment.DR = agent.AH;
                     investment.DZ = agent.AP;
                 }
+                var agentInputList = agentInputs.Where(s => s.Stage == item.Stage);
 
+                foreach (var agentInput in agentInputList)
+                {
+                   var ss=()
+                    switch (switch_on)
+                    {
+                        default:
+                    }
+                }
                 investment.ItCAL();
             }
 
@@ -206,6 +215,10 @@ namespace WebMVC.BLL
 
 
         }
+        /// <summary>
+        /// 银行贷款
+        /// </summary>
+        public MJA EI { get; set; }
 
     }
     public class SurfaceRC

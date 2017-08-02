@@ -74,21 +74,22 @@ namespace WebMVC.BLL
                     investment.DR = agent.AH;
                     investment.DZ = agent.AP;
                 }
-                var agentInputList = agentInputs.Where(s => s.Stage == item.Stage);
+               
 
-                foreach (var agentInput in agentInputList)
-                {
-                   var ss=()
-                    switch (switch_on)
-                    {
-                        default:
-                    }
-                }
+               
                 investment.ItCAL();
             }
-
-
+            foreach (var item in investments)
+            {
+                var agentInputList = agentInputs.Where(s => s.Stage == item.Stage);
+                foreach (var agentInput in agentInputList)
+                {
+                    var ss = (int)Enum.Parse(typeof(AgentName), agentInput.AgentName);
+                    item.EI.Add(ss, agentInput.bankLoan);
+                }
+            }
         }
+
         private BrandInput getBrandInput(decimal aj, AgentInput agentInput1)
         {
             var brandInput = new BrandInput() { AJ = aj };
@@ -218,7 +219,7 @@ namespace WebMVC.BLL
         /// <summary>
         /// 银行贷款
         /// </summary>
-        public MJA EI { get; set; }
+        public Dictionary<int, decimal> EI { get; set; } = new Dictionary<int, decimal>();
 
     }
     public class SurfaceRC

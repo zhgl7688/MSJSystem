@@ -25,7 +25,7 @@ namespace WebMVC.Common
     }
     public enum AgentName
     {
-        代1,
+        代1=1,
         代2,
         代3,
         代4,

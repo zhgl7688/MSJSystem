@@ -15,7 +15,7 @@ namespace WebMVC.BLL
         List<InvestmentTable> investMents;
         public BrandStrength()
         {
-              investMents = new Investment().Get();
+              investMents = new Investment().Get(); 
             Init();
         }
         public void Init()

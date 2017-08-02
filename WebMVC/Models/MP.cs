@@ -15,5 +15,6 @@ namespace WebMVC.Models
         public decimal Agent4 { get; set; }
         public decimal Agent5 { get; set; }
         public decimal Agent6 { get; set; }
+
     }
 }

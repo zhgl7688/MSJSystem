@@ -23,17 +23,12 @@ namespace WebMVC.BLL
         }
         private void Init()
         {
+            #region 起始阶段
             ChannelServiceTable channl0 = new ChannelServiceTable()
             {
                 Stage = Stage.起始阶段.ToString(),
             };
-            Type t = channl0.J.GetType();
-            PropertyInfo[] propertyList = t.GetProperties();
-            foreach (var item in propertyList)
-            {
-                if(item.CanWrite)
-                item.SetValue(channl0.J, 0.98m, null);
-            }
+            
             channelServices.Add(channl0);
             foreach (var item in investments)
             {
@@ -52,7 +47,15 @@ namespace WebMVC.BLL
                 channel.B.Agent6 = item.DZ.servet;
                 channelServices.Add(channel);
             }
+            #endregion
+            foreach (var item in channelServices)
+            {
+                if (item.Stage == Stage.第一阶段.ToString()) item.LastAB = channl0.AB;
+                else
+                if (item.Stage == Stage.第二阶段.ToString()) item.LastAB = channelServices.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString()).AB;
+                else if (item.Stage == Stage.第三阶段.ToString()) item.LastAB = channelServices.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString()).AB;
 
+            }
 
         }
         public List<ChannelServiceTable> Get()
@@ -70,7 +73,64 @@ namespace WebMVC.BLL
         /// <summary>
         /// 顾客满意度指数																	
         /// </summary>
-        public MJA J { get; set; } = new MJA();
+        public MJA J
+        {
+            get
+            {
+                if (Stage == Common.Stage.起始阶段.ToString())
+                {
+                    var result = new MJA()
+                    {
+                        M1 =0.98m,
+                        M2 =0.98m,
+                        M3 =0.98m,
+                        M4 =0.98m,
+                        M5 =0.98m,
+                        M6 =0.98m,
+                        J1 =0.98m,
+                        J2 =0.98m,
+                        J3 =0.98m,
+                        J4 =0.98m,
+                        J5 =0.98m,
+                        J6 =0.98m,
+                        Agent1 =0.98m,
+                        Agent2 =0.98m,
+                        Agent3 =0.98m,
+                        Agent4 =0.98m,
+                        Agent5 =0.98m,
+                        Agent6 =0.98m,
+                    };
+                    return result;
+                }
+                else
+                {
+
+
+                    var result = new MJA()
+                    {
+                        M1 = LastAB.M1 * 0.4m + Cal.Percent(B.M, B.J, B.Agent1),
+                        M2 = LastAB.M2 * 0.4m + Cal.Percent(B.M, B.J, B.Agent2),
+                        M3 = LastAB.M3 * 0.4m + Cal.Percent(B.M, B.J, B.Agent3),
+                        M4 = LastAB.M4 * 0.4m + Cal.Percent(B.M, B.J, B.Agent4),
+                        M5 = LastAB.M5 * 0.4m + Cal.Percent(B.M, B.J, B.Agent5),
+                        M6 = LastAB.M6 * 0.4m + Cal.Percent(B.M, B.J, B.Agent6),
+                        J1 = LastAB.J1 * 0.4m + Cal.Percent(B.J, B.M, B.Agent1),
+                        J2 = LastAB.J2 * 0.4m + Cal.Percent(B.J, B.M, B.Agent2),
+                        J3 = LastAB.J3 * 0.4m + Cal.Percent(B.J, B.M, B.Agent3),
+                        J4 = LastAB.J4 * 0.4m + Cal.Percent(B.J, B.M, B.Agent4),
+                        J5 = LastAB.J5 * 0.4m + Cal.Percent(B.J, B.M, B.Agent5),
+                        J6 = LastAB.J6 * 0.4m + Cal.Percent(B.J, B.M, B.Agent6),
+                        Agent1 = LastAB.Agent1 * 0.4m + Cal.Percent(B.Agent1, B.M, B.J),
+                        Agent2 = LastAB.Agent2 * 0.4m + Cal.Percent(B.Agent2, B.M, B.J),
+                        Agent3 = LastAB.Agent3 * 0.4m + Cal.Percent(B.Agent3, B.M, B.J),
+                        Agent4 = LastAB.Agent4 * 0.4m + Cal.Percent(B.Agent4, B.M, B.J),
+                        Agent5 = LastAB.Agent5 * 0.4m + Cal.Percent(B.Agent5, B.M, B.J),
+                        Agent6 = LastAB.Agent6 * 0.4m + Cal.Percent(B.Agent6, B.M, B.J),
+                    };
+                    return result;
+                }
+            }
+        }
         /// <summary>
         /// 顾客满意度影响力																	
         /// </summary>
@@ -82,6 +142,7 @@ namespace WebMVC.BLL
 
             }
         }
+        public MJA LastAB { get; set; } = new MJA();
         public MJA ABCal()
         {
             return new MJA()

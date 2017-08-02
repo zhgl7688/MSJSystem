@@ -7,19 +7,20 @@ using WebMVC.Models;
 
 namespace WebMVC.BLL
 {
-    /// <summary>
-    /// 市场容量及各品牌当年占有率
-    /// </summary>
+
     public class CurrentShare
     {
 
         List<CurrentShareTable> currentShares = new List<CurrentShareTable>();
         List<IntentionIndexTable> intentionIndexs;
         List<MarketTable> marketPrices;
+        /// <summary>
+        /// 市场容量及各品牌当年占有率
+        /// </summary>  
         public CurrentShare()
         {
             intentionIndexs = new IntentionIndex().Get();
-              marketPrices = new MarketPrice().Get();
+            marketPrices = new MarketPrice().Get();
             Init();
         }
         public void Init()
@@ -100,7 +101,7 @@ namespace WebMVC.BLL
                 return result;
             }
         }
-       
+
 
         public Dictionary<int, MJA> CB
         {

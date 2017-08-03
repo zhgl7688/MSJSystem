@@ -94,7 +94,7 @@ namespace WebMVC.BLL
                 t1.AP.Agent5 = item.DR.promotionTeam;
                 t1.AP.Agent6 = item.DZ.promotionTeam;
                 #endregion
-                t1.MPCal();
+              
                 marketPromotions.Add(t1);
             }
 
@@ -113,53 +113,68 @@ namespace WebMVC.BLL
         public MP Z { get; set; } = new MP();
         public MP AH { get; set; } = new MP();
         public MP AP { get; set; } = new MP();
-        public MJA AX { get; set; } = new MJA();
-        public MJA BP { get; set; } = new MJA();
-        public void MPCal()
+        /// <summary>
+        /// 市场推广指数
+        /// </summary>
+        public MJA AX
         {
-            #region 市场推广指数
-            AX.M1 = Cal.MarketingIndex(B.M, B.J, B.Agent1, J.M, J.J, J.Agent1, R.M, R.J, R.Agent1, Z.M, Z.J, Z.Agent1, AH.M, AH.J, AH.Agent1, AP.M, AP.J, AP.Agent1);
-            AX.M2 = Cal.MarketingIndex(B.M, B.J, B.Agent2, J.M, J.J, J.Agent2, R.M, R.J, R.Agent2, Z.M, Z.J, Z.Agent2, AH.M, AH.J, AH.Agent2, AP.M, AP.J, AP.Agent2);
-            AX.M3 = Cal.MarketingIndex(B.M, B.J, B.Agent3, J.M, J.J, J.Agent3, R.M, R.J, R.Agent3, Z.M, Z.J, Z.Agent3, AH.M, AH.J, AH.Agent3, AP.M, AP.J, AP.Agent3);
-            AX.M4 = Cal.MarketingIndex(B.M, B.J, B.Agent4, J.M, J.J, J.Agent4, R.M, R.J, R.Agent4, Z.M, Z.J, Z.Agent4, AH.M, AH.J, AH.Agent4, AP.M, AP.J, AP.Agent4);
-            AX.M5 = Cal.MarketingIndex(B.M, B.J, B.Agent5, J.M, J.J, J.Agent5, R.M, R.J, R.Agent5, Z.M, Z.J, Z.Agent5, AH.M, AH.J, AH.Agent5, AP.M, AP.J, AP.Agent5);
-            AX.M6 = Cal.MarketingIndex(B.M, B.J, B.Agent6, J.M, J.J, J.Agent6, R.M, R.J, R.Agent6, Z.M, Z.J, Z.Agent6, AH.M, AH.J, AH.Agent6, AP.M, AP.J, AP.Agent6);
-            AX.J1 = Cal.MarketingIndex(B.J, B.M, B.Agent1, J.J, J.M, J.Agent1, R.J, R.M, R.Agent1, Z.J, Z.M, Z.Agent1, AH.J, AH.M, AH.Agent1, AP.J, AP.M, AP.Agent1);
-            AX.J2 = Cal.MarketingIndex(B.J, B.M, B.Agent2, J.J, J.M, J.Agent2, R.J, R.M, R.Agent2, Z.J, Z.M, Z.Agent2, AH.J, AH.M, AH.Agent2, AP.J, AP.M, AP.Agent2);
-            AX.J3 = Cal.MarketingIndex(B.J, B.M, B.Agent3, J.J, J.M, J.Agent3, R.J, R.M, R.Agent3, Z.J, Z.M, Z.Agent3, AH.J, AH.M, AH.Agent3, AP.J, AP.M, AP.Agent3);
-            AX.J4 = Cal.MarketingIndex(B.J, B.M, B.Agent4, J.J, J.M, J.Agent4, R.J, R.M, R.Agent4, Z.J, Z.M, Z.Agent4, AH.J, AH.M, AH.Agent4, AP.J, AP.M, AP.Agent4);
-            AX.J5 = Cal.MarketingIndex(B.J, B.M, B.Agent5, J.J, J.M, J.Agent5, R.J, R.M, R.Agent5, Z.J, Z.M, Z.Agent5, AH.J, AH.M, AH.Agent5, AP.J, AP.M, AP.Agent5);
-            AX.J6 = Cal.MarketingIndex(B.J, B.M, B.Agent6, J.J, J.M, J.Agent6, R.J, R.M, R.Agent6, Z.J, Z.M, Z.Agent6, AH.J, AH.M, AH.Agent6, AP.J, AP.M, AP.Agent6);
-            AX.Agent1 = Cal.MarketingIndex(B.Agent1, B.J, B.M, J.Agent1, J.J, J.M, R.Agent1, R.J, R.M, Z.Agent1, Z.J, Z.M, AH.Agent1, AH.J, AH.M, AP.Agent1, AP.J, AP.M);
-            AX.Agent2 = Cal.MarketingIndex(B.Agent2, B.J, B.M, J.Agent2, J.J, J.M, R.Agent2, R.J, R.M, Z.Agent2, Z.J, Z.M, AH.Agent2, AH.J, AH.M, AP.Agent2, AP.J, AP.M);
-            AX.Agent3 = Cal.MarketingIndex(B.Agent3, B.J, B.M, J.Agent3, J.J, J.M, R.Agent3, R.J, R.M, Z.Agent3, Z.J, Z.M, AH.Agent3, AH.J, AH.M, AP.Agent3, AP.J, AP.M);
-            AX.Agent4 = Cal.MarketingIndex(B.Agent4, B.J, B.M, J.Agent4, J.J, J.M, R.Agent4, R.J, R.M, Z.Agent4, Z.J, Z.M, AH.Agent4, AH.J, AH.M, AP.Agent4, AP.J, AP.M);
-            AX.Agent5 = Cal.MarketingIndex(B.Agent5, B.J, B.M, J.Agent5, J.J, J.M, R.Agent5, R.J, R.M, Z.Agent5, Z.J, Z.M, AH.Agent5, AH.J, AH.M, AP.Agent5, AP.J, AP.M);
-            AX.Agent6 = Cal.MarketingIndex(B.Agent6, B.J, B.M, J.Agent6, J.J, J.M, R.Agent6, R.J, R.M, Z.Agent6, Z.J, Z.M, AH.Agent6, AH.J, AH.M, AP.Agent6, AP.J, AP.M);
-            #endregion
-            #region 市场推广影响力
+            get
+            {
+                var result = new MJA();
 
-            BP.M1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.M1 / (AX.M1 + AX.J1 + AX.Agent1);
-            BP.M2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.M2 / (AX.M2 + AX.J2 + AX.Agent2);
-            BP.M3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.M3 / (AX.M3 + AX.J3 + AX.Agent3);
-            BP.M4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.M4 / (AX.M4 + AX.J4 + AX.Agent4);
-            BP.M5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.M5 / (AX.M5 + AX.J5 + AX.Agent5);
-            BP.M6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.M6 / (AX.M6 + AX.J6 + AX.Agent6);
-            BP.J1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.J1 / (AX.M1 + AX.J1 + AX.Agent1);
-            BP.J2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.J2 / (AX.M2 + AX.J2 + AX.Agent2);
-            BP.J3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.J3 / (AX.M3 + AX.J3 + AX.Agent3);
-            BP.J4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.J4 / (AX.M4 + AX.J4 + AX.Agent4);
-            BP.J5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.J5 / (AX.M5 + AX.J5 + AX.Agent5);
-            BP.J6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.J6 / (AX.M6 + AX.J6 + AX.Agent6);
-            BP.Agent1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.Agent1 / (AX.M1 + AX.J1 + AX.Agent1);
-            BP.Agent2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.Agent2 / (AX.M2 + AX.J2 + AX.Agent2);
-            BP.Agent3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.Agent3 / (AX.M3 + AX.J3 + AX.Agent3);
-            BP.Agent4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.Agent4 / (AX.M4 + AX.J4 + AX.Agent4);
-            BP.Agent5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.Agent5 / (AX.M5 + AX.J5 + AX.Agent5);
-            BP.Agent6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.Agent6 / (AX.M6 + AX.J6 + AX.Agent6);
-            #endregion
+                result.M1 = MarketingIndex(B.M, B.J, B.Agent1, J.M, J.J, J.Agent1, R.M, R.J, R.Agent1, Z.M, Z.J, Z.Agent1, AH.M, AH.J, AH.Agent1, AP.M, AP.J, AP.Agent1);
+                result.M2 = MarketingIndex(B.M, B.J, B.Agent2, J.M, J.J, J.Agent2, R.M, R.J, R.Agent2, Z.M, Z.J, Z.Agent2, AH.M, AH.J, AH.Agent2, AP.M, AP.J, AP.Agent2);
+                result.M3 = MarketingIndex(B.M, B.J, B.Agent3, J.M, J.J, J.Agent3, R.M, R.J, R.Agent3, Z.M, Z.J, Z.Agent3, AH.M, AH.J, AH.Agent3, AP.M, AP.J, AP.Agent3);
+                result.M4 = MarketingIndex(B.M, B.J, B.Agent4, J.M, J.J, J.Agent4, R.M, R.J, R.Agent4, Z.M, Z.J, Z.Agent4, AH.M, AH.J, AH.Agent4, AP.M, AP.J, AP.Agent4);
+                result.M5 = MarketingIndex(B.M, B.J, B.Agent5, J.M, J.J, J.Agent5, R.M, R.J, R.Agent5, Z.M, Z.J, Z.Agent5, AH.M, AH.J, AH.Agent5, AP.M, AP.J, AP.Agent5);
+                result.M6 = MarketingIndex(B.M, B.J, B.Agent6, J.M, J.J, J.Agent6, R.M, R.J, R.Agent6, Z.M, Z.J, Z.Agent6, AH.M, AH.J, AH.Agent6, AP.M, AP.J, AP.Agent6);
+                result.J1 = MarketingIndex(B.J, B.M, B.Agent1, J.J, J.M, J.Agent1, R.J, R.M, R.Agent1, Z.J, Z.M, Z.Agent1, AH.J, AH.M, AH.Agent1, AP.J, AP.M, AP.Agent1);
+                result.J2 = MarketingIndex(B.J, B.M, B.Agent2, J.J, J.M, J.Agent2, R.J, R.M, R.Agent2, Z.J, Z.M, Z.Agent2, AH.J, AH.M, AH.Agent2, AP.J, AP.M, AP.Agent2);
+                result.J3 = MarketingIndex(B.J, B.M, B.Agent3, J.J, J.M, J.Agent3, R.J, R.M, R.Agent3, Z.J, Z.M, Z.Agent3, AH.J, AH.M, AH.Agent3, AP.J, AP.M, AP.Agent3);
+                result.J4 = MarketingIndex(B.J, B.M, B.Agent4, J.J, J.M, J.Agent4, R.J, R.M, R.Agent4, Z.J, Z.M, Z.Agent4, AH.J, AH.M, AH.Agent4, AP.J, AP.M, AP.Agent4);
+                result.J5 = MarketingIndex(B.J, B.M, B.Agent5, J.J, J.M, J.Agent5, R.J, R.M, R.Agent5, Z.J, Z.M, Z.Agent5, AH.J, AH.M, AH.Agent5, AP.J, AP.M, AP.Agent5);
+                result.J6 = MarketingIndex(B.J, B.M, B.Agent6, J.J, J.M, J.Agent6, R.J, R.M, R.Agent6, Z.J, Z.M, Z.Agent6, AH.J, AH.M, AH.Agent6, AP.J, AP.M, AP.Agent6);
+                result.Agent1 = MarketingIndex(B.Agent1, B.J, B.M, J.Agent1, J.J, J.M, R.Agent1, R.J, R.M, Z.Agent1, Z.J, Z.M, AH.Agent1, AH.J, AH.M, AP.Agent1, AP.J, AP.M);
+                result.Agent2 = MarketingIndex(B.Agent2, B.J, B.M, J.Agent2, J.J, J.M, R.Agent2, R.J, R.M, Z.Agent2, Z.J, Z.M, AH.Agent2, AH.J, AH.M, AP.Agent2, AP.J, AP.M);
+                result.Agent3 = MarketingIndex(B.Agent3, B.J, B.M, J.Agent3, J.J, J.M, R.Agent3, R.J, R.M, Z.Agent3, Z.J, Z.M, AH.Agent3, AH.J, AH.M, AP.Agent3, AP.J, AP.M);
+                result.Agent4 = MarketingIndex(B.Agent4, B.J, B.M, J.Agent4, J.J, J.M, R.Agent4, R.J, R.M, Z.Agent4, Z.J, Z.M, AH.Agent4, AH.J, AH.M, AP.Agent4, AP.J, AP.M);
+                result.Agent5 = MarketingIndex(B.Agent5, B.J, B.M, J.Agent5, J.J, J.M, R.Agent5, R.J, R.M, Z.Agent5, Z.J, Z.M, AH.Agent5, AH.J, AH.M, AP.Agent5, AP.J, AP.M);
+                result.Agent6 = MarketingIndex(B.Agent6, B.J, B.M, J.Agent6, J.J, J.M, R.Agent6, R.J, R.M, Z.Agent6, Z.J, Z.M, AH.Agent6, AH.J, AH.M, AP.Agent6, AP.J, AP.M);
 
+                return result;
+            }
         }
+        /// <summary>
+        /// 市场推广影响力
+        /// </summary>
+        public MJA BP
+        {
+            get
+            {
+                var result = new MJA();
+               result.M1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.M1 / (AX.M1 + AX.J1 + AX.Agent1);
+                result.M2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.M2 / (AX.M2 + AX.J2 + AX.Agent2);
+                result.M3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.M3 / (AX.M3 + AX.J3 + AX.Agent3);
+                result.M4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.M4 / (AX.M4 + AX.J4 + AX.Agent4);
+                result.M5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.M5 / (AX.M5 + AX.J5 + AX.Agent5);
+                result.M6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.M6 / (AX.M6 + AX.J6 + AX.Agent6);
+                result.J1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.J1 / (AX.M1 + AX.J1 + AX.Agent1);
+                result.J2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.J2 / (AX.M2 + AX.J2 + AX.Agent2);
+                result.J3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.J3 / (AX.M3 + AX.J3 + AX.Agent3);
+                result.J4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.J4 / (AX.M4 + AX.J4 + AX.Agent4);
+                result.J5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.J5 / (AX.M5 + AX.J5 + AX.Agent5);
+                result.J6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.J6 / (AX.M6 + AX.J6 + AX.Agent6);
+                result.Agent1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.Agent1 / (AX.M1 + AX.J1 + AX.Agent1);
+                result.Agent2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.Agent2 / (AX.M2 + AX.J2 + AX.Agent2);
+                result.Agent3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.Agent3 / (AX.M3 + AX.J3 + AX.Agent3);
+                result.Agent4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.Agent4 / (AX.M4 + AX.J4 + AX.Agent4);
+                result.Agent5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.Agent5 / (AX.M5 + AX.J5 + AX.Agent5);
+                result.Agent6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.Agent6 / (AX.M6 + AX.J6 + AX.Agent6);
+                return result;
+
+            }
+        }
+       
         public decimal CI
         {
             get
@@ -201,6 +216,19 @@ namespace WebMVC.BLL
             {
                 return BP.M6 + BP.J6 + BP.Agent6;
             }
+        }
+        public decimal MarketingIndex(decimal b, decimal c, decimal d, decimal j, decimal k, decimal l, decimal r, decimal s,
+           decimal t, decimal z, decimal aa, decimal ab, decimal ah, decimal ai, decimal aj, decimal ap, decimal aq, decimal ar)
+        {
+            var t1 = b + c + d;
+            var t2 = j + k + l;
+            var t3 = r + s + t;
+            var t4 = z + aa + ab;
+            var t5 = ah + ai + aj;
+            var t6 = ap + aq + ar;
+            if (t1 == 0 || t2 == 0 || t3 == 0 || t4 == 0 || t5 == 0 || t6 == 0) return 0;
+            //=25%*B3/(B3+C3+D3)+25%*J3/(J3+K3+L3)+20%*R3/(R3+S3+T3)+15%*Z3/(Z3+AA3+AB3)+10%*AH3/(AH3+AI3+AJ3)+5%*AP3/(AP3+AQ3+AR3)
+            return 0.25m * b / t1 + 0.25m * j / t2 + 0.20m * r / t3 + 0.15m * z / t4 + 0.10m * ah / t5 + 0.05m * ap / t6;
         }
     }
 

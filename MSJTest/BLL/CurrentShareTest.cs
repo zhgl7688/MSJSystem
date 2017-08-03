@@ -14,7 +14,7 @@ namespace MSJTest.BLL
         public void TestMethod1()
         {
             var result = currrent.Get();
-            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual(2, result.Count);
             Assert.AreEqual(0.368, result[1].H[1].M1);
         }
     }

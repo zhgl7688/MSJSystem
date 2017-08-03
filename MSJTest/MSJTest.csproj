@@ -59,6 +59,7 @@
     <Compile Include="BLL\ChannelServiceTest.cs" />
     <Compile Include="BLL\CurrentShareTest.cs" />
     <Compile Include="BLL\IntentionIndexTest.cs" />
+    <Compile Include="BLL\MarketPrictTempTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

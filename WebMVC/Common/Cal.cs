@@ -92,7 +92,7 @@ namespace WebMVC.Common
         /// <param name="bs">平均指数</param>
         /// <param name="ck"></param>
         /// <returns></returns>
-        public static decimal InnovationIndex(decimal k,decimal bd,decimal bg,decimal cb,decimal bp,decimal bs,decimal ck)
+        public static decimal InnovationIndex(decimal k, decimal bd, decimal bg, decimal cb, decimal bp, decimal bs, decimal ck)
         {
             return k + (bd - bg) * cb * 0.4m + (bp - bs) * ck * 0.6m;
         }
@@ -118,8 +118,8 @@ namespace WebMVC.Common
         /// <param name="aq"></param>
         /// <param name="ar"></param>
         /// <returns></returns>
-        public static decimal MarketingIndex(decimal b,decimal c,decimal d,decimal j,decimal k,decimal l,decimal r,decimal s,
-            decimal t, decimal z, decimal aa, decimal ab, decimal ah, decimal ai, decimal aj, decimal ap,decimal aq,decimal ar)
+        public static decimal MarketingIndex(decimal b, decimal c, decimal d, decimal j, decimal k, decimal l, decimal r, decimal s,
+            decimal t, decimal z, decimal aa, decimal ab, decimal ah, decimal ai, decimal aj, decimal ap, decimal aq, decimal ar)
         {
             var t1 = b + c + d;
             var t2 = j + k + l;
@@ -129,7 +129,7 @@ namespace WebMVC.Common
             var t6 = ap + aq + ar;
             if (t1 == 0 || t2 == 0 || t3 == 0 || t4 == 0 || t5 == 0 || t6 == 0) return 0;
             //=25%*B3/(B3+C3+D3)+25%*J3/(J3+K3+L3)+20%*R3/(R3+S3+T3)+15%*Z3/(Z3+AA3+AB3)+10%*AH3/(AH3+AI3+AJ3)+5%*AP3/(AP3+AQ3+AR3)
-            return 0.25m * b / t1 + 0.25m * j / t2 + 0.20m * r / t3 + 0.15m * z /t4 + 0.10m * ah / t5 + 0.05m * ap /t6;
+            return 0.25m * b / t1 + 0.25m * j / t2 + 0.20m * r / t3 + 0.15m * z / t4 + 0.10m * ah / t5 + 0.05m * ap / t6;
         }
         /// <summary>
         /// a / (a + b + c)
@@ -138,15 +138,20 @@ namespace WebMVC.Common
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static decimal Percent(decimal a,decimal b,decimal c)
+        public static decimal Percent(decimal a, decimal b, decimal c)
         {
             return a + b + c == 0 ? 0 : a / (a + b + c);
         }
         public static MJA SetMJA(this MJA mja)
         {
             //= IF(市场价格!$DF5 <= 599,$D$5 *$F5 * Z5, IF(市场价格!$DF5 <= 739,$D$6 *$F5 * Z5,$D$7 *$F5 * Z5))
-           // mja.J1
+            // mja.J1
             return mja;
+        }
+        public static decimal GetPositive(decimal a, decimal b)
+        {
+            if (b == 0) return b;
+            return a / b < 0 ? 0 : a / b;
         }
     }
 }

@@ -52,7 +52,8 @@ namespace WebMVC.BLL
                 purchase = 31,
                 actualSale = 30,
                 Inventory = 1,
-                FirstPurchase = 29
+                FirstPurchase = 29,
+               
 
             });
             agentInputs.Add(new AgentInput

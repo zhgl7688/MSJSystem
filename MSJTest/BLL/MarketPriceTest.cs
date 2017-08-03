@@ -12,8 +12,8 @@ namespace MSJTest.BLL
         public void TestMethod1()
         {
          var result=   marketPrice.Get();
-            Assert.AreEqual(799, result[0].DE);
-            Assert.AreEqual(0.101, result[0].EY[1].M1);
+            Assert.AreEqual(0.32m,decimal.Round( result[0].CV[1].S,2));
+            Assert.AreEqual(0.28m,decimal.Round( result[0].CV[1].J,2));
         }
        
     }

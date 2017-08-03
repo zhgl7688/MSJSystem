@@ -36,8 +36,6 @@ namespace WebMVC.BLL
             currentShares.Add(current0);
             foreach (var item in intentionIndexs)
             {
-
-
                 var currentShare = currentShares.FirstOrDefault(s => s.Stage == item.Stage);
                 if (currentShare == null)
                 {
@@ -223,11 +221,11 @@ namespace WebMVC.BLL
             return new MJA
             {
                 Agent1 = mja.Agent1 * f * (de.Agent1 <= 699 ? ds[1] : de.Agent1 <= 845 ? ds[2] : ds[3]),
-                Agent2 = mja.Agent1 * f * (de.Agent1 <= 699 ? ds[1] : de.Agent1 <= 845 ? ds[2] : ds[3]),
-                Agent3 = mja.Agent1 * f * (de.Agent1 <= 699 ? ds[1] : de.Agent1 <= 845 ? ds[2] : ds[3]),
-                Agent4 = mja.Agent1 * f * (de.Agent1 <= 699 ? ds[1] : de.Agent1 <= 845 ? ds[2] : ds[3]),
-                Agent5 = mja.Agent1 * f * (de.Agent1 <= 699 ? ds[1] : de.Agent1 <= 845 ? ds[2] : ds[3]),
-                Agent6 = mja.Agent1 * f * (de.Agent1 <= 699 ? ds[1] : de.Agent1 <= 845 ? ds[2] : ds[3]),
+                Agent2 = mja.Agent2 * f * (de.Agent2 <= 699 ? ds[1] : de.Agent2 <= 845 ? ds[2] : ds[3]),
+                Agent3 = mja.Agent3 * f * (de.Agent3 <= 699 ? ds[1] : de.Agent3 <= 845 ? ds[2] : ds[3]),
+                Agent4 = mja.Agent4 * f * (de.Agent4 <= 699 ? ds[1] : de.Agent4 <= 845 ? ds[2] : ds[3]),
+                Agent5 = mja.Agent5 * f * (de.Agent5 <= 699 ? ds[1] : de.Agent5 <= 845 ? ds[2] : ds[3]),
+                Agent6 = mja.Agent6 * f * (de.Agent6 <= 699 ? ds[1] : de.Agent6 <= 845 ? ds[2] : ds[3]),
             };
 
 

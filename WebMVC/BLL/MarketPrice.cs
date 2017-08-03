@@ -34,8 +34,8 @@ namespace WebMVC.BLL
             var priceControl1 = priceControlTables.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
             var currentShare1 = currentShares.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
             var productInnvoation1 = productInnvoations.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
-            market1.B.M = currentShare1.BJ[1].SumM;
-            market1.B.J = currentShare1.CB[1].SumJ;
+            market1.B.M = currentShare1.BJ[1].AverageM;
+            market1.B.J = currentShare1.CB[1].AverageJ;
             market1.D = currentShare1.CT[1];
 
             market1.CD.Add(1, new RC { M = 300, S = 315, J = 285 });
@@ -372,17 +372,21 @@ namespace WebMVC.BLL
             get
             {
                 var result = new Dictionary<int, RC>();
-                result.Add(1, new RC { M = GetCV(CM[1].M, CD[1].M), S = GetCV(CM[1].S, CM[1].S), J = GetCV(CM[1].J, CM[1].J) });
-                if (Stage == Common.Stage.第二阶段.ToString())
-                    result.Add(2, new RC { M = GetCV(CM[2].M, CD[2].M), S = GetCV(CM[2].S, CM[2].S), J = GetCV(CM[2].J, CM[2].J) });
+                result.Add(1, GetVC(CM[1], CD[1]));
+                if (Stage == Common.Stage.第二阶段.ToString()||Stage==Common.Stage.第三阶段.ToString())
+                    result.Add(2, GetVC(CM[2], CD[2]));
                 if (Stage == Common.Stage.第三阶段.ToString())
-                    result.Add(3, new RC { M = GetCV(CM[3].M, CD[3].M), S = GetCV(CM[3].S, CM[3].S), J = GetCV(CM[3].J, CM[3].J) });
+                    result.Add(3, GetVC(CM[3], CD[3]));
 
                 return result;
             }
         }
+        private RC GetVC(RC CM,RC CD)
+        {
+            return new RC { M = CVCAL(CM.M, CD.M), S = CVCAL(CM.S, CD.S), J = CVCAL(CM.J, CD.J) };
 
-        private decimal GetCV(decimal a, decimal b)
+        }
+        private decimal CVCAL(decimal a, decimal b)
         {
             if (a == 0) return 0;
             return (a - b) / a;

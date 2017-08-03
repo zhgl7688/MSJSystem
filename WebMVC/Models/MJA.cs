@@ -35,13 +35,25 @@ namespace WebMVC.Models
         {
             get { return M1 + M2 + M3 + M4 + M5 + M6; }
         }
+        public decimal AverageM
+        {
+            get { return SumM/6m; }
+        }
         public decimal SumJ
         {
             get { return J1 + J2 + J3 + J4 + J5 + J6; }
         }
+        public decimal AverageJ
+        {
+            get { return SumJ / 6m; }
+        }
         public decimal SumAgent
         {
             get { return Agent1 + Agent2 + Agent3 + Agent4 + Agent5 + Agent6; }
+        }
+        public decimal AverageAgent
+        {
+            get { return SumAgent / 6m; }
         }
     }
 }

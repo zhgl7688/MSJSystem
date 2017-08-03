@@ -154,6 +154,7 @@
     <Compile Include="BLL\MarketPromotion.cs" />
     <Compile Include="BLL\PriceControl.cs" />
     <Compile Include="BLL\ProductInnovation.cs" />
+    <Compile Include="BLL\StockReport.cs" />
     <Compile Include="BLL\SummaryAssent.cs" />
     <Compile Include="Common\Cal.cs" />
     <Compile Include="Common\EnumsModel.cs" />

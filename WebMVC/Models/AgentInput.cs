@@ -93,9 +93,17 @@ namespace WebMVC.Models
         /// </summary>
         public decimal Inventory { get; set; }
         /// <summary>
-        /// 第一阶段进货
+        /// RC1进货
         /// </summary>
         public decimal FirstPurchase { get; set; }
+        /// <summary>
+        /// RC2进货
+        /// </summary>
+        public decimal SecondPurchase { get; set; }
+        /// <summary>
+        /// RC3进货
+        /// </summary>
+        public decimal ThirdPurchase { get; set; }
         public decimal InputSum
         {
             get

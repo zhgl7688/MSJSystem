@@ -28,7 +28,18 @@ namespace WebMVC.BLL
         }
         private void Init()
         {
-
+            foreach (var stockReport in stockReports)
+            {
+                var invoicing = invoicings.FirstOrDefault(s => s.AgentName == stockReport.AgentName);
+                if (invoicing == null)
+                {
+                    invoicing = new InvoicingTable() {
+                         B=31,
+                    };
+                    invoicings.Add(invoicing);
+                }
+                
+            }
         }
         public List<InvoicingTable> Get()
         {
@@ -37,11 +48,46 @@ namespace WebMVC.BLL
     }
     public class InvoicingTable
     {
-        public string Brand { get; internal set; }
+        public string AgentName { get;   set; }
+           public decimal B { get; set; }
+        public decimal C { get; set; }
+        public decimal D { get; set; }
+        public decimal E { get; set; }
+        public decimal F { get; set; }
+        public decimal G { get; set; }
+        public decimal H { get; set; }
+        public decimal I { get; set; }
+        public decimal J { get; set; }
+        public decimal K { get; set; }
+        public decimal L { get; set; }
+        public decimal M { get; set; }
+        public decimal N { get; set; }
+        public decimal O { get; set; }
+        public decimal P { get; set; }
+        public decimal Q { get; set; }
+        public decimal R { get; set; }
+        public decimal S { get; set; }
+        public decimal T { get; set; }
+        public decimal U { get; set; }
+        public decimal V { get; set; }
+        public decimal W { get; set; }
+        public decimal X { get; set; }
+        public decimal Y { get; set; }
+        public decimal Z { get; set; }
+        public decimal AA { get; set; }
+        public decimal AB { get; set; }
+        public decimal AC { get; set; }
+        public decimal AD { get; set; }
+        public decimal AE { get; set; }
+        public decimal AF { get; set; }
+        public decimal AG { get; set; }
+        public decimal AH { get; set; }
+        public decimal AI { get; set; }
+        public decimal AJ { get; set; }
+        public decimal AK { get; set; }
+        public decimal AL { get; set; }
+        public decimal AM { get; set; }
+        public decimal AN { get; set; }
 
-        public decimal D { get; internal set; }
-        public decimal I { get; internal set; }
-        public decimal G { get; internal set; }
-        public decimal H { get; internal set; }
     }
 }

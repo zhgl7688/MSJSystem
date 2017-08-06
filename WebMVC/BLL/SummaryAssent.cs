@@ -10,6 +10,11 @@ namespace WebMVC.BLL
     /// </summary>
     public class SummaryAssent
     {
+        //=进货报表!F3
+        // =进销存报表!E4*
+        //市场价格!CE5
+        //=投资表!B5
+
         List<Summary> summarys = new List<Summary>();
         public List<Summary> GetSummarys()
         {

@@ -12,16 +12,17 @@ namespace WebMVC.BLL
     public class BrandStrength
     {
         List<BrandStrengthTable> brandStrengths = new List<BrandStrengthTable>();
-        List<InvestmentTable> investMents;
+        List<BrandTable> investMents;
         public BrandStrength()
         {
-              investMents = new Investment().Get(); 
+            investMents = new InvertmentTable1().getBrandsInputs(); 
             Init();
         }
         public void Init()
         {
             BrandStrengthTable initT = new BrandStrengthTable
             {
+                ID = (int)Stage.起始阶段,
                 Stage= "起始阶段",
                 E = 33,
                 F = 33,
@@ -31,43 +32,49 @@ namespace WebMVC.BLL
                 J = 800
             };
             brandStrengths.Add(initT);
-            var investMent1 = investMents.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), Stage.第一阶段));
-            if (investMent1!=null)
+            foreach (var item in investMents)
             {
-                BrandStrengthTable bst1 = GetBrandStrenthT(initT, investMent1);
-                brandStrengths.Add(bst1);
-                var investMent2 = investMents.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), Stage.第二阶段));
-                if (investMent2 != null)
+               var brandStrength = brandStrengths.FirstOrDefault(s => s.Stage == item.Stage);
+                if (brandStrength == null)
                 {
-                    BrandStrengthTable bst2 = GetBrandStrenthT(bst1, investMent1);
-                    brandStrengths.Add(bst2);
-                    var investMent3= investMents.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), Stage.第三阶段));
-                    if (investMent3 != null)
+                    brandStrength = new BrandStrengthTable
                     {
-                        BrandStrengthTable bst3 = GetBrandStrenthT(bst2, investMent1);
-                        brandStrengths.Add(bst3);
-
+                        ID = (int)Enum.Parse(typeof(Stage), item.Stage),
+                        Stage = item.Stage,
+                    };
+                    brandStrengths.Add(brandStrength);
+                }
+                    Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
+                    switch (brand)
+                    {
+                        case Brand.M品牌:
+                        brandStrength.H = item.advertise;
+                            break;
+                        case Brand.S品牌:
+                        brandStrength.I = item.advertise;
+                        break;
+                        case Brand.J品牌:
+                        brandStrength.J = item.advertise;
+                        break;
+                        default:
+                            break;
                     }
                 }
-            }
-
-
+            SetCBPI(brandStrengths, brandStrengths.OrderByDescending(s => s.ID).Take(1).ToList()[0]);
+            
         }
-
-        private static BrandStrengthTable GetBrandStrenthT(BrandStrengthTable initT, InvestmentTable investMent1)
+        private void SetCBPI(List<BrandStrengthTable> brands, BrandStrengthTable s)
         {
-            BrandStrengthTable bst1 = new BrandStrengthTable
-            {
-                Stage = Enum.GetName(typeof(Stage), Stage.第一阶段),
-                H = investMent1.J,
-                I = investMent1.K,
-                J = investMent1.L,
-            };
-            bst1.E = Cal.CBPI(initT.E, initT.K, initT.N, bst1.K, bst1.N);
-            bst1.F = Cal.CBPI(initT.F, initT.L, initT.N, bst1.L, bst1.N);
-            bst1.G = Cal.CBPI(initT.G, initT.M, initT.N, bst1.M, bst1.N);
-            return bst1;
-        }
+            Stage stage = (Stage)Enum.Parse(typeof(Stage), s.Stage);
+            if (stage == Stage.起始阶段) return;
+            int index = (int)Enum.Parse(typeof(Stage), s.Stage);
+            var last = brands.FirstOrDefault(j => j.Stage == Enum.GetName(typeof(Stage), index - 1));
+            SetCBPI(brands, last);
+            s.E = Cal.CBPI(last.E, last.K, last.N, s.K, s.N);
+            s.F = Cal.CBPI(last.F, last.L, last.N, s.L, s.N);
+            s.G = Cal.CBPI(last.G, last.M, last.N, s.M, s.N);
+       }
+
 
         public List<BrandStrengthTable> Get()
         {
@@ -76,6 +83,7 @@ namespace WebMVC.BLL
     }
     public class BrandStrengthTable
     {
+        public int ID { get; set; }
         public string Stage { get; set; }
         public decimal B
         {

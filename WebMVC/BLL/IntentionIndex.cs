@@ -25,13 +25,13 @@ namespace WebMVC.BLL
         /// <summary>
         /// 各品牌购买意愿指数
         /// </summary>
-        public IntentionIndex()
+        public IntentionIndex() 
         {
             brandStrengths = new BrandStrength().Get();
             productInnovations = new ProductInnovation().Get();
             marketPromotions = new MarketPromotion().Get();
             channelServices = new ChannelService().Get();
-            marketPrices = new MarketPriceTemp().Get();
+            marketPrices = new MarketPriceTemp().Get(); 
             Init();
         }
         public void Init()
@@ -71,7 +71,7 @@ namespace WebMVC.BLL
                 }
                 if ( item.Stage == Stage.第三阶段.ToString())
                 {
-                    intentionIndex.B.Add(2, new MJA());
+                    intentionIndex.B.Add(3, new MJA());
                     intentionIndex.B[3].M1 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC3.M + item.BP.M1 + channelService.AB.M1 + marketPrice.AB[3].M1, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M1);
                     intentionIndex.B[3].M2 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC3.M + item.BP.M2 + channelService.AB.M2 + marketPrice.AB[3].M2, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M2);
                     intentionIndex.B[3].M3 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC3.M + item.BP.M3 + channelService.AB.M3 + marketPrice.AB[3].M3, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M3);
@@ -286,8 +286,8 @@ namespace WebMVC.BLL
             #endregion
 
             #region 第二阶段
-            var market3 = new MarketTable() { Stage = Stage.第二阶段.ToString(), };
-            var priceControl3 = priceControlTables.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
+            var market3 = new MarketTable() { Stage = Stage.第三阶段.ToString(), };
+            var priceControl3 = priceControlTables.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
             if (priceControl3 == null) return;
 
 

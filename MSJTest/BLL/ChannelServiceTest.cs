@@ -13,10 +13,15 @@ namespace MSJTest.BLL
         public void TestMethod1()
         {
             var result = channel.Get();
+            Assert.AreEqual(240, result[1].B.M);
+            Assert.AreEqual(280, result[2].B.J);
+            Assert.AreEqual(500, result[3].B.J);
             Assert.AreEqual(0.98m, result[0].J.M6);
             Assert.AreEqual(0.33m,decimal.Round( result[0].AB.M6,2));
             Assert.AreEqual(0.68m,decimal.Round(result[1].J.M1,2));
             Assert.AreEqual(0.48m,decimal.Round(result[1].AB.M1,2));
+            Assert.AreEqual(0.72m, decimal.Round(result[2].J.M1, 2));
+            Assert.AreEqual(0.52m, decimal.Round(result[3].AB.M1, 2));
         }
     }
 }

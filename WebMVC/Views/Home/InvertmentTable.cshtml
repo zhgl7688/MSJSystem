@@ -1,0 +1,105 @@
+﻿@model IEnumerable<WebMVC.BLL.InvestmentTable>
+
+@{
+    ViewBag.Title = "InvertmentTable";
+}
+
+<h2>InvertmentTable</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.B)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.D)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.E)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.F)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.G)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.H)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.I)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.J)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.K)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.L)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.M.SurfaceRC1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.B)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.D)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.E)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.F)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.G)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.H)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.I)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.J)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.K)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.L)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.M.SurfaceRC1)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

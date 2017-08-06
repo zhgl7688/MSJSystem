@@ -1,0 +1,220 @@
+﻿@model IEnumerable<WebMVC.BLL.BrandTable>
+
+@{
+    ViewBag.Title = "投资表1";
+}
+
+<h2>投资表1</h2>
+ 
+<table class="table">
+    <tr>
+        <th> 阶段 </th>
+        <th>
+          @Html.DisplayNameFor(model => model.Stage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.advertise)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SurfaceRC1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SurfaceRC2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SurfaceRC3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FunctionRC1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FunctionRC2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FunctionRC3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.materialRC1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaterialRC2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaterialRC3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salesperson)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HousePromote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.demonstrator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.outdoorActivity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.promotionTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.servet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewDevelopmentCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.retailPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SystemPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewCostPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewFactoryPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewRetailPriceR2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewSystemPriceR2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewSystemPriceR3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewRetailPriceR3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SurfaceSum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FunctionSum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.materialSum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InputSum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sum)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td></td>
+        <td style="width:400px;">
+            @Html.DisplayFor(modelItem => item.Stage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Brand)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.advertise)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SurfaceRC1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SurfaceRC2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SurfaceRC3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FunctionRC1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FunctionRC2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FunctionRC3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.materialRC1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaterialRC2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaterialRC3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndImage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salesperson)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HousePromote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.demonstrator)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.outdoorActivity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.promotionTeam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.servet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewDevelopmentCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.retailPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SystemPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewCostPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewFactoryPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewRetailPriceR2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewSystemPriceR2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewSystemPriceR3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewRetailPriceR3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SurfaceSum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FunctionSum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.materialSum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InputSum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sum)
+        </td>
+        
+    </tr>
+}
+
+</table>

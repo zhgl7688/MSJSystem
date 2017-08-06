@@ -61,6 +61,7 @@
     <Compile Include="BLL\IntentionIndexTest.cs" />
     <Compile Include="BLL\MarketPrictTempTest.cs" />
     <Compile Include="BLL\StockReportTest.cs" />
+    <Compile Include="BLL\InvoicingReportTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

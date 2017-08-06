@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -14,14 +15,17 @@ namespace WebMVC.Models
         /// <summary>
         /// 阶段
         /// </summary>
+        [DisplayName("阶段")]
         public string Stage { get; set; }
         /// <summary>
         /// 品牌商
         /// </summary>
+        [DisplayName("品牌商")]
         public string Brand { get; set; }
         /// <summary>
         /// 品牌广告投入
         /// </summary>
+        [DisplayName("品牌广告投入")]
         public decimal advertise { get; set; }
         /// <summary>
         /// 外观常规RC1
@@ -50,7 +54,7 @@ namespace WebMVC.Models
         /// <summary>
         /// 材料常规RC1
         /// </summary>
-        public decimal materialRC1 { get; set; }
+        public decimal MaterialRC1 { get; set; }
         /// <summary>
         /// 材料新增RC2
         /// </summary>

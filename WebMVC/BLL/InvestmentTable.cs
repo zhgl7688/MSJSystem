@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using WebMVC.Models;
 using WebMVC.Common;
+using System.ComponentModel;
 
 namespace WebMVC.BLL
 {
@@ -15,11 +16,13 @@ namespace WebMVC.BLL
         List<BrandTable> invertMentTable1;
         List<AgentInput> agentInputs;
         List<AgentTable> agents;
+        List<StockReportTable> stockReports;
         public Investment()
         {
             invertMentTable1 = new InvertmentTable1().getBrandsInputs();
             agentInputs = new InvertmentTable1().getAgentInputs();
             agents = new InvertmentTable1().getAgents();
+            stockReports = new StockReport().Get();
             Init();
         }
 
@@ -36,7 +39,7 @@ namespace WebMVC.BLL
                 }
                 var surfaceRC = new SurfaceRC { SurfaceRC1 = item.SurfaceRC1, SurfaceRC2 = item.SurfaceRC2, SurfaceRC3 = item.SurfaceRC3 };
                 var functionRC = new FunctionRC { FunctionRC1 = item.FunctionRC1, FunctionRC2 = item.FunctionRC2, FunctionRC3 = item.FunctionRC3 };
-                var materialRC = new MaterialRC { materialRC1 = item.materialRC1, materialRC2 = item.FunctionRC2, materialRC3 = item.FunctionRC3 };
+                var materialRC = new MaterialRC { materialRC1 = item.MaterialRC1, materialRC2 = item.MaterialRC2, materialRC3 = item.MaterialRC3 };
                 Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
                 switch (brand)
                 {
@@ -46,6 +49,7 @@ namespace WebMVC.BLL
                         investment.N = functionRC;
                         investment.O = materialRC;
                         investment.V = item.brandInput;
+                        investment.NewDevelopmentCost = item.NewDevelopmentCost;
                         break;
                     case Brand.S品牌:
                         investment.K = item.advertise;
@@ -74,10 +78,10 @@ namespace WebMVC.BLL
                     investment.DR = agent.AH;
                     investment.DZ = agent.AP;
                 }
-               
 
-               
-                investment.ItCAL();
+
+
+            
             }
             foreach (var item in investments)
             {
@@ -88,42 +92,91 @@ namespace WebMVC.BLL
                     item.EI.Add(ss, agentInput.bankLoan);
                 }
             }
+            foreach (var item in stockReports)
+            {
+                var index = (int)Enum.Parse(typeof(Stage), item.Stage);
+                var investment = investments.FirstOrDefault(s => s.Stage ==Enum.GetName(typeof (Stage),index+1));
+                if (investment == null)
+                {
+                    continue;
+                }
+                AgentName agentName = (AgentName)Enum.Parse(typeof(AgentName), item.AgentName);
+                switch (agentName)
+                {
+                    case AgentName.代1:
+                        investment.AJ_SummaryAssert = item.Sum.Sum;
+                        break;
+                    case AgentName.代2:
+                        investment.AS_SummaryAssert = item.Sum.Sum;
+                        break;
+                    case AgentName.代3:
+                        investment.BB_SummaryAssert = item.Sum.Sum;
+                        break;
+                    case AgentName.代4:
+                        investment.BK_SummaryAssert = item.Sum.Sum;
+                        break;
+                    case AgentName.代5:
+                        investment.BT_SummaryAssert = item.Sum.Sum;
+                        break;
+                    case AgentName.代6:
+                        investment.CC_SummaryAssert = item.Sum.Sum;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            investments.ForEach(s => s.ItCAL());
         }
 
-        private BrandInput getBrandInput(decimal aj, AgentInput agentInput1)
-        {
-            var brandInput = new BrandInput() { AJ = aj };
-            brandInput.EndImage = Cal.EndImage(brandInput.AJ, agentInput1.InputSum, agentInput1.EndImage);
-            brandInput.Salesperson = Cal.Salesperson(brandInput.AJ, agentInput1.InputSum, agentInput1.Salesperson, brandInput.EndImage);
-            brandInput.servet = Cal.Servet(brandInput.AJ, agentInput1.InputSum, agentInput1.servet, brandInput.EndImage, brandInput.Salesperson);
-            brandInput.HousePromote = Cal.HousePromote(brandInput.AJ, agentInput1.InputSum, agentInput1.HousePromote, brandInput.EndImage, brandInput.Salesperson, brandInput.servet);
-            brandInput.demonstrator = Cal.Demonstrator(brandInput.AJ, agentInput1.InputSum, agentInput1.demonstrator, brandInput.EndImage, brandInput.Salesperson, brandInput.servet, brandInput.HousePromote);
-            brandInput.outdoorActivity = Cal.OutdoorActivity(brandInput.AJ, agentInput1.InputSum, agentInput1.outdoorActivity, brandInput.EndImage, brandInput.Salesperson, brandInput.servet, brandInput.HousePromote, brandInput.demonstrator);
-            brandInput.promotionTeam = Cal.PromotionTeam(brandInput.AJ, agentInput1.InputSum, agentInput1.promotionTeam, brandInput.EndImage, brandInput.Salesperson, brandInput.servet, brandInput.HousePromote, brandInput.demonstrator, brandInput.outdoorActivity);
 
-            return brandInput;
-        }
         public List<InvestmentTable> Get()
         {
             return investments;
         }
     }
+    
     public class InvestmentTable
     {
 
-
+        [DisplayName("阶段")]
         public string Stage { get; set; }
+        [DisplayName("M投入")]
+        public decimal B { get { return J + M.SurfaceRCSum + N.FunctionRCSum + O.materialRCSum + V.InputSum+NewDevelopmentCost; } }
+        private decimal PQRNew
+        {
+            get { return P.SurfaceRCSum + Q.FunctionRCSum + R.materialRCSum  + NewDevelopmentCost; }
+        }
+             
+        [DisplayName("对代1投入")]
+        public decimal C { get { return K + PQRNew + AJ.InputSum; } }
+        [DisplayName("对代2投入")]
+        public decimal D { get { return K + PQRNew + AS.InputSum; } }
+        [DisplayName("对代3投入")]
+        public decimal E { get { return K + PQRNew + BB.InputSum; } }
+        [DisplayName("对代4投入")]
+        public decimal F { get { return K + PQRNew + BK.InputSum; } }
+        [DisplayName("对代5投入")]
+        public decimal G { get { return K + PQRNew + BT.InputSum; } }
+        [DisplayName("对代6投入")]
+        public decimal H { get { return K + PQRNew + CC.InputSum; } }
+        [DisplayName("J投入")]
+        public decimal I { get { return L + S.SurfaceRCSum + T.FunctionRCSum + U.materialRCSum+ NewDevelopmentCost + AC.InputSum; } }
+
         /// <summary>
         /// M品牌广告投入 
         /// </summary>
+        [DisplayName("M品牌广告投入")]
         public decimal J { get; internal set; }
         /// <summary>
         /// S品牌广告投入
         /// </summary>
+        [DisplayName("S品牌广告投入")]
         public decimal K { get; set; }
         /// <summary>
         /// J品牌广告投入
         /// </summary>
+        [DisplayName("J品牌广告投入")]
         public decimal L { get; internal set; }
 
         public SurfaceRC M { get; internal set; } = new SurfaceRC();
@@ -147,12 +200,12 @@ namespace WebMVC.BLL
         /// </summary>
         public BrandInput AC { get; set; } = new BrandInput();
 
-        public BrandInput AJ { get; set; }   = new BrandInput();
-                                           
-        public BrandInput AS { get; set; }   = new BrandInput();
-        public BrandInput BB { get; set; }   = new BrandInput();
-        public BrandInput BK { get; set; }   = new BrandInput();
-        public BrandInput BT { get; set; }   = new BrandInput();
+        public BrandInput AJ { get; set; } = new BrandInput();
+
+        public BrandInput AS { get; set; } = new BrandInput();
+        public BrandInput BB { get; set; } = new BrandInput();
+        public BrandInput BK { get; set; } = new BrandInput();
+        public BrandInput BT { get; set; } = new BrandInput();
         public BrandInput CC { get; set; } = new BrandInput();
         /// <summary>
         /// 代1
@@ -178,16 +231,23 @@ namespace WebMVC.BLL
         /// 代6
         /// </summary>
         public BrandInput DZ { get; set; } = new BrandInput();
-        public decimal KPQR
+
+
+        private decimal KPQR(decimal d)
         {
-            get
-            {
-                var r = 2000 - K - P.SurfaceRC1 - Q.FunctionRC1 - R.materialRC1;
-                return r < 0 ? 0 : r;
-            }
+
+
+            decimal r;
+            if (Stage == Common.Stage.第一阶段.ToString()) d = 2000;
+            else d *= 0.2m;
+            r = d - K - P.SurfaceRC1 - Q.FunctionRC1 - R.materialRC1;
+
+            return r < 0 ? 0 : r;
+
         }
         private BrandInput getBrandInput(decimal aj, BrandInput agentInput1)
         {
+            aj = KPQR(aj);
             var brandInput = new BrandInput() { AJ = aj };
             brandInput.EndImage = Cal.EndImage(brandInput.AJ, agentInput1.InputSum, agentInput1.EndImage);
             brandInput.Salesperson = Cal.Salesperson(brandInput.AJ, agentInput1.InputSum, agentInput1.Salesperson, brandInput.EndImage);
@@ -201,26 +261,35 @@ namespace WebMVC.BLL
         }
         public void ItCAL()
         {
+           
+            AJ = getBrandInput(AJ_SummaryAssert, CL);
 
-            AJ = getBrandInput(KPQR, CL);
+            AS = getBrandInput(AS_SummaryAssert, CT);
 
-            AS = getBrandInput(KPQR, CT);
+            BB = getBrandInput(BB_SummaryAssert, DB);
 
-            BB = getBrandInput(KPQR, DB);
+            BK = getBrandInput(BK_SummaryAssert, DJ);
 
-            BK = getBrandInput(KPQR, DJ);
+            BT = getBrandInput(BT_SummaryAssert, DR);
 
-            BT = getBrandInput(KPQR, DR);
-
-            CC = getBrandInput(KPQR, DZ);
+            CC = getBrandInput(CC_SummaryAssert, DZ);
 
 
         }
+        public decimal AJ_SummaryAssert { get; set; }
+        public decimal AS_SummaryAssert { get; set; }
+        public decimal BB_SummaryAssert { get; set; }
+        public decimal BK_SummaryAssert { get; set; }
+        public decimal BT_SummaryAssert { get; set; }
+        public decimal CC_SummaryAssert { get; set; }
         /// <summary>
         /// 银行贷款
         /// </summary>
         public Dictionary<int, decimal> EI { get; set; } = new Dictionary<int, decimal>();
-
+        /// <summary>
+        /// 新品开发费用
+        /// </summary>
+        public decimal NewDevelopmentCost { get; set; }
     }
     public class SurfaceRC
     {

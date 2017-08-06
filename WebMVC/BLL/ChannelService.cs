@@ -14,11 +14,12 @@ namespace WebMVC.BLL
     public class ChannelService
     {
         List<ChannelServiceTable> channelServices = new List<ChannelServiceTable>();
-        List<InvestmentTable> investments;
-
+        List<BrandTable> brands;
+        List<AgentTable> agents;
         public ChannelService()
         {
-            investments = new Investment().Get();
+            brands = new InvertmentTable1().getBrandsInputs();
+              agents = new InvertmentTable1().getAgents();
             Init();
         }
         private void Init()
@@ -30,22 +31,34 @@ namespace WebMVC.BLL
             };
             
             channelServices.Add(channl0);
-            foreach (var item in investments)
+
+            foreach (var item in brands)
             {
                 var channel = channelServices.FirstOrDefault(s => s.Stage == item.Stage);
                 if (channel == null)
                 {
                     channel = new ChannelServiceTable { Stage = item.Stage };
+                    channelServices.Add(channel);
                 }
-                channel.B.M = item.V.servet;
-                channel.B.J = item.AC.servet;
-                channel.B.Agent1 = item.CL.servet;
-                channel.B.Agent2 = item.CT.servet;
-                channel.B.Agent3 = item.DB.servet;
-                channel.B.Agent4 = item.DJ.servet;
-                channel.B.Agent5 = item.DR.servet;
-                channel.B.Agent6 = item.DZ.servet;
-                channelServices.Add(channel);
+                if (item.Brand == Brand.M品牌.ToString()) { channel.B.M = item.servet; }
+                else if (item.Brand == Brand.J品牌.ToString()) { channel.B.J = item.servet; }
+              }
+            foreach (var itemAgent in agents)
+            {
+                var channel = channelServices.FirstOrDefault(s => s.Stage == itemAgent.Stage);
+                if (channel == null)
+                {
+                    channel = new ChannelServiceTable { Stage = itemAgent.Stage };
+                    channelServices.Add(channel);
+
+                }
+
+                channel.B.Agent1 = itemAgent.B.servet;
+                channel.B.Agent2 = itemAgent.J.servet;
+                channel.B.Agent3 = itemAgent.R.servet;
+                channel.B.Agent4 = itemAgent.Z.servet;
+                channel.B.Agent5 = itemAgent.AH.servet;
+                channel.B.Agent6 = itemAgent.AP.servet;
             }
             #endregion
             foreach (var item in channelServices)

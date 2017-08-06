@@ -112,44 +112,7 @@ namespace WebMVC.Models
                      + this.outdoorActivity + this.promotionTeam + this.servet;
             }
         }
-        public decimal GetRC(int index, RCType type)
-        {
-            decimal result = 0;
-
-            if (type == RCType.retailPriceRC)
-            {
-                switch (index)
-                {
-                    case 1:
-                        result = this.retailPriceRC1;
-                        break;
-                    case 2:
-                        result = this.retailPriceRC2;
-                        break;
-                    case 3:
-                        result = this.retailPriceRC3;
-                        break;
-                }
-
-            }
-            else
-            {
-                switch (index)
-                {
-                    case 1:
-                        result = this.SystemPriceRC1;
-                        break;
-                    case 2:
-                        result = this.SystemPriceRC2;
-                        break;
-                    case 3:
-                        result = this.SystemPriceRC3;
-                        break;
-                }
-
-            }
-            return result;
-        }
+       
         public BrandInput brandInput
         {
             get

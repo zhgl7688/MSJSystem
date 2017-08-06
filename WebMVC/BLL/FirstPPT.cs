@@ -192,7 +192,7 @@ namespace WebMVC.BLL
                     代理方 = item.AgentName,
 
                 };
-                var invoicing = invoicingReport.Get().FirstOrDefault(s => s.Brand == sAgentResult.代理方);
+                var invoicing = invoicingReport.Get().FirstOrDefault(s => s.AgentName == sAgentResult.代理方);
                 sAgentResult.期初 = invoicing.D;
                 sAgentResult.期末 = invoicing.I;
                 sAgentResult.销售量 = invoicing.G;

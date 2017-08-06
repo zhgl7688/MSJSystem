@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebMVC.BLL;
-
+using System.Linq;
 
 namespace MSJTest.BLL
 {
@@ -69,8 +69,10 @@ namespace MSJTest.BLL
             // TODO:  在此处添加测试逻辑
             //
           var result=  brandStrength.Get();
-            Assert.AreEqual(2, result.Count);
+            var r2 = result.FirstOrDefault(s => s.ID == 2);
+            Assert.AreEqual(38,decimal.Round( r2.E,0));
             Assert.AreEqual(600, result[1].I);
+            Assert.AreEqual(0.454m,decimal.Round( result[3].L,3));
         }
     }
 }

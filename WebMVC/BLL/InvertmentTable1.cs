@@ -53,7 +53,7 @@ namespace WebMVC.BLL
                 actualSale = 30,
                 Inventory = 1,
                 FirstPurchase = 29,
-               
+
 
             });
             agentInputs.Add(new AgentInput
@@ -94,9 +94,190 @@ namespace WebMVC.BLL
                 FirstPurchase = 26
 
             });
+            agentInputs.Add(new AgentInput
+            {
+                Stage = Common.Stage.第二阶段.ToString(),
+                EndImage = 400,
+                Salesperson = 450,
+                HousePromote = 280,
+                demonstrator = 115,
+                outdoorActivity = 115,
+                promotionTeam = 70,
+                servet = 50,
+                retailPriceRC1 = 699,
+                SystemPriceRC1 = 587.16m,
+                retailPriceRC2 = 845,
+                SystemPriceRC2 = 709.8m,
+                AgentName = AgentName.代1.ToString(),
+
+                FirstPurchase = 10,
+                SecondPurchase = 18
+
+            });
+            agentInputs.Add(new AgentInput
+            {
+                Stage = Common.Stage.第三阶段.ToString(),
+                EndImage = 800,
+                Salesperson = 1400,
+                HousePromote = 800,
+                demonstrator = 200,
+                outdoorActivity = 120,
+                promotionTeam = 80,
+                servet = 200,
+                retailPriceRC1 = 599,
+                SystemPriceRC1 = 503.16m,
+                retailPriceRC2 = 799,
+                SystemPriceRC2 = 671.16m,
+                retailPriceRC3 = 999,
+                SystemPriceRC3 = 839.16m,
+                AgentName = AgentName.代1.ToString(),
+
+                FirstPurchase = 20,
+                SecondPurchase = 20,
+                ThirdPurchase = 11
+            });
+            agentInputs.Add(new AgentInput
+            {
+                Stage = Common.Stage.第二阶段.ToString(),
+                EndImage = 300,
+                Salesperson = 430,
+                HousePromote = 400,
+                demonstrator = 240,
+                outdoorActivity = 130,
+                promotionTeam = 50,
+                servet = 50,
+                bankLoan = 7000,
+                retailPriceRC1 = 699,
+                SystemPriceRC1 = 622,
+                retailPriceRC2 = 845,
+                SystemPriceRC2 = 752,
+                AgentName = AgentName.代2.ToString(),
+
+                FirstPurchase = 32,
+                SecondPurchase = 25
+
+            });
+
+            agentInputs.Add(new AgentInput
+            {
+                Stage = Common.Stage.第三阶段.ToString(),
+                EndImage = 500,
+                Salesperson = 900,
+                HousePromote = 860,
+                demonstrator = 540,
+                outdoorActivity = 400,
+                promotionTeam = 200,
+                servet = 200,
+                bankLoan = 10000,
+                retailPriceRC1 = 599,
+                SystemPriceRC1 = 533,
+                retailPriceRC2 = 799,
+                SystemPriceRC2 = 712,
+                retailPriceRC3 = 999,
+                SystemPriceRC3 = 890,
+                AgentName = AgentName.代2.ToString(),
+
+                FirstPurchase = 35,
+                SecondPurchase = 30,
+                ThirdPurchase = 22
+            });
+            //代3第2
+            agentInputs.Add(new AgentInput
+            {
+                Stage = Common.Stage.第二阶段.ToString(),
+                EndImage = 450,
+                Salesperson = 450,
+                HousePromote = 360,
+                demonstrator = 270,
+                outdoorActivity = 180,
+                promotionTeam = 90,
+                servet = 200,
+
+                retailPriceRC1 = 699,
+                SystemPriceRC1 = 622.11m,
+                retailPriceRC2 = 999,
+                SystemPriceRC2 = 889.11m,
+                AgentName = AgentName.代3.ToString(),
+
+                FirstPurchase = 25,
+                SecondPurchase = 15
+
+            });
+            //代3第3
+            agentInputs.Add(new AgentInput
+            {
+                Stage = Common.Stage.第三阶段.ToString(),
+                EndImage = 900,
+                Salesperson = 900,
+                HousePromote = 720,
+                demonstrator = 540,
+                outdoorActivity = 360,
+                promotionTeam = 180,
+                servet = 100,
+                bankLoan = 11296,
+                retailPriceRC1 = 599,
+                SystemPriceRC1 = 533.11m,
+                retailPriceRC2 = 799,
+                SystemPriceRC2 = 711.11m,
+                retailPriceRC3 = 999,
+                SystemPriceRC3 = 889.11m,
+                AgentName = AgentName.代3.ToString(),
+
+                FirstPurchase = 45,
+                SecondPurchase = 25,
+                ThirdPurchase = 15
+            });
+            //代4第2
+            agentInputs.Add(new AgentInput
+            {
+                Stage = Common.Stage.第二阶段.ToString(),
+                EndImage = 462,
+                Salesperson = 392,
+                HousePromote = 182,
+                demonstrator = 210,
+                outdoorActivity = 84,
+                promotionTeam = 70,
+
+
+                retailPriceRC1 = 699,
+                SystemPriceRC1 = 545,
+                retailPriceRC2 = 1099,
+                SystemPriceRC2 = 857,
+                AgentName = AgentName.代4.ToString(),
+
+                FirstPurchase = 10,
+                SecondPurchase = 6
+
+            });
+            //代4第3
+            agentInputs.Add(new AgentInput
+            {
+                Stage = Common.Stage.第三阶段.ToString(),
+                EndImage = 800,
+                Salesperson = 950,
+                HousePromote = 770,
+                demonstrator = 468,
+                outdoorActivity = 360,
+                promotionTeam = 144,
+                servet = 108,
+
+                retailPriceRC1 = 599,
+                SystemPriceRC1 = 468,
+                retailPriceRC2 = 799,
+                SystemPriceRC2 = 623,
+                retailPriceRC3 = 1099,
+                SystemPriceRC3 = 857,
+                AgentName = AgentName.代4.ToString(),
+
+                FirstPurchase = 5,
+                SecondPurchase = 25,
+                ThirdPurchase = 15
+            });
+
             #endregion
 
             #region 品牌设定
+            //第1S
             brands.Add(new BrandTable
             {
                 Stage = Common.Stage.第一阶段.ToString(),
@@ -104,44 +285,47 @@ namespace WebMVC.BLL
                 advertise = 600,
                 SurfaceRC1 = 120,
                 FunctionRC1 = 200,
-                materialRC1 = 100,
+                MaterialRC1 = 100,
 
                 retailPrice = 799
             });
-            //brands.Add(new BrandTable
-            //{
-            //    Stage = Common.Stage.第二阶段.ToString(),
-            //    Brand = Brand.S品牌.ToString(),
-            //    advertise = 300,
-            //    SurfaceRC2 = 100,
-            //    FunctionRC2 = 200,
-            //    MaterialRC2 = 100,
-            //    NewDevelopmentCost = 100,
-            //    retailPrice = 699,
-            //    NewCostPrice = 315,
-            //    NewFactoryPrice = 450,
-            //    NewRetailPriceR2 = 845
-            //});
-            //brands.Add(new BrandTable
-            //{
-            //    Stage = Common.Stage.第三阶段.ToString(),
-            //    Brand = Brand.S品牌.ToString(),
-            //    advertise = 600,
-            //    SurfaceRC1=50,
-            //    SurfaceRC3 = 100,
-            //    FunctionRC2 = 100,
-            //    FunctionRC3=200,
-            //    MaterialRC2 = 100,
-            //    MaterialRC3=50,
-              
-            //    retailPrice = 599,
-            //    NewRetailPriceR2 = 799,
-            //    NewCostPrice = 320,
-            //    NewFactoryPrice = 490,
-            //    NewRetailPriceR3=999,
-     
-                
-            //});
+            //第2S
+            brands.Add(new BrandTable
+            {
+                Stage = Common.Stage.第二阶段.ToString(),
+                Brand = Brand.S品牌.ToString(),
+                advertise = 300,
+                SurfaceRC2 = 100,
+                FunctionRC2 = 200,
+                MaterialRC2 = 100,
+                NewDevelopmentCost = 100,
+                retailPrice = 699,
+                NewCostPrice = 315,
+                NewFactoryPrice = 450,
+                NewRetailPriceR2 = 845
+            });
+            //第3S
+            brands.Add(new BrandTable
+            {
+                Stage = Common.Stage.第三阶段.ToString(),
+                Brand = Brand.S品牌.ToString(),
+                advertise = 600,
+                SurfaceRC1 = 50,
+                SurfaceRC3 = 100,
+                FunctionRC2 = 100,
+                FunctionRC3 = 200,
+                MaterialRC2 = 100,
+                MaterialRC3 = 50,
+
+                retailPrice = 599,
+                NewRetailPriceR2 = 799,
+                NewCostPrice = 320,
+                NewFactoryPrice = 490,
+                NewRetailPriceR3 = 999,
+
+
+            });
+            //第1M
             brands.Add(new BrandTable
             {
                 Stage = Common.Stage.第一阶段.ToString(),
@@ -149,7 +333,7 @@ namespace WebMVC.BLL
                 advertise = 640,
                 SurfaceRC1 = 48,
                 FunctionRC1 = 80,
-                materialRC1 = 32,
+                MaterialRC1 = 32,
                 EndImage = 240,
                 Salesperson = 240,
                 HousePromote = 192,
@@ -161,6 +345,63 @@ namespace WebMVC.BLL
                 SystemPrice = 630
 
             });
+            //第2M
+            brands.Add(new BrandTable
+            {
+                Stage = Common.Stage.第二阶段.ToString(),
+                Brand = Brand.M品牌.ToString(),
+                advertise = 553,
+                SurfaceRC2 = 71,
+                FunctionRC2 = 118,
+                MaterialRC2 = 47,
+                EndImage = 369,
+                Salesperson = 369,
+                HousePromote = 295,
+                demonstrator = 221,
+                outdoorActivity = 147,
+                promotionTeam = 73,
+                servet = 369,
+                NewDevelopmentCost = 660,
+
+                retailPrice = 759,
+                SystemPrice = 609,
+                NewCostPrice = 350,
+                NewFactoryPrice = 507,
+                NewRetailPriceR2 = 949,
+                NewSystemPriceR2 = 725
+            });
+            //第3M
+            brands.Add(new BrandTable
+            {
+                Stage = Common.Stage.第三阶段.ToString(),
+                Brand = Brand.M品牌.ToString(),
+                advertise = 722,
+                SurfaceRC3 = 324,
+                FunctionRC1=100,
+                FunctionRC3 = 541,
+                MaterialRC1=200,
+                MaterialRC2=200,
+                MaterialRC3 = 216,
+                EndImage = 768,
+                Salesperson = 768,
+                HousePromote = 614,
+                demonstrator = 460,
+                outdoorActivity = 307,
+                promotionTeam = 153,
+                servet = 768,
+                NewDevelopmentCost = 1444,
+
+                retailPrice = 659,
+                SystemPrice = 516,
+                NewCostPrice = 869,
+                NewFactoryPrice = 680,
+                
+                NewRetailPriceR2 = 355,
+                NewSystemPriceR2 = 514,
+                NewRetailPriceR3=999,
+                NewSystemPriceR3=775
+            });
+            //第1J
             brands.Add(new BrandTable
             {
                 Stage = Common.Stage.第一阶段.ToString(),
@@ -168,7 +409,7 @@ namespace WebMVC.BLL
                 advertise = 200,
                 SurfaceRC1 = 180,
                 FunctionRC1 = 300,
-                materialRC1 = 120,
+                MaterialRC1 = 120,
                 EndImage = 250,
                 Salesperson = 250,
                 HousePromote = 200,
@@ -180,30 +421,56 @@ namespace WebMVC.BLL
                 retailPrice = 699,
                 SystemPrice = 538
             });
-            //brands.Add(new BrandTable
-            //{
-            //    Stage = Common.Stage.第二阶段.ToString(),
-            //    Brand = Brand.M品牌.ToString(),
-            //    advertise = 553,
-            //    SurfaceRC2 =71 ,
-            //    FunctionRC2 = 118,
-            //    materialRC2 = 47,
-            //    EndImage = 369,
-            //    Salesperson = 369,
-            //    HousePromote =295,
-            //    demonstrator = 221,
-            //    outdoorActivity = 147,
-            //    promotionTeam = 73,
-            //    servet = 369,
-            //   NewDevelopmentCost= 660,
+            //第2J
+            brands.Add(new BrandTable
+            {
+                Stage = Common.Stage.第二阶段.ToString(),
+                Brand = Brand.J品牌.ToString(),
+                advertise = 600,
+                SurfaceRC2 = 156,
+                FunctionRC2 = 520,
+                MaterialRC2 = 104,
+                EndImage = 235,
+                Salesperson = 235,
+                HousePromote = 188,
+                demonstrator = 141,
+                outdoorActivity = 94,
+                promotionTeam = 47,
+                servet = 280,
 
-            //    retailPrice = 759,
-            //    SystemPrice = 609,
-            //     NewCostPrice=350,
-            //      NewFactoryPrice=507,
-            //     NewRetailPriceR2=949,
-            //      NewSystemPriceR2=725
-            //});
+                retailPrice = 599,
+                SystemPrice = 461.23m,
+                 NewCostPrice=382,
+                 NewFactoryPrice=545,
+                 NewRetailPriceR2=999,
+                 NewSystemPriceR2=769
+            });
+            //第3J
+            brands.Add(new BrandTable
+            {
+                Stage = Common.Stage.第三阶段.ToString(),
+                Brand = Brand.J品牌.ToString(),
+                
+                SurfaceRC3 = 348,
+                FunctionRC3 = 580,
+                MaterialRC3 = 232,
+                EndImage = 625,
+                Salesperson = 625,
+                HousePromote = 500,
+                demonstrator = 375,
+                outdoorActivity = 250,
+                promotionTeam = 125,
+                servet = 500,
+
+                retailPrice = 759,
+                SystemPrice = 609,
+                NewCostPrice = 999,
+                NewFactoryPrice = 769,
+                NewRetailPriceR2 = 269,
+                NewSystemPriceR2 = 359,
+                NewRetailPriceR3=599,
+                NewSystemPriceR3=461
+            });
             #endregion
         }
         public List<AgentInput> getAgentInputs()
@@ -284,7 +551,7 @@ namespace WebMVC.BLL
         {
             get
             {
-                return this.materialRC1 + this.MaterialRC2 + this.MaterialRC3;
+                return this.MaterialRC1 + this.MaterialRC2 + this.MaterialRC3;
             }
         }
         public decimal InputSum

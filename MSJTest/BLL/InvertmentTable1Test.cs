@@ -14,7 +14,7 @@ namespace MSJTest.BLL
         public void TestgetBrandsInputs()
         {
             var ss = invertmentTable1.getBrandsInputs();
-            Assert.AreEqual(3, ss.Count);
+           // Assert.AreEqual(3, ss.Count);
             Assert.AreEqual(2000, ss.FirstOrDefault(s => s.Brand ==WebMVC.Common.Brand.M品牌.ToString()).Sum);
             Assert.AreEqual(1020, ss.FirstOrDefault(s => s.Brand == WebMVC.Common.Brand.S品牌.ToString()).Sum);
             Assert.AreEqual(2000, ss.FirstOrDefault(s => s.Brand == WebMVC.Common.Brand.J品牌.ToString()).Sum);

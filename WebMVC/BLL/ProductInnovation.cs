@@ -11,29 +11,30 @@ namespace WebMVC.BLL
     {
         List<ProductInnvoationTable> productInnvoations = new List<ProductInnvoationTable>();
         List<BrandStrengthTable> brandStrengths;
-        List<InvestmentTable> investments;
+        List<BrandTable> investments;
         /// <summary>
         ///  厂家主导的产品创新力
         /// </summary>
         public ProductInnovation()
         {
             brandStrengths = new BrandStrength().Get();
-            investments = new Investment().Get();
+            investments = new InvertmentTable1().getBrandsInputs();
             Init();
         }
-        private void Init()
-        {
-            #region 起始阶段
-            var brandStrength0 = brandStrengths.FirstOrDefault(s => s.Stage == Stage.起始阶段.ToString());
-            var initRC = new RC
+        RC initRC = new RC
             {
                 M = 0.35m,
                 S = 0.45m,
                 J = 0.20m,
             };
+        private void Init()
+        {
+            #region 起始阶段
+            var brandStrength0 = brandStrengths.FirstOrDefault(s => s.Stage == Stage.起始阶段.ToString());
+           
             ProductInnvoationTable initT = new ProductInnvoationTable()
             {
-                Stage = brandStrength0.Stage,
+                Stage = brandStrength0.Stage,ID=(int)Stage.起始阶段
             };
             initT.K.RC1 = initRC;
 
@@ -52,45 +53,86 @@ namespace WebMVC.BLL
             initT.PTCal();
             productInnvoations.Add(initT);
             #endregion
-
-            var brandStrength1 = brandStrengths.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
-            var investment1 = investments.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
-            if (investment1 != null && brandStrength1 != null)
+            foreach (var item in investments)
             {
-                var T1 = productInnvoations.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
-
-                if (T1 == null)
+   
+                var productInnvoation = productInnvoations.FirstOrDefault(s => s.Stage == item.Stage);
+                if (productInnvoation == null)
                 {
 
-                    T1 = new ProductInnvoationTable()
+                    productInnvoation = new ProductInnvoationTable()
                     {
-                        Stage = brandStrength1.Stage,
+                        Stage = item.Stage,ID=(int)Enum.Parse(typeof(Stage),item.Stage)
                     };
-                    productInnvoations.Add(T1);
+                    productInnvoations.Add(productInnvoation);
                 }
-                T1.K.RC1.M = initT.InnovationIndexR1M;
-                T1.K.RC1.S = initT.InnovationIndexR1S;
-                T1.K.RC1.J = initT.InnovationIndexR1J;
-                T1.T.RC1.M = investment1.M.SurfaceRC1;
-                T1.T.RC1.S = investment1.P.SurfaceRC1;
-                T1.T.RC1.J = investment1.S.SurfaceRC1;
+                Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
+                switch (brand)
+                {
+                    case Brand.M品牌:
+                        productInnvoation.T.RC1.M = item.SurfaceRC1;
+                        productInnvoation.AC.RC1.M = item.FunctionRC1;
+                        productInnvoation.AL.RC1.M = item.MaterialRC1;
+                        productInnvoation.T.RC2.M = item.SurfaceRC2;
+                        productInnvoation.AC.RC2.M = item.FunctionRC2;
+                        productInnvoation.AL.RC2.M = item.MaterialRC2;
+                        productInnvoation.T.RC3.M = item.SurfaceRC3;
+                        productInnvoation.AC.RC3.M = item.FunctionRC3;
+                        productInnvoation.AL.RC3.M = item.MaterialRC3;
+                        break;
+                    case Brand.S品牌:
+                        productInnvoation.T.RC1.S = item.SurfaceRC1;
+                        productInnvoation.AC.RC1.S = item.FunctionRC1;
+                        productInnvoation.AL.RC1.S= item.MaterialRC1;
+                        productInnvoation.T.RC2.S = item.SurfaceRC2;
+                        productInnvoation.AC.RC2.S = item.FunctionRC2;
+                        productInnvoation.AL.RC2.S = item.MaterialRC2;
+                        productInnvoation.T.RC3.S = item.SurfaceRC3;
+                        productInnvoation.AC.RC3.S = item.FunctionRC3;
+                        productInnvoation.AL.RC3.S = item.MaterialRC3;
+                        break;
+                    case Brand.J品牌:
+                        productInnvoation.T.RC1.J = item.SurfaceRC1;
+                        productInnvoation.AC.RC1.J = item.FunctionRC1;
+                        productInnvoation.AL.RC1.J = item.MaterialRC1;
+                        productInnvoation.T.RC2.J = item.SurfaceRC2;
+                        productInnvoation.AC.RC2.J = item.FunctionRC2;
+                        productInnvoation.AL.RC2.J = item.MaterialRC2;
+                        productInnvoation.T.RC3.J = item.SurfaceRC3;
+                        productInnvoation.AC.RC3.J = item.FunctionRC3;
+                        productInnvoation.AL.RC3.J = item.MaterialRC3;
 
-                T1.AC.RC1.M = investment1.N.FunctionRC1;
-                T1.AC.RC1.S = investment1.Q.FunctionRC1;
-                T1.AC.RC1.J = investment1.T.FunctionRC1;
-
-                T1.AL.RC1.M = investment1.O.materialRC1;
-                T1.AL.RC1.S = investment1.R.materialRC1;
-                T1.AL.RC1.J = investment1.U.materialRC1;
-
-                T1.PTCal();
-
-
+                        break;
+                    default:
+                        break;
+                }
             }
+            SetInvovation(productInnvoations, productInnvoations.OrderByDescending(s => s.ID).Take(1).ToList()[0]);
 
+        }
+        private void SetInvovation(List<ProductInnvoationTable> products, ProductInnvoationTable product)
+        {
+            Stage stage = (Stage)Enum.Parse(typeof(Stage), product.Stage);
+            if (stage == Stage.起始阶段) return;
+            int index = (int)Enum.Parse(typeof(Stage), product.Stage);
+            var last = products.FirstOrDefault(j => j.Stage == Enum.GetName(typeof(Stage), index - 1));
+            SetInvovation(products, last);
+            product.K.RC1.M = last.InnovationIndexR1M;
+            product.K.RC1.S = last.InnovationIndexR1S;
+            product.K.RC1.J = last.InnovationIndexR1J;
 
-
-
+            if (stage == (Stage.第二阶段 | Stage.第三阶段))
+            {
+                product.K.RC2 = initRC; 
+            }
+            if (stage == Stage.第三阶段)
+            {
+                product.K.RC2.M = last.InnovationIndexR2M;
+                product.K.RC2.S = last.InnovationIndexR2S;
+                product.K.RC2.J = last.InnovationIndexR2J;
+                product.K.RC3 = initRC;
+            }
+            product.PTCal();
         }
         public List<ProductInnvoationTable> Get()
         {
@@ -99,6 +141,8 @@ namespace WebMVC.BLL
     }
     public class ProductInnvoationTable
     {
+        public int ID { get; set; }
+
         public void PTCal()
         {
 

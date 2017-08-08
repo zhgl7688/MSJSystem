@@ -11,11 +11,11 @@ namespace WebMVC.BLL
     /// </summary>
     public class SummaryAssent
     {
-        
-      
-     
-   
-    
+
+
+
+
+
         List<SummaryTable> summarys = new List<SummaryTable>();
         List<StockReportTable> stockReports;//=进货报表!F3
         List<InvoicingTable> invocicings;  // =进销存报表!E4*
@@ -55,13 +55,31 @@ namespace WebMVC.BLL
 
             #endregion
             var currentShare1 = currentShares.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
-            var currentShare2= currentShares.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
+            var currentShare2 = currentShares.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
             var currentShare3 = currentShares.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
-
+            var investment1 = investments.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
+            var investment2 = investments.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
+            var investment3 = investments.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
             var market1 = markets.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
             var market2 = markets.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
             var market3 = markets.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
+            // AVERAGE(市场容量及各品牌当年占有率!CB5:CE5)
+            var cb5_ce5 = (currentShare1.CB[1].J1 + currentShare1.CB[1].J2 + currentShare1.CB[1].J3 + currentShare1.CB[1].J4) / 4m;
+            // AVERAGE(市场容量及各品牌当年占有率!CB6:CE6)
+            var cb6_ce6 = (currentShare2.CB[1].J1 + currentShare2.CB[1].J2 + currentShare2.CB[1].J3 + currentShare2.CB[1].J4) / 4m;
+            //AVERAGE(市场容量及各品牌当年占有率!CH6:CK6
+            var ch6_ck6 = (currentShare2.CB[2].J1 + currentShare2.CB[2].J2 + currentShare2.CB[2].J3 + currentShare2.CB[2].J4) / 4m;
+            //AVERAGE(市场容量及各品牌当年占有率!BJ5:BM5)
+            var bj5_bm5 = (currentShare1.BJ[1].M1 + currentShare1.BJ[1].M2 + currentShare1.BJ[1].M3 + currentShare1.BJ[1].M4) / 4m;
 
+            //AVERAGE(市场容量及各品牌当年占有率!BJ6:BM6)
+            var bj6_bm6 = (currentShare2.BJ[1].M1 + currentShare2.BJ[1].M2 + currentShare2.BJ[1].M3 + currentShare2.BJ[1].M4) / 4m;
+            //AVERAGE(市场容量及各品牌当年占有率!BP6:BS6
+            var bp6_bs6 = (currentShare2.BJ[2].M1 + currentShare2.BJ[2].M2 + currentShare2.BJ[2].M3 + currentShare2.BJ[2].M4) / 4m;
+            var de5 = market1.DE[1].M;//市场价格!DF6
+            var df5 = market1.DE[1].J;//市场价格!DH6
+            var df6 = market2.DE[1].J;//市场价格!DF6
+            var dh6 = market2.DE[2].J;//市场价格!DH6
 
             foreach (var item in invocicings)
             {
@@ -76,7 +94,10 @@ namespace WebMVC.BLL
                         summaryAssent5.C = item.E * market1.CD[1].S;
                         summaryAssent5.J = item.G * market1.CM[1].S;
                         summaryAssent5.Q = item.B * market2.CD[1].S + item.D * market2.CD[2].S;
-                        summaryAssent5.X =item.O* market2.CM[1].S+item.Q* market2.CD[2].S;
+                        summaryAssent5.X = item.O * market2.CM[1].S + item.Q * market2.CD[2].S;
+                        summaryAssent5.AE = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
+                        summaryAssent5.AL = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
+                        summaryAssent7.J = item.G * market1.DK[1].Agent1 * 0.05m + item.G * market1.EF[1].Agent1 * 0.06m + 300;
                         break;
                     case AgentName.代2:
                         summaryAssent1.K = item.D;
@@ -87,16 +108,22 @@ namespace WebMVC.BLL
                         summaryAssent5.K = item.G * market1.CM[1].S;
                         summaryAssent5.R = item.B * market2.CD[1].S + item.D * market2.CD[2].S;
                         summaryAssent5.Y = item.O * market2.CM[1].S + item.Q * market2.CD[2].S;
+                        summaryAssent5.AF = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
+                        summaryAssent5.AM = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
+                        summaryAssent7.K = item.G * market1.DK[1].Agent2 * 0.05m + item.G * market1.EF[1].Agent2 * 0.06m + 300;
                         break;
                     case AgentName.代3:
                         summaryAssent1.L = item.D;
-                        summaryAssent4.L= item.G * market1.EF[1].Agent3;
-                        summaryAssent4.Z= item.O * market2.EF[1].Agent3 + item.Q * market2.EF[2].Agent3;
+                        summaryAssent4.L = item.G * market1.EF[1].Agent3;
+                        summaryAssent4.Z = item.O * market2.EF[1].Agent3 + item.Q * market2.EF[2].Agent3;
                         summaryAssent4.AN = item.AC * market3.EF[1].Agent3 + item.AE * market3.EF[2].Agent3 + item.AG * market3.EF[3].Agent3;
                         summaryAssent5.E = item.E * market1.CD[1].S;
                         summaryAssent5.L = item.G * market1.CM[1].S;
                         summaryAssent5.S = item.B * market2.CD[1].S + item.D * market2.CD[2].S;
                         summaryAssent5.Z = item.O * market2.CM[1].S + item.Q * market2.CD[2].S;
+                        summaryAssent5.AG = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
+                        summaryAssent5.AN = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
+                        summaryAssent7.L = item.G * market1.DK[1].Agent3 * 0.05m + item.G * market1.EF[1].Agent3 * 0.06m + 300;
                         break;
                     case AgentName.代4:
                         summaryAssent1.M = item.D;
@@ -107,16 +134,22 @@ namespace WebMVC.BLL
                         summaryAssent5.M = item.G * market1.CM[1].S;
                         summaryAssent5.T = item.B * market2.CD[1].S + item.D * market2.CD[2].S;
                         summaryAssent5.AA = item.O * market2.CM[1].S + item.Q * market2.CD[2].S;
+                        summaryAssent5.AH = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
+                        summaryAssent5.AO = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
+                        summaryAssent7.M = item.G * market1.DK[1].Agent4 * 0.05m + item.G * market1.EF[1].Agent4 * 0.06m + 300;
                         break;
                     case AgentName.代5:
                         summaryAssent1.N = item.D;
-                        summaryAssent4.N= item.G * market1.EF[1].Agent5;
-                        summaryAssent4.AB = item.O * market2.EF[1].Agent5+ item.Q * market2.EF[2].Agent5;
-                        summaryAssent4.AP= item.AC * market3.EF[1].Agent5 + item.AE * market3.EF[2].Agent5 + item.AG * market3.EF[3].Agent5;
+                        summaryAssent4.N = item.G * market1.EF[1].Agent5;
+                        summaryAssent4.AB = item.O * market2.EF[1].Agent5 + item.Q * market2.EF[2].Agent5;
+                        summaryAssent4.AP = item.AC * market3.EF[1].Agent5 + item.AE * market3.EF[2].Agent5 + item.AG * market3.EF[3].Agent5;
                         summaryAssent5.G = item.E * market1.CD[1].S;
                         summaryAssent5.N = item.G * market1.CM[1].S;
                         summaryAssent5.U = item.B * market2.CD[1].S + item.D * market2.CD[2].S;
                         summaryAssent5.AB = item.O * market2.CM[1].S + item.Q * market2.CD[2].S;
+                        summaryAssent5.AI = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
+                        summaryAssent5.AP = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
+                        summaryAssent7.N = item.G * market1.DK[1].Agent5 * 0.05m + item.G * market1.EF[1].Agent5 * 0.06m + 300;
                         break;
                     case AgentName.代6:
                         summaryAssent1.O = item.D;
@@ -127,6 +160,9 @@ namespace WebMVC.BLL
                         summaryAssent5.O = item.G * market1.CM[1].S;
                         summaryAssent5.V = item.B * market2.CD[1].S + item.D * market2.CD[2].S;
                         summaryAssent5.AC = item.O * market2.CM[1].S + item.Q * market2.CD[2].S;
+                        summaryAssent5.AJ = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
+                        summaryAssent5.AQ = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
+                        summaryAssent7.O = item.G * market1.DK[1].Agent6 * 0.05m + item.G * market1.EF[1].Agent6 * 0.06m + 300;
                         break;
                     default:
                         break;
@@ -146,7 +182,7 @@ namespace WebMVC.BLL
             summaryAssent2.M = 1500;
             summaryAssent2.N = 1500;
             summaryAssent2.O = 1500;
-            var investment1 = investments.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
+
             foreach (var item in investment1.EI.Keys)
             {
                 switch (item)
@@ -159,7 +195,7 @@ namespace WebMVC.BLL
                     case 6: summaryAssent3.O = investment1.EI[item]; break;
                 }
             }
-            var investment2 = investments.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
+
             foreach (var item in investment2.EI.Keys)
             {
                 switch (item)
@@ -173,7 +209,7 @@ namespace WebMVC.BLL
 
                 }
             }
-            var investment3 = investments.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
+
             foreach (var item in investment3.EI.Keys)
             {
                 switch (item)
@@ -186,14 +222,14 @@ namespace WebMVC.BLL
                     case 6: summaryAssent3.AQ = investment3.EI[item]; break;
                 }
             }
-           
+
             summaryAssent4.B = (currentShare1.BJ[1].M1 + currentShare1.BJ[1].M2 + currentShare1.BJ[1].M3 + currentShare1.BJ[1].M4) / 4m
                 * market1.DE[1].M / (1 + 0.10m);
             summaryAssent4.I = (currentShare1.CB[1].J1 + currentShare1.CB[1].J2 + currentShare1.CB[1].J3 + currentShare1.CB[1].J4) / 4m
                 * market1.DE[1].J / (1 + 0.12m);
             var summary1 = stockReports.Where(s => s.Stage == Stage.第一阶段.ToString());
             summaryAssent4.P = (currentShare2.BJ[1].M1 + currentShare2.BJ[1].M2 + currentShare2.BJ[1].M3 + currentShare2.BJ[1].M4) / 4m
-                 * market2.DE[1].M / (1 + 0.10m)+
+                 * market2.DE[1].M / (1 + 0.10m) +
                 (currentShare2.BJ[2].M1 + currentShare2.BJ[2].M2 + currentShare2.BJ[2].M3 + currentShare2.BJ[2].M4) / 4m
                  * market2.DE[2].M / (1 + 0.10m);
             summaryAssent4.W = (currentShare2.CB[1].J1 + currentShare2.CB[1].J2 + currentShare2.CB[1].J3 + currentShare2.CB[1].J4) / 4m
@@ -210,7 +246,7 @@ namespace WebMVC.BLL
                 * market3.DE[2].J / (1 + 0.12m) +
                  (currentShare3.CB[3].J1 + currentShare3.CB[3].J2 + currentShare3.CB[3].J3 + currentShare3.CB[3].J4) / 4m
                 * market3.DE[3].J / (1 + 0.12m);
-           
+
             foreach (var item in summary1)
             {
                 AgentName agentName = (AgentName)Enum.Parse(typeof(AgentName), item.AgentName);
@@ -255,17 +291,85 @@ namespace WebMVC.BLL
             }
             summaryAssent5.B = (currentShare1.BJ[1].M1 + currentShare1.BJ[1].M2 + currentShare1.BJ[1].M3 + currentShare1.BJ[1].M4) / 4m
                 * market1.CD[1].M;
-            summaryAssent5.I=(currentShare1.CB[1].J1 + currentShare1.CB[1].J2 + currentShare1.CB[1].J3 + currentShare1.CB[1].J4) / 4m
+            summaryAssent5.I = (currentShare1.CB[1].J1 + currentShare1.CB[1].J2 + currentShare1.CB[1].J3 + currentShare1.CB[1].J4) / 4m
                 * market1.CD[1].J;
             summaryAssent5.P = (currentShare2.BJ[1].M1 + currentShare2.BJ[1].M2 + currentShare2.BJ[1].M3 + currentShare2.BJ[1].M4) / 4m
-                 * market2.CD[1].M  +
+                 * market2.CD[1].M +
                 (currentShare2.BJ[2].M1 + currentShare2.BJ[2].M2 + currentShare2.BJ[2].M3 + currentShare2.BJ[2].M4) / 4m
-                 * market2.CD[2].M ;
-            summaryAssent5.W  = (currentShare2.CB[1].J1 + currentShare2.CB[1].J2 + currentShare2.CB[1].J3 + currentShare2.CB[1].J4) / 4m
+                 * market2.CD[2].M;
+            summaryAssent5.W = (currentShare2.CB[1].J1 + currentShare2.CB[1].J2 + currentShare2.CB[1].J3 + currentShare2.CB[1].J4) / 4m
                  * market2.CD[1].J +
                   (currentShare2.CB[2].J1 + currentShare2.CB[2].J2 + currentShare2.CB[2].J3 + currentShare2.CB[2].J4) / 4m
                  * market2.CD[2].J;
-          
+            summaryAssent5.AD = (currentShare3.BJ[1].M1 + currentShare3.BJ[1].M2 + currentShare3.BJ[1].M3 + currentShare3.BJ[1].M4) / 4m
+                 * market3.CD[1].M +
+                (currentShare3.BJ[2].M1 + currentShare3.BJ[2].M2 + currentShare3.BJ[2].M3 + currentShare3.BJ[2].M4) / 4m
+                 * market3.CD[2].M +
+                (currentShare3.BJ[3].M1 + currentShare3.BJ[3].M2 + currentShare3.BJ[3].M3 + currentShare3.BJ[3].M4) / 4m
+                 * market3.CD[3].M;
+            summaryAssent5.W = (currentShare2.CB[1].J1 + currentShare2.CB[1].J2 + currentShare2.CB[1].J3 + currentShare2.CB[1].J4) / 4m
+               * market2.CD[1].J +
+                (currentShare2.CB[2].J1 + currentShare2.CB[2].J2 + currentShare2.CB[2].J3 + currentShare2.CB[2].J4) / 4m
+               * market2.CD[2].J +
+                (currentShare2.CB[3].J1 + currentShare2.CB[3].J2 + currentShare2.CB[3].J3 + currentShare2.CB[3].J4) / 4m
+               * market2.CD[3].J;
+            #region 期间产生费用
+            summaryAssent6.B = investment1.B;
+            summaryAssent6.C = investment1.C;
+            summaryAssent6.D = investment1.D;
+            summaryAssent6.E = investment1.E;
+            summaryAssent6.F = investment1.F;
+            summaryAssent6.G = investment1.G;
+            summaryAssent6.H = investment1.H;
+            summaryAssent6.I = investment1.I;
+            summaryAssent6.J = investment1.CL.InputSum;
+            summaryAssent6.K = investment1.CT.InputSum;
+            summaryAssent6.L = investment1.DB.InputSum;
+            summaryAssent6.M = investment1.DJ.InputSum;
+            summaryAssent6.N = investment1.DR.InputSum;
+            summaryAssent6.O = investment1.DZ.InputSum;
+            summaryAssent6.P = investment2.B;
+            summaryAssent6.Q = investment2.C;
+            summaryAssent6.R = investment2.D;
+            summaryAssent6.S = investment2.E;
+            summaryAssent6.T = investment2.F;
+            summaryAssent6.U = investment2.G;
+            summaryAssent6.V = investment2.H;
+            summaryAssent6.W = investment2.I;
+            summaryAssent6.X = investment2.CL.InputSum;
+            summaryAssent6.Y = investment2.CT.InputSum;
+            summaryAssent6.Z = investment2.DB.InputSum;
+            summaryAssent6.AA = investment2.DJ.InputSum;
+            summaryAssent6.AB = investment2.DR.InputSum;
+            summaryAssent6.AC = investment2.DZ.InputSum;
+            summaryAssent6.AD = investment3.B;
+            summaryAssent6.AE = investment3.C;
+            summaryAssent6.AF = investment3.D;
+            summaryAssent6.AG = investment3.E;
+            summaryAssent6.AH = investment3.F;
+            summaryAssent6.AI = investment3.G;
+            summaryAssent6.AJ = investment3.H;
+            summaryAssent6.AK = investment3.I;
+            summaryAssent6.AL = investment3.CL.InputSum;
+            summaryAssent6.AM = investment3.CT.InputSum;
+            summaryAssent6.AN = investment3.DB.InputSum;
+            summaryAssent6.AO = investment3.DJ.InputSum;
+            summaryAssent6.AP = investment3.DR.InputSum;
+            summaryAssent6.AQ = investment3.DZ.InputSum;
+
+
+
+            #endregion
+            #region 卖场费用 summaryAssent7
+            summaryAssent7.B = 500 + de5 * bj5_bm5 * 0.05m + de5 / (1 + 0.10m) * bj5_bm5 * 0.05m;
+            summaryAssent7.J = 200 + df5 * cb5_ce5 * 0.04m + df5 / (1 + 0.12m) * cb5_ce5 * 0.07m;
+            summaryAssent7.P = 500 + (market2.DE[1].M * bj6_bm6) * 0.05m + market2.DE[1].M / (1 + 0.10m) * bj6_bm6 * 0.05m
+                + market2.DE[1].M * bp6_bs6 * 0.05m + market2.DE[1].M / (1 + 0.10m) * bp6_bs6 * 0.05m;
+
+            summaryAssent7.W = 200 + (df6 * (cb6_ce6) * 0.04m + df6 / (1 + 0.12m) * cb6_ce6 * 0.07m) +
+                dh6 * ch6_ck6 * 0.04m + dh6 / (1 + 0.12m) * ch6_ck6 * 0.07m;
+
+            #endregion
             #region 最后计算
             #region 期初库存
             summaryAssent1.X = summaryAssent9.J;

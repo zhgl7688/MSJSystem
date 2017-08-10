@@ -103,7 +103,7 @@ namespace WebMVC.BLL
         /// </summary>
         public void BrandProfitadd()
         {
-            var summary = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "销售利润");
+            var summary = summaryAssent.Get().FirstOrDefault(s => s.A == "销售利润");
 
             firstPPt.BrandProfit = new BrandProfit
             {
@@ -177,13 +177,13 @@ namespace WebMVC.BLL
         public void sAgentResultAdd()
         {
             var agentInputs = invertmentTable1.getAgentInputs();
-            var summary20 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "经营中损失的销售");
-            var summary21 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "经营中损失的金额");
-            var summary16 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "销售利润");
-            var summary17 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "应支付银行利息");
-            var summary18 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "库存需按照10%计提跌价损失");
-            var summary19 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "扣除计提跌价损失及银行利息后的利润");
-            var summary15 = summaryAssent.GetSummarys().FirstOrDefault(s => s.科目 == "期末现金余额");
+            var summary20 = summaryAssent.Get().FirstOrDefault(s => s.A == "经营中损失的销售");
+            var summary21 = summaryAssent.Get().FirstOrDefault(s => s.A == "经营中损失的金额");
+            var summary16 = summaryAssent.Get().FirstOrDefault(s => s.A == "销售利润");
+            var summary17 = summaryAssent.Get().FirstOrDefault(s => s.A == "应支付银行利息");
+            var summary18 = summaryAssent.Get().FirstOrDefault(s => s.A == "库存需按照10%计提跌价损失");
+            var summary19 = summaryAssent.Get().FirstOrDefault(s => s.A == "扣除计提跌价损失及银行利息后的利润");
+            var summary15 = summaryAssent.Get().FirstOrDefault(s => s.A == "期末现金余额");
 
             foreach (var item in agentInputs)
             {

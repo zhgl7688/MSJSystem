@@ -42,5 +42,20 @@ namespace WebMVC.Controllers
             var model = new BrandStrength().Get();
             return View(model);
         }
+        public ActionResult SummaryAssent()
+        {
+            var model = new SummaryAssent().Get();
+            return View(model);
+        }
+        public ActionResult InvoicingReport()
+        {
+            var model = new InvoicingReport().Get();
+            return View(model);
+        }
+        public ActionResult StockReport()
+        {
+            var model = new StockReport().Get();
+            return View(model);
+        }
     }
 }

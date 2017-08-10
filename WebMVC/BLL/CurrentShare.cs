@@ -172,7 +172,7 @@ namespace WebMVC.BLL
                 var result = new Dictionary<int, MJA>();
                 if (this.Stage == Common.Stage.起始阶段.ToString())
                 {
-                    result.Add(1, new MJA { Agent1 = D * F * AR[1].Agent1, Agent2 = D * F * Z[1].Agent2, Agent3 = D * F * Z[1].Agent3, Agent4 = D * F * Z[1].Agent4, Agent5 = D * F * Z[1].Agent5, Agent6 = D * F * Z[1].Agent6, });
+                    result.Add(1, new MJA { Agent1 = D * F * AR[1].Agent1, Agent2 = D * F * AR[1].Agent2, Agent3 = D * F * AR[1].Agent3, Agent4 = D * F * AR[1].Agent4, Agent5 = D * F * AR[1].Agent5, Agent6 = D * F * AR[1].Agent6, });
                 }
                 else
                 {

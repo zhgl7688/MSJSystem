@@ -225,6 +225,9 @@
     <Content Include="Views\Home\InvertmentTable1.cshtml" />
     <Content Include="Views\Home\InvertmentTable.cshtml" />
     <Content Include="Views\Home\BrandStrength.cshtml" />
+    <Content Include="Views\Home\SummaryAssent.cshtml" />
+    <Content Include="Views\Home\InvoicingReport.cshtml" />
+    <Content Include="Views\Home\StockReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

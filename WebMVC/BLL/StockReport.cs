@@ -24,7 +24,7 @@ namespace WebMVC.BLL
         }
         public void Init()
         {
-
+            int i = 0;
             foreach (var item in agents)
             {
                 var stock = stockReports.FirstOrDefault(s => s.Stage == item.Stage && s.AgentName == item.AgentName);
@@ -32,6 +32,7 @@ namespace WebMVC.BLL
                 {
                     stock = new StockReportTable
                     {
+                        Id = i++,
                         AgentName = item.AgentName,
                         Stage = item.Stage,
 
@@ -66,6 +67,7 @@ namespace WebMVC.BLL
     }
     public class StockReportTable
     {
+       public int Id { get; set; }
         public string Stage { get; set; }
         public string AgentName { get; set; }
         public decimal B { get; set; }

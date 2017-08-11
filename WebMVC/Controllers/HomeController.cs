@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebMVC.BLL;
+using Newtonsoft.Json;
 
 namespace WebMVC.Controllers
 {
@@ -56,6 +57,11 @@ namespace WebMVC.Controllers
         {
             var model = new StockReport().Get();
             return View(model);
+        }
+        public string StockReportDetails(int id)
+        {
+            var model = new StockReport().Get().FirstOrDefault(s => s.Id == id);
+            return JsonConvert.SerializeObject( model);
         }
     }
 }

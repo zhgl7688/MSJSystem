@@ -153,5 +153,25 @@ namespace WebMVC.Common
             if (b == 0) return b;
             return a / b < 0 ? 0 : a / b;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mja"></param>
+        /// <param name="count">从第一位开始到第几个</param>
+        /// <param name="mjatype">平均的类型：M,J,Agent</param>
+        /// <returns></returns>
+        public static decimal GetMJAAverage(MJA mja, int count, MJAType mjatype)
+        {
+            Func<decimal[], int, decimal> av = (a, b) => (a.Take(count).Sum() / b);
+            switch (mjatype)
+            {
+                case MJAType.M: return av(new decimal[] { mja.M1, mja.M2, mja.M3, mja.M4, mja.M5, mja.M6 }, count);
+                case MJAType.J: return av(new decimal[] { mja.J1, mja.J2, mja.J3, mja.J4, mja.J5, mja.J6 }, count);
+                case MJAType.Agent: return av(new decimal[] { mja.Agent1, mja.Agent2, mja.Agent3, mja.Agent4, mja.Agent5, mja.Agent6 }, count);
+            }
+            return 0;
+        }
+        
+
     }
 }

@@ -17,12 +17,12 @@ namespace WebMVC.BLL
         List<AgentInput> agentInputs;
         List<AgentTable> agents;
         List<StockReportTable> stockReports;
-        public Investment()
+        public Investment(InvertmentTable1 InvertmentTable1, StockReport StockReport)
         {
-            invertMentTable1 = new InvertmentTable1().getBrandsInputs();
-            agentInputs = new InvertmentTable1().getAgentInputs();
-            agents = new InvertmentTable1().getAgents();
-            stockReports = new StockReport().Get();
+            invertMentTable1 =   InvertmentTable1.getBrandTable();
+            agentInputs =   InvertmentTable1.getAgentInputs();
+            agents =   InvertmentTable1.getAgents();
+            stockReports =   StockReport.Get();
             Init();
         }
 

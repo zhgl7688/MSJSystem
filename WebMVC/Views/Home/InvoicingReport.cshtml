@@ -149,7 +149,7 @@
         <th>
             @Html.DisplayNameFor(model => model.F_MarketPrice_CT7)
         </th>
-        <th></th>
+       
     </tr>
 
 @foreach (var item in Model) {
@@ -292,11 +292,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.F_MarketPrice_CT7)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
+        
     </tr>
 }
 

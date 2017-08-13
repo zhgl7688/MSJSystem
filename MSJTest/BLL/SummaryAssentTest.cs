@@ -5,13 +5,13 @@ using WebMVC.BLL;
 namespace MSJTest.BLL
 {
     [TestClass]
-    public class SummaryAssentTest
+    public class SummaryAssentTest:BaseTest
     {
-        SummaryAssent summary = new SummaryAssent();
+
         [TestMethod]
         public void TestMethod1()
         {
-            var result = summary.Get();
+            var result = summaryAssent.Get();
             Assert.AreEqual(18, result.Count);
         }
     }

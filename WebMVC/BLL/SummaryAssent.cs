@@ -19,17 +19,19 @@ namespace WebMVC.BLL
         List<MarketTable> markets;   //市场价格!CE5
         List<InvestmentTable> investments;     //=投资表!B5
         List<CurrentShareTable> currentShares;    //市场容量及各品牌当年占有率
-        public SummaryAssent()
+        public SummaryAssent(StockReport StockReport, InvoicingReport InvoicingReport, MarketPrice MarketPrice,
+           Investment Investment, CurrentShare CurrentShare)
         {
-            stockReports = new StockReport().Get();
-            invocicings = new InvoicingReport().Get();
-            markets = new MarketPrice().Get();
-            investments = new Investment().Get();
-            currentShares = new CurrentShare().Get();
+            stockReports = StockReport.Get();
+            invocicings = InvoicingReport.Get();
+            markets = MarketPrice.Get();
+            investments = Investment.Get();
+            currentShares = CurrentShare.Get();
             Init();
         }
         public void Init()
         {
+
             #region 初始化表
             var summaryAssent1 = new SummaryTable { Id = 1, A = "期初库存" };
             var summaryAssent2 = new SummaryTable { Id = 2, A = "期初现金余额" };
@@ -69,6 +71,7 @@ namespace WebMVC.BLL
             summarys.Add(summaryAssent18);
 
             #endregion
+            var count = 4;
             var currentShare1 = currentShares.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
             var currentShare2 = currentShares.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
             var currentShare3 = currentShares.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
@@ -86,9 +89,9 @@ namespace WebMVC.BLL
 
 
             //AVERAGE(市场容量及各品牌当年占有率!BJ6:BM6)
-            var bj6_bm6 = (currentShare2.BJ[1].M1 + currentShare2.BJ[1].M2 + currentShare2.BJ[1].M3 + currentShare2.BJ[1].M4) / 4m;
+            var bj6_bm6 =Common.Cal.GetMJAAverage(currentShare2.BJ[1],count,MJAType.M);
             //AVERAGE(市场容量及各品牌当年占有率!BP6:BS6
-            var bp6_bs6 = (currentShare2.BJ[2].M1 + currentShare2.BJ[2].M2 + currentShare2.BJ[2].M3 + currentShare2.BJ[2].M4) / 4m;
+            var bp6_bs6 = Common.Cal.GetMJAAverage(currentShare2.BJ[2], count, MJAType.M); 
             // AVERAGE(市场容量及各品牌当年占有率!CB6:CE6)
             var cb6_ce6 = (currentShare2.CB[1].J1 + currentShare2.CB[1].J2 + currentShare2.CB[1].J3 + currentShare2.CB[1].J4) / 4m;
             //AVERAGE(市场容量及各品牌当年占有率!CH6:CK6
@@ -129,7 +132,7 @@ namespace WebMVC.BLL
                         summaryAssent5.AE = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
                         summaryAssent5.AL = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
                         summaryAssent7.J = item.G * market1.DK[1].Agent1 * 0.05m + item.G * market1.EF[1].Agent1 * 0.06m + 300;
-                        if (item.H != 0)                 summaryAssent7.X = item.O * market2.DK[1].Agent1 * 0.05m + item.O * market2.EF[1].Agent1 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent1 * 0.05m + item.Q * market2.EF[2].Agent1 * 0.06m + 300;
+                        if (item.H != 0) summaryAssent7.X = item.O * market2.DK[1].Agent1 * 0.05m + item.O * market2.EF[1].Agent1 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent1 * 0.05m + item.Q * market2.EF[2].Agent1 * 0.06m + 300;
                         if (item.P != 0 && item.R != 0) summaryAssent7.AL = item.AC * market3.DK[1].Agent1 * 0.05m + item.AC * market3.EF[1].Agent1 *
                                    ((item.AD / item.P - 1) < 0.15m ? 0.06m : 0.05m) + item.AE * market3.DK[2].Agent1 * 0.05m + item.AE * market3.EF[2].Agent1
                                    * ((item.AF / item.R - 1) < 0.15m ? 0.06m : 0.05m) + item.AG * market3.DK[3].Agent1 * 0.05m +
@@ -140,8 +143,9 @@ namespace WebMVC.BLL
                         summaryAssent8.AL = item.AC * (market3.EF[1].Agent1 > market3.DK[1].Agent1 ? (market3.EF[1].Agent1 - market3.DK[1].Agent1) : 0) +
                             item.AE * (market3.EF[2].Agent1 > market3.DK[2].Agent1 ? (market3.EF[2].Agent1 - market3.DK[2].Agent1) : 0) +
                             item.AG * (market3.EF[3].Agent1 > market3.DK[3].Agent1 ? (market3.EF[3].Agent1 - market3.DK[3].Agent1) : 0);
-                        summaryAssent9.J = item.I;
-                        summaryAssent9.X = item.S + item.U;
+                        summaryAssent1.X = summaryAssent9.J = item.I;
+                        summaryAssent15.J = summaryAssent9.J * market1.CM[1].S * 0.10m;
+                        summaryAssent1.AL = summaryAssent9.X = item.S + item.U;
                         summaryAssent9.AL = item.AI + item.AK + item.AM;
                         summaryAssent15.X = (item.S * market2.CM[1].S + item.U * market2.CM[2].S) * 0.10m;
                         summaryAssent15.AL = (item.AI * market3.CM[1].S + item.AK * market3.CM[2].S + item.AM * market3.CM[3].S) * 0.10m;
@@ -159,7 +163,7 @@ namespace WebMVC.BLL
                         summaryAssent5.AF = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
                         summaryAssent5.AM = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
                         summaryAssent7.K = item.G * market1.DK[1].Agent2 * 0.05m + item.G * market1.EF[1].Agent2 * 0.06m + 300;
-                       if (item.H != 0)                 summaryAssent7.Y = item.O * market2.DK[1].Agent2 * 0.05m + item.O * market2.EF[1].Agent2 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent2 * 0.05m + item.Q * market2.EF[2].Agent2 * 0.06m + 300;
+                        if (item.H != 0) summaryAssent7.Y = item.O * market2.DK[1].Agent2 * 0.05m + item.O * market2.EF[1].Agent2 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent2 * 0.05m + item.Q * market2.EF[2].Agent2 * 0.06m + 300;
                         if (item.P != 0 && item.R != 0) summaryAssent7.AM = item.AC * market3.DK[1].Agent2 * 0.05m + item.AC * market3.EF[1].Agent2 *
                           ((item.AD / item.P - 1) < 0.15m ? 0.06m : 0.05m) + item.AE * market3.DK[2].Agent2 * 0.05m + item.AE * market3.EF[2].Agent2
                           * ((item.AF / item.R - 1) < 0.15m ? 0.06m : 0.05m) + item.AG * market3.DK[3].Agent2 * 0.05m +
@@ -170,8 +174,9 @@ namespace WebMVC.BLL
                         summaryAssent8.AM = item.AC * (market3.EF[1].Agent2 > market3.DK[1].Agent2 ? (market3.EF[1].Agent2 - market3.DK[1].Agent2) : 0) +
                          item.AE * (market3.EF[2].Agent2 > market3.DK[2].Agent2 ? (market3.EF[2].Agent2 - market3.DK[2].Agent2) : 0) +
                          item.AG * (market3.EF[3].Agent2 > market3.DK[3].Agent2 ? (market3.EF[3].Agent2 - market3.DK[3].Agent2) : 0);
-                        summaryAssent9.K = item.I;
-                        summaryAssent9.Y = item.S + item.U;
+                        summaryAssent1.Y = summaryAssent9.K = item.I;
+                        summaryAssent15.K = summaryAssent9.K * market1.CM[1].S * 0.10m;
+                        summaryAssent1.AM = summaryAssent9.Y = item.S + item.U;
                         summaryAssent9.AM = item.AI + item.AK + item.AM;
                         summaryAssent15.Y = (item.S * market2.CM[1].S + item.U * market2.CM[2].S) * 0.10m;
                         summaryAssent15.AM = (item.AI * market3.CM[1].S + item.AK * market3.CM[2].S + item.AM * market3.CM[3].S) * 0.10m;
@@ -189,7 +194,7 @@ namespace WebMVC.BLL
                         summaryAssent5.AG = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
                         summaryAssent5.AN = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
                         summaryAssent7.L = item.G * market1.DK[1].Agent3 * 0.05m + item.G * market1.EF[1].Agent3 * 0.06m + 300;
-                        if (item.H != 0)                 summaryAssent7.Z = item.O * market2.DK[1].Agent3 * 0.05m + item.O * market2.EF[1].Agent3 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent3 * 0.05m + item.Q * market2.EF[2].Agent3 * 0.06m + 300;
+                        if (item.H != 0) summaryAssent7.Z = item.O * market2.DK[1].Agent3 * 0.05m + item.O * market2.EF[1].Agent3 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent3 * 0.05m + item.Q * market2.EF[2].Agent3 * 0.06m + 300;
                         if (item.P != 0 && item.R != 0) summaryAssent7.AN = item.AC * market3.DK[1].Agent3 * 0.05m + item.AC * market3.EF[1].Agent3 *
                           ((item.AD / item.P - 1) < 0.15m ? 0.06m : 0.05m) + item.AE * market3.DK[2].Agent3 * 0.05m + item.AE * market3.EF[2].Agent3
                           * ((item.AF / item.R - 1) < 0.15m ? 0.06m : 0.05m) + item.AG * market3.DK[3].Agent3 * 0.05m +
@@ -200,8 +205,10 @@ namespace WebMVC.BLL
                         summaryAssent8.AN = item.AC * (market3.EF[1].Agent3 > market3.DK[1].Agent3 ? (market3.EF[1].Agent3 - market3.DK[1].Agent3) : 0) +
                          item.AE * (market3.EF[2].Agent3 > market3.DK[2].Agent3 ? (market3.EF[2].Agent3 - market3.DK[2].Agent3) : 0) +
                          item.AG * (market3.EF[3].Agent3 > market3.DK[3].Agent3 ? (market3.EF[3].Agent3 - market3.DK[3].Agent3) : 0);
-                        summaryAssent9.L = item.I;
-                        summaryAssent9.Z = item.S + item.U;
+                        summaryAssent1.Z = summaryAssent9.L = item.I;
+                        summaryAssent15.L = summaryAssent9.L * market1.CM[1].S * 0.10m;
+
+                        summaryAssent1.AN = summaryAssent9.Z = item.S + item.U;
                         summaryAssent9.AN = item.AI + item.AK + item.AM;
                         summaryAssent15.Z = (item.S * market2.CM[1].S + item.U * market2.CM[2].S) * 0.10m;
                         summaryAssent15.AN = (item.AI * market3.CM[1].S + item.AK * market3.CM[2].S + item.AM * market3.CM[3].S) * 0.10m;
@@ -219,7 +226,7 @@ namespace WebMVC.BLL
                         summaryAssent5.AH = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
                         summaryAssent5.AO = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
                         summaryAssent7.M = item.G * market1.DK[1].Agent4 * 0.05m + item.G * market1.EF[1].Agent4 * 0.06m + 300;
-                        if (item.H != 0)                 summaryAssent7.AA = item.O * market2.DK[1].Agent4 * 0.05m + item.O * market2.EF[1].Agent4 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent4 * 0.05m + item.Q * market2.EF[2].Agent4 * 0.06m + 300;
+                        if (item.H != 0) summaryAssent7.AA = item.O * market2.DK[1].Agent4 * 0.05m + item.O * market2.EF[1].Agent4 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent4 * 0.05m + item.Q * market2.EF[2].Agent4 * 0.06m + 300;
                         if (item.P != 0 && item.R != 0) summaryAssent7.AO = item.AC * market3.DK[1].Agent4 * 0.05m + item.AC * market3.EF[1].Agent4 *
                           ((item.AD / item.P - 1) < 0.15m ? 0.06m : 0.05m) + item.AE * market3.DK[2].Agent4 * 0.05m + item.AE * market3.EF[2].Agent4
                           * ((item.AF / item.R - 1) < 0.15m ? 0.06m : 0.05m) + item.AG * market3.DK[3].Agent4 * 0.05m +
@@ -230,8 +237,9 @@ namespace WebMVC.BLL
                         summaryAssent8.AO = item.AC * (market3.EF[1].Agent4 > market3.DK[1].Agent4 ? (market3.EF[1].Agent4 - market3.DK[1].Agent4) : 0) +
                          item.AE * (market3.EF[2].Agent4 > market3.DK[2].Agent4 ? (market3.EF[2].Agent4 - market3.DK[2].Agent4) : 0) +
                          item.AG * (market3.EF[3].Agent4 > market3.DK[3].Agent4 ? (market3.EF[3].Agent4 - market3.DK[3].Agent4) : 0);
-                        summaryAssent9.M = item.I;
-                        summaryAssent9.AA = item.S + item.U;
+                        summaryAssent1.AA = summaryAssent9.M = item.I;
+                        summaryAssent15.M = summaryAssent9.M * market1.CM[1].S * 0.10m;
+                        summaryAssent1.AO = summaryAssent9.AA = item.S + item.U;
                         summaryAssent9.AO = item.AI + item.AK + item.AM;
                         summaryAssent15.AA = (item.S * market2.CM[1].S + item.U * market2.CM[2].S) * 0.10m;
                         summaryAssent15.AO = (item.AI * market3.CM[1].S + item.AK * market3.CM[2].S + item.AM * market3.CM[3].S) * 0.10m;
@@ -249,7 +257,7 @@ namespace WebMVC.BLL
                         summaryAssent5.AI = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
                         summaryAssent5.AP = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
                         summaryAssent7.N = item.G * market1.DK[1].Agent5 * 0.05m + item.G * market1.EF[1].Agent5 * 0.06m + 300;
-                        if (item.H != 0)                 summaryAssent7.AB = item.O * market2.DK[1].Agent5 * 0.05m + item.O * market2.EF[1].Agent5 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent5 * 0.05m + item.Q * market2.EF[2].Agent5 * 0.06m + 300;
+                        if (item.H != 0) summaryAssent7.AB = item.O * market2.DK[1].Agent5 * 0.05m + item.O * market2.EF[1].Agent5 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent5 * 0.05m + item.Q * market2.EF[2].Agent5 * 0.06m + 300;
                         if (item.P != 0 && item.R != 0) summaryAssent7.AP = item.AC * market3.DK[1].Agent5 * 0.05m + item.AC * market3.EF[1].Agent5 *
                           ((item.AD / item.P - 1) < 0.15m ? 0.06m : 0.05m) + item.AE * market3.DK[2].Agent5 * 0.05m + item.AE * market3.EF[2].Agent5
                           * ((item.AF / item.R - 1) < 0.15m ? 0.06m : 0.05m) + item.AG * market3.DK[3].Agent5 * 0.05m +
@@ -260,8 +268,9 @@ namespace WebMVC.BLL
                         summaryAssent8.AP = item.AC * (market3.EF[1].Agent5 > market3.DK[1].Agent5 ? (market3.EF[1].Agent5 - market3.DK[1].Agent5) : 0) +
                          item.AE * (market3.EF[2].Agent5 > market3.DK[2].Agent5 ? (market3.EF[2].Agent5 - market3.DK[2].Agent5) : 0) +
                          item.AG * (market3.EF[3].Agent5 > market3.DK[3].Agent5 ? (market3.EF[3].Agent5 - market3.DK[3].Agent5) : 0);
-                        summaryAssent9.N = item.I;
-                        summaryAssent9.AB = item.S + item.U;
+                        summaryAssent1.AB = summaryAssent9.N = item.I;
+                        summaryAssent15.N = summaryAssent9.N * market1.CM[1].S * 0.10m;
+                        summaryAssent1.AP = summaryAssent9.AB = item.S + item.U;
                         summaryAssent9.AP = item.AI + item.AK + item.AM;
                         summaryAssent15.AB = (item.S * market2.CM[1].S + item.U * market2.CM[2].S) * 0.10m;
                         summaryAssent15.AP = (item.AI * market3.CM[1].S + item.AK * market3.CM[2].S + item.AM * market3.CM[3].S) * 0.10m;
@@ -279,7 +288,7 @@ namespace WebMVC.BLL
                         summaryAssent5.AJ = item.W * market3.CD[1].S + item.Y * market3.CD[2].S + item.AA * market3.CD[3].S;
                         summaryAssent5.AQ = item.AC * market3.CM[1].S + item.AE * market3.CM[2].S + item.AG * market3.CM[3].S;
                         summaryAssent7.O = item.G * market1.DK[1].Agent6 * 0.05m + item.G * market1.EF[1].Agent6 * 0.06m + 300;
-                        if (item.H != 0)                 summaryAssent7.AC = item.O * market2.DK[1].Agent6 * 0.05m + item.O * market2.EF[1].Agent6 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent6 * 0.05m + item.Q * market2.EF[2].Agent6 * 0.06m + 300;
+                        if (item.H != 0) summaryAssent7.AC = item.O * market2.DK[1].Agent6 * 0.05m + item.O * market2.EF[1].Agent6 * ((item.P / item.H - 1) < 0.15m ? 0.06m : 0.05m) + item.Q * market2.DK[2].Agent6 * 0.05m + item.Q * market2.EF[2].Agent6 * 0.06m + 300;
                         if (item.P != 0 && item.R != 0) summaryAssent7.AQ = item.AC * market3.DK[1].Agent6 * 0.05m + item.AC * market3.EF[1].Agent6 *
                           ((item.AD / item.P - 1) < 0.15m ? 0.06m : 0.05m) + item.AE * market3.DK[2].Agent6 * 0.05m + item.AE * market3.EF[2].Agent6
                           * ((item.AF / item.R - 1) < 0.15m ? 0.06m : 0.05m) + item.AG * market3.DK[3].Agent6 * 0.05m +
@@ -290,8 +299,9 @@ namespace WebMVC.BLL
                         summaryAssent8.AQ = item.AC * (market3.EF[1].Agent6 > market3.DK[1].Agent6 ? (market3.EF[1].Agent6 - market3.DK[1].Agent6) : 0) +
                          item.AE * (market3.EF[2].Agent6 > market3.DK[2].Agent6 ? (market3.EF[2].Agent6 - market3.DK[2].Agent6) : 0) +
                          item.AG * (market3.EF[3].Agent6 > market3.DK[3].Agent6 ? (market3.EF[3].Agent6 - market3.DK[3].Agent6) : 0);
-                        summaryAssent9.O = item.I;
-                        summaryAssent9.AC = item.S + item.U;
+                        summaryAssent1.AC = summaryAssent9.O = item.I;
+                        summaryAssent15.O = summaryAssent9.O * market1.CM[1].S * 0.10m;
+                        summaryAssent1.AQ = summaryAssent9.AC = item.S + item.U;
                         summaryAssent9.AQ = item.AI + item.AK + item.AM;
                         summaryAssent15.AC = (item.S * market2.CM[1].S + item.U * market2.CM[2].S) * 0.10m;
                         summaryAssent15.AQ = (item.AI * market3.CM[1].S + item.AK * market3.CM[2].S + item.AM * market3.CM[3].S) * 0.10m;
@@ -309,12 +319,12 @@ namespace WebMVC.BLL
             summaryAssent2.G = 2000;
             summaryAssent2.H = 2000;
             summaryAssent2.I = 2000;
-            summaryAssent2.J = 1500;
-            summaryAssent2.K = 1500;
-            summaryAssent2.L = 1500;
-            summaryAssent2.M = 1500;
-            summaryAssent2.N = 1500;
-            summaryAssent2.O = 1500;
+            summaryAssent2.J = 15000;
+            summaryAssent2.K = 15000;
+            summaryAssent2.L = 15000;
+            summaryAssent2.M = 15000;
+            summaryAssent2.N = 15000;
+            summaryAssent2.O = 15000;
 
             foreach (var item in investment1.EI.Keys)
             {
@@ -328,6 +338,12 @@ namespace WebMVC.BLL
                     case 6: summaryAssent3.O = investment1.EI[item]; break;
                 }
             }
+            summaryAssent14.J = summaryAssent3.J * 0.08m;
+            summaryAssent14.K = summaryAssent3.K * 0.08m;
+            summaryAssent14.L = summaryAssent3.L * 0.08m;
+            summaryAssent14.M = summaryAssent3.M * 0.08m;
+            summaryAssent14.N = summaryAssent3.N * 0.08m;
+            summaryAssent14.O = summaryAssent3.O * 0.08m;
 
             foreach (var item in investment2.EI.Keys)
             {
@@ -342,7 +358,12 @@ namespace WebMVC.BLL
 
                 }
             }
-
+            summaryAssent14.X = summaryAssent3.X * 0.08m;
+            summaryAssent14.Y = summaryAssent3.Y * 0.08m;
+            summaryAssent14.Z = summaryAssent3.Z * 0.08m;
+            summaryAssent14.AA = summaryAssent3.AA * 0.08m;
+            summaryAssent14.AB = summaryAssent3.AB * 0.08m;
+            summaryAssent14.AC = summaryAssent3.AC * 0.08m;
             foreach (var item in investment3.EI.Keys)
             {
                 switch (item)
@@ -355,14 +376,17 @@ namespace WebMVC.BLL
                     case 6: summaryAssent3.AQ = investment3.EI[item]; break;
                 }
             }
+            summaryAssent14.AL = summaryAssent3.AL * 0.08m;
+            summaryAssent14.AM = summaryAssent3.AM * 0.08m;
+            summaryAssent14.AN = summaryAssent3.AN * 0.08m;
+            summaryAssent14.AO = summaryAssent3.AO * 0.08m;
+            summaryAssent14.AP = summaryAssent3.AP * 0.08m;
+            summaryAssent14.AQ = summaryAssent3.AQ * 0.08m;
 
             summaryAssent4.B = bj5_bm5 * market1.DE[1].M / (1 + 0.10m);
-            summaryAssent4.I = cb5_ce5 * market1.DE[1].J / (1 + 0.12m);
-            summaryAssent4.P = bj6_bm6 * market2.DE[1].M / (1 + 0.10m) + bp6_bs6 * market2.DE[2].M / (1 + 0.10m);
-            summaryAssent4.W = cb6_ce6 * market2.DE[1].J / (1 + 0.12m) + ch6_ck6 * market2.DE[2].J / (1 + 0.12m);
-            summaryAssent4.AD = bj7_bm7 * market3.DE[1].M / (1 + 0.10m) + bj7_bm7 * market3.DE[2].M / (1 + 0.10m);
-            summaryAssent4.AK = cb7_ce7 * market3.DE[1].J / (1 + 0.12m) + ch7_ck7 * market3.DE[2].J / (1 + 0.12m) + cn7_cq7 * market3.DE[3].J / (1 + 0.12m);
+            summaryAssent11.B = summaryAssent4.B * 0.19m;
 
+            
             foreach (var item in stockReport1)
             {
                 AgentName agentName = (AgentName)Enum.Parse(typeof(AgentName), item.AgentName);
@@ -377,6 +401,19 @@ namespace WebMVC.BLL
 
                 }
             }
+            summaryAssent11.C = summaryAssent4.C * 0.2m;
+            summaryAssent11.D = summaryAssent4.D * 0.2m;
+            summaryAssent11.E = summaryAssent4.E * 0.2m;
+            summaryAssent11.F = summaryAssent4.F * 0.2m;
+            summaryAssent11.G = summaryAssent4.G * 0.2m;
+            summaryAssent11.H = summaryAssent4.H * 0.2m;
+
+            summaryAssent4.I = cb5_ce5 * market1.DE[1].J / (1 + 0.12m);
+            summaryAssent11.I = summaryAssent4.I * 0.2m;
+
+            summaryAssent4.P = bj6_bm6 * market2.DE[1].M / (1 + 0.10m) + bp6_bs6 * market2.DE[2].M / (1 + 0.10m);
+            summaryAssent11.P = summaryAssent4.P * 0.19m;
+
             var summary2 = stockReports.Where(s => s.Stage == Stage.第二阶段.ToString());
             foreach (var item in summary2)
             {
@@ -391,6 +428,20 @@ namespace WebMVC.BLL
                     case AgentName.代6: summaryAssent4.V = item.Sum.Sum; break;
                 }
             }
+            summaryAssent11.Q = summaryAssent4.Q * 0.2m;
+            summaryAssent11.R = summaryAssent4.R * 0.2m;
+            summaryAssent11.S = summaryAssent4.S * 0.2m;
+            summaryAssent11.T = summaryAssent4.T * 0.2m;
+            summaryAssent11.U = summaryAssent4.U * 0.2m;
+            summaryAssent11.V = summaryAssent4.V * 0.2m;
+
+
+            summaryAssent4.W = cb6_ce6 * market2.DE[1].J / (1 + 0.12m) + ch6_ck6 * market2.DE[2].J / (1 + 0.12m);
+            summaryAssent11.W = summaryAssent4.W * 0.2m;
+
+            summaryAssent4.AD = bj7_bm7 * market3.DE[1].M / (1 + 0.10m) + bj7_bm7 * market3.DE[2].M / (1 + 0.10m);
+            summaryAssent11.AD = summaryAssent4.AD * 0.19m;
+          
             var summary3 = stockReports.Where(s => s.Stage == Stage.第三阶段.ToString());
             foreach (var item in summary2)
             {
@@ -405,12 +456,22 @@ namespace WebMVC.BLL
                     case AgentName.代6: summaryAssent4.AJ = item.Sum.Sum; break;
                 }
             }
+            summaryAssent11.AE = summaryAssent4.AE * 0.2m;
+            summaryAssent11.AF = summaryAssent4.AF * 0.2m;
+            summaryAssent11.AG = summaryAssent4.AG * 0.2m;
+            summaryAssent11.AH = summaryAssent4.AH * 0.2m;
+            summaryAssent11.AI = summaryAssent4.AI * 0.2m;
+            summaryAssent11.AJ = summaryAssent4.AJ * 0.2m;
+            summaryAssent4.AK = cb7_ce7 * market3.DE[1].J / (1 + 0.12m) + ch7_ck7 * market3.DE[2].J / (1 + 0.12m) + cn7_cq7 * market3.DE[3].J / (1 + 0.12m);
+            summaryAssent11.AK = summaryAssent4.AK * 0.2m;
+
             summaryAssent5.B = bj5_bm5 * market1.CD[1].M;
             summaryAssent5.I = cb5_ce5 * market1.CD[1].J;
             summaryAssent5.P = bj6_bm6 * market2.CD[1].M + bp6_bs6 * market2.CD[2].M;
             summaryAssent5.W = cb6_ce6 * market2.CD[1].J + ch6_ck6 * market2.CD[2].J;
             summaryAssent5.AD = bj7_bm7 * market3.CD[1].M + bp7_bs7 * market3.CD[2].M + bv7_by7 * market3.CD[3].M;
             summaryAssent5.AK = cb7_ce7 * market3.CD[1].J + ch7_ck7 * market3.CD[2].J + cn7_cq7 * market3.CD[3].J;
+
             #region 期间产生费用
             summaryAssent6.B = investment1.B;
             summaryAssent6.C = investment1.C;
@@ -460,7 +521,7 @@ namespace WebMVC.BLL
             #endregion
             #region 卖场费用 summaryAssent7
             summaryAssent7.B = 500 + de5 * bj5_bm5 * 0.05m + de5 / (1 + 0.10m) * bj5_bm5 * 0.05m;
-            summaryAssent7.J = 200 + df5 * cb5_ce5 * 0.04m + df5 / (1 + 0.12m) * cb5_ce5 * 0.07m;
+            summaryAssent7.I = 200 + df5 * cb5_ce5 * 0.04m + df5 / (1 + 0.12m) * cb5_ce5 * 0.07m;
             summaryAssent7.P = 500 + (market2.DE[1].M * bj6_bm6) * 0.05m + market2.DE[1].M / (1 + 0.10m) * bj6_bm6 * 0.05m
                 + market2.DE[1].M * bp6_bs6 * 0.05m + market2.DE[1].M / (1 + 0.10m) * bp6_bs6 * 0.05m;
 
@@ -498,109 +559,34 @@ namespace WebMVC.BLL
 
 
             #region 最后计算
-            #region 期初库存
-            summaryAssent1.X = summaryAssent9.J;
-            summaryAssent1.Y = summaryAssent9.K;
-            summaryAssent1.Z = summaryAssent9.L;
-            summaryAssent1.AA = summaryAssent9.M;
-            summaryAssent1.AB = summaryAssent9.N;
-            summaryAssent1.AC = summaryAssent9.O;
 
-            summaryAssent1.AL = summaryAssent9.X;
-            summaryAssent1.AM = summaryAssent9.Y;
-            summaryAssent1.AN = summaryAssent9.Z;
-            summaryAssent1.AO = summaryAssent9.AA;
-            summaryAssent1.AP = summaryAssent9.AB;
-            summaryAssent1.AQ = summaryAssent9.AC;
-            #endregion
-
-            #region 期初现金余额
-            summaryAssent2.P = summaryAssent9.B;
-            summaryAssent2.Q = summaryAssent9.C;
-            summaryAssent2.R = summaryAssent9.D;
-            summaryAssent2.S = summaryAssent9.E;
-            summaryAssent2.T = summaryAssent9.F;
-            summaryAssent2.U = summaryAssent9.G;
-            summaryAssent2.V = summaryAssent9.H;
-            summaryAssent2.W = summaryAssent9.I;
-            summaryAssent2.X = summaryAssent9.J;
-            summaryAssent2.Y = summaryAssent9.K;
-            summaryAssent2.Z = summaryAssent9.L;
-            summaryAssent2.AA = summaryAssent9.M;
-            summaryAssent2.AB = summaryAssent9.N;
-            summaryAssent2.AC = summaryAssent9.O;
-            summaryAssent2.AD = summaryAssent9.P;
-            summaryAssent2.AE = summaryAssent9.Q;
-            summaryAssent2.AF = summaryAssent9.R;
-            summaryAssent2.AG = summaryAssent9.S;
-            summaryAssent2.AH = summaryAssent9.T;
-            summaryAssent2.AI = summaryAssent9.U;
-            summaryAssent2.AJ = summaryAssent9.V;
-            summaryAssent2.AK = summaryAssent9.W;
-            summaryAssent2.AL = summaryAssent9.X;
-            summaryAssent2.AM = summaryAssent9.Y;
-            summaryAssent2.AN = summaryAssent9.Z;
-            summaryAssent2.AO = summaryAssent9.AA;
-            summaryAssent2.AP = summaryAssent9.AB;
-            summaryAssent2.AQ = summaryAssent9.AC;
-            #endregion
-
-            #region 品牌商综合经营费用 summaryAssent11
-            summaryAssent11.B = summaryAssent4.B * 0.19m;
-            summaryAssent11.C = summaryAssent4.C * 0.2m;
-            summaryAssent11.D = summaryAssent4.D * 0.2m;
-            summaryAssent11.E = summaryAssent4.E * 0.2m;
-            summaryAssent11.F = summaryAssent4.F * 0.2m;
-            summaryAssent11.G = summaryAssent4.G * 0.2m;
-            summaryAssent11.H = summaryAssent4.H * 0.2m;
-            summaryAssent11.I = summaryAssent4.I * 0.2m;
-
-            summaryAssent11.P = summaryAssent4.P * 0.19m;
-            summaryAssent11.Q = summaryAssent4.Q * 0.2m;
-            summaryAssent11.R = summaryAssent4.R * 0.2m;
-            summaryAssent11.S = summaryAssent4.S * 0.2m;
-            summaryAssent11.T = summaryAssent4.T * 0.2m;
-            summaryAssent11.U = summaryAssent4.U * 0.2m;
-            summaryAssent11.V = summaryAssent4.V * 0.2m;
-            summaryAssent11.W = summaryAssent4.W * 0.2m;
-
-            summaryAssent11.AD = summaryAssent4.AD * 0.19m;
-            summaryAssent11.AE = summaryAssent4.AE * 0.2m;
-            summaryAssent11.AF = summaryAssent4.AF * 0.2m;
-            summaryAssent11.AG = summaryAssent4.AG * 0.2m;
-            summaryAssent11.AH = summaryAssent4.AH * 0.2m;
-            summaryAssent11.AI = summaryAssent4.AI * 0.2m;
-            summaryAssent11.AJ = summaryAssent4.AJ * 0.2m;
-            summaryAssent11.AK = summaryAssent4.AK * 0.2m;
-
-            #endregion
-
+            
+            
             #region 期末现金余额 summaryAssent12
-            summaryAssent12.B = summaryAssent2.B + summaryAssent4.B - summaryAssent5.B - summaryAssent6.B - summaryAssent7.B - summaryAssent11.B;
-            summaryAssent12.C = summaryAssent2.C + summaryAssent4.C - summaryAssent5.C - summaryAssent6.C - summaryAssent7.C - summaryAssent11.C;
-            summaryAssent12.D = summaryAssent2.D + summaryAssent4.D - summaryAssent5.D - summaryAssent6.D - summaryAssent7.D - summaryAssent11.D;
-            summaryAssent12.E = summaryAssent2.E + summaryAssent4.E - summaryAssent5.E - summaryAssent6.E - summaryAssent7.E - summaryAssent11.E;
-            summaryAssent12.F = summaryAssent2.F + summaryAssent4.F - summaryAssent5.F - summaryAssent6.F - summaryAssent7.F - summaryAssent11.F;
-            summaryAssent12.G = summaryAssent2.G + summaryAssent4.G - summaryAssent5.G - summaryAssent6.G - summaryAssent7.G - summaryAssent11.G;
-            summaryAssent12.H = summaryAssent2.H + summaryAssent4.H - summaryAssent5.H - summaryAssent6.H - summaryAssent7.H - summaryAssent11.H;
-            summaryAssent12.I = summaryAssent2.I + summaryAssent4.I - summaryAssent5.I - summaryAssent6.I - summaryAssent7.I - summaryAssent11.I;
+            summaryAssent2.P = summaryAssent12.B = summaryAssent2.B + summaryAssent4.B - summaryAssent5.B - summaryAssent6.B - summaryAssent7.B - summaryAssent11.B;
+            summaryAssent2.Q = summaryAssent12.C = summaryAssent2.C + summaryAssent4.C - summaryAssent5.C - summaryAssent6.C - summaryAssent7.C - summaryAssent11.C;
+            summaryAssent2.R = summaryAssent12.D = summaryAssent2.D + summaryAssent4.D - summaryAssent5.D - summaryAssent6.D - summaryAssent7.D - summaryAssent11.D;
+            summaryAssent2.S = summaryAssent12.E = summaryAssent2.E + summaryAssent4.E - summaryAssent5.E - summaryAssent6.E - summaryAssent7.E - summaryAssent11.E;
+            summaryAssent2.T = summaryAssent12.F = summaryAssent2.F + summaryAssent4.F - summaryAssent5.F - summaryAssent6.F - summaryAssent7.F - summaryAssent11.F;
+            summaryAssent2.U = summaryAssent12.G = summaryAssent2.G + summaryAssent4.G - summaryAssent5.G - summaryAssent6.G - summaryAssent7.G - summaryAssent11.G;
+            summaryAssent2.V = summaryAssent12.H = summaryAssent2.H + summaryAssent4.H - summaryAssent5.H - summaryAssent6.H - summaryAssent7.H - summaryAssent11.H;
+            summaryAssent2.W = summaryAssent12.I = summaryAssent2.I + summaryAssent4.I - summaryAssent5.I - summaryAssent6.I - summaryAssent7.I - summaryAssent11.I;
 
-            summaryAssent12.J = summaryAssent2.J + summaryAssent3.J + summaryAssent4.J - summaryAssent5.J - summaryAssent6.J - summaryAssent7.J - summaryAssent7.J - (summaryAssent9.J - summaryAssent1.J) * market1.CM[1].S + summaryAssent10.J;
-            summaryAssent12.K = summaryAssent2.K + summaryAssent3.K + summaryAssent4.K - summaryAssent5.K - summaryAssent6.K - summaryAssent7.K - summaryAssent7.K - (summaryAssent9.K - summaryAssent1.K) * market1.CM[1].S + summaryAssent10.K;
-            summaryAssent12.L = summaryAssent2.L + summaryAssent3.L + summaryAssent4.L - summaryAssent5.L - summaryAssent6.L - summaryAssent7.L - summaryAssent7.L - (summaryAssent9.L - summaryAssent1.L) * market1.CM[1].S + summaryAssent10.L;
-            summaryAssent12.M = summaryAssent2.M + summaryAssent3.M + summaryAssent4.M - summaryAssent5.M - summaryAssent6.M - summaryAssent7.M - summaryAssent7.M - (summaryAssent9.M - summaryAssent1.M) * market1.CM[1].S + summaryAssent10.M;
-            summaryAssent12.N = summaryAssent2.N + summaryAssent3.N + summaryAssent4.N - summaryAssent5.N - summaryAssent6.N - summaryAssent7.N - summaryAssent7.N - (summaryAssent9.N - summaryAssent1.N) * market1.CM[1].S + summaryAssent10.N;
-            summaryAssent12.O = summaryAssent2.O + summaryAssent3.O + summaryAssent4.O - summaryAssent5.O - summaryAssent6.O - summaryAssent7.O - summaryAssent7.O - (summaryAssent9.O - summaryAssent1.O) * market1.CM[1].S + summaryAssent10.O;
+            summaryAssent2.X = summaryAssent12.J = summaryAssent2.J + summaryAssent3.J + summaryAssent4.J - summaryAssent5.J - summaryAssent6.J - summaryAssent7.J - summaryAssent8.J - (summaryAssent9.J - summaryAssent1.J) * market1.CM[1].S + summaryAssent10.J;
+            summaryAssent2.Y = summaryAssent12.K = summaryAssent2.K + summaryAssent3.K + summaryAssent4.K - summaryAssent5.K - summaryAssent6.K - summaryAssent7.K - summaryAssent8.K - (summaryAssent9.K - summaryAssent1.K) * market1.CM[1].S + summaryAssent10.K;
+            summaryAssent2.Z = summaryAssent12.L = summaryAssent2.L + summaryAssent3.L + summaryAssent4.L - summaryAssent5.L - summaryAssent6.L - summaryAssent7.L - summaryAssent8.L - (summaryAssent9.L - summaryAssent1.L) * market1.CM[1].S + summaryAssent10.L;
+            summaryAssent2.AA = summaryAssent12.M = summaryAssent2.M + summaryAssent3.M + summaryAssent4.M - summaryAssent5.M - summaryAssent6.M - summaryAssent7.M - summaryAssent8.M - (summaryAssent9.M - summaryAssent1.M) * market1.CM[1].S + summaryAssent10.M;
+            summaryAssent2.AB = summaryAssent12.N = summaryAssent2.N + summaryAssent3.N + summaryAssent4.N - summaryAssent5.N - summaryAssent6.N - summaryAssent7.N - summaryAssent8.N - (summaryAssent9.N - summaryAssent1.N) * market1.CM[1].S + summaryAssent10.N;
+            summaryAssent2.AC = summaryAssent12.O = summaryAssent2.O + summaryAssent3.O + summaryAssent4.O - summaryAssent5.O - summaryAssent6.O - summaryAssent7.O - summaryAssent8.O - (summaryAssent9.O - summaryAssent1.O) * market1.CM[1].S + summaryAssent10.O;
 
-            summaryAssent12.P = summaryAssent2.P + summaryAssent4.P - summaryAssent5.P - summaryAssent6.P - summaryAssent7.P - summaryAssent11.P;
-            summaryAssent12.Q = summaryAssent2.Q + summaryAssent4.Q - summaryAssent5.Q - summaryAssent6.Q - summaryAssent7.Q - summaryAssent11.Q;
-            summaryAssent12.R = summaryAssent2.R + summaryAssent4.R - summaryAssent5.R - summaryAssent6.R - summaryAssent7.R - summaryAssent11.R;
-            summaryAssent12.S = summaryAssent2.S + summaryAssent4.S - summaryAssent5.S - summaryAssent6.S - summaryAssent7.S - summaryAssent11.S;
-            summaryAssent12.T = summaryAssent2.T + summaryAssent4.T - summaryAssent5.T - summaryAssent6.T - summaryAssent7.T - summaryAssent11.T;
-            summaryAssent12.U = summaryAssent2.U + summaryAssent4.U - summaryAssent5.U - summaryAssent6.U - summaryAssent7.U - summaryAssent11.U;
-            summaryAssent12.V = summaryAssent2.V + summaryAssent4.V - summaryAssent5.V - summaryAssent6.V - summaryAssent7.V - summaryAssent11.V;
-            summaryAssent12.W = summaryAssent2.W + summaryAssent4.W - summaryAssent5.W - summaryAssent6.W - summaryAssent7.W - summaryAssent11.W;
-
+            summaryAssent2.AD = summaryAssent12.P = summaryAssent2.P + summaryAssent4.P - summaryAssent5.P - summaryAssent6.P - summaryAssent7.P - summaryAssent11.P;
+            summaryAssent2.AE = summaryAssent12.Q = summaryAssent2.Q + summaryAssent4.Q - summaryAssent5.Q - summaryAssent6.Q - summaryAssent7.Q - summaryAssent11.Q;
+            summaryAssent2.AF = summaryAssent12.R = summaryAssent2.R + summaryAssent4.R - summaryAssent5.R - summaryAssent6.R - summaryAssent7.R - summaryAssent11.R;
+            summaryAssent2.AG = summaryAssent12.S = summaryAssent2.S + summaryAssent4.S - summaryAssent5.S - summaryAssent6.S - summaryAssent7.S - summaryAssent11.S;
+            summaryAssent2.AH = summaryAssent12.T = summaryAssent2.T + summaryAssent4.T - summaryAssent5.T - summaryAssent6.T - summaryAssent7.T - summaryAssent11.T;
+            summaryAssent2.AI = summaryAssent12.U = summaryAssent2.U + summaryAssent4.U - summaryAssent5.U - summaryAssent6.U - summaryAssent7.U - summaryAssent11.U;
+            summaryAssent2.AJ = summaryAssent12.V = summaryAssent2.V + summaryAssent4.V - summaryAssent5.V - summaryAssent6.V - summaryAssent7.V - summaryAssent11.V;
+            summaryAssent2.AK = summaryAssent12.W = summaryAssent2.W + summaryAssent4.W - summaryAssent5.W - summaryAssent6.W - summaryAssent7.W - summaryAssent11.W;
 
 
             summaryAssent12.AD = summaryAssent2.AD + summaryAssent4.AD - summaryAssent5.AD - summaryAssent6.AD - summaryAssent7.AD - summaryAssent11.AD;
@@ -618,45 +604,58 @@ namespace WebMVC.BLL
                 switch (agentName)
                 {
                     case AgentName.代1:
-                        summaryAssent12.AL = summaryAssent2.AL + summaryAssent3.AL + summaryAssent4.AL - summaryAssent5.AL - summaryAssent6.AL - summaryAssent7.AL - summaryAssent7.AL - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.AL;
-                        summaryAssent17.J = decimal.Round((summaryAssent9.J == 0 ? (item.D + item.E - currentShare1.CT[1].Agent1) : 0), 0);
-                        summaryAssent17.X = decimal.Round(decimal.Round((summaryAssent9.X == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent1) + (item.M - currentShare2.CT[2].Agent1)) : 0), 0), 0);
-                        summaryAssent17.AL = decimal.Round((summaryAssent9.AL == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent1) + (item.U + item.Y - currentShare2.CT[2].Agent1) + (item.AA - currentShare3.CT[3].Agent1)) : 0), 0);
+                        summaryAssent2.AL = summaryAssent12.X = summaryAssent2.X + summaryAssent3.X + summaryAssent4.X - summaryAssent5.X - summaryAssent6.X - summaryAssent7.X - summaryAssent8.X - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.X;
+
+                        summaryAssent12.AL = summaryAssent2.AL + summaryAssent4.AL - summaryAssent5.AL - summaryAssent6.AL - summaryAssent7.AL - ((item.AI - item.S) * market3.CM[1].S + (item.AK - item.U) * market3.CM[2].S + item.AM * market3.CM[3].S) + summaryAssent10.AL;
+                        summaryAssent17.C = summaryAssent17.J = decimal.Round((summaryAssent9.J == 0 ? (item.D + item.E - currentShare1.CT[1].Agent1) : 0), 0);
+                        summaryAssent17.Q = summaryAssent17.X = decimal.Round(decimal.Round((summaryAssent9.X == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent1) + (item.M - currentShare2.CT[2].Agent1)) : 0), 0), 0);
+                        summaryAssent17.AE = summaryAssent17.AL = decimal.Round((summaryAssent9.AL == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent1) + (item.U + item.Y - currentShare3.CT[2].Agent1) + (item.AA - currentShare3.CT[3].Agent1)) : 0), 0);
 
                         break;
                     case AgentName.代2:
-                        summaryAssent12.AM = summaryAssent2.AM + summaryAssent3.AM + summaryAssent4.AM - summaryAssent5.AM - summaryAssent6.AM - summaryAssent7.AM - summaryAssent7.AM - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.AM;
-                        summaryAssent17.K = decimal.Round((summaryAssent9.K == 0 ? (item.D + item.E - currentShare1.CT[1].Agent2) : 0), 0);
-                        summaryAssent17.Y = decimal.Round(decimal.Round((summaryAssent9.X == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent2) + (item.M - currentShare2.CT[2].Agent2)) : 0), 0), 0);
-                        summaryAssent17.AM = decimal.Round((summaryAssent9.AM == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent2) + (item.U + item.Y - currentShare2.CT[2].Agent2) + (item.AA - currentShare3.CT[3].Agent2)) : 0), 0);
+                        summaryAssent2.AM = summaryAssent12.Y = summaryAssent2.Y + summaryAssent3.Y + summaryAssent4.Y - summaryAssent5.Y - summaryAssent6.Y - summaryAssent7.Y - summaryAssent8.Y - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.Y;
+
+                        summaryAssent12.AM = summaryAssent2.AM + summaryAssent4.AM - summaryAssent5.AM - summaryAssent6.AM - summaryAssent7.AM - ((item.AI - item.S) * market3.CM[1].S + (item.AK - item.U) * market3.CM[2].S + item.AM * market3.CM[3].S) + summaryAssent10.AM;
+                        summaryAssent17.D = summaryAssent17.K = decimal.Round((summaryAssent9.K == 0 ? (item.D + item.E - currentShare1.CT[1].Agent2) : 0), 0);
+                        summaryAssent17.R = summaryAssent17.Y = decimal.Round(decimal.Round((summaryAssent9.Y == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent2) + (item.M - currentShare2.CT[2].Agent2)) : 0), 0), 0);
+                        summaryAssent17.AF = summaryAssent17.AM = decimal.Round((summaryAssent9.AM == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent2) + (item.U + item.Y - currentShare3.CT[2].Agent2) + (item.AA - currentShare3.CT[3].Agent2)) : 0), 0);
 
                         break;
                     case AgentName.代3:
-                        summaryAssent12.AN = summaryAssent2.AN + summaryAssent3.AN + summaryAssent4.AN - summaryAssent5.AN - summaryAssent6.AN - summaryAssent7.AN - summaryAssent7.AN - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.AN;
-                        summaryAssent17.L = decimal.Round((summaryAssent9.L == 0 ? (item.D + item.E - currentShare1.CT[1].Agent3) : 0), 0);
-                        summaryAssent17.Z = decimal.Round(decimal.Round((summaryAssent9.X == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent3) + (item.M - currentShare2.CT[2].Agent3)) : 0), 0), 0);
-                        summaryAssent17.AN = decimal.Round((summaryAssent9.AN == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent3) + (item.U + item.Y - currentShare2.CT[2].Agent3) + (item.AA - currentShare3.CT[3].Agent3)) : 0), 0);
+                         summaryAssent2.AN = summaryAssent12.Z = summaryAssent2.Z + summaryAssent3.Z + summaryAssent4.Z - summaryAssent5.Z - summaryAssent6.Z - summaryAssent7.Z - summaryAssent8.Z - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.Z;
+
+                        summaryAssent12.AN = summaryAssent2.AN + summaryAssent4.AN - summaryAssent5.AN - summaryAssent6.AN - summaryAssent7.AN - ((item.AI - item.S) * market3.CM[1].S + (item.AK - item.U) * market3.CM[2].S + item.AM * market3.CM[3].S) + summaryAssent10.AN;
+                        summaryAssent17.E = summaryAssent17.L = decimal.Round((summaryAssent9.L == 0 ? (item.D + item.E - currentShare1.CT[1].Agent3) : 0), 0);
+                        summaryAssent17.S = summaryAssent17.Z = decimal.Round(decimal.Round((summaryAssent9.Z == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent3) + (item.M - currentShare2.CT[2].Agent3)) : 0), 0), 0);
+                        summaryAssent17.AG = summaryAssent17.AN = decimal.Round((summaryAssent9.AN == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent3) + (item.U + item.Y - currentShare3.CT[2].Agent3) + (item.AA - currentShare3.CT[3].Agent3)) : 0), 0);
 
                         break;
                     case AgentName.代4:
-                        summaryAssent12.AO = summaryAssent2.AO + summaryAssent3.AO + summaryAssent4.AO - summaryAssent5.AO - summaryAssent6.AO - summaryAssent7.AO - summaryAssent7.AO - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.AO;
-                        summaryAssent17.M = decimal.Round((summaryAssent9.M == 0 ? (item.D + item.E - currentShare1.CT[1].Agent4) : 0), 0);
-                        summaryAssent17.AA = decimal.Round(decimal.Round((summaryAssent9.X == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent4) + (item.M - currentShare2.CT[2].Agent4)) : 0), 0), 0);
-                        summaryAssent17.AO = decimal.Round((summaryAssent9.AO == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent4) + (item.U + item.Y - currentShare2.CT[2].Agent4) + (item.AA - currentShare3.CT[3].Agent4)) : 0), 0);
+                       summaryAssent2.AO = summaryAssent12.AA = summaryAssent2.AA + summaryAssent3.AA + summaryAssent4.AA - summaryAssent5.AA - summaryAssent6.AA - summaryAssent7.AA - summaryAssent8.AA - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.AA;
+
+                        summaryAssent12.AO = summaryAssent2.AO + summaryAssent4.AO - summaryAssent5.AO - summaryAssent6.AO - summaryAssent7.AO - ((item.AI - item.S) * market3.CM[1].S + (item.AK - item.U) * market3.CM[2].S + item.AM * market3.CM[3].S) + summaryAssent10.AO;
+                        summaryAssent17.F = summaryAssent17.M = decimal.Round((summaryAssent9.M == 0 ? (item.D + item.E - currentShare1.CT[1].Agent4) : 0), 0);
+                        summaryAssent17.T = summaryAssent17.AA = decimal.Round(decimal.Round((summaryAssent9.AA == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent4) + (item.M - currentShare2.CT[2].Agent4)) : 0), 0), 0);
+                        summaryAssent17.AH = summaryAssent17.AO = decimal.Round((summaryAssent9.AO == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent4) + (item.U + item.Y - currentShare3.CT[2].Agent4) + (item.AA - currentShare3.CT[3].Agent4)) : 0), 0);
 
                         break;
                     case AgentName.代5:
-                        summaryAssent12.AP = summaryAssent2.AP + summaryAssent3.AP + summaryAssent4.AP - summaryAssent5.AP - summaryAssent6.AP - summaryAssent7.AP - summaryAssent7.AP - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.AP;
-                        summaryAssent17.N = decimal.Round((summaryAssent9.N == 0 ? (item.D + item.E - currentShare1.CT[1].Agent5) : 0), 0);
-                        summaryAssent17.AB = decimal.Round(decimal.Round((summaryAssent9.X == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent5) + (item.M - currentShare2.CT[2].Agent5)) : 0), 0), 0);
-                        summaryAssent17.AP = decimal.Round((summaryAssent9.AP == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent5) + (item.U + item.Y - currentShare2.CT[2].Agent5) + (item.AA - currentShare3.CT[3].Agent5)) : 0), 0);
+                        summaryAssent2.AP = summaryAssent12.AB = summaryAssent2.AB + summaryAssent3.AB + summaryAssent4.AB - summaryAssent5.AB - summaryAssent6.AB - summaryAssent7.AB - summaryAssent8.AB - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.AB;
+
+                        summaryAssent12.AP = summaryAssent2.AP + summaryAssent4.AP - summaryAssent5.AP - summaryAssent6.AP - summaryAssent7.AP - ((item.AI - item.S) * market3.CM[1].S + (item.AK - item.U) * market3.CM[2].S + item.AM * market3.CM[3].S) + summaryAssent10.AP;
+                        summaryAssent17.G = summaryAssent17.N = decimal.Round((summaryAssent9.N == 0 ? (item.D + item.E - currentShare1.CT[1].Agent5) : 0), 0);
+                        summaryAssent17.U = summaryAssent17.AB = decimal.Round(decimal.Round((summaryAssent9.AB == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent5) + (item.M - currentShare2.CT[2].Agent5)) : 0), 0), 0);
+                        summaryAssent17.AI = summaryAssent17.AP = decimal.Round((summaryAssent9.AP == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent5) + (item.U + item.Y - currentShare3.CT[2].Agent5) + (item.AA - currentShare3.CT[3].Agent5)) : 0), 0);
 
                         break;
                     case AgentName.代6:
-                        summaryAssent12.AQ = summaryAssent2.AQ + summaryAssent3.AQ + summaryAssent4.AQ - summaryAssent5.AQ - summaryAssent6.AQ - summaryAssent7.AQ - summaryAssent7.AQ - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.AQ;
-                        summaryAssent17.O = decimal.Round((summaryAssent9.O == 0 ? (item.D + item.E - currentShare1.CT[1].Agent6) : 0), 0);
-                        summaryAssent17.AC = decimal.Round(decimal.Round((summaryAssent9.X == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent6) + (item.M - currentShare2.CT[2].Agent6)) : 0), 0), 0);
-                        summaryAssent17.AQ = decimal.Round((summaryAssent9.AQ == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent6) + (item.U + item.Y - currentShare2.CT[2].Agent6) + (item.AA - currentShare3.CT[3].Agent6)) : 0), 0);
+                        summaryAssent2.AQ = summaryAssent12.AC = summaryAssent2.AC + summaryAssent3.AC + summaryAssent4.AC - summaryAssent5.AC - summaryAssent6.AC - summaryAssent7.AC - summaryAssent8.AC - ((item.S - item.I) * market2.CM[1].S + item.U * market2.CM[2].S) + summaryAssent10.AC;
+                        summaryAssent12.AQ = summaryAssent2.AQ + summaryAssent4.AQ - summaryAssent5.AQ - summaryAssent6.AQ - summaryAssent7.AQ - ((item.AI - item.S) * market3.CM[1].S + (item.AK - item.U) * market3.CM[2].S + item.AM * market3.CM[3].S) + summaryAssent10.AQ;
+
+                        summaryAssent17.H = summaryAssent17.O = decimal.Round((summaryAssent9.O == 0 ? (item.D + item.E - currentShare1.CT[1].Agent6) : 0), 0);
+                        summaryAssent17.V = summaryAssent17.AC = decimal.Round(decimal.Round((summaryAssent9.AC == 0 ? ((item.I + item.K - currentShare2.CT[1].Agent6) + (item.M - currentShare2.CT[2].Agent6)) : 0), 0), 0);
+                        summaryAssent17.AJ = summaryAssent17.AQ = decimal.Round((summaryAssent9.AQ == 0 ? ((item.S + item.W - currentShare3.CT[1].Agent6) + (item.U + item.Y - currentShare3.CT[2].Agent6) + (item.AA - currentShare3.CT[3].Agent6)) : 0), 0);
+
 
                         break;
                 }
@@ -674,14 +673,14 @@ namespace WebMVC.BLL
             summaryAssent13.H = summaryAssent4.H - summaryAssent5.H - summaryAssent6.H - summaryAssent11.H;
             summaryAssent13.I = summaryAssent4.I - summaryAssent5.I - summaryAssent6.I - summaryAssent7.I - summaryAssent11.I;
 
-            summaryAssent13.J = summaryAssent4.J - summaryAssent5.J - summaryAssent6.J - summaryAssent7.J + summaryAssent11.J - summaryAssent8.J;
-            summaryAssent13.K = summaryAssent4.K - summaryAssent5.K - summaryAssent6.K - summaryAssent7.K + summaryAssent11.K - summaryAssent8.K;
-            summaryAssent13.L = summaryAssent4.L - summaryAssent5.L - summaryAssent6.L - summaryAssent7.L + summaryAssent11.L - summaryAssent8.L;
-            summaryAssent13.M = summaryAssent4.M - summaryAssent5.M - summaryAssent6.M - summaryAssent7.M + summaryAssent11.M - summaryAssent8.M;
-            summaryAssent13.N = summaryAssent4.N - summaryAssent5.N - summaryAssent6.N - summaryAssent7.N + summaryAssent11.N - summaryAssent8.N;
-            summaryAssent13.O = summaryAssent4.O - summaryAssent5.O - summaryAssent6.O - summaryAssent7.O + summaryAssent11.O - summaryAssent8.O;
-            summaryAssent13.P = summaryAssent4.P - summaryAssent5.P - summaryAssent6.P - summaryAssent7.P + summaryAssent11.P - summaryAssent8.P;
-            summaryAssent13.Q = summaryAssent4.Q - summaryAssent5.Q - summaryAssent6.Q - summaryAssent7.Q + summaryAssent11.Q - summaryAssent8.Q;
+            summaryAssent13.J = summaryAssent4.J - summaryAssent5.J - summaryAssent6.J - summaryAssent7.J + summaryAssent10.J - summaryAssent8.J;
+            summaryAssent13.K = summaryAssent4.K - summaryAssent5.K - summaryAssent6.K - summaryAssent7.K + summaryAssent10.K - summaryAssent8.K;
+            summaryAssent13.L = summaryAssent4.L - summaryAssent5.L - summaryAssent6.L - summaryAssent7.L + summaryAssent10.L - summaryAssent8.L;
+            summaryAssent13.M = summaryAssent4.M - summaryAssent5.M - summaryAssent6.M - summaryAssent7.M + summaryAssent10.M - summaryAssent8.M;
+            summaryAssent13.N = summaryAssent4.N - summaryAssent5.N - summaryAssent6.N - summaryAssent7.N + summaryAssent10.N - summaryAssent8.N;
+            summaryAssent13.O = summaryAssent4.O - summaryAssent5.O - summaryAssent6.O - summaryAssent7.O + summaryAssent10.O - summaryAssent8.O;
+            summaryAssent13.P = summaryAssent4.P - summaryAssent5.P - summaryAssent6.P - summaryAssent7.P + summaryAssent10.P - summaryAssent8.P;
+            summaryAssent13.Q = summaryAssent4.Q - summaryAssent5.Q - summaryAssent6.Q - summaryAssent7.Q + summaryAssent10.Q - summaryAssent8.Q;
 
             summaryAssent13.P = summaryAssent4.P - summaryAssent5.P - summaryAssent6.P - summaryAssent7.P - summaryAssent11.P;
             summaryAssent13.Q = summaryAssent4.Q - summaryAssent5.Q - summaryAssent6.Q - summaryAssent11.Q;
@@ -717,40 +716,9 @@ namespace WebMVC.BLL
 
             #endregion
 
-            #region 应支付银行利息
-            summaryAssent14.J = summaryAssent3.J * 0.08m;
-            summaryAssent14.K = summaryAssent3.K * 0.08m;
-            summaryAssent14.L = summaryAssent3.L * 0.08m;
-            summaryAssent14.M = summaryAssent3.M * 0.08m;
-            summaryAssent14.N = summaryAssent3.N * 0.08m;
-            summaryAssent14.O = summaryAssent3.O * 0.08m;
+          
 
-            summaryAssent14.X = summaryAssent3.X * 0.08m;
-            summaryAssent14.Y = summaryAssent3.Y * 0.08m;
-            summaryAssent14.Z = summaryAssent3.Z * 0.08m;
-            summaryAssent14.AA = summaryAssent3.AA * 0.08m;
-            summaryAssent14.AB = summaryAssent3.AB * 0.08m;
-            summaryAssent14.AC = summaryAssent3.AC * 0.08m;
-
-            summaryAssent14.AL = summaryAssent3.AL * 0.08m;
-            summaryAssent14.AM = summaryAssent3.AM * 0.08m;
-            summaryAssent14.AN = summaryAssent3.AN * 0.08m;
-            summaryAssent14.AO = summaryAssent3.AO * 0.08m;
-            summaryAssent14.AP = summaryAssent3.AP * 0.08m;
-            summaryAssent14.AQ = summaryAssent3.AQ * 0.08m;
-
-
-            #endregion
-
-            #region 库存需按照10%计提跌价损失
-            summaryAssent15.J = summaryAssent9.J * market1.CM[1].S * 0.10m;
-            summaryAssent15.K = summaryAssent9.K * market1.CM[1].S * 0.10m;
-            summaryAssent15.L = summaryAssent9.L * market1.CM[1].S * 0.10m;
-            summaryAssent15.M = summaryAssent9.M * market1.CM[1].S * 0.10m;
-            summaryAssent15.N = summaryAssent9.N * market1.CM[1].S * 0.10m;
-            summaryAssent15.O = summaryAssent9.O * market1.CM[1].S * 0.10m;
-
-            #endregion
+              
 
             #region 扣除计提跌价损失及银行利息后的利润 summaryAssent16
             summaryAssent16.J = summaryAssent13.J - summaryAssent15.J - summaryAssent14.J;
@@ -776,29 +744,8 @@ namespace WebMVC.BLL
 
             #endregion
 
-            #region 经营中损失的销售  summaryAssent17
-            summaryAssent17.C = summaryAssent17.J;
-            summaryAssent17.D = summaryAssent17.K;
-            summaryAssent17.E = summaryAssent17.L;
-            summaryAssent17.F = summaryAssent17.M;
-            summaryAssent17.G = summaryAssent17.N;
-            summaryAssent17.H = summaryAssent17.O;
-            summaryAssent17.Q = summaryAssent17.X;
-            summaryAssent17.R = summaryAssent17.Y;
-            summaryAssent17.S = summaryAssent17.Z;
-            summaryAssent17.T = summaryAssent17.AA;
-            summaryAssent17.U = summaryAssent17.AB;
-            summaryAssent17.V = summaryAssent17.AC;
-            summaryAssent17.W = summaryAssent17.AD;
-            summaryAssent17.AE = summaryAssent17.AL;
-            summaryAssent17.AF = summaryAssent17.AM;
-            summaryAssent17.AG = summaryAssent17.AN;
-            summaryAssent17.AH = summaryAssent17.AO;
-            summaryAssent17.AI = summaryAssent17.AP;
-            summaryAssent17.AJ = summaryAssent17.AQ;
-
-
-            #endregion
+           
+             
 
             #region 经营中损失的金额  summaryAssent18
             summaryAssent18.C = summaryAssent17.C * market1.CM[1].S;

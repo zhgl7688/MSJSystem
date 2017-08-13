@@ -15,14 +15,13 @@ namespace WebMVC.BLL
         /// <summary>
         ///  厂家主导的产品创新力
         /// </summary>
-        public ProductInnovation()
+        public ProductInnovation(BrandStrength brandStrength, InvertmentTable1 invertmentTable1)
         {
-            brandStrengths = new BrandStrength().Get();
-            investments = new InvertmentTable1().getBrandsInputs();
+            brandStrengths =brandStrength.Get();
+            investments = invertmentTable1.getBrandTable();
             Init();
         }
-        RC initRC = new RC
-            {
+        RC initRC = new RC{
                 M = 0.35m,
                 S = 0.45m,
                 J = 0.20m,
@@ -36,7 +35,12 @@ namespace WebMVC.BLL
             {
                 Stage = brandStrength0.Stage,ID=(int)Stage.起始阶段
             };
-            initT.K.RC1 = initRC;
+            initT.K.RC1 = new RC
+            {
+                M = 0.35m,
+                S = 0.45m,
+                J = 0.20m,
+            };
 
             initT.T.RC1.M = (1000 - brandStrength0.H) * 0.3m;
             initT.T.RC1.S = (1000 - brandStrength0.I) * 0.3m;
@@ -121,16 +125,26 @@ namespace WebMVC.BLL
             product.K.RC1.S = last.InnovationIndexR1S;
             product.K.RC1.J = last.InnovationIndexR1J;
 
-            if (stage == (Stage.第二阶段 | Stage.第三阶段))
+            if (stage == Stage.第二阶段 )
             {
-                product.K.RC2 = initRC; 
+                product.K.RC2 = new RC
+                {
+                    M = 0.35m,
+                    S = 0.45m,
+                    J = 0.20m,
+                };
             }
             if (stage == Stage.第三阶段)
             {
                 product.K.RC2.M = last.InnovationIndexR2M;
                 product.K.RC2.S = last.InnovationIndexR2S;
                 product.K.RC2.J = last.InnovationIndexR2J;
-                product.K.RC3 = initRC;
+                product.K.RC3 = new RC
+                {
+                    M = 0.35m,
+                    S = 0.45m,
+                    J = 0.20m,
+                };
             }
             product.PTCal();
         }

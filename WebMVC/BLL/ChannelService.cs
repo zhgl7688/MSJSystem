@@ -16,10 +16,10 @@ namespace WebMVC.BLL
         List<ChannelServiceTable> channelServices = new List<ChannelServiceTable>();
         List<BrandTable> brands;
         List<AgentTable> agents;
-        public ChannelService()
+        public ChannelService(InvertmentTable1 invertmentTable1)
         {
-            brands = new InvertmentTable1().getBrandsInputs();
-              agents = new InvertmentTable1().getAgents();
+            brands = invertmentTable1.getBrandTable();
+              agents = invertmentTable1.getAgents();
             Init();
         }
         private void Init()

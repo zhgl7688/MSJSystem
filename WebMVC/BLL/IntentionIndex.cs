@@ -25,13 +25,14 @@ namespace WebMVC.BLL
         /// <summary>
         /// 各品牌购买意愿指数
         /// </summary>
-        public IntentionIndex() 
+        public IntentionIndex(BrandStrength BrandStrength, ProductInnovation ProductInnovation,
+            MarketPromotion MarketPromotion, ChannelService ChannelService, MarketPriceTemp MarketPriceTemp) 
         {
-            brandStrengths = new BrandStrength().Get();
-            productInnovations = new ProductInnovation().Get();
-            marketPromotions = new MarketPromotion().Get();
-            channelServices = new ChannelService().Get();
-            marketPrices = new MarketPriceTemp().Get(); 
+            brandStrengths =  BrandStrength.Get();
+            productInnovations =  ProductInnovation.Get();
+            marketPromotions =  MarketPromotion.Get();
+            channelServices =  ChannelService.Get();
+            marketPrices =  MarketPriceTemp.Get(); 
             Init();
         }
         public void Init()
@@ -52,7 +53,6 @@ namespace WebMVC.BLL
 
                 //=IF((厂家主导的品牌力!$B4+厂家主导的产品创新力!$B6+'市场推广（包含促销投入）'!BP3+渠道服务!AB4+市场价格!AB5)/
                 //(厂家主导的品牌力!$P4+厂家主导的产品创新力!$DD6+'市场推广（包含促销投入）'!CI3+渠道服务!AU4+市场价格!EY5)<0,0,(厂家主导的品牌力!$B4+厂家主导的产品创新力!$B6+'市场推广（包含促销投入）'!BP3+渠道服务!AB4+市场价格!AB5)/(厂家主导的品牌力!$P4+厂家主导的产品创新力!$DD6+'市场推广（包含促销投入）'!CI3+渠道服务!AU4+市场价格!EY5))
-                intentionIndex.B.Add(1, new MJA());
                 intentionIndex.B[1].M1 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC1.M + item.BP.M1 + channelService.AB.M1 + marketPrice.AB[1].M1, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M1);
                 intentionIndex.B[1].M2 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC1.M + item.BP.M2 + channelService.AB.M2 + marketPrice.AB[1].M2, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M2);
                 intentionIndex.B[1].M3 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC1.M + item.BP.M3 + channelService.AB.M3 + marketPrice.AB[1].M3, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M3);
@@ -61,7 +61,6 @@ namespace WebMVC.BLL
                 intentionIndex.B[1].M6 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC1.M + item.BP.M6 + channelService.AB.M6 + marketPrice.AB[1].M6, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M6);
                 if (item.Stage == Stage.第二阶段.ToString() || item.Stage == Stage.第三阶段.ToString())
                 {
-                    intentionIndex.B.Add(2, new MJA());
                     intentionIndex.B[2].M1 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC2.M + item.BP.M1 + channelService.AB.M1 + marketPrice.AB[2].M1, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M1);
                     intentionIndex.B[2].M2 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC2.M + item.BP.M2 + channelService.AB.M2 + marketPrice.AB[2].M2, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M2);
                     intentionIndex.B[2].M3 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC2.M + item.BP.M3 + channelService.AB.M3 + marketPrice.AB[2].M3, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M3);
@@ -71,7 +70,6 @@ namespace WebMVC.BLL
                 }
                 if ( item.Stage == Stage.第三阶段.ToString())
                 {
-                    intentionIndex.B.Add(3, new MJA());
                     intentionIndex.B[3].M1 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC3.M + item.BP.M1 + channelService.AB.M1 + marketPrice.AB[3].M1, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M1);
                     intentionIndex.B[3].M2 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC3.M + item.BP.M2 + channelService.AB.M2 + marketPrice.AB[3].M2, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M2);
                     intentionIndex.B[3].M3 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC3.M + item.BP.M3 + channelService.AB.M3 + marketPrice.AB[3].M3, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M3);
@@ -79,7 +77,7 @@ namespace WebMVC.BLL
                     intentionIndex.B[3].M5 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC3.M + item.BP.M5 + channelService.AB.M5 + marketPrice.AB[3].M5, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M5);
                     intentionIndex.B[3].M6 = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.RC3.M + item.BP.M6 + channelService.AB.M6 + marketPrice.AB[3].M6, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M6);
                 }
-                intentionIndex.T.Add(1, new MJA());
+             
                 intentionIndex.T[1].J1 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC1.J + item.BP.J1 + channelService.AB.J1 + marketPrice.AT[1].J1, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M1);
                 intentionIndex.T[1].J2 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC1.J + item.BP.J2 + channelService.AB.J2 + marketPrice.AT[1].J2, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M2);
                 intentionIndex.T[1].J3 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC1.J + item.BP.J3 + channelService.AB.J3 + marketPrice.AT[1].J3, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M3);
@@ -88,7 +86,7 @@ namespace WebMVC.BLL
                 intentionIndex.T[1].J6 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC1.J + item.BP.J6 + channelService.AB.J6 + marketPrice.AT[1].J6, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M6);
                 if (item.Stage == Stage.第二阶段.ToString() || item.Stage == Stage.第三阶段.ToString())
                 {
-                    intentionIndex.T.Add(2, new MJA());
+                   
                     intentionIndex.T[2].J1 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J1 + channelService.AB.J1 + marketPrice.AB[2].J1, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M1);
                     intentionIndex.T[2].J2 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J2 + channelService.AB.J2 + marketPrice.AB[2].J2, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M2);
                     intentionIndex.T[2].J3 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J3 + channelService.AB.J3 + marketPrice.AB[2].J3, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M3);
@@ -98,7 +96,7 @@ namespace WebMVC.BLL
                 }
                 if (item.Stage == Stage.第三阶段.ToString())
                 {
-                    intentionIndex.T.Add(3, new MJA());
+                  
                     intentionIndex.T[3].J1 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J1 + channelService.AB.J1 + marketPrice.AB[3].J1, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M1);
                     intentionIndex.T[3].J2 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J2 + channelService.AB.J2 + marketPrice.AB[3].J2, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M2);
                     intentionIndex.T[3].J3 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J3 + channelService.AB.J3 + marketPrice.AB[3].J3, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M3);
@@ -106,7 +104,7 @@ namespace WebMVC.BLL
                     intentionIndex.T[3].J5 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J5 + channelService.AB.J5 + marketPrice.AB[3].J5, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M5);
                     intentionIndex.T[3].J6 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J6 + channelService.AB.J6 + marketPrice.AB[3].J6, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M6);
                 }
-                intentionIndex.AL.Add(1, new MJA());
+          
                 intentionIndex.AL[1].Agent1 = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.RC1.S + item.BP.Agent1 + channelService.AB.Agent1 + marketPrice.BL[1].Agent1, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M1);
                 intentionIndex.AL[1].Agent2 = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.RC1.S + item.BP.Agent2 + channelService.AB.Agent2 + marketPrice.BL[1].Agent2, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M2);
                 intentionIndex.AL[1].Agent3 = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.RC1.S + item.BP.Agent3 + channelService.AB.Agent3 + marketPrice.BL[1].Agent3, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M3);
@@ -115,7 +113,7 @@ namespace WebMVC.BLL
                 intentionIndex.AL[1].Agent6 = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.RC1.S + item.BP.Agent6 + channelService.AB.Agent6 + marketPrice.BL[1].Agent6, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M6);
                 if (item.Stage == Stage.第二阶段.ToString() || item.Stage == Stage.第三阶段.ToString())
                 {
-                    intentionIndex.AL.Add(2, new MJA());
+                   
                     intentionIndex.AL[2].Agent1 = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.RC2.S + item.BP.Agent1 + channelService.AB.Agent1 + marketPrice.BL[2].Agent1, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M1);
                     intentionIndex.AL[2].Agent2 = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.RC2.S + item.BP.Agent2 + channelService.AB.Agent2 + marketPrice.BL[2].Agent2, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M2);
                     intentionIndex.AL[2].Agent3 = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.RC2.S + item.BP.Agent3 + channelService.AB.Agent3 + marketPrice.BL[2].Agent3, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M3);
@@ -125,7 +123,7 @@ namespace WebMVC.BLL
                 }
                 if (item.Stage == Stage.第三阶段.ToString())
                 {
-                    intentionIndex.AL.Add(3, new MJA());
+                  
                     intentionIndex.AL[3].Agent1 = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.RC3.S+ item.BP.Agent1 + channelService.AB.Agent1 + marketPrice.BL[3].Agent1, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M1);
                     intentionIndex.AL[3].Agent2 = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.RC3.S+ item.BP.Agent2 + channelService.AB.Agent2 + marketPrice.BL[3].Agent2, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M2);
                     intentionIndex.AL[3].Agent3 = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.RC3.S+ item.BP.Agent3 + channelService.AB.Agent3 + marketPrice.BL[3].Agent3, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M3);
@@ -143,6 +141,21 @@ namespace WebMVC.BLL
     }
     public class IntentionIndexTable
     {
+        public IntentionIndexTable()
+        {
+            B = new Dictionary<int, MJA>();
+            B.Add(1, new MJA());
+            B.Add(2, new MJA());
+            B.Add(3, new MJA());
+            T = new Dictionary<int, MJA>();
+            T.Add(1, new MJA());
+            T.Add(2, new MJA());
+            T.Add(3, new MJA());
+            AL = new Dictionary<int, MJA>();
+            AL.Add(1, new MJA());
+            AL.Add(2, new MJA());
+            AL.Add(3, new MJA());
+        }
         /// <summary>
         /// 阶段
         /// </summary>
@@ -150,7 +163,7 @@ namespace WebMVC.BLL
         /// <summary>
         /// RC1
         /// </summary>
-        public Dictionary<int, MJA> B { get; set; } = new Dictionary<int, MJA>();
+        public Dictionary<int, MJA> B { get; set; } 
 
         /// <summary>
         /// RC1
@@ -225,9 +238,9 @@ namespace WebMVC.BLL
     {
         List<PriceControlTable> priceControlTables;
 
-        public MarketPriceTemp()
+        public MarketPriceTemp(PriceControl PriceControl)
         {
-            priceControlTables = new PriceControl().Get();
+            priceControlTables =   PriceControl.Get();
 
             Init();
         }

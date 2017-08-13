@@ -19,11 +19,11 @@ namespace WebMVC.BLL
         List<PriceControlTable> priceControlTables;
         List<ProductInnvoationTable> productInnvoations;
         List<CurrentShareTable> currentShares;
-        public MarketPrice()
+        public MarketPrice(PriceControl priceControl, ProductInnovation productInnovation, CurrentShare currentShare)
         {
-            priceControlTables = new PriceControl().Get();
-            productInnvoations = new ProductInnovation().Get();
-            currentShares = new CurrentShare().Get();
+            priceControlTables = priceControl.Get();
+            productInnvoations = productInnovation.Get();
+            currentShares = currentShare.Get();
             Init();
         }
         List<MarketTable> markets = new List<MarketTable>();
@@ -41,7 +41,12 @@ namespace WebMVC.BLL
             market1.CD.Add(1, new RC { M = 300, S = 315, J = 285 });
             market1.CM.Add(1, new RC { M = RC1M, S = RC1S, J = RC1J });
             market1.DE.Add(1, new RC { M = priceControl1.B.RC1M, J = priceControl1.B.RC1J });
+            market1.DE.Add(2, new RC ());
+            market1.DE.Add(3, new RC ());
+
             market1.DK.Add(1, new MJA { Agent1 = priceControl1.D[1].Agent1, Agent2 = priceControl1.D[1].Agent2, Agent3 = priceControl1.D[1].Agent3, Agent4 = priceControl1.D[1].Agent4, Agent5 = priceControl1.D[1].Agent5, Agent6 = priceControl1.D[1].Agent6 });
+            market1.DK.Add(2, new MJA());
+            market1.DK.Add(3, new MJA());
             market1.EF.Add(1, new MJA
             {
                 Agent1 = GetEF(priceControl1.K[1].Agent1, priceControl1.D[1].Agent1),
@@ -51,7 +56,8 @@ namespace WebMVC.BLL
                 Agent5 = GetEF(priceControl1.K[1].Agent5, priceControl1.D[1].Agent5),
                 Agent6 = GetEF(priceControl1.K[1].Agent6, priceControl1.D[1].Agent6)
             });
-
+            market1.EF.Add(2, new MJA());
+            market1.EF.Add(3, new MJA());
             //market1.CompeteRC = priceControl1.B;
             markets.Add(market1);
             #endregion
@@ -84,10 +90,10 @@ namespace WebMVC.BLL
             market2.CM.Add(2, priceControl2.AJ);
             market2.DE.Add(1, new RC { M = priceControl2.B.RC1M, J = priceControl2.B.RC1J });
             market2.DE.Add(2, new RC { M = priceControl2.B.RC2M, J = priceControl2.B.RC2J });
-
+            market2.DE.Add(3, new RC());
             market2.DK.Add(1, new MJA { Agent1 = priceControl2.D[1].Agent1, Agent2 = priceControl2.D[1].Agent2, Agent3 = priceControl2.D[1].Agent3, Agent4 = priceControl2.D[1].Agent4, Agent5 = priceControl2.D[1].Agent5, Agent6 = priceControl2.D[1].Agent6 });
             market2.DK.Add(2, new MJA { Agent1 = priceControl2.D[2].Agent1, Agent2 = priceControl2.D[2].Agent2, Agent3 = priceControl2.D[2].Agent3, Agent4 = priceControl2.D[2].Agent4, Agent5 = priceControl2.D[2].Agent5, Agent6 = priceControl2.D[2].Agent6 });
-
+            market2.DK.Add(3, new MJA());
             market2.EF.Add(1, new MJA
             {
                 Agent1 = GetEF(priceControl2.K[1].Agent1, priceControl2.D[1].Agent1),
@@ -106,6 +112,7 @@ namespace WebMVC.BLL
                 Agent5 = GetEF(priceControl2.K[2].Agent5, priceControl2.D[2].Agent5),
                 Agent6 = GetEF(priceControl2.K[2].Agent6, priceControl2.D[2].Agent6)
             });
+            market2.EF.Add(3, new MJA());
             markets.Add(market2);
             #endregion
 
@@ -227,13 +234,17 @@ namespace WebMVC.BLL
                 if (Stage == Common.Stage.第二阶段.ToString()||Stage == Common.Stage.第三阶段.ToString())
                     result.Add(2, new MJA
                     {
-                        M1 = GetAB(DK[2].Agent1, DE[2].M, DE[2].J),
-                        M2 = GetAB(DK[2].Agent2, DE[2].M, DE[2].J),
-                        M3 = GetAB(DK[2].Agent3, DE[2].M, DE[2].J),
-                        M4 = GetAB(DK[2].Agent4, DE[2].M, DE[2].J),
-                        M5 = GetAB(DK[2].Agent5, DE[2].M, DE[2].J),
-                        M6 = GetAB(DK[2].Agent6, DE[2].M, DE[2].J),
+                        M1 = GetAB(DK[1].Agent1, DE[2].M, DE[2].J),
+                        M2 = GetAB(DK[1].Agent2, DE[2].M, DE[2].J),
+                        M3 = GetAB(DK[1].Agent3, DE[2].M, DE[2].J),
+                        M4 = GetAB(DK[1].Agent4, DE[2].M, DE[2].J),
+                        M5 = GetAB(DK[1].Agent5, DE[2].M, DE[2].J),
+                        M6 = GetAB(DK[1].Agent6, DE[2].M, DE[2].J),
                     });
+                else
+                {
+                    result.Add(2, new MJA());
+                }
                 if (Stage == Common.Stage.第三阶段.ToString())
                     result.Add(3, new MJA
                     {
@@ -244,6 +255,10 @@ namespace WebMVC.BLL
                         M5 = GetAB(DK[3].Agent5, DE[3].M, DE[3].J),
                         M6 = GetAB(DK[3].Agent6, DE[3].M, DE[3].J),
                     });
+                else
+                {
+                    result.Add(3,new MJA());
+                }
                 return result;
             }
         }
@@ -276,6 +291,7 @@ namespace WebMVC.BLL
                     J5 = GetAT(DK[1].Agent5, DE[1].M, DE[1].J),
                     J6 = GetAT(DK[1].Agent6, DE[1].M, DE[1].J),
                 });
+
                 if (Stage == Common.Stage.第二阶段.ToString() || Stage == Common.Stage.第三阶段.ToString())
                     result.Add(2, new MJA
                     {
@@ -286,6 +302,10 @@ namespace WebMVC.BLL
                         J5 = GetAT(DK[2].Agent5, DE[2].M, DE[2].J),
                         J6 = GetAT(DK[2].Agent6, DE[2].M, DE[2].J),
                     });
+                else
+                {
+                    result.Add(2, new MJA());
+                }
                 if (Stage == Common.Stage.第三阶段.ToString())
                     result.Add(3, new MJA
                     {
@@ -296,6 +316,10 @@ namespace WebMVC.BLL
                         J5 = GetAT(DK[3].Agent5, DE[3].M, DE[3].J),
                         J6 = GetAT(DK[3].Agent6, DE[3].M, DE[3].J),
                     });
+                else
+                {
+                    result.Add(3, new MJA());
+                }
                 return result;
             }
         }
@@ -336,6 +360,10 @@ namespace WebMVC.BLL
                         Agent5 = GetBL(DK[2].Agent5, DE[2].M, DE[2].J),
                         Agent6 = GetBL(DK[2].Agent6, DE[2].M, DE[2].J),
                     });
+                else
+                {
+                    result.Add(2, new MJA());
+                }
                 if (Stage == Common.Stage.第三阶段.ToString())
                     result.Add(3, new MJA
                     {
@@ -346,6 +374,10 @@ namespace WebMVC.BLL
                         Agent5 = GetBL(DK[3].Agent5, DE[3].M, DE[3].J),
                         Agent6 = GetBL(DK[3].Agent6, DE[3].M, DE[3].J),
                     });
+                else
+                {
+                    result.Add(3, new MJA());
+                }
                 return result;
             }
         }
@@ -434,6 +466,10 @@ namespace WebMVC.BLL
 
                     });
                 }
+                else
+                {
+                    result.Add(2, new MJA());
+                }
                 if (Stage == Common.Stage.第三阶段.ToString())
                 {
                     result.Add(3, new MJA
@@ -448,6 +484,10 @@ namespace WebMVC.BLL
                     });
 
                    
+                }
+                else
+                {
+                    result.Add(3, new MJA());
                 }
                 return result;
             }

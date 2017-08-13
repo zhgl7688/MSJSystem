@@ -18,10 +18,10 @@ namespace WebMVC.BLL
         /// <summary>
         /// 市场容量及各品牌当年占有率
         /// </summary>  
-        public CurrentShare()
+        public CurrentShare(IntentionIndex intentionIndex, PriceControl priceControl)
         {
-            intentionIndexs = new IntentionIndex().Get();
-            priceControlTables = new PriceControl().Get();
+            intentionIndexs = intentionIndex.Get();
+            priceControlTables = priceControl.Get();
             Init();
         }
 
@@ -29,9 +29,9 @@ namespace WebMVC.BLL
         {
 
             var current0 = new CurrentShareTable { A = "", B = "", C = "", D = 100, E = 100, Stage = Stage.起始阶段.ToString() };
-            current0.H.Add(1, new MJA { M1 = 0.45m, M2 = 0.45m, M3 = 0.45m, M4 = 0.45m, M5 = 0.45m, M6 = 0.45m, });
-            current0.Z.Add(1, new MJA { J1 = 0.25m, J2 = 0.25m, J3 = 0.25m, J4 = 0.25m, J5 = 0.25m, J6 = 0.25m, });
-            current0.AR.Add(1, new MJA { Agent1 = 0.3m, Agent2 = 0.3m, Agent3 = 0.3m, Agent4 = 0.3m, Agent5 = 0.3m, Agent6 = 0.3m, });
+            current0.H[1]= new MJA { M1 = 0.45m, M2 = 0.45m, M3 = 0.45m, M4 = 0.45m, M5 = 0.45m, M6 = 0.45m, };
+            current0.Z[1]= new MJA { J1 = 0.25m, J2 = 0.25m, J3 = 0.25m, J4 = 0.25m, J5 = 0.25m, J6 = 0.25m, };
+            current0.AR[1]= new MJA { Agent1 = 0.3m, Agent2 = 0.3m, Agent3 = 0.3m, Agent4 = 0.3m, Agent5 = 0.3m, Agent6 = 0.3m, };
 
             currentShares.Add(current0);
             foreach (var item in intentionIndexs)
@@ -96,7 +96,21 @@ namespace WebMVC.BLL
     }
     public class CurrentShareTable
     {
-
+        public CurrentShareTable()
+        {
+             H  = new Dictionary<int, MJA>();
+            H.Add(1, new MJA());
+            H.Add(2, new MJA());
+            H.Add(3, new MJA());
+            Z  = new Dictionary<int, MJA>();
+            Z.Add(1, new MJA());
+            Z.Add(2, new MJA());
+            Z.Add(3, new MJA());
+            AR  = new Dictionary<int, MJA>();
+            AR.Add(1, new MJA());
+            AR.Add(2, new MJA());
+            AR.Add(3, new MJA());
+        }
         decimal[] Static_D = { 100, 100, 80, 50 };
         decimal[] Static_E = { 100, 90, 105, 98 };
         decimal[] Static_F = { 1, 0.9m, 1.05m, 0.98m };
@@ -114,9 +128,9 @@ namespace WebMVC.BLL
         }
 
         public string Stage { get; set; }
-        public Dictionary<int, MJA> H { get; set; } = new Dictionary<int, MJA>();
-        public Dictionary<int, MJA> Z { get; set; } = new Dictionary<int, MJA>();
-        public Dictionary<int, MJA> AR { get; set; } = new Dictionary<int, MJA>();
+        public Dictionary<int, MJA> H { get; set; } 
+        public Dictionary<int, MJA> Z { get; set; } 
+        public Dictionary<int, MJA> AR { get; set; }  
         public Dictionary<int, MJA> BJ
         {
             get
@@ -125,6 +139,8 @@ namespace WebMVC.BLL
                 if (Stage == Common.Stage.起始阶段.ToString())
                 {
                     result.Add(1, new MJA { M1 = 45, M2 = 45, M3 = 45, M4 = 45, M5 = 45, M6 = 45 });
+                    result.Add(2, new MJA());
+                    result.Add(3, new MJA());
                 }
                 else
                 {
@@ -151,6 +167,9 @@ namespace WebMVC.BLL
                 if (this.Stage == Common.Stage.起始阶段.ToString())
                 {
                     result.Add(1, new MJA { J1 = D * F * Z[1].J1, J2 = D * F * Z[1].J2, J3 = D * F * Z[1].J3, J4 = D * F * Z[1].J4, J5 = D * F * Z[1].J5, J6 = D * F * Z[1].J6, });
+                    result.Add(2, new MJA { });
+                    result.Add(3, new MJA { });
+
                 }
                 else
                 {
@@ -173,6 +192,8 @@ namespace WebMVC.BLL
                 if (this.Stage == Common.Stage.起始阶段.ToString())
                 {
                     result.Add(1, new MJA { Agent1 = D * F * AR[1].Agent1, Agent2 = D * F * AR[1].Agent2, Agent3 = D * F * AR[1].Agent3, Agent4 = D * F * AR[1].Agent4, Agent5 = D * F * AR[1].Agent5, Agent6 = D * F * AR[1].Agent6, });
+                    result.Add(2, new MJA { });
+                    result.Add(3, new MJA { });
                 }
                 else
                 {

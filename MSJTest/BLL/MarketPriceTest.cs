@@ -5,10 +5,9 @@ using WebMVC.BLL;
 namespace MSJTest.BLL
 {
     [TestClass]
-    public class MarketPriceTest
+    public class MarketPriceTest:BaseTest
     {
-        MarketPrice marketPrice = new MarketPrice();
-        [TestMethod]
+          [TestMethod]
         public void TestMethod1()
         {
          var result=   marketPrice.Get();

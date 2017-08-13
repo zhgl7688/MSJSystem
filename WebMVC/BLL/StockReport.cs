@@ -16,10 +16,10 @@ namespace WebMVC.BLL
         /// <summary>
         /// 进货报表
         /// </summary>
-        public StockReport()
+        public StockReport(InvertmentTable1 InvertmentTable1, MarketPrice MarketPrice)
         {
-            agents = new InvertmentTable1().getAgentInputs();
-            markets = new MarketPrice().Get();
+            agents =   InvertmentTable1.getAgentInputs();
+            markets =   MarketPrice.Get();
             Init();
         }
         public void Init()

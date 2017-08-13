@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,7 @@ namespace WebMVC.Models
         /// <summary>
         /// S品牌对代1最高可投入
         /// </summary>
+        [DisplayName("")]
         public decimal AJ { get; set; }
         /// <summary>
         /// 终端形象

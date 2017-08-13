@@ -14,14 +14,14 @@ namespace WebMVC.BLL
         /// <summary>
         /// 价格管控表
         /// </summary>
-        public PriceControl()
+        public PriceControl(InvertmentTable1 invertmentTable1)
         {
-            invertmenetTable1 = new InvertmentTable1();
+            invertmenetTable1 = invertmentTable1;
             init();
         }
         public void init()
         {
-            var brandsInputs = invertmenetTable1.getBrandsInputs();
+            var brandsInputs = invertmenetTable1.getBrandTable();
             foreach (var agentItem in brandsInputs)
             {
                 var priceControl = priceControlTables.FirstOrDefault(s => s.Stage == agentItem.Stage);

@@ -10,57 +10,80 @@ namespace WebMVC.BLL
     /// <summary>
     /// 第一期PPT
     /// </summary>
-    public class FirstPPT
+    public class FirstPPTData
     {
-        List<BrandInfo> brandInfos = new List<BrandInfo>();
-        List<SAgentInfo> sAgentInfos = new List<SAgentInfo>();
-        List<SAgentResult> sAgentResults = new List<SAgentResult>();
-        public BrandProfit BrandProfit { get; set; }
-
-        public void AddBrandInfo(BrandInfo brandInfo)
+       FirstPPTList firstPPTList;
+     
+        public FirstPPTData()
         {
-            brandInfos.Add(brandInfo);
+            firstPPTList = new FirstPPTList();
+ 
         }
-        public void AddsAgentInfos(SAgentInfo sAgentInfo)
+        protected void SetBrandProfit(BrandProfit brandProfit)
         {
-            sAgentInfos.Add(sAgentInfo);
+            firstPPTList.BrandProfit= brandProfit;
         }
-        public void AddsAgentResult(SAgentResult sAgentResult)
+        protected void AddBrandInfo(BrandInfo brandInfo)
         {
-            sAgentResults.Add(sAgentResult);
+            firstPPTList. brandInfos.Add(brandInfo);
         }
-
+        protected void AddsAgentInfos(SAgentInfo sAgentInfo)
+        {
+            firstPPTList.sAgentInfos.Add(sAgentInfo);
+        }
+        protected void AddsAgentResult(SAgentResult sAgentResult)
+        {
+            firstPPTList.sAgentResults.Add(sAgentResult);
+        }
+        
+        public FirstPPTList GetFirstPPTList()
+        {
+            return firstPPTList;
+        }
     }
-    public class FirstPPTOperstion
+    public class FirstPPT:FirstPPTData
     {
         MarketPrice marketPrice;
-        Investment inverstmentTable;
+        Investment investment;
         InvertmentTable1 invertmentTable1;
         SummaryAssent summaryAssent;
         LastBrand lastBrand;
-        InvoicingReport invoicingReport;
-        FirstPPT firstPPt = new FirstPPT();
-        public FirstPPTOperstion( Investment inverstmentTable)
+       List< InvoicingTable> invoicingReports;
+        List<PriceControlTable> priceControls;
+        public FirstPPT(MarketPrice MarketPrice, Investment Investment, InvertmentTable1 InvertmentTable1, SummaryAssent SummaryAssent,
+            LastBrand LastBrand , InvoicingReport  InvoicingReport,PriceControl priceControl)
         {
-            
-            this.marketPrice = new MarketPrice();
-            this.inverstmentTable = inverstmentTable;
-            this.invertmentTable1 =new InvertmentTable1();
+             this.marketPrice =   MarketPrice;
+            this.investment =  Investment  ;
+            this.invertmentTable1 =  InvertmentTable1 ;
+             summaryAssent=  SummaryAssent ;
+             lastBrand=  LastBrand ;
+             invoicingReports=  InvoicingReport.Get() ;
+            priceControls = priceControl.Get();
+            Init();
+        }
+        public void Init()
+        {
+            BrandInfo();
+            BrandProfitAdd();
+            sAgentInfos();
+            sAgentResult();
         }
         #region 品牌商竞争信息表BrandInfo
         /// <summary>
         /// 品牌商竞争信息表BrandInfo
         /// </summary>
-        public void BrandInfoadd()
+        private void BrandInfo()
         {
-
-            var firstMarketPrice = marketPrice.Get().FirstOrDefault(s => s.Stage == "第一阶段");
-            var firstInverstment = inverstmentTable.Get().FirstOrDefault(s => s.Stage == "第一期");
-            var firstinvertmentTable1 = invertmentTable1.getAgentInputs().FirstOrDefault(s => s.Stage == "第一阶段");
+            var stage = Stage.第一阶段.ToString();
+            var firstMarketPrice = marketPrice.Get().FirstOrDefault(s => s.Stage == stage);
+            var firstInverstment = investment.Get().FirstOrDefault(s => s.Stage == stage);
+            var firstinvertmentTable1 = invertmentTable1.getAgentInputs().FirstOrDefault(s => s.Stage == stage);
+            var firstbrand1 = invertmentTable1.getBrandTable().FirstOrDefault(s => s.Stage == stage && s.Brand==Brand.S品牌.ToString());
             if (firstMarketPrice != null && firstInverstment != null)
             {
 
-                BrandInfo brandInfo = new BrandInfo()
+                AddBrandInfo(  new BrandInfo()
                 {
                     品牌方 = Brand.M品牌,
                     出厂价 = firstMarketPrice.CM[1].M,
@@ -69,28 +92,31 @@ namespace WebMVC.BLL
                     外观创新 = firstInverstment.M.SurfaceRC1,
                     功能创新 = firstInverstment.N.FunctionRC1,
                     材料创新 = firstInverstment.O.materialRC1
-                };
-                firstPPt.AddBrandInfo(brandInfo);
+                });
+               AddBrandInfo(new BrandInfo()
+               {
+                 品牌方 = Brand.S品牌,
+                 出厂价 = firstMarketPrice.CM[1].S,
+                 指导零售价 = firstbrand1.retailPrice,
+                 品牌广告 = firstInverstment.K,
+                 外观创新 = firstInverstment.P.SurfaceRC1,
+                 功能创新 = firstInverstment.Q.FunctionRC1,
+                 材料创新 = firstInverstment.R.materialRC1,
+               });
 
 
-                brandInfo.品牌方 = Brand.S品牌;
-                brandInfo.出厂价 = firstMarketPrice.CM[1].S;
-                brandInfo.指导零售价 = firstinvertmentTable1.retailPriceRC1;
-                brandInfo.品牌广告 = firstInverstment.K;
-                brandInfo.外观创新 = firstInverstment.P.SurfaceRC1;
-                brandInfo.功能创新 = firstInverstment.Q.FunctionRC1;
-                brandInfo.材料创新 = firstInverstment.R.materialRC1;
 
-                firstPPt.AddBrandInfo(brandInfo);
-                brandInfo.品牌方 = Brand.J品牌;
-                brandInfo.出厂价 = firstMarketPrice.CM[1].J;
-                brandInfo.指导零售价 = firstMarketPrice.DE[1].J;
-                brandInfo.品牌广告 = firstInverstment.L;
-                brandInfo.外观创新 = firstInverstment.S.SurfaceRC1;
-                brandInfo.功能创新 = firstInverstment.T.FunctionRC2;
-                brandInfo.材料创新 = firstInverstment.U.materialRC1;
-
-                firstPPt.AddBrandInfo(brandInfo);
+                AddBrandInfo(new BrandInfo
+                {
+                    品牌方 = Brand.J品牌,
+                    出厂价 = firstMarketPrice.CM[1].J,
+                    指导零售价 = firstMarketPrice.DE[1].J,
+                    品牌广告 = firstInverstment.L,
+                    外观创新 = firstInverstment.S.SurfaceRC1,
+                    功能创新 = firstInverstment.T.FunctionRC1,
+                    材料创新 = firstInverstment.U.materialRC1,
+                });
+               
             }
 
 
@@ -101,11 +127,15 @@ namespace WebMVC.BLL
         /// <summary>
         /// 各品牌商盈利情况BrandProfit
         /// </summary>
-        public void BrandProfitadd()
+        private void BrandProfitAdd()
         {
-            var summary = summaryAssent.Get().FirstOrDefault(s => s.A == "销售利润");
-
-            firstPPt.BrandProfit = new BrandProfit
+            var summary = summaryAssent.Get().FirstOrDefault(s => s.A == "销售利润");// 13);//
+            Func<string, decimal> getC = (b) =>
+             {
+                 var shareMark = lastBrand.Get().FirstOrDefault(s => s.Brand == b);
+                 return shareMark != null ? shareMark.C : 0;
+             };
+            SetBrandProfit( new BrandProfit
             {
                 M = summary.B,
                 S1 = summary.C,
@@ -113,68 +143,82 @@ namespace WebMVC.BLL
                 S3 = summary.E,
                 S4 = summary.F,
                 J = summary.I,
-                SM = GetC("M"),
-                SS = GetC("S"),
-                SJ = GetC("J")
-            };
+                SM = getC(Brand.M品牌.ToString()),
+                SS = getC(Brand.S品牌.ToString()),
+                SJ = getC(Brand.J品牌.ToString())
+            });
 
         }
-        public decimal GetC(string brand)
-        {
-            var shareMark = lastBrand.Get().FirstOrDefault(s => s.品牌方 == brand);
-            return shareMark != null ? shareMark.C : 0;
-        }
+        
         #endregion
 
-        #region S品牌代理商信息表
-        public void sAgentInfosAdd()
+        #region S品牌代理商信息表 sAgentInfos
+        private void sAgentInfos()
         {
-            var agentInputs = invertmentTable1.getAgentInputs();
-            foreach (var item in agentInputs)
+            var investment1 = investment.Get().FirstOrDefault(s=>s.Stage==Stage.第一阶段.ToString());
+            var priceControl1 = priceControls.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
+            foreach (var item in invoicingReports)
             {
                 var sAgentInfo = new SAgentInfo
                 {
                     代理方 = item.AgentName,
-                    供货价 = item.retailPriceRC1,
-                    零售价 = item.SystemPriceRC1,
-                    终端形象 = item.EndImage,
-                    导购员 = item.Salesperson,
-                    店内促销 = item.HousePromote,
-                    演示员 = item.demonstrator,
-                    户外活动 = item.outdoorActivity,
-                    推广小分队 = item.promotionTeam,
-                    服务 = item.servet,
-                };
-                var firstInverstment = inverstmentTable.Get().FirstOrDefault(s => s.Stage == "第一期");
-                switch (sAgentInfo.代理方)
+                 };
+                 switch (sAgentInfo.代理方)
                 {
                     case "代1":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.AJ.InputSum;
+                        sAgentInfo.供货价 = priceControl1.K[1].Agent1;
+                        sAgentInfo.零售价 = priceControl1.D[1].Agent1;
+                        setBrandInput( sAgentInfo, investment1.CL);
+                        sAgentInfo.S品牌费用补贴支持 = investment1.AJ.InputSum;
                         break;
                     case "代2":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.AS.InputSum;
+                        sAgentInfo.供货价 = priceControl1.K[1].Agent2;
+                        sAgentInfo.零售价 = priceControl1.D[1].Agent2;
+                        setBrandInput(sAgentInfo, investment1.CT);
+                        sAgentInfo.S品牌费用补贴支持 = investment1.AS.InputSum;
                         break;
                     case "代3":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BB.InputSum;
+                        sAgentInfo.供货价 = priceControl1.K[1].Agent3;
+                        sAgentInfo.零售价 = priceControl1.D[1].Agent3;
+                        setBrandInput(sAgentInfo, investment1.DB);
+                        sAgentInfo.S品牌费用补贴支持 = investment1.BB.InputSum;
                         break;
                     case "代4":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BK.InputSum;
+                        sAgentInfo.供货价 = priceControl1.K[1].Agent4;
+                        sAgentInfo.零售价 = priceControl1.D[1].Agent4;
+                        setBrandInput(sAgentInfo, investment1.DJ);
+                        sAgentInfo.S品牌费用补贴支持 = investment1.BK.InputSum;
                         break;
                     case "代5":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.BT.InputSum;
+                        sAgentInfo.供货价 = priceControl1.K[1].Agent5;
+                        sAgentInfo.零售价 = priceControl1.D[1].Agent5;
+                        setBrandInput(sAgentInfo, investment1.DR);
+                        sAgentInfo.S品牌费用补贴支持 = investment1.BT.InputSum;
                         break;
                     case "代6":
-                        sAgentInfo.S品牌费用补贴支持 = firstInverstment.CC.InputSum;
+                        sAgentInfo.供货价 = priceControl1.K[1].Agent6;
+                        sAgentInfo.零售价 = priceControl1.D[1].Agent6;
+                        setBrandInput(sAgentInfo, investment1.DZ);
+                        sAgentInfo.S品牌费用补贴支持 = investment1.CC.InputSum;
                         break;
                 }
-                firstPPt.AddsAgentInfos(sAgentInfo);
+               AddsAgentInfos(sAgentInfo);
             }
 
         }
         #endregion
-
-        #region S品牌代理商经营模拟结果呈现
-        public void sAgentResultAdd()
+        public void setBrandInput(SAgentInfo sagentInfo, BrandInput brandInput)
+        {
+                   sagentInfo. 终端形象 = brandInput.EndImage;
+                   sagentInfo. 导购员 = brandInput.Salesperson;
+                   sagentInfo. 店内促销 = brandInput.HousePromote;
+                   sagentInfo. 演示员 = brandInput.demonstrator;
+                   sagentInfo. 户外活动 = brandInput.outdoorActivity;
+                   sagentInfo. 推广小分队 = brandInput.promotionTeam;
+                   sagentInfo. 服务 = brandInput.servet;
+        }
+        #region S品牌代理商经营模拟结果呈现 sAgentResult
+        private void sAgentResult()
         {
             var agentInputs = invertmentTable1.getAgentInputs();
             var summary20 = summaryAssent.Get().FirstOrDefault(s => s.A == "经营中损失的销售");
@@ -185,18 +229,17 @@ namespace WebMVC.BLL
             var summary19 = summaryAssent.Get().FirstOrDefault(s => s.A == "扣除计提跌价损失及银行利息后的利润");
             var summary15 = summaryAssent.Get().FirstOrDefault(s => s.A == "期末现金余额");
 
-            foreach (var item in agentInputs)
+            foreach (var item in invoicingReports)
             {
                 var sAgentResult = new SAgentResult
                 {
                     代理方 = item.AgentName,
 
                 };
-                var invoicing = invoicingReport.Get().FirstOrDefault(s => s.AgentName == sAgentResult.代理方);
-                sAgentResult.期初 = invoicing.D;
-                sAgentResult.期末 = invoicing.I;
-                sAgentResult.销售量 = invoicing.G;
-                sAgentResult.销售金额 = invoicing.H;
+                sAgentResult.期初 = item.D;
+                sAgentResult.期末 = item.I;
+                sAgentResult.销售量 = item.G;
+                sAgentResult.销售金额 = item.H;
 
                 switch (sAgentResult.代理方)
                 {
@@ -249,14 +292,21 @@ namespace WebMVC.BLL
                         sAgentResult.现金流 = summary15.O;
                         break;
                 }
-                firstPPt.AddsAgentResult(sAgentResult);
+               AddsAgentResult(sAgentResult);
 
 
             }
 
         }
         #endregion
+         
     }
-
+    public class FirstPPTList
+    {
+        public List<BrandInfo> brandInfos { get; set; } = new List<BrandInfo>();
+        public List<SAgentInfo> sAgentInfos { get; set; } = new List<SAgentInfo>();
+        public List<SAgentResult> sAgentResults { get; set; } = new List<SAgentResult>();
+        public BrandProfit BrandProfit { get; set; } 
+      }
 
 }

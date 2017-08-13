@@ -16,15 +16,10 @@ namespace WebMVC.Models
         public string 代理方 { get; set; }
 
         public decimal 期初 { get; set; }
-
         public decimal 期末 { get; set; }
-
         public decimal 销售量 { get; set; }
-
         public decimal 销售金额 { get; set; }
-
         public decimal 数量 { get; set; }
-
         public decimal 金额 { get; set; }
 
         public decimal 销售利润 { get; set; }

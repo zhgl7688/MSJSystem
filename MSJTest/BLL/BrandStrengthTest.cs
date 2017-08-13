@@ -11,13 +11,11 @@ namespace MSJTest.BLL
     /// BrandStrengthTest 的摘要说明
     /// </summary>
     [TestClass]
-    public class BrandStrengthTest
+    public class BrandStrengthTest:BaseTest
     {
-        BrandStrength brandStrength;
-        public BrandStrengthTest()
+         public BrandStrengthTest()
         {
-              brandStrength = new BrandStrength();
-            //
+                //
             //TODO:  在此处添加构造函数逻辑
             //
         }

@@ -6,13 +6,12 @@ using WebMVC.BLL;
 namespace MSJTest.BLL
 {
     [TestClass]
-    public class ChannelServiceTest
+    public class ChannelServiceTest:BaseTest
     {
-        ChannelService channel = new ChannelService();
-        [TestMethod]
+         [TestMethod]
         public void TestMethod1()
         {
-            var result = channel.Get();
+            var result = channelService.Get();
             Assert.AreEqual(240, result[1].B.M);
             Assert.AreEqual(280, result[2].B.J);
             Assert.AreEqual(500, result[3].B.J);

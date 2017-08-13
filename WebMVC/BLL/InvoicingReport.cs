@@ -20,11 +20,11 @@ namespace WebMVC.BLL
         /// <summary>
         /// 进销存报表
         /// </summary>
-        public InvoicingReport()
+        public InvoicingReport(CurrentShare CurrentShare, MarketPrice MarketPrice, StockReport StockReport)
         {
-            currentShares = new CurrentShare().Get();
-            markets = new MarketPrice().Get();
-            stockReports = new StockReport().Get();
+            currentShares =  CurrentShare.Get();
+            markets =  MarketPrice.Get();
+            stockReports =  StockReport.Get();
             Init();
         }
         private void Init()
@@ -42,12 +42,25 @@ namespace WebMVC.BLL
                     };
                     invoicings.Add(invoicing);
                 }
-                invoicing.E = stockReport.Stage == Stage.第一阶段.ToString() ? stockReport.E[1].Stock : 0;
-                invoicing.K = stockReport.Stage == Stage.第二阶段.ToString() ? stockReport.E[1].Stock : 0;
-                invoicing.M = stockReport.Stage == Stage.第二阶段.ToString() ? stockReport.E[2].Stock : 0;
-                invoicing.W = stockReport.Stage == Stage.第三阶段.ToString() ? stockReport.E[1].Stock : 0;
-                invoicing.Y = stockReport.Stage == Stage.第三阶段.ToString() ? stockReport.E[2].Stock : 0;
-                invoicing.AA = stockReport.Stage == Stage.第三阶段.ToString() ? stockReport.E[3].Stock : 0;
+                Stage stage = (Stage)Enum.Parse(typeof(Stage), stockReport.Stage);
+                switch (stage)
+                {
+                    case Stage.第一阶段:
+                        invoicing.E = stockReport.E[1].Stock;
+                        break;
+                    case Stage.第二阶段:
+                        invoicing.K = stockReport.E[1].Stock;
+                        invoicing.M = stockReport.E[2].Stock;
+                        break;
+                    case Stage.第三阶段:
+                        invoicing.W = stockReport.E[1].Stock;
+                        invoicing.Y = stockReport.E[2].Stock;
+                        invoicing.AA = stockReport.E[3].Stock;
+                        break;
+                }
+
+
+
 
             }
             var currentShare0 = currentShares.FirstOrDefault(s => s.Stage == Common.Stage.起始阶段.ToString());

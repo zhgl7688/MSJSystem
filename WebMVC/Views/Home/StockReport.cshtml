@@ -29,6 +29,7 @@
         <th>
             @Html.DisplayNameFor(model => model.D)
         </th>
+        <th>E</th>
         <th></th>
     </tr>
 
@@ -51,6 +52,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.D)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.E[1].Stock)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

@@ -5,10 +5,9 @@ using WebMVC.BLL;
 namespace MSJTest.BLL
 {
     [TestClass]
-    public class IntentionIndexTest
+    public class IntentionIndexTest:BaseTest
     {
-        IntentionIndex intentionIndex = new IntentionIndex();
-        [TestMethod]
+          [TestMethod]
         public void TestMethod1()
         {
             var result = intentionIndex.Get();

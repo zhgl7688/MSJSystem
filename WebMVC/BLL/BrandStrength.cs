@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebMVC.Common;
+using WebMVC.Models;
 
 namespace WebMVC.BLL
 {
@@ -13,9 +14,9 @@ namespace WebMVC.BLL
     {
         List<BrandStrengthTable> brandStrengths = new List<BrandStrengthTable>();
         List<BrandTable> investMents;
-        public BrandStrength()
+        public BrandStrength(InvertmentTable1 invertmentTable1)
         {
-            investMents = new InvertmentTable1().getBrandsInputs(); 
+            investMents = invertmentTable1.getBrandTable(); 
             Init();
         }
         public void Init()

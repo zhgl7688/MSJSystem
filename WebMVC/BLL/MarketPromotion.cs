@@ -15,10 +15,10 @@ namespace WebMVC.BLL
         List<MarketPromotionTable> marketPromotions = new List<MarketPromotionTable>();
         List<BrandTable> brands;
         List<AgentTable> agents;
-        public MarketPromotion()
+        public MarketPromotion(InvertmentTable1 InvertmentTable1)
         {
-            brands = new InvertmentTable1().getBrandsInputs();
-            agents = new InvertmentTable1().getAgents();
+            brands =   InvertmentTable1.getBrandTable();
+            agents =   InvertmentTable1.getAgents();
             init();
         }
         public void init()

@@ -11,15 +11,15 @@ namespace MSJTest.BLL
     /// ProductInnovationTest 的摘要说明
     /// </summary>
     [TestClass]
-    public class ProductInnovationTest
+    public class ProductInnovationTest:BaseTest
     {
-        ProductInnovation productInnovation;
+ 
         public ProductInnovationTest()
         {
             //
             //TODO:  在此处添加构造函数逻辑
             //
-            productInnovation = new ProductInnovation();
+ 
         }
 
         private TestContext testContextInstance;

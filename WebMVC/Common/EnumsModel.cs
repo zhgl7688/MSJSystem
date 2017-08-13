@@ -33,4 +33,8 @@ namespace WebMVC.Common
         代6
 
     }
+    public enum MJAType
+    {
+        M,J,Agent
+    }
 }

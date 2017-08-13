@@ -5,13 +5,13 @@ using WebMVC.BLL;
 namespace MSJTest.BLL
 {
     [TestClass]
-    public class InvoicingReportTest
+    public class InvoicingReportTest:BaseTest
     {
-        InvoicingReport invoicing = new InvoicingReport();
+      
         [TestMethod]
         public void TestMethod1()
         {
-            var result = invoicing.Get();
+            var result = invoicingReport.Get();
             Assert.AreEqual(4, result.Count);
            
         }

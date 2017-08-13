@@ -5,10 +5,9 @@ using WebMVC.BLL;
 namespace MSJTest.BLL
 {
     [TestClass]
-    public class PriceControlTest
+    public class PriceControlTest:BaseTest
     {
-        PriceControl priceControl = new PriceControl();
-        [TestMethod]
+          [TestMethod]
         public void TestPriceGet()
         {
             var ss = priceControl.Get();

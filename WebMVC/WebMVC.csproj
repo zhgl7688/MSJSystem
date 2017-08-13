@@ -154,10 +154,14 @@
     <Compile Include="BLL\MarketPromotion.cs" />
     <Compile Include="BLL\PriceControl.cs" />
     <Compile Include="BLL\ProductInnovation.cs" />
+    <Compile Include="BLL\SecondPPT.cs" />
     <Compile Include="BLL\StockReport.cs" />
     <Compile Include="BLL\SummaryAssent.cs" />
+    <Compile Include="BLL\ThirdPPT.cs" />
     <Compile Include="Common\Cal.cs" />
     <Compile Include="Common\EnumsModel.cs" />
+    <Compile Include="Controllers\AgentInputController.cs" />
+    <Compile Include="Controllers\BrandsInputController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -197,6 +201,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="说明.txt" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -228,6 +233,22 @@
     <Content Include="Views\Home\SummaryAssent.cshtml" />
     <Content Include="Views\Home\InvoicingReport.cshtml" />
     <Content Include="Views\Home\StockReport.cshtml" />
+    <Content Include="Views\Home\CurrentShare.cshtml" />
+    <Content Include="Views\Home\IntentionIndex.cshtml" />
+    <Content Include="Views\Home\FirstPPT.cshtml" />
+    <Content Include="Views\Home\LastBrand.cshtml" />
+    <Content Include="Views\Home\SecondPPT.cshtml" />
+    <Content Include="Views\Home\ProductInnovation.cshtml" />
+    <Content Include="Views\Home\MarketPrice.cshtml" />
+    <Content Include="Views\Home\ThirdPPT.cshtml" />
+    <Content Include="Views\AgentInput\Create.cshtml" />
+    <Content Include="Views\AgentInput\Index.cshtml" />
+    <Content Include="Views\AgentInput\Details.cshtml" />
+    <Content Include="Views\AgentInput\Edit.cshtml" />
+    <Content Include="Views\BrandsInput\Index.cshtml" />
+    <Content Include="Views\BrandsInput\Details.cshtml" />
+    <Content Include="Views\BrandsInput\Create.cshtml" />
+    <Content Include="Views\BrandsInput\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

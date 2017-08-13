@@ -7,13 +7,13 @@ using WebMVC.BLL;
 namespace MSJTest.BLL
 {
     [TestClass]
-    public class FirstPPTTest
+    public class FirstPPTTest:BaseTest
     {
-        //FirstPPTOperstion ppt = new FirstPPTOperstion();
-        [TestMethod]
+         [TestMethod]
         public void TestMethod1()
         {
-              //ppt.BrandInfoadd();
+            var result = fristPPT.GetFirstPPTList();
+            Assert.AreEqual(3, result.brandInfos.Count);
 
         }
     }

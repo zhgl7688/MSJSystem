@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebMVC.BLL.IntentionIndexTable>
+
+@{
+    ViewBag.Title = "IntentionIndex";
+}
+
+<h2>IntentionIndex</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage)
+        </th>
+        <th>B</th>
+        <th>C</th>
+        <th>D</th>
+        <th>E</th>
+        <th>F</th>
+        <th>G</th>
+        <th>H</th>
+        <th>I</th>
+        <th>J</th>
+        <th>K</th>
+        <th>L</th>
+        <th>M</th>
+        <th>N</th>
+        <th>O</th>
+        <th>P</th>
+        <th>Q</th>
+        <th>R</th>
+        <th>S</th>
+
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stage)
+        </td>
+        <td>@Html.DisplayFor(modelItem => item.B[1].M1)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[1].M2)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[1].M3)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[1].M4)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[1].M5)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[1].M6)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[2].M1)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[2].M2)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[2].M3)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[2].M4)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[2].M5)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[2].M6)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[3].M1)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[3].M2)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[3].M3)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[3].M4)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[3].M5)</td>
+        <td>@Html.DisplayFor(modelItem => item.B[3].M6)</td>
+    </tr>
+}
+
+</table>

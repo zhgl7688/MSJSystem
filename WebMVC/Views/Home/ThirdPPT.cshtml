@@ -1,0 +1,226 @@
+﻿@model WebMVC.BLL.ThirdPPTList
+
+@{
+    ViewBag.Title = "ThirdPPT";
+}
+
+<h2>ThirdPPT</h2>
+<table class="table">
+    <tbody>品牌商竞争信息表BrandInfo</tbody>
+    <tr>
+
+        <th rowspan="3" style="padding-top:60px">品牌方</th>
+        <th colspan="2" class="text-center">产品RC1价格</th>
+        <th colspan="2" class="text-center">产品RC2价格</th>
+        <th colspan="2" class="text-center">产品RC3价格</th>
+        <th colspan="10" class="text-center">费用投入</th>
+    </tr>
+    <tr>
+        <th rowspan="2" style="padding-top:25px">出厂价</th>
+        <th rowspan="2" style="padding-top:25px">指导零售价</th>
+        <th rowspan="2" style="padding-top:25px">出厂价</th>
+        <th rowspan="2" style="padding-top:25px">指导零售价</th>
+        <th rowspan="2" style="padding-top:25px">出厂价</th>
+        <th rowspan="2" style="padding-top:25px">指导零售价</th>
+        <th rowspan="2" style="padding-top:25px">品牌广告</th>
+        <th colspan="3" class="text-center">产品RC1</th>
+        <th colspan="3" class="text-center">产品RC2</th>
+        <th colspan="3" class="text-center">产品RC3</th>
+    </tr>
+    <tr>
+        <th>外观创新</th>
+        <th>功能创新</th>
+        <th>材料创新</th>
+        <th>外观创新</th>
+        <th>功能创新</th>
+        <th>材料创新</th>
+        <th>外观创新</th>
+        <th>功能创新</th>
+        <th>材料创新</th>
+    </tr>
+    @foreach (var item in Model.brandInfos)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.品牌方)</td>
+            <td>@Html.DisplayFor(modelItem => item.出厂价)</td>
+            <td>@Html.DisplayFor(modelItem => item.指导零售价)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2出厂价)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2指导零售价)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3出厂价)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3指导零售价)</td>
+            <td>@Html.DisplayFor(modelItem => item.品牌广告)</td>
+            <td>@Html.DisplayFor(modelItem => item.外观创新)</td>
+            <td>@Html.DisplayFor(modelItem => item.功能创新)</td>
+            <td>@Html.DisplayFor(modelItem => item.材料创新)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2外观创新)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2功能创新)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2材料创新)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3外观创新)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3功能创新)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3材料创新)</td>
+        </tr>
+    }
+
+</table>
+<table class="table">
+    <tbody>各品牌商盈利情况BrandProfit</tbody>
+    <tr>
+        <th>M</th>
+        <th>S1</th>
+        <th>S2</th>
+        <th>S3</th>
+        <th>S4</th>
+        <th>J</th>
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.M)</td>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S1)</td>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S2)</td>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S3)</td>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S4)</td>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.J)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.SM)</td>
+        <td colspan="4" style="text-align:center">@Html.DisplayFor(modelItem => Model.BrandProfit.SS)</td>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.SJ)</td>
+
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.RC2SM)</td>
+        <td colspan="4" style="text-align:center">@Html.DisplayFor(modelItem => Model.BrandProfit.RC2SS)</td>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.RC2SJ)</td>
+
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.RC3SM)</td>
+        <td colspan="4" style="text-align:center">@Html.DisplayFor(modelItem => Model.BrandProfit.RC3SS)</td>
+        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.RC3SJ)</td>
+
+    </tr>
+</table>
+<table class="table">
+    <tbody>S品牌代理商信息表SAgentInfo</tbody>
+    <tr>
+
+        <th rowspan="2" style="padding-top:25px">代理方</th>
+        <th colspan="2" class="text-center">产品RC1价格</th>
+        <th colspan="2" class="text-center">产品RC2价格</th>
+        <th colspan="2" class="text-center">产品RC3价格</th>
+        <th colspan="8" class="text-center">代理商费用投入</th>
+
+        <th rowspan="2" style="padding-top:25px">S品牌费用补贴支持</th>
+    </tr>
+    <tr>
+        <th>供货价</th>
+        <th>零售价</th>
+        <th>供货价</th>
+        <th>零售价</th>
+        <th>供货价</th>
+        <th>零售价</th>
+        <th>终端形象</th>
+        <th>导购员</th>
+        <th>店内促销</th>
+        <th>演示员</th>
+        <th>户外活动</th>
+        <th>推广小分队</th>
+        <th>服务</th>
+        <th>投入小计</th>
+    </tr>
+
+    @foreach (var item in Model.sAgentInfos)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.代理方)</td>
+            <td>@Html.DisplayFor(modelItem => item.供货价)</td>
+            <td>@Html.DisplayFor(modelItem => item.零售价)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2供货价)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2零售价)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3供货价)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3零售价)</td>
+            <td>@Html.DisplayFor(modelItem => item.终端形象)</td>
+            <td>@Html.DisplayFor(modelItem => item.导购员)</td>
+            <td>@Html.DisplayFor(modelItem => item.店内促销)</td>
+            <td>@Html.DisplayFor(modelItem => item.演示员)</td>
+            <td>@Html.DisplayFor(modelItem => item.户外活动)</td>
+            <td>@Html.DisplayFor(modelItem => item.推广小分队)</td>
+            <td>@Html.DisplayFor(modelItem => item.服务)</td>
+            <td>@Html.DisplayFor(modelItem => item.投入小计)</td>
+            <td>@Html.DisplayFor(modelItem => item.S品牌费用补贴支持)</td>
+
+        </tr>
+    }
+
+</table>
+<table class="table">
+    <tbody>S品牌代理商经营模拟结果呈现SAgentResult</tbody>
+    <tr>
+        <th rowspan="2" style="padding-top:25px">代理方</th>
+        <th colspan="2" class="text-center">SRC1库存</th>
+        <th colspan="2" class="text-center">SRC1实际销售</th>
+        <th colspan="2" class="text-center">SRC1损失销售</th>
+        <th colspan="2" class="text-center">SRC2库存</th>
+        <th colspan="2" class="text-center">SRC2实际销售</th>
+        <th colspan="2" class="text-center">SRC2损失销售</th>
+        <th colspan="2" class="text-center">SRC3库存</th>
+        <th colspan="2" class="text-center">SRC3实际销售</th>
+        <th colspan="2" class="text-center">SRC3损失销售</th>
+        <th rowspan="2" style="padding-top:25px">销售利润</th>
+        <th rowspan="2" style="padding-top:25px">借款利息</th>
+        <th rowspan="2" style="padding-top:25px">库存跌价损失计提</th>
+        <th rowspan="2" style="padding-top:25px">最终经营利润</th>
+        <th rowspan="2" style="padding-top:25px">现金流</th>
+   </tr>
+    <tr>
+
+        <th>期初</th>
+        <th>期末</th>
+        <th>销售量</th>
+        <th>销售金额</th>
+        <th>数量</th>
+        <th>金额</th>
+        <th>期初</th>
+        <th>期末</th>
+        <th>销售量</th>
+        <th>销售金额</th>
+        <th>数量</th>
+        <th>金额</th>
+        <th>期初</th>
+        <th>期末</th>
+        <th>销售量</th>
+        <th>销售金额</th>
+        <th>数量</th>
+        <th>金额</th>
+    </tr>
+
+    @foreach (var item in Model.sAgentResults)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.代理方)</td>
+            <td>@Html.DisplayFor(modelItem => item.期初)</td>
+            <td>@Html.DisplayFor(modelItem => item.期末)</td>
+            <td>@Html.DisplayFor(modelItem => item.销售量)</td>
+            <td>@Html.DisplayFor(modelItem => item.销售金额)</td>
+            <td>@Html.DisplayFor(modelItem => item.数量)</td>
+            <td>@Html.DisplayFor(modelItem => item.金额)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2期初)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2期末)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2销售量)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2销售金额)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2数量)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC2金额)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3期初)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3期末)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3销售量)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3销售金额)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3数量)</td>
+            <td>@Html.DisplayFor(modelItem => item.RC3金额)</td>
+            <td>@Html.DisplayFor(modelItem => item.销售利润)</td>
+            <td>@Html.DisplayFor(modelItem => item.借款利息)</td>
+            <td>@Html.DisplayFor(modelItem => item.库存跌价损失计提)</td>
+            <td>@Html.DisplayFor(modelItem => item.最终经营利润)</td>
+            <td>@Html.DisplayFor(modelItem => item.现金流)</td>
+        </tr>
+    }
+
+</table>

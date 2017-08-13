@@ -1,0 +1,142 @@
+﻿@model IEnumerable<WebMVC.BLL.ProductInnvoationTable>
+
+@{
+    ViewBag.Title = "ProductInnovation";
+}
+
+<h2>ProductInnovation</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>B</th>
+        <th>C</th>
+        <th>D</th>
+        <th>E</th>
+        <th>F</th>
+        <th>G</th>
+        <th>H</th>
+        <th>I</th>
+        <th>J</th>
+        <th>K</th>
+        <th>L</th>
+        <th>M</th>
+        <th>N</th>
+        <th>O</th>
+        <th>P</th>
+        <th>Q</th>
+        <th>R</th>
+        <th>S</th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.InnovationIndexR1M)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InnovationIndexR1S)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InnovationIndexR1J)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InnovationIndexR2M)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InnovationIndexR2S)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InnovationIndexR2J)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InnovationIndexR3M)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InnovationIndexR3S)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InnovationIndexR3J)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DF)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.B.RC1.M)</td>
+        <td>@Html.DisplayFor(modelItem => item.B.RC1.S)</td>
+        <td>@Html.DisplayFor(modelItem => item.B.RC1.J)</td>
+        <td>@Html.DisplayFor(modelItem => item.B.RC2.M)</td>
+        <td>@Html.DisplayFor(modelItem => item.B.RC2.S)</td>
+        <td>@Html.DisplayFor(modelItem => item.B.RC2.J)</td>
+        <td>@Html.DisplayFor(modelItem => item.B.RC3.M)</td>
+        <td>@Html.DisplayFor(modelItem => item.B.RC3.S)</td>
+        <td>@Html.DisplayFor(modelItem => item.B.RC3.J)</td>
+        <td>@Html.DisplayFor(modelItem => item.K.RC1.M)</td>
+        <td>@Html.DisplayFor(modelItem => item.K.RC1.S)</td>
+        <td>@Html.DisplayFor(modelItem => item.K.RC1.J)</td>
+        <td>@Html.DisplayFor(modelItem => item.K.RC2.M)</td>
+        <td>@Html.DisplayFor(modelItem => item.K.RC2.S)</td>
+        <td>@Html.DisplayFor(modelItem => item.K.RC2.J)</td>
+        <td>@Html.DisplayFor(modelItem => item.K.RC3.M)</td>
+        <td>@Html.DisplayFor(modelItem => item.K.RC3.S)</td>
+        <td>@Html.DisplayFor(modelItem => item.K.RC3.J)</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InnovationIndexR1M)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InnovationIndexR1S)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InnovationIndexR1J)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InnovationIndexR2M)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InnovationIndexR2S)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InnovationIndexR2J)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InnovationIndexR3M)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InnovationIndexR3S)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InnovationIndexR3J)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DF)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

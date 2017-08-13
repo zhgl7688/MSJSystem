@@ -1,0 +1,177 @@
+﻿@model IEnumerable<WebMVC.Models.AgentInput>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AgentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salesperson)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HousePromote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.demonstrator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.outdoorActivity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.promotionTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.servet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bankLoan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.retailPriceRC1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SystemPriceRC1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.retailPriceRC2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SystemPriceRC2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.retailPriceRC3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SystemPriceRC3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.brandAgent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.purchase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.actualSale)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Inventory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstPurchase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SecondPurchase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThirdPurchase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InputSum)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndImage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salesperson)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HousePromote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.demonstrator)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.outdoorActivity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.promotionTeam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.servet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bankLoan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.retailPriceRC1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SystemPriceRC1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.retailPriceRC2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SystemPriceRC2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.retailPriceRC3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SystemPriceRC3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.brandAgent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.purchase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.actualSale)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Inventory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstPurchase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SecondPurchase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThirdPurchase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InputSum)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,138 @@
+﻿@model WebMVC.BLL.FirstPPTList
+
+@{
+    ViewBag.Title = "FirstPPT";
+}
+
+<h2>FirstPPT</h2>
+<div>
+      <hr />
+    <dl class="dl-horizontal"></dl>
+</div>
+<table class="table">
+    <tbody>品牌商竞争信息表BrandInfo</tbody>
+    <tr>
+        
+        <th>品牌方</th>
+        <th>出厂价</th>
+        <th>指导零售价</th>
+        <th>品牌广告</th>
+        <th>外观创新</th>
+        <th>功能创新</th>
+        <th>材料创新</th>
+    </tr>
+ 
+@foreach (var item in Model.brandInfos) {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.品牌方)</td>
+        <td>@Html.DisplayFor(modelItem => item.出厂价)</td>
+        <td>@Html.DisplayFor(modelItem => item.指导零售价)</td>
+        <td>@Html.DisplayFor(modelItem => item.品牌广告)</td>
+        <td>@Html.DisplayFor(modelItem => item.外观创新)</td>
+        <td>@Html.DisplayFor(modelItem => item.功能创新)</td>
+        <td>@Html.DisplayFor(modelItem => item.材料创新)</td>
+    </tr>
+}
+
+</table>
+<table class="table">
+    <tbody>各品牌商盈利情况BrandProfit</tbody>
+    <tr>
+        <th>M</th>
+        <th>S1</th>
+        <th>S2</th>
+        <th>S3</th>
+        <th>S4</th>
+        <th>J</th>
+    </tr>
+        <tr>
+            <td>@Html.DisplayFor(modelItem => Model.BrandProfit.M)</td>
+            <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S1)</td>
+            <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S2)</td>
+            <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S3)</td>
+            <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S4)</td>
+            <td>@Html.DisplayFor(modelItem => Model.BrandProfit.J)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(modelItem => Model.BrandProfit.SM)</td>
+            <td colspan="4" style="text-align:center">@Html.DisplayFor(modelItem => Model.BrandProfit.SS)</td>
+            <td>@Html.DisplayFor(modelItem => Model.BrandProfit.SJ)</td>
+           
+        </tr>
+ 
+</table>
+<table class="table">
+    <tbody>S品牌代理商信息表SAgentInfo</tbody>
+    <tr>
+
+        <th>代理方</th>
+        <th>供货价</th>
+        <th>零售价</th>
+        <th>终端形象</th>
+        <th>导购员</th>
+        <th>店内促销</th>
+        <th>演示员</th>
+        <th>户外活动</th>
+        <th>推广小分队</th>
+        <th>服务</th>
+        <th>投入小计</th>
+        <th>S品牌费用补贴支持</th>
+    </tr>
+
+    @foreach (var item in Model.sAgentInfos)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.代理方)</td>
+            <td>@Html.DisplayFor(modelItem => item.供货价)</td>
+            <td>@Html.DisplayFor(modelItem => item.零售价)</td>
+            <td>@Html.DisplayFor(modelItem => item.终端形象)</td>
+            <td>@Html.DisplayFor(modelItem => item.导购员)</td>
+            <td>@Html.DisplayFor(modelItem => item.店内促销)</td>
+            <td>@Html.DisplayFor(modelItem => item.演示员)</td>
+            <td>@Html.DisplayFor(modelItem => item.户外活动)</td>
+            <td>@Html.DisplayFor(modelItem => item.推广小分队)</td>
+            <td>@Html.DisplayFor(modelItem => item.服务)</td>
+            <td>@Html.DisplayFor(modelItem => item.投入小计)</td>
+            <td>@Html.DisplayFor(modelItem => item.S品牌费用补贴支持)</td>
+      
+        </tr>
+    }
+
+</table>
+<table class="table">
+    <tbody>S品牌代理商经营模拟结果呈现SAgentResult</tbody>
+    <tr>
+        <th>代理方</th>
+        <th>期初</th>
+        <th>期末</th>
+        <th>销售量</th>
+        <th>销售金额</th>
+        <th>数量</th>
+        <th>金额</th>
+        <th>销售利润</th>
+        <th>借款利息</th>
+        <th>库存跌价损失计提</th>
+        <th>最终经营利润</th>
+        <th>现金流</th>
+    </tr>
+
+    @foreach (var item in Model.sAgentResults)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.代理方)</td>
+            <td>@Html.DisplayFor(modelItem => item.期初)</td>
+            <td>@Html.DisplayFor(modelItem => item.期末)</td>
+            <td>@Html.DisplayFor(modelItem => item.销售量)</td>
+            <td>@Html.DisplayFor(modelItem => item.销售金额)</td>
+            <td>@Html.DisplayFor(modelItem => item.数量)</td>
+            <td>@Html.DisplayFor(modelItem => item.金额)</td>
+            <td>@Html.DisplayFor(modelItem => item.销售利润)</td>
+            <td>@Html.DisplayFor(modelItem => item.借款利息)</td>
+            <td>@Html.DisplayFor(modelItem => item.库存跌价损失计提)</td>
+            <td>@Html.DisplayFor(modelItem => item.最终经营利润)</td>
+            <td>@Html.DisplayFor(modelItem => item.现金流)</td>
+
+        </tr>
+    }
+
+</table>

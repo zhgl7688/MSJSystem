@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebMVC.Models
 {
@@ -12,7 +13,8 @@ namespace WebMVC.Models
         /// 主键 编号
         /// </summary>
         [DisplayName("编号")]
-        public int BrandID { get; set; }
+        [Key]
+         public int BrandID { get; set; }
         /// <summary>
         /// 阶段
         /// </summary>

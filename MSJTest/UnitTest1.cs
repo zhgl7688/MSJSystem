@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebMVC.Common;
 using System.Collections.Generic;
 using System.Linq;
+using WebMVC.Models;
 
 namespace MSJTest
 {
@@ -24,6 +25,17 @@ namespace MSJTest
             };
             List<test> resultMax = result.OrderByDescending(s=>s.Id).Take(1).ToList();
             Assert.AreEqual(Stage.第三阶段.ToString(), resultMax[0].name);
+        }
+        [TestMethod]
+        public void DBadd()
+        {
+            MSJDBContext dbCotext = new MSJDBContext();
+            BrandsInput brand = new BrandsInput
+            {
+                BrandID =2, Brand = Brand.M品牌.ToString(), Stage = Stage.第一阶段.ToString()
+            };
+            dbCotext.BrandsInputs.Add(brand);
+            dbCotext.SaveChanges();
         }
         
     }

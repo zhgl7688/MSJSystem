@@ -12,7 +12,7 @@ namespace WebMVC.Controllers
     public class BrandsInputController : Controller
     {
         // GET: BrandsInput
-
+        MSJDBContext db = new MSJDBContext();
         InvertmentTable1 invertmentTable1;
         List<BrandTable> brands;
         public BrandsInputController()
@@ -45,17 +45,23 @@ namespace WebMVC.Controllers
 
         // POST: BrandsInput/Create
         [HttpPost]
-        public ActionResult Create(BrandTable collection)
+        public ActionResult Create(BrandsInput collection)
         {
             try
             {
-                invertmentTable1.SaveBrandTable(collection);
-
+               var brand= db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage);
+                if (brand != null)
+                {
+                    return Content("<script>alert('已有"+collection.Brand + collection.Stage + "信息，请重新选择');location='" + Url.Action("Create", "BrandsInput") + "'</script>");
+                }
+                db.BrandsInputs.Add(collection);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch 
             {
-                return View();
+
+               return View();
             }
         }
 

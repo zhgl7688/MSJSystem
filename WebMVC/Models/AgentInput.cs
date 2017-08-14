@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using WebMVC.Common;
@@ -11,6 +12,7 @@ namespace WebMVC.Models
         /// <summary>
         /// 主键 编号
         /// </summary>
+        [Key]
         public decimal AgentId { get; set; }
         /// <summary>
         /// 代理商

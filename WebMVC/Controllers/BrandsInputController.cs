@@ -13,25 +13,19 @@ namespace WebMVC.Controllers
     {
         // GET: BrandsInput
         MSJDBContext db = new MSJDBContext();
-        InvertmentTable1 invertmentTable1;
-        List<BrandTable> brands;
-        public BrandsInputController()
-        {
-            invertmentTable1 = new InvertmentTable1();
-             brands = invertmentTable1.getBrandTable();
-        }
+     
 
 
         public ActionResult Index()
         {
-
-            return View(brands);
+            var models = db.BrandsInputs.ToList();
+            return View(models);
         }
 
         // GET: BrandsInput/Details/5
         public ActionResult Details(int id)
         {
-            var brand = brands.FirstOrDefault(s => s.BrandID == id);
+            var brand = db.BrandsInputs.FirstOrDefault(s => s.BrandID == id);
             return View(brand);
         }
 
@@ -40,7 +34,7 @@ namespace WebMVC.Controllers
         {
             ViewData["stageList"] = GetStageList();
             ViewData["brands"] = GetBrandList();
-            return View(new BrandTable());
+            return View(new BrandsInput());
         }
 
         // POST: BrandsInput/Create
@@ -49,26 +43,28 @@ namespace WebMVC.Controllers
         {
             try
             {
-               var brand= db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage);
+                var brand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage);
                 if (brand != null)
                 {
-                    return Content("<script>alert('已有"+collection.Brand + collection.Stage + "信息，请重新选择');location='" + Url.Action("Create", "BrandsInput") + "'</script>");
+                    return Content("<script>alert('已有" + collection.Brand + collection.Stage + "信息，请重新选择');location='" + Url.Action("Create", "BrandsInput") + "'</script>");
                 }
+                collection.BrandID = db.BrandsInputs.Select(s => s.BrandID).Max() + 1;
+                collection.UserId = ((User)Session["user"]).UserId;
                 db.BrandsInputs.Add(collection);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch 
+            catch
             {
 
-               return View();
+                return View();
             }
         }
 
         // GET: BrandsInput/Edit/5
         public ActionResult Edit(int id)
         {
-            var brand = brands.FirstOrDefault(s => s.BrandID == id);
+            var brand = db.BrandsInputs.FirstOrDefault(s => s.BrandID == id);
             ViewData["stageList"] = GetStageList();
             ViewData["brands"] = GetBrandList();
             return View(brand);
@@ -81,9 +77,16 @@ namespace WebMVC.Controllers
             try
             {
                 // TODO: Add update logic here
-                var brand = brands.FirstOrDefault(s => s.BrandID == id);
-                brands.Remove(brand);
-                brands.Add(collection);
+                var brand = db.BrandsInputs.FirstOrDefault(s => s.BrandID == id);
+                var repeatbrand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage && s.BrandID != id);
+                if (repeatbrand != null)
+                {
+                    return Content("<script>alert('已有" + collection.Brand + collection.Stage + "信息，请重新选择');location='" + Url.Action("Edit", "BrandsInput") + "'</script>");
+                }
+                db.BrandsInputs.Remove(brand);
+                collection.UserId = ((User)Session["user"]).UserId;
+                db.BrandsInputs.Add(collection);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -95,7 +98,10 @@ namespace WebMVC.Controllers
         // GET: BrandsInput/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var brand = db.BrandsInputs.FirstOrDefault(s => s.BrandID == id);
+            db.BrandsInputs.Remove(brand);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: BrandsInput/Delete/5

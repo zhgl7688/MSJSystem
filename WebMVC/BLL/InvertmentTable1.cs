@@ -12,6 +12,7 @@ namespace WebMVC.BLL
     /// </summary>
     public class InvertmentTable1
     {
+        MSJDBContext db = new MSJDBContext();
         List<AgentInput> agentInputs = new List<AgentInput>();
         List<BrandTable> brands = new List<BrandTable>();
         public InvertmentTable1()
@@ -490,6 +491,12 @@ namespace WebMVC.BLL
         }
         public List<BrandTable> getBrandTable()
         {
+            List<BrandTable> brands = new List<BrandTable>();
+            var brandsInputs = db.BrandsInputs.ToList();
+            foreach (var item in brandsInputs)
+            {
+               brands.Add( Cal.AutoCopy<BrandsInput, BrandTable>(item));
+            }
                return brands;
         }
         public void SaveBrandTable(BrandTable brandTable)

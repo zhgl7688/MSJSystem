@@ -116,6 +116,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -169,6 +170,7 @@
     <Compile Include="Controllers\AgentInputController.cs" />
     <Compile Include="Controllers\BrandsInputController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -184,6 +186,7 @@
     <Compile Include="Models\RC.cs" />
     <Compile Include="Models\SAgentInfo.cs" />
     <Compile Include="Models\SAgentResult.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +259,15 @@
     <Content Include="Views\BrandsInput\Details.cshtml" />
     <Content Include="Views\BrandsInput\Create.cshtml" />
     <Content Include="Views\BrandsInput\Edit.cshtml" />
+    <Content Include="Views\User\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\User\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Manage.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\User\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\User\_RemoveExternalLoginsPartial.cshtml" />
+    <Content Include="Views\User\_SetPasswordPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

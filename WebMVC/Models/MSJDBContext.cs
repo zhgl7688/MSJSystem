@@ -11,5 +11,6 @@ namespace WebMVC.Models
         public MSJDBContext() : base("ConnectionString") { }
         public DbSet<AgentInput> AgentInputs { get; set; }
         public DbSet<BrandsInput> BrandsInputs { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

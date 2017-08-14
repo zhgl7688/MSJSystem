@@ -6,8 +6,8 @@
 
 <h2>品牌商资源投入表</h2>
 
-<p class="col-lg-offset-11">
-    @Html.ActionLink("创建", "Create")
+<p class="col-lg-offset-9">
+    @Html.ActionLink("创建", "Create",null, new { @class = "btn btn-success btn-block" })
 </p>
 <table class="table">
     <tr>
@@ -191,9 +191,9 @@
             @Html.DisplayFor(modelItem => item.NewRetailPriceR3)
         </td>*@
         <td>
-            @Html.ActionLink("编辑", "Edit", new {   id=item.BrandID }) |
-            @Html.ActionLink("详细信息", "Details", new {  id=item.BrandID }) |
-            @Html.ActionLink("删除", "Delete", new { id=item.BrandID   })
+            @Html.ActionLink("编辑", "Edit", new { id = item.BrandID }, new { @class="btn btn-success"}) |
+            @Html.ActionLink("详细信息", "Details", new {  id=item.BrandID },  new { @class = "btn btn-success" }) |
+            @Html.ActionLink("删除", "Delete", new { id=item.BrandID }, new { @class = "btn btn-success" })
         </td>
     </tr>
 }

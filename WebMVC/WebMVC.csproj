@@ -151,6 +151,7 @@
     <Compile Include="BLL\BrandStrength.cs" />
     <Compile Include="BLL\ChannelService.cs" />
     <Compile Include="BLL\CurrentShare.cs" />
+    <Compile Include="BLL\ExampleData.cs" />
     <Compile Include="BLL\FirstPPT.cs" />
     <Compile Include="BLL\IntentionIndex.cs" />
     <Compile Include="BLL\InvertmentTable1.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="BLL\StockReport.cs" />
     <Compile Include="BLL\SummaryAssent.cs" />
     <Compile Include="BLL\ThirdPPT.cs" />
+    <Compile Include="BLL\UserService.cs" />
     <Compile Include="Common\Cal.cs" />
     <Compile Include="Common\EnumsModel.cs" />
     <Compile Include="Controllers\AgentInputController.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IBLL\InterfaceUserService.cs" />
     <Compile Include="Models\AgentInput.cs" />
     <Compile Include="Models\BrandInfo.cs" />
     <Compile Include="Models\BrandInput.cs" />

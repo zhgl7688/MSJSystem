@@ -31,11 +31,16 @@ namespace MSJTest
         {
             MSJDBContext dbCotext = new MSJDBContext();
              
-            var tables = new WebMVC.BLL.InvertmentTable1();
-            var ss = tables.getBrandsInputs();
+            var tables = new WebMVC.BLL.ExampleData();
+            var ss = tables.brands;
             foreach (var item in ss)
             {
                 dbCotext.BrandsInputs.Add(item);
+            }
+            var sss = tables.agentInputs;
+            foreach (var item in sss)
+            {
+                dbCotext.AgentInputs.Add(item);
             }
             dbCotext.SaveChanges();
         }

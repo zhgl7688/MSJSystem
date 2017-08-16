@@ -73,9 +73,22 @@ namespace WebMVC.Controllers
                 // 尝试注册用户
                 try
                 {
-                    WebSecurity.CreateAccount(model.UserName, model.Password);
+                    if (db.Users.FirstOrDefault(s => s.UserName == model.UserName) != null)
+                        ModelState.AddModelError("UserName", "用户名已存在");
+                    else
+                    {
+                        User _user = new Models.User
+                        {
+                            UserName = model.UserName,
+                            Password = model.Password
+                        };
+                        db.Users.Add(_user);
+                        db.SaveChanges();
+                        return Content("注册成功!");
+                    }
+                    //   return RedirectToAction("Index", "Home");
+                    return View(model);
                  
-                    return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -88,20 +101,7 @@ namespace WebMVC.Controllers
         }
 
          
-        //
-        // GET: /Account/Manage
-
-        public ActionResult Manage(ManageMessageId? message)
-        {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "你的密码已更改。"
-                : message == ManageMessageId.SetPasswordSuccess ? "已设置你的密码。"
-                : message == ManageMessageId.RemoveLoginSuccess ? "已删除外部登录。"
-                : "";
-          //  ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.ReturnUrl = Url.Action("Manage");
-            return View();
-        }
+       
 
         
 

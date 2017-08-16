@@ -1,13 +1,14 @@
 ﻿@model WebMVC.Models.AgentInput
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Delete";
 }
 
-<h2> </h2>
 
+
+<h3></h3>
 <div class="col-md-12">
-    <h4>代理商数据详细信息</h4>
+    <h4>确认删除吗?</h4>
     <hr />
     <div class="col-md-6">
         <dl class="dl-horizontal">
@@ -131,95 +132,103 @@
                 @Html.DisplayFor(model => model.retailPriceRC3)
             </dd>
 
-
+          
         </dl>
-    </div>
-    <div class="col-md-6">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.SystemPriceRC3)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.SystemPriceRC3)
-            </dd>
+        </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.SystemPriceRC3)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SystemPriceRC3)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.brandAgent)
-            </dt>
+                @*<dt>
+                    @Html.DisplayNameFor(model => model.brandAgent)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.brandAgent)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.brandAgent)
+                </dd>*@
 
-            <dt>
-                @Html.DisplayNameFor(model => model.purchase)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.purchase)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.purchase)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.purchase)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.actualSale)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.actualSale)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.actualSale)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.actualSale)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Inventory)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Inventory)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Inventory)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Inventory)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.FirstPurchase)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FirstPurchase)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.FirstPurchase)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.FirstPurchase)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.SecondPurchase)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SecondPurchase)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.SecondPurchase)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.SecondPurchase)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ThirdPurchase)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ThirdPurchase)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.ThirdPurchase)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ThirdPurchase)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.UserId)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.UserId)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.UserId)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.InputSum)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InputSum)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.InputSum)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.InputSum)
+                </dd>
 
-        </dl>
-    </div>
+            </dl>
 </div>
+    </div>
+ 
+    @using (Html.BeginForm())
+            {
+        @Html.AntiForgeryToken()
 
-<p class="col-md-offset-9">
-    @Html.ActionLink("编辑", "Edit", new { id = Model.AgentId }, new { @class = "btn btn-success " })
-    @Html.ActionLink("返回列表", "Index", null, new { @class = "btn btn-success " })
-</p>
+        <div class="form-actions no-color col-md-offset-9">
+            <input type="submit" value="删除" class="btn btn-success" />  
+            @Html.ActionLink("返回列表", "Index", null, new { @class = "btn btn-success" })
+        </div>
+    }
+ 
+          
+      

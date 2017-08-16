@@ -90,21 +90,21 @@ namespace WebMVC.BLL
         {
             get
             {
-                return E / (E + F + G);
+                return E + F + G==0?0:E / (E + F + G);
             }
         }
         public decimal C
         {
             get
             {
-                return F / (E + F + G);
+                return E + F + G==0?0: F / (E + F + G);
             }
         }
         public decimal D
         {
             get
             {
-                return G / (E + F + G);
+                return E + F + G == 0 ? 0 : G / (E + F + G);
             }
         }
         /// <summary>
@@ -138,7 +138,7 @@ namespace WebMVC.BLL
         {
             get
             {
-                return H / (H + I + J);
+                return H + I + J==0?0: H / (H + I + J);
             }
         }
         /// <summary>
@@ -147,7 +147,7 @@ namespace WebMVC.BLL
         public decimal L {
             get
             {
-                return I/ (H + I + J);
+                return H + I + J==0?0: I / (H + I + J);
             }
         }
         /// <summary>
@@ -156,7 +156,7 @@ namespace WebMVC.BLL
         public decimal M {
             get
             {
-                return J/ (H + I + J);
+                return H + I + J==0?0:J / (H + I + J);
             }
         }
         /// <summary>

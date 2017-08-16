@@ -1,10 +1,10 @@
-﻿@model WebMVC.Models.BrandTable
+﻿@model WebMVC.Models.BrandsInput
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "品牌商资源投入表创建";
 }
 
-<h2>品牌商资源投入表创建</h2>
+<h2> </h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>品牌商资源投入表</h4>
+        <h4>品牌商资源投入表创建</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group hidden">
@@ -256,7 +256,7 @@
 }
 
 <div>
-    @Html.ActionLink("返回列表", "Index")
+    @Html.ActionLink("返回列表", "Index", null, new { @class = "btn btn-primary" })
 </div>
 
 @section Scripts {

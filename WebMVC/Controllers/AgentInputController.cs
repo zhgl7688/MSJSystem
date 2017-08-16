@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebMVC.Common;
@@ -20,10 +21,19 @@ namespace WebMVC.Controllers
         }
 
         // GET: AgentInput/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            var brand = db.AgentInputs.FirstOrDefault(s => s.AgentId == id);
-            return View(brand);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var model = db.AgentInputs.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+ 
         }
 
         // GET: AgentInput/Create
@@ -31,6 +41,7 @@ namespace WebMVC.Controllers
         {
             ViewData["stageList"] = GetStageList();
             ViewData["agentName"] = GetAgentNameList();
+            AgentInput agentInput =  new AgentInput();
             return View(new AgentInput());
         }
 
@@ -42,13 +53,15 @@ namespace WebMVC.Controllers
             try
             {
                 // TODO: Add insert logic here
-                var brand = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage);
-                if (brand != null)
+                var agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage);
+                if (agentInput != null)
                 {
-                    return Content("<script>alert('已有" + collection.AgentName + collection.Stage + "信息，请重新选择');location='" + Url.Action("Create", "BrandsInput") + "'</script>");
-                }
-                collection.AgentId = db.BrandsInputs.Select(s => s.BrandID).Max() + 1;
-                collection.UserId = ((User)Session["user"]).UserId;
+                    ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
+                    ViewData["stageList"] = GetStageList();
+                    ViewData["agentName"] = GetAgentNameList();
+                    return View(collection);
+                  }
+                  // collection.UserId = ((User)Session["user"]).UserId;
                 db.AgentInputs.Add(collection);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -60,33 +73,47 @@ namespace WebMVC.Controllers
         }
 
         // GET: AgentInput/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var brand = db.AgentInputs.FirstOrDefault(s => s.AgentId == id);
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var model = db.AgentInputs.Find(id);
+            if (model == null) return HttpNotFound();
             ViewData["stageList"] = GetStageList();
-            ViewData["agentName"] = GetAgentNameList();
-            return View(brand);
-        }
+            ViewData["agentNames"] = GetAgentNameList();
+            return View(model);
+   }
 
         // POST: AgentInput/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, AgentInput collection)
+        public ActionResult Edit(  AgentInput collection)
         {
+
             try
             {
-                // TODO: Add update logic here
-                var brand = db.AgentInputs.FirstOrDefault(s => s.AgentId == id);
-                var repeatbrand = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.AgentId != id);
-                if (repeatbrand != null)
+                if (ModelState.IsValid)
                 {
-                    return Content("<script>alert('已有" + collection.AgentName + collection.Stage + "信息，请重新选择');location='" + Url.Action("Edit", "BrandsInput") + "'</script>");
+                    var repeatbrand = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.AgentId != collection.AgentId);
+                    if (repeatbrand != null)
+                    {
+                        ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
+                        ViewData["stageList"] = GetStageList();
+                        ViewData["agentName"] = GetAgentNameList();
+                        return View(collection);
+                    }
+                    db.Entry(collection).State = System.Data.Entity.EntityState.Modified;
+                    // collection.UserId = ((User)Session["user"]).UserId;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
-                db.AgentInputs.Remove(brand);
-                collection.UserId = ((User)Session["user"]).UserId;
-                db.AgentInputs.Add(collection);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                else
+                {
+                    ViewData["stageList"] = GetStageList();
+                    ViewData["agentName"] = GetAgentNameList();
+                    return View(collection);
+                }
+                
+                 
             }
             catch
             {
@@ -95,15 +122,40 @@ namespace WebMVC.Controllers
         }
 
         // GET: AgentInput/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            var brand = db.AgentInputs.FirstOrDefault(s => s.AgentId == id);
-            db.AgentInputs.Remove(brand);
-            db.SaveChanges();
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var brand = db.AgentInputs.Find(id);
+            if (brand == null)
+            {
+                return HttpNotFound();
+            }
+            return View(brand);
         }
 
-        
+
+        // POST: BrandsInput/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                var agentInput = db.AgentInputs.Find(id);
+                db.AgentInputs.Remove(agentInput);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
         public List<SelectListItem> GetStageList()
         {
             List<SelectListItem> stageList = new List<SelectListItem>();

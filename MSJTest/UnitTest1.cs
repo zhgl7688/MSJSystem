@@ -30,13 +30,16 @@ namespace MSJTest
         public void DBadd()
         {
             MSJDBContext dbCotext = new MSJDBContext();
-            BrandsInput brand = new BrandsInput
+             
+            var tables = new WebMVC.BLL.InvertmentTable1();
+            var ss = tables.getBrandsInputs();
+            foreach (var item in ss)
             {
-                BrandID =2, Brand = Brand.M品牌.ToString(), Stage = Stage.第一阶段.ToString()
-            };
-            dbCotext.BrandsInputs.Add(brand);
+                dbCotext.BrandsInputs.Add(item);
+            }
             dbCotext.SaveChanges();
         }
+
         
     }
     class test

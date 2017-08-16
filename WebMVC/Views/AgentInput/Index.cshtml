@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<WebMVC.Models.AgentInput>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "代理商数据列表";
 }
 
-<h2>Index</h2>
+<h2>代理商列表</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="col-lg-offset-9">
+    @Html.ActionLink("创建", "Create", null, new { @class = "btn btn-success btn-block" })
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.AgentId)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.AgentName)
         </th>
@@ -44,7 +44,7 @@
         <th>
             @Html.DisplayNameFor(model => model.bankLoan)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.retailPriceRC1)
         </th>
         <th>
@@ -85,15 +85,15 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.InputSum)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.AgentId)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.AgentName)
         </td>
@@ -124,7 +124,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.bankLoan)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.retailPriceRC1)
         </td>
         <td>
@@ -165,11 +165,11 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.InputSum)
-        </td>
+        </td>*@
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("编辑", "Edit", new { id = item.AgentId }, new { @class = "btn btn-success" }) |
+            @Html.ActionLink("详细信息", "Details", new { id = item.AgentId }, new { @class = "btn btn-success" }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.AgentId }, new { @class = "btn btn-success" })
         </td>
     </tr>
 }

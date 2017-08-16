@@ -11,9 +11,9 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.BrandID)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Stage)
         </th>
@@ -101,11 +101,13 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
+    @Html.HiddenFor(modelItem => item.BrandID)
     <tr>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.BrandID)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Stage)
         </td>

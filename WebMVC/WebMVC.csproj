@@ -198,6 +198,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HtmlPage1.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -268,6 +269,8 @@
     <Content Include="Views\User\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\User\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\User\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\BrandsInput\Delete.cshtml" />
+    <Content Include="Views\AgentInput\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

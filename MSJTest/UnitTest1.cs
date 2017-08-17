@@ -44,8 +44,22 @@ namespace MSJTest
             }
             dbCotext.SaveChanges();
         }
+        [TestMethod]
+        public void DBUseradd()
+        {
+            MSJDBContext dbCotext = new MSJDBContext();
 
-        
+            User user = new User()
+            {
+                UserName = "lili",
+                Password = "111111"
+            };
+            dbCotext.Users.Add(user);
+
+            dbCotext.SaveChanges();
+            Assert.AreEqual(2, user.UserId);
+        }
+
     }
     class test
     {

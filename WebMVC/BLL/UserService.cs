@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -16,7 +17,7 @@ namespace WebMVC.BLL
             _identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
             _identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()));
             _identity.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity"));
-            //_identity.AddClaim(new Claim("DisplayName", user.UserName));
+            _identity.AddClaim(new Claim("DisplayName", user.UserName));
             return _identity;
         }
     }

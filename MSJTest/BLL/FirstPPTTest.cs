@@ -12,7 +12,7 @@ namespace MSJTest.BLL
          [TestMethod]
         public void TestMethod1()
         {
-            var result = fristPPT.GetFirstPPTList();
+            var result = firstPPT.GetFirstPPTList();
             Assert.AreEqual(3, result.brandInfos.Count);
 
         }

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<WebMVC.BLL.SummaryTable>
 
 @{
-    ViewBag.Title = "SummaryAssent";
+    ViewBag.Title = "资产汇总表";
 }
 
-<h2>SummaryAssent</h2>
+<h4>资产汇总表</h4>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    
 </p>
 <table class="table">
     <tr>
@@ -140,7 +140,7 @@
         <th>
             @Html.DisplayNameFor(model => model.AQ)
         </th>
-        <th></th>
+        
     </tr>
 
 @foreach (var item in Model) {
@@ -274,11 +274,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.AQ)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
+         
     </tr>
 }
 

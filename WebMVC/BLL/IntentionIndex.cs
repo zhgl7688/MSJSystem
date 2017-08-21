@@ -87,22 +87,22 @@ namespace WebMVC.BLL
                 if (item.Stage == Stage.第二阶段.ToString() || item.Stage == Stage.第三阶段.ToString())
                 {
                    
-                    intentionIndex.T[2].J1 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J1 + channelService.AB.J1 + marketPrice.AB[2].J1, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M1);
-                    intentionIndex.T[2].J2 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J2 + channelService.AB.J2 + marketPrice.AB[2].J2, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M2);
-                    intentionIndex.T[2].J3 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J3 + channelService.AB.J3 + marketPrice.AB[2].J3, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M3);
-                    intentionIndex.T[2].J4 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J4 + channelService.AB.J4 + marketPrice.AB[2].J4, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M4);
-                    intentionIndex.T[2].J5 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J5 + channelService.AB.J5 + marketPrice.AB[2].J5, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M5);
-                    intentionIndex.T[2].J6 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J6 + channelService.AB.J6 + marketPrice.AB[2].J6, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M6);
+                    intentionIndex.T[2].J1 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J1 + channelService.AB.J1 + marketPrice.AT[2].J1, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M1);
+                    intentionIndex.T[2].J2 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J2 + channelService.AB.J2 + marketPrice.AT[2].J2, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M2);
+                    intentionIndex.T[2].J3 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J3 + channelService.AB.J3 + marketPrice.AT[2].J3, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M3);
+                    intentionIndex.T[2].J4 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J4 + channelService.AB.J4 + marketPrice.AT[2].J4, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M4);
+                    intentionIndex.T[2].J5 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J5 + channelService.AB.J5 + marketPrice.AT[2].J5, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M5);
+                    intentionIndex.T[2].J6 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC2.J + item.BP.J6 + channelService.AB.J6 + marketPrice.AT[2].J6, brandStrength.P + productInnovation.DE + item.CI + channelService.AU + marketPrice.EY[2].M6);
                 }
                 if (item.Stage == Stage.第三阶段.ToString())
                 {
                   
-                    intentionIndex.T[3].J1 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J1 + channelService.AB.J1 + marketPrice.AB[3].J1, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M1);
-                    intentionIndex.T[3].J2 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J2 + channelService.AB.J2 + marketPrice.AB[3].J2, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M2);
-                    intentionIndex.T[3].J3 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J3 + channelService.AB.J3 + marketPrice.AB[3].J3, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M3);
-                    intentionIndex.T[3].J4 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J4 + channelService.AB.J4 + marketPrice.AB[3].J4, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M4);
-                    intentionIndex.T[3].J5 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J5 + channelService.AB.J5 + marketPrice.AB[3].J5, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M5);
-                    intentionIndex.T[3].J6 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J6 + channelService.AB.J6 + marketPrice.AB[3].J6, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M6);
+                    intentionIndex.T[3].J1 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J1 + channelService.AB.J1 + marketPrice.AT[3].J1, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M1);
+                    intentionIndex.T[3].J2 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J2 + channelService.AB.J2 + marketPrice.AT[3].J2, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M2);
+                    intentionIndex.T[3].J3 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J3 + channelService.AB.J3 + marketPrice.AT[3].J3, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M3);
+                    intentionIndex.T[3].J4 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J4 + channelService.AB.J4 + marketPrice.AT[3].J4, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M4);
+                    intentionIndex.T[3].J5 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J5 + channelService.AB.J5 + marketPrice.AT[3].J5, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M5);
+                    intentionIndex.T[3].J6 = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.RC3.J + item.BP.J6 + channelService.AB.J6 + marketPrice.AT[3].J6, brandStrength.P + productInnovation.DF + item.CI + channelService.AU + marketPrice.EY[3].M6);
                 }
           
                 intentionIndex.AL[1].Agent1 = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.RC1.S + item.BP.Agent1 + channelService.AB.Agent1 + marketPrice.BL[1].Agent1, brandStrength.P + productInnovation.DD + item.CI + channelService.AU + marketPrice.EY[1].M1);
@@ -250,10 +250,10 @@ namespace WebMVC.BLL
             #region 第一阶段
             var market1 = new MarketTable() { Stage = Stage.第一阶段.ToString(), };
             var priceControl1 = priceControlTables.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
-
-            market1.DE.Add(1, new RC { M = priceControl1.B.RC1M, J = priceControl1.B.RC1J });
-            market1.DK.Add(1, new MJA { Agent1 = priceControl1.D[1].Agent1, Agent2 = priceControl1.D[1].Agent2, Agent3 = priceControl1.D[1].Agent3, Agent4 = priceControl1.D[1].Agent4, Agent5 = priceControl1.D[1].Agent5, Agent6 = priceControl1.D[1].Agent6 });
-            market1.EF.Add(1, new MJA
+            if (priceControl1 == null) return;
+            market1.DE[1]= new RC { M = priceControl1.B.RC1M, J = priceControl1.B.RC1J };
+            market1.DK[1]= new MJA { Agent1 = priceControl1.D[1].Agent1, Agent2 = priceControl1.D[1].Agent2, Agent3 = priceControl1.D[1].Agent3, Agent4 = priceControl1.D[1].Agent4, Agent5 = priceControl1.D[1].Agent5, Agent6 = priceControl1.D[1].Agent6 };
+            market1.EF[1]= new MJA
             {
                 Agent1 = GetEF(priceControl1.K[1].Agent1, priceControl1.D[1].Agent1),
                 Agent2 = GetEF(priceControl1.K[1].Agent2, priceControl1.D[1].Agent2),
@@ -261,7 +261,7 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl1.K[1].Agent4, priceControl1.D[1].Agent4),
                 Agent5 = GetEF(priceControl1.K[1].Agent5, priceControl1.D[1].Agent5),
                 Agent6 = GetEF(priceControl1.K[1].Agent6, priceControl1.D[1].Agent6)
-            });
+            };
             markets.Add(market1);
             #endregion
 
@@ -271,13 +271,11 @@ namespace WebMVC.BLL
             if (priceControl2 == null) return;
 
 
-            market2.DE.Add(1, new RC { M = priceControl2.B.RC1M, J = priceControl2.B.RC1J });
-            market2.DE.Add(2, new RC { M = priceControl2.B.RC2M, J = priceControl2.B.RC2J });
-
-            market2.DK.Add(1, new MJA { Agent1 = priceControl2.D[1].Agent1, Agent2 = priceControl2.D[1].Agent2, Agent3 = priceControl2.D[1].Agent3, Agent4 = priceControl2.D[1].Agent4, Agent5 = priceControl2.D[1].Agent5, Agent6 = priceControl2.D[1].Agent6 });
-            market2.DK.Add(2, new MJA { Agent1 = priceControl2.D[2].Agent1, Agent2 = priceControl2.D[2].Agent2, Agent3 = priceControl2.D[2].Agent3, Agent4 = priceControl2.D[2].Agent4, Agent5 = priceControl2.D[2].Agent5, Agent6 = priceControl2.D[2].Agent6 });
-
-            market2.EF.Add(1, new MJA
+            market2.DE[1]=new RC { M = priceControl2.B.RC1M, J = priceControl2.B.RC1J };
+            market2.DE[2]=new RC { M = priceControl2.B.RC2M, J = priceControl2.B.RC2J };
+            market2.DK[1]=new MJA { Agent1 = priceControl2.D[1].Agent1, Agent2 = priceControl2.D[1].Agent2, Agent3 = priceControl2.D[1].Agent3, Agent4 = priceControl2.D[1].Agent4, Agent5 = priceControl2.D[1].Agent5, Agent6 = priceControl2.D[1].Agent6 };
+            market2.DK[2]=new MJA { Agent1 = priceControl2.D[2].Agent1, Agent2 = priceControl2.D[2].Agent2, Agent3 = priceControl2.D[2].Agent3, Agent4 = priceControl2.D[2].Agent4, Agent5 = priceControl2.D[2].Agent5, Agent6 = priceControl2.D[2].Agent6 };
+            market2.EF[1]=new MJA
             {
                 Agent1 = GetEF(priceControl2.K[1].Agent1, priceControl2.D[1].Agent1),
                 Agent2 = GetEF(priceControl2.K[1].Agent2, priceControl2.D[1].Agent2),
@@ -285,8 +283,8 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl2.K[1].Agent4, priceControl2.D[1].Agent4),
                 Agent5 = GetEF(priceControl2.K[1].Agent5, priceControl2.D[1].Agent5),
                 Agent6 = GetEF(priceControl2.K[1].Agent6, priceControl2.D[1].Agent6)
-            });
-            market2.EF.Add(2, new MJA
+            };
+            market2.EF[2]= new MJA
             {
                 Agent1 = GetEF(priceControl2.K[2].Agent1, priceControl2.D[2].Agent1),
                 Agent2 = GetEF(priceControl2.K[2].Agent2, priceControl2.D[2].Agent2),
@@ -294,24 +292,23 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl2.K[2].Agent4, priceControl2.D[2].Agent4),
                 Agent5 = GetEF(priceControl2.K[2].Agent5, priceControl2.D[2].Agent5),
                 Agent6 = GetEF(priceControl2.K[2].Agent6, priceControl2.D[2].Agent6)
-            });
+            };
             markets.Add(market2);
             #endregion
 
-            #region 第二阶段
+            #region 第三阶段
             var market3 = new MarketTable() { Stage = Stage.第三阶段.ToString(), };
             var priceControl3 = priceControlTables.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
             if (priceControl3 == null) return;
 
 
-            market3.DE.Add(1, new RC { M = priceControl3.B.RC1M, J = priceControl3.B.RC1J });
-            market3.DE.Add(2, new RC { M = priceControl3.B.RC2M, J = priceControl3.B.RC2J });
-            market3.DE.Add(3, new RC { M = priceControl3.B.RC3M, J = priceControl3.B.RC3J });
-            market3.DK.Add(1, new MJA { Agent1 = priceControl3.D[1].Agent1, Agent2 = priceControl3.D[1].Agent2, Agent3 = priceControl3.D[1].Agent3, Agent4 = priceControl3.D[1].Agent4, Agent5 = priceControl3.D[1].Agent5, Agent6 = priceControl3.D[1].Agent6 });
-            market3.DK.Add(2, new MJA { Agent1 = priceControl3.D[2].Agent1, Agent2 = priceControl3.D[2].Agent2, Agent3 = priceControl3.D[2].Agent3, Agent4 = priceControl3.D[2].Agent4, Agent5 = priceControl3.D[2].Agent5, Agent6 = priceControl3.D[2].Agent6 });
-            market3.DK.Add(3, new MJA { Agent1 = priceControl3.D[3].Agent1, Agent2 = priceControl3.D[3].Agent2, Agent3 = priceControl3.D[3].Agent3, Agent4 = priceControl3.D[3].Agent4, Agent5 = priceControl3.D[3].Agent5, Agent6 = priceControl3.D[3].Agent6 });
-
-            market3.EF.Add(1, new MJA
+            market3.DE[1]= new RC { M = priceControl3.B.RC1M, J = priceControl3.B.RC1J };
+            market3.DE[2]= new RC { M = priceControl3.B.RC2M, J = priceControl3.B.RC2J };
+            market3.DE[3]= new RC { M = priceControl3.B.RC3M, J = priceControl3.B.RC3J };
+            market3.DK[1]= new MJA { Agent1 = priceControl3.D[1].Agent1, Agent2 = priceControl3.D[1].Agent2, Agent3 = priceControl3.D[1].Agent3, Agent4 = priceControl3.D[1].Agent4, Agent5 = priceControl3.D[1].Agent5, Agent6 = priceControl3.D[1].Agent6 };
+            market3.DK[2]= new MJA { Agent1 = priceControl3.D[2].Agent1, Agent2 = priceControl3.D[2].Agent2, Agent3 = priceControl3.D[2].Agent3, Agent4 = priceControl3.D[2].Agent4, Agent5 = priceControl3.D[2].Agent5, Agent6 = priceControl3.D[2].Agent6 };
+            market3.DK[3]= new MJA { Agent1 = priceControl3.D[3].Agent1, Agent2 = priceControl3.D[3].Agent2, Agent3 = priceControl3.D[3].Agent3, Agent4 = priceControl3.D[3].Agent4, Agent5 = priceControl3.D[3].Agent5, Agent6 = priceControl3.D[3].Agent6 };
+            market3.EF[1]= new MJA
             {
                 Agent1 = GetEF(priceControl3.K[1].Agent1, priceControl3.D[1].Agent1),
                 Agent2 = GetEF(priceControl3.K[1].Agent2, priceControl3.D[1].Agent2),
@@ -319,8 +316,8 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl3.K[1].Agent4, priceControl3.D[1].Agent4),
                 Agent5 = GetEF(priceControl3.K[1].Agent5, priceControl3.D[1].Agent5),
                 Agent6 = GetEF(priceControl3.K[1].Agent6, priceControl3.D[1].Agent6)
-            });
-            market3.EF.Add(2, new MJA
+            };
+            market3.EF[2]= new MJA
             {
                 Agent1 = GetEF(priceControl3.K[2].Agent1, priceControl3.D[2].Agent1),
                 Agent2 = GetEF(priceControl3.K[2].Agent2, priceControl3.D[2].Agent2),
@@ -328,8 +325,8 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl3.K[2].Agent4, priceControl3.D[2].Agent4),
                 Agent5 = GetEF(priceControl3.K[2].Agent5, priceControl3.D[2].Agent5),
                 Agent6 = GetEF(priceControl3.K[2].Agent6, priceControl3.D[2].Agent6)
-            });
-            market3.EF.Add(3, new MJA
+            };
+            market3.EF[3]= new MJA
             {
                 Agent1 = GetEF(priceControl3.K[3].Agent1, priceControl3.D[3].Agent1),
                 Agent2 = GetEF(priceControl3.K[3].Agent2, priceControl3.D[3].Agent2),
@@ -337,7 +334,7 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl3.K[3].Agent4, priceControl3.D[3].Agent4),
                 Agent5 = GetEF(priceControl3.K[3].Agent5, priceControl3.D[3].Agent5),
                 Agent6 = GetEF(priceControl3.K[3].Agent6, priceControl3.D[3].Agent6)
-            });
+            } ;
             markets.Add(market3);
             #endregion
 

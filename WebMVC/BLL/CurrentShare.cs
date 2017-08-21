@@ -29,9 +29,9 @@ namespace WebMVC.BLL
         {
 
             var current0 = new CurrentShareTable { A = "", B = "", C = "", D = 100, E = 100, Stage = Stage.起始阶段.ToString() };
-            current0.H[1]= new MJA { M1 = 0.45m, M2 = 0.45m, M3 = 0.45m, M4 = 0.45m, M5 = 0.45m, M6 = 0.45m, };
-            current0.Z[1]= new MJA { J1 = 0.25m, J2 = 0.25m, J3 = 0.25m, J4 = 0.25m, J5 = 0.25m, J6 = 0.25m, };
-            current0.AR[1]= new MJA { Agent1 = 0.3m, Agent2 = 0.3m, Agent3 = 0.3m, Agent4 = 0.3m, Agent5 = 0.3m, Agent6 = 0.3m, };
+            current0.H[1] = new MJA { M1 = 0.45m, M2 = 0.45m, M3 = 0.45m, M4 = 0.45m, M5 = 0.45m, M6 = 0.45m, };
+            current0.Z[1] = new MJA { J1 = 0.25m, J2 = 0.25m, J3 = 0.25m, J4 = 0.25m, J5 = 0.25m, J6 = 0.25m, };
+            current0.AR[1] = new MJA { Agent1 = 0.3m, Agent2 = 0.3m, Agent3 = 0.3m, Agent4 = 0.3m, Agent5 = 0.3m, Agent6 = 0.3m, };
 
             currentShares.Add(current0);
             foreach (var item in intentionIndexs)
@@ -98,15 +98,15 @@ namespace WebMVC.BLL
     {
         public CurrentShareTable()
         {
-             H  = new Dictionary<int, MJA>();
+            H = new Dictionary<int, MJA>();
             H.Add(1, new MJA());
             H.Add(2, new MJA());
             H.Add(3, new MJA());
-            Z  = new Dictionary<int, MJA>();
+            Z = new Dictionary<int, MJA>();
             Z.Add(1, new MJA());
             Z.Add(2, new MJA());
             Z.Add(3, new MJA());
-            AR  = new Dictionary<int, MJA>();
+            AR = new Dictionary<int, MJA>();
             AR.Add(1, new MJA());
             AR.Add(2, new MJA());
             AR.Add(3, new MJA());
@@ -128,32 +128,44 @@ namespace WebMVC.BLL
         }
 
         public string Stage { get; set; }
-        public Dictionary<int, MJA> H { get; set; } 
-        public Dictionary<int, MJA> Z { get; set; } 
-        public Dictionary<int, MJA> AR { get; set; }  
+        public Dictionary<int, MJA> H { get; set; }
+        public Dictionary<int, MJA> Z { get; set; }
+        public Dictionary<int, MJA> AR { get; set; }
         public Dictionary<int, MJA> BJ
         {
             get
             {
                 var result = new Dictionary<int, MJA>();
-                if (Stage == Common.Stage.起始阶段.ToString())
-                {
-                    result.Add(1, new MJA { M1 = 45, M2 = 45, M3 = 45, M4 = 45, M5 = 45, M6 = 45 });
-                    result.Add(2, new MJA());
-                    result.Add(3, new MJA());
-                }
-                else
-                {
-                    result.Add(1, Cal_MJA_M(H[1], Static_D, F, DE[1].M));
-                    if (Stage == Common.Stage.第二阶段.ToString() || Stage == Common.Stage.第三阶段.ToString())
 
-                        result.Add(2, Cal_MJA_M(H[2], Static_D, F, DE[2].M));
-                    else result.Add(2, new MJA());
-                    if (Stage == Common.Stage.第三阶段.ToString())
-
-                        result.Add(3, Cal_MJA_M(H[3], Static_D, F, DE[3].M));
-                    else result.Add(3, new MJA());
+                result.Add(1, new MJA { });
+                result.Add(2, new MJA { });
+                result.Add(3, new MJA { });
+                Stage stage;
+                if (Enum.TryParse<Stage>(this.Stage, out stage))
+                {
+                    switch (stage)
+                    {
+                        case Common.Stage.起始阶段:
+                            result[1] = new MJA { M1 =D*F*H[1].M1, M2 = D * F * H[2].M1, M3 = D * F * H[3].M1,
+                                M4 = D * F * H[4].M1, M5 = D * F * H[5].M1, M6 = D * F * H[6].M1
+                            };
+                            break;
+                        case Common.Stage.第一阶段:
+                            result[1] = Cal_MJA_M(H[1], Static_D, F, DE[1].M);
+                            break;
+                        case Common.Stage.第二阶段:
+                            result[1] = Cal_MJA_M(H[1], Static_D, F, DE[1].M);
+                            result[2] = Cal_MJA_M(H[2], Static_D, F, DE[2].M);
+                            break;
+                        case Common.Stage.第三阶段:
+                            result[1] = Cal_MJA_M(H[1], Static_D, F, DE[1].M);
+                            result[2] = Cal_MJA_M(H[2], Static_D, F, DE[2].M);
+                            result[3] = Cal_MJA_M(H[3], Static_D, F, DE[3].M);
+                            break;
+                    }
                 }
+                
+                 
                 return result;
             }
         }
@@ -164,23 +176,32 @@ namespace WebMVC.BLL
             get
             {
                 var result = new Dictionary<int, MJA>();
-                if (this.Stage == Common.Stage.起始阶段.ToString())
+                result.Add(1, new MJA { });
+                result.Add(2, new MJA { });
+                result.Add(3, new MJA { });
+                Stage stage;
+                if (Enum.TryParse<Stage>(this.Stage, out stage))
                 {
-                    result.Add(1, new MJA { J1 = D * F * Z[1].J1, J2 = D * F * Z[1].J2, J3 = D * F * Z[1].J3, J4 = D * F * Z[1].J4, J5 = D * F * Z[1].J5, J6 = D * F * Z[1].J6, });
-                    result.Add(2, new MJA { });
-                    result.Add(3, new MJA { });
+                    switch (stage)
+                    {
+                        case Common.Stage.起始阶段:
+                            result[1] = new MJA { J1 = D * F * Z[1].J1, J2 = D * F * Z[1].J2, J3 = D * F * Z[1].J3, J4 = D * F * Z[1].J4, J5 = D * F * Z[1].J5, J6 = D * F * Z[1].J6, };
+                            break;
+                        case Common.Stage.第一阶段:
+                            result[1] = Cal_MJA_J(Z[1], Static_D, F, DE[1].J);
+                            break;
+                        case Common.Stage.第二阶段:
+                            result[1] = Cal_MJA_J(Z[1], Static_D, F, DE[1].J);
+                            result[2] = Cal_MJA_J(Z[2], Static_D, F, DE[2].J);
+                            break;
+                        case Common.Stage.第三阶段:
+                            result[1] = Cal_MJA_J(Z[1], Static_D, F, DE[1].J);
+                            result[2] = Cal_MJA_J(Z[2], Static_D, F, DE[2].J);
+                            result[3] = Cal_MJA_J(Z[3], Static_D, F, DE[3].J);
+                            break;
+                    }
+                }
 
-                }
-                else
-                {
-                    result.Add(1, Cal_MJA_J(Z[1], Static_D, F, DE[1].J));
-                    if (Stage == Common.Stage.第二阶段.ToString() || Stage == Common.Stage.第三阶段.ToString())
-                        result.Add(2, Cal_MJA_J(Z[2], Static_D, F, DE[2].J));
-                    else result.Add(2, new MJA());
-                    if (Stage == Common.Stage.第三阶段.ToString())
-                        result.Add(3, Cal_MJA_J(Z[3], Static_D, F, DE[3].J));
-                    else result.Add(3, new MJA());
-                }
                 return result;
             }
         }
@@ -189,23 +210,31 @@ namespace WebMVC.BLL
             get
             {
                 var result = new Dictionary<int, MJA>();
-                if (this.Stage == Common.Stage.起始阶段.ToString())
+                result.Add(1, new MJA { });
+                result.Add(2, new MJA { });
+                result.Add(3, new MJA { });
+                var stage = (Stage)Enum.Parse(typeof(Stage), this.Stage);
+                switch (stage)
                 {
-                    result.Add(1, new MJA { Agent1 = D * F * AR[1].Agent1, Agent2 = D * F * AR[1].Agent2, Agent3 = D * F * AR[1].Agent3, Agent4 = D * F * AR[1].Agent4, Agent5 = D * F * AR[1].Agent5, Agent6 = D * F * AR[1].Agent6, });
-                    result.Add(2, new MJA { });
-                    result.Add(3, new MJA { });
-                }
-                else
-                {
-                    result.Add(1, Cal_MJA_Agent(AR[1], Static_D, F, DK[1]));
-                    if (Stage == Common.Stage.第二阶段.ToString() || Stage == Common.Stage.第三阶段.ToString())
-                        result.Add(2, Cal_MJA_Agent(AR[2], Static_D, F, DK[2]));
-                    else result.Add(2, new MJA());
-                    if (Stage == Common.Stage.第三阶段.ToString())
-                        result.Add(3, Cal_MJA_Agent(AR[3], Static_D, F, DK[3]));
-                    else result.Add(3, new MJA());
+                    case Common.Stage.起始阶段:
+                        result[1] = new MJA { Agent1 = D * F * AR[1].Agent1, Agent2 = D * F * AR[1].Agent2, Agent3 = D * F * AR[1].Agent3, Agent4 = D * F * AR[1].Agent4, Agent5 = D * F * AR[1].Agent5, Agent6 = D * F * AR[1].Agent6, };
+                        break;
+                    case Common.Stage.第一阶段:
+                        result[1] = Cal_MJA_Agent(AR[1], Static_D, F, DK[1]);
+                        break;
+                    case Common.Stage.第二阶段:
+                        result[1] = Cal_MJA_Agent(AR[1], Static_D, F, DK[1]);
+                        result[2] = Cal_MJA_Agent(AR[2], Static_D, F, DK[2]);
+                        break;
+                    case Common.Stage.第三阶段:
+                        result[1] = Cal_MJA_Agent(AR[1], Static_D, F, DK[1]);
+                        result[2] = Cal_MJA_Agent(AR[2], Static_D, F, DK[2]);
+                        result[3] = Cal_MJA_Agent(AR[3], Static_D, F, DK[3]);
+                        break;
                 }
                 return result;
+
+
             }
         }
         public Dictionary<int, RC> DE { get; set; } = new Dictionary<int, RC>();
@@ -216,12 +245,12 @@ namespace WebMVC.BLL
             var result = new MJA();
             decimal d = de <= 659 ? ds[1] : de <= 799 ? ds[2] : ds[3];
             decimal t = d * f;
-           result.M1=mja.M1 *  t;
-           result.M2=mja.M2 *  t;
-           result.M3=mja.M3 *  t;
-           result.M4=mja.M4 *  t;
-           result.M5=mja.M5 *  t;
-           result.M6=mja.M6 *  t;
+            result.M1 = mja.M1 * t;
+            result.M2 = mja.M2 * t;
+            result.M3 = mja.M3 * t;
+            result.M4 = mja.M4 * t;
+            result.M5 = mja.M5 * t;
+            result.M6 = mja.M6 * t;
             return result;
         }
         public MJA Cal_MJA_J(MJA mja, decimal[] ds, decimal f, decimal de)

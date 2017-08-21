@@ -25,7 +25,7 @@ namespace WebMVC.Common
     }
     public enum AgentName
     {
-        代1=1,
+        代1 = 1,
         代2,
         代3,
         代4,
@@ -35,6 +35,14 @@ namespace WebMVC.Common
     }
     public enum MJAType
     {
-        M,J,Agent
+        M, J, Agent
+    }
+    public enum ButtonSize
+    {
+        Large, Normal, Small, ExtraSmall
+    }
+    public enum ButtonStyle
+    {
+       Default, Primary,Succes,Info,Warning, Dangers,Link
     }
 }

@@ -29,25 +29,25 @@ namespace WebMVC.BLL
         List<MarketTable> markets = new List<MarketTable>();
         public void Init()
         {
+
             #region 第一阶段
             var market1 = new MarketTable() { Stage = Stage.第一阶段.ToString(), };
+
             var priceControl1 = priceControlTables.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
             var currentShare1 = currentShares.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
             var productInnvoation1 = productInnvoations.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
+            if (priceControl1 == null || currentShare1 == null || productInnvoation1 == null) return;
             market1.B.M = currentShare1.BJ[1].AverageM;
             market1.B.J = currentShare1.CB[1].AverageJ;
             market1.D = currentShare1.CT[1];
 
-            market1.CD.Add(1, new RC { M = 300, S = 315, J = 285 });
-            market1.CM.Add(1, new RC { M = RC1M, S = RC1S, J = RC1J });
-            market1.DE.Add(1, new RC { M = priceControl1.B.RC1M, J = priceControl1.B.RC1J });
-            market1.DE.Add(2, new RC ());
-            market1.DE.Add(3, new RC ());
+            market1.CD[1] = new RC { M = 300, S = 315, J = 285 };
 
-            market1.DK.Add(1, new MJA { Agent1 = priceControl1.D[1].Agent1, Agent2 = priceControl1.D[1].Agent2, Agent3 = priceControl1.D[1].Agent3, Agent4 = priceControl1.D[1].Agent4, Agent5 = priceControl1.D[1].Agent5, Agent6 = priceControl1.D[1].Agent6 });
-            market1.DK.Add(2, new MJA());
-            market1.DK.Add(3, new MJA());
-            market1.EF.Add(1, new MJA
+
+            market1.CM[1]=new RC { M = RC1M, S = RC1S, J = RC1J };
+            market1.DE[1]=new RC { M = priceControl1.B.RC1M, J = priceControl1.B.RC1J };
+            market1.DK[1]=new MJA { Agent1 = priceControl1.D[1].Agent1, Agent2 = priceControl1.D[1].Agent2, Agent3 = priceControl1.D[1].Agent3, Agent4 = priceControl1.D[1].Agent4, Agent5 = priceControl1.D[1].Agent5, Agent6 = priceControl1.D[1].Agent6 };
+            market1.EF[1]=new MJA
             {
                 Agent1 = GetEF(priceControl1.K[1].Agent1, priceControl1.D[1].Agent1),
                 Agent2 = GetEF(priceControl1.K[1].Agent2, priceControl1.D[1].Agent2),
@@ -55,9 +55,8 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl1.K[1].Agent4, priceControl1.D[1].Agent4),
                 Agent5 = GetEF(priceControl1.K[1].Agent5, priceControl1.D[1].Agent5),
                 Agent6 = GetEF(priceControl1.K[1].Agent6, priceControl1.D[1].Agent6)
-            });
-            market1.EF.Add(2, new MJA());
-            market1.EF.Add(3, new MJA());
+            };
+
             //market1.CompeteRC = priceControl1.B;
             markets.Add(market1);
             #endregion
@@ -65,36 +64,36 @@ namespace WebMVC.BLL
             #region 第二阶段
             var market2 = new MarketTable() { Stage = Stage.第二阶段.ToString(), };
             var priceControl2 = priceControlTables.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
-            if (priceControl2 == null) return;
+
             var currentShare2 = currentShares.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
             var productInnvoation2 = productInnvoations.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
-
+            if (priceControl2 == null || currentShare2 == null || productInnvoation2 == null) return;
             market2.B.M = currentShare2.BJ[1].SumM;
             market2.B.J = currentShare2.CB[1].SumJ;
             market2.D = currentShare2.CT[1];
 
-            market2.CD.Add(1, new RC
+            market2.CD[1] = new RC
             {
                 M = market1.CD[1].M - market1.CD[1].M * productInnvoation1.AL.RC1.M / 100 * 0.02m,
                 S = market1.CD[1].S - market1.CD[1].S * productInnvoation1.AL.RC1.S / 100 * 0.02m,
                 J = market1.CD[1].J - market1.CD[1].J * productInnvoation1.AL.RC1.J / 100 * 0.02m
-            });
-            market2.CD.Add(2, priceControl2.AG);
+            };
+            market2.CD[2] = priceControl2.AG;
 
-            market2.CM.Add(1, new RC
+            market2.CM[1] = new RC
             {
                 M = market1.CM[1].M - market1.CM[1].M * productInnvoation1.AL.RC1.M / 100 * 0.02m,
                 S = market1.CM[1].S - market1.CM[1].S * productInnvoation1.AL.RC1.S / 100 * 0.02m,
                 J = market1.CM[1].J - market1.CM[1].J * productInnvoation1.AL.RC1.J / 100 * 0.02m
-            });
-            market2.CM.Add(2, priceControl2.AJ);
-            market2.DE.Add(1, new RC { M = priceControl2.B.RC1M, J = priceControl2.B.RC1J });
-            market2.DE.Add(2, new RC { M = priceControl2.B.RC2M, J = priceControl2.B.RC2J });
-            market2.DE.Add(3, new RC());
-            market2.DK.Add(1, new MJA { Agent1 = priceControl2.D[1].Agent1, Agent2 = priceControl2.D[1].Agent2, Agent3 = priceControl2.D[1].Agent3, Agent4 = priceControl2.D[1].Agent4, Agent5 = priceControl2.D[1].Agent5, Agent6 = priceControl2.D[1].Agent6 });
-            market2.DK.Add(2, new MJA { Agent1 = priceControl2.D[2].Agent1, Agent2 = priceControl2.D[2].Agent2, Agent3 = priceControl2.D[2].Agent3, Agent4 = priceControl2.D[2].Agent4, Agent5 = priceControl2.D[2].Agent5, Agent6 = priceControl2.D[2].Agent6 });
-            market2.DK.Add(3, new MJA());
-            market2.EF.Add(1, new MJA
+            };
+            market2.CM[2] = priceControl2.AJ;
+            market2.DE[1] = new RC { M = priceControl2.B.RC1M, J = priceControl2.B.RC1J };
+            market2.DE[2] = new RC { M = priceControl2.B.RC2M, J = priceControl2.B.RC2J };
+
+            market2.DK[1] = new MJA { Agent1 = priceControl2.D[1].Agent1, Agent2 = priceControl2.D[1].Agent2, Agent3 = priceControl2.D[1].Agent3, Agent4 = priceControl2.D[1].Agent4, Agent5 = priceControl2.D[1].Agent5, Agent6 = priceControl2.D[1].Agent6 };
+            market2.DK[2] = new MJA { Agent1 = priceControl2.D[2].Agent1, Agent2 = priceControl2.D[2].Agent2, Agent3 = priceControl2.D[2].Agent3, Agent4 = priceControl2.D[2].Agent4, Agent5 = priceControl2.D[2].Agent5, Agent6 = priceControl2.D[2].Agent6 };
+
+            market2.EF[1] = new MJA
             {
                 Agent1 = GetEF(priceControl2.K[1].Agent1, priceControl2.D[1].Agent1),
                 Agent2 = GetEF(priceControl2.K[1].Agent2, priceControl2.D[1].Agent2),
@@ -102,8 +101,8 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl2.K[1].Agent4, priceControl2.D[1].Agent4),
                 Agent5 = GetEF(priceControl2.K[1].Agent5, priceControl2.D[1].Agent5),
                 Agent6 = GetEF(priceControl2.K[1].Agent6, priceControl2.D[1].Agent6)
-            });
-            market2.EF.Add(2, new MJA
+            };
+            market2.EF[2] = new MJA
             {
                 Agent1 = GetEF(priceControl2.K[2].Agent1, priceControl2.D[2].Agent1),
                 Agent2 = GetEF(priceControl2.K[2].Agent2, priceControl2.D[2].Agent2),
@@ -111,58 +110,57 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl2.K[2].Agent4, priceControl2.D[2].Agent4),
                 Agent5 = GetEF(priceControl2.K[2].Agent5, priceControl2.D[2].Agent5),
                 Agent6 = GetEF(priceControl2.K[2].Agent6, priceControl2.D[2].Agent6)
-            });
-            market2.EF.Add(3, new MJA());
+            };
+
             markets.Add(market2);
             #endregion
 
             #region 第三阶段
             var market3 = new MarketTable() { Stage = Stage.第三阶段.ToString(), };
             var priceControl3 = priceControlTables.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
-            if (priceControl3 == null) return;
             var currentShare3 = currentShares.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
             var productInnvoation3 = productInnvoations.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
-
+            if (priceControl3 == null || currentShare3 == null || productInnvoation3 == null) return;
             market3.B.M = currentShare3.BJ[1].SumM;
             market3.B.J = currentShare3.CB[1].SumJ;
             market3.D = currentShare3.CT[1];
 
-            market3.CD.Add(1, new RC
+            market3.CD[1] = new RC
             {
                 M = market2.CD[1].M - market2.CD[1].M * productInnvoation2.AL.RC1.M / 100 * 0.02m,
                 S = market2.CD[1].S - market2.CD[1].S * productInnvoation2.AL.RC1.S / 100 * 0.02m,
                 J = market2.CD[1].J - market2.CD[1].J * productInnvoation2.AL.RC1.J / 100 * 0.02m
-            });
-            market3.CD.Add(2, new RC
+            };
+            market3.CD[2] = new RC
             {
                 M = market2.CD[2].M - market2.CD[2].M * productInnvoation2.AL.RC2.M / 100 * 0.02m,
                 S = market2.CD[2].S - market2.CD[2].S * productInnvoation2.AL.RC2.S / 100 * 0.02m,
                 J = market2.CD[2].J - market2.CD[2].J * productInnvoation2.AL.RC2.J / 100 * 0.02m
-            });
-            market3.CD.Add(3, priceControl3.AG);
+            };
+            market3.CD[3] = priceControl3.AG;
 
-            market3.CM.Add(1, new RC
+            market3.CM[1] = new RC
             {
                 M = market2.CM[1].M - market2.CM[1].M * productInnvoation2.AL.RC1.M / 100 * 0.02m,
                 S = market2.CM[1].S - market2.CM[1].S * productInnvoation2.AL.RC1.S / 100 * 0.02m,
                 J = market2.CM[1].J - market2.CM[1].J * productInnvoation2.AL.RC1.J / 100 * 0.02m
-            });
-            market3.CM.Add(2, new RC
+            };
+            market3.CM[2] = new RC
             {
                 M = market2.CM[2].M - market2.CM[2].M * productInnvoation2.AL.RC2.M / 100 * 0.02m,
                 S = market2.CM[2].S - market2.CM[2].S * productInnvoation2.AL.RC2.S / 100 * 0.02m,
                 J = market2.CM[2].J - market2.CM[2].J * productInnvoation2.AL.RC2.J / 100 * 0.02m
-            });
-            market3.CM.Add(3, priceControl3.AJ);
+            };
+            market3.CM[3] = priceControl3.AJ;
 
-            market3.DE.Add(1, new RC { M = priceControl3.B.RC1M, J = priceControl3.B.RC1J });
-            market3.DE.Add(2, new RC { M = priceControl3.B.RC2M, J = priceControl3.B.RC2J });
-            market3.DE.Add(3, new RC { M = priceControl3.B.RC3M, J = priceControl3.B.RC3J });
-            market3.DK.Add(1, new MJA { Agent1 = priceControl3.D[1].Agent1, Agent2 = priceControl3.D[1].Agent2, Agent3 = priceControl3.D[1].Agent3, Agent4 = priceControl3.D[1].Agent4, Agent5 = priceControl3.D[1].Agent5, Agent6 = priceControl3.D[1].Agent6 });
-            market3.DK.Add(2, new MJA { Agent1 = priceControl3.D[2].Agent1, Agent2 = priceControl3.D[2].Agent2, Agent3 = priceControl3.D[2].Agent3, Agent4 = priceControl3.D[2].Agent4, Agent5 = priceControl3.D[2].Agent5, Agent6 = priceControl3.D[2].Agent6 });
-            market3.DK.Add(3, new MJA { Agent1 = priceControl3.D[3].Agent1, Agent2 = priceControl3.D[3].Agent2, Agent3 = priceControl3.D[3].Agent3, Agent4 = priceControl3.D[3].Agent4, Agent5 = priceControl3.D[3].Agent5, Agent6 = priceControl3.D[3].Agent6 });
+            market3.DE[1] = new RC { M = priceControl3.B.RC1M, J = priceControl3.B.RC1J };
+            market3.DE[2] = new RC { M = priceControl3.B.RC2M, J = priceControl3.B.RC2J };
+            market3.DE[3] = new RC { M = priceControl3.B.RC3M, J = priceControl3.B.RC3J };
+            market3.DK[1] = new MJA { Agent1 = priceControl3.D[1].Agent1, Agent2 = priceControl3.D[1].Agent2, Agent3 = priceControl3.D[1].Agent3, Agent4 = priceControl3.D[1].Agent4, Agent5 = priceControl3.D[1].Agent5, Agent6 = priceControl3.D[1].Agent6 };
+            market3.DK[2] = new MJA { Agent1 = priceControl3.D[2].Agent1, Agent2 = priceControl3.D[2].Agent2, Agent3 = priceControl3.D[2].Agent3, Agent4 = priceControl3.D[2].Agent4, Agent5 = priceControl3.D[2].Agent5, Agent6 = priceControl3.D[2].Agent6 };
+            market3.DK[3] = new MJA { Agent1 = priceControl3.D[3].Agent1, Agent2 = priceControl3.D[3].Agent2, Agent3 = priceControl3.D[3].Agent3, Agent4 = priceControl3.D[3].Agent4, Agent5 = priceControl3.D[3].Agent5, Agent6 = priceControl3.D[3].Agent6 };
 
-            market3.EF.Add(1, new MJA
+            market3.EF[1] = new MJA
             {
                 Agent1 = GetEF(priceControl3.K[1].Agent1, priceControl3.D[1].Agent1),
                 Agent2 = GetEF(priceControl3.K[1].Agent2, priceControl3.D[1].Agent2),
@@ -170,8 +168,8 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl3.K[1].Agent4, priceControl3.D[1].Agent4),
                 Agent5 = GetEF(priceControl3.K[1].Agent5, priceControl3.D[1].Agent5),
                 Agent6 = GetEF(priceControl3.K[1].Agent6, priceControl3.D[1].Agent6)
-            });
-            market3.EF.Add(2, new MJA
+            };
+            market3.EF[2] = new MJA
             {
                 Agent1 = GetEF(priceControl3.K[2].Agent1, priceControl3.D[2].Agent1),
                 Agent2 = GetEF(priceControl3.K[2].Agent2, priceControl3.D[2].Agent2),
@@ -179,8 +177,8 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl3.K[2].Agent4, priceControl3.D[2].Agent4),
                 Agent5 = GetEF(priceControl3.K[2].Agent5, priceControl3.D[2].Agent5),
                 Agent6 = GetEF(priceControl3.K[2].Agent6, priceControl3.D[2].Agent6)
-            });
-            market3.EF.Add(3, new MJA
+            };
+            market3.EF[3] = new MJA
             {
                 Agent1 = GetEF(priceControl3.K[3].Agent1, priceControl3.D[3].Agent1),
                 Agent2 = GetEF(priceControl3.K[3].Agent2, priceControl3.D[3].Agent2),
@@ -188,7 +186,7 @@ namespace WebMVC.BLL
                 Agent4 = GetEF(priceControl3.K[3].Agent4, priceControl3.D[3].Agent4),
                 Agent5 = GetEF(priceControl3.K[3].Agent5, priceControl3.D[3].Agent5),
                 Agent6 = GetEF(priceControl3.K[3].Agent6, priceControl3.D[3].Agent6)
-            });
+            };
             markets.Add(market3);
             #endregion
 
@@ -204,7 +202,29 @@ namespace WebMVC.BLL
     }
     public class MarketTable
     {
-
+        public MarketTable()
+        {
+            CD = new Dictionary<int, RC>();
+            CD.Add(1, new RC());
+            CD.Add(2, new RC());
+            CD.Add(3, new RC());
+            CM = new Dictionary<int, RC>();
+            CM.Add(1, new RC());
+            CM.Add(2, new RC());
+            CM.Add(3, new RC());
+            DE = new Dictionary<int, RC>();
+            DE.Add(1, new RC());
+            DE.Add(2, new RC());
+            DE.Add(3, new RC());
+            DK = new Dictionary<int, MJA>();
+            DK.Add(1, new MJA());
+            DK.Add(2, new MJA());
+            DK.Add(3, new MJA());
+            EF = new Dictionary<int, MJA>();
+            EF.Add(1, new MJA());
+            EF.Add(2, new MJA());
+            EF.Add(3, new MJA());
+        }
         public string Stage { get; set; }
         /// <summary>
         /// 竞品出货RC1
@@ -222,7 +242,10 @@ namespace WebMVC.BLL
             get
             {
                 var result = new Dictionary<int, MJA>();
-                result.Add(1, new MJA
+                result.Add(1, new MJA());
+                result.Add(2, new MJA());
+                result.Add(3, new MJA());
+                result[1]= new MJA
                 {
                     M1 = GetAB(DK[1].Agent1, DE[1].M, DE[1].J),
                     M2 = GetAB(DK[1].Agent2, DE[1].M, DE[1].J),
@@ -230,9 +253,9 @@ namespace WebMVC.BLL
                     M4 = GetAB(DK[1].Agent4, DE[1].M, DE[1].J),
                     M5 = GetAB(DK[1].Agent5, DE[1].M, DE[1].J),
                     M6 = GetAB(DK[1].Agent6, DE[1].M, DE[1].J),
-                });
-                if (Stage == Common.Stage.第二阶段.ToString()||Stage == Common.Stage.第三阶段.ToString())
-                    result.Add(2, new MJA
+                } ;
+                if (Stage == Common.Stage.第二阶段.ToString() || Stage == Common.Stage.第三阶段.ToString())
+                    result[2]= new MJA
                     {
                         M1 = GetAB(DK[1].Agent1, DE[2].M, DE[2].J),
                         M2 = GetAB(DK[1].Agent2, DE[2].M, DE[2].J),
@@ -240,13 +263,10 @@ namespace WebMVC.BLL
                         M4 = GetAB(DK[1].Agent4, DE[2].M, DE[2].J),
                         M5 = GetAB(DK[1].Agent5, DE[2].M, DE[2].J),
                         M6 = GetAB(DK[1].Agent6, DE[2].M, DE[2].J),
-                    });
-                else
-                {
-                    result.Add(2, new MJA());
-                }
+                    };
+               
                 if (Stage == Common.Stage.第三阶段.ToString())
-                    result.Add(3, new MJA
+                    result[3]= new MJA
                     {
                         M1 = GetAB(DK[3].Agent1, DE[3].M, DE[3].J),
                         M2 = GetAB(DK[3].Agent2, DE[3].M, DE[3].J),
@@ -254,11 +274,8 @@ namespace WebMVC.BLL
                         M4 = GetAB(DK[3].Agent4, DE[3].M, DE[3].J),
                         M5 = GetAB(DK[3].Agent5, DE[3].M, DE[3].J),
                         M6 = GetAB(DK[3].Agent6, DE[3].M, DE[3].J),
-                    });
-                else
-                {
-                    result.Add(3,new MJA());
-                }
+                    };
+ 
                 return result;
             }
         }
@@ -410,7 +427,7 @@ namespace WebMVC.BLL
             {
                 var result = new Dictionary<int, RC>();
                 result.Add(1, GetVC(CM[1], CD[1]));
-                if (Stage == Common.Stage.第二阶段.ToString()||Stage==Common.Stage.第三阶段.ToString())
+                if (Stage == Common.Stage.第二阶段.ToString() || Stage == Common.Stage.第三阶段.ToString())
                     result.Add(2, GetVC(CM[2], CD[2]));
                 if (Stage == Common.Stage.第三阶段.ToString())
                     result.Add(3, GetVC(CM[3], CD[3]));
@@ -418,7 +435,7 @@ namespace WebMVC.BLL
                 return result;
             }
         }
-        private RC GetVC(RC CM,RC CD)
+        private RC GetVC(RC CM, RC CD)
         {
             return new RC { M = CVCAL(CM.M, CD.M), S = CVCAL(CM.S, CD.S), J = CVCAL(CM.J, CD.J) };
 
@@ -487,7 +504,7 @@ namespace WebMVC.BLL
 
                     });
 
-                   
+
                 }
                 else
                 {

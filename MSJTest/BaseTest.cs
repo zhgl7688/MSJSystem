@@ -21,10 +21,12 @@ namespace MSJTest
       public  MarketPromotion marketPromotion;
       public  ChannelService channelService;
       public  MarketPriceTemp marketPriceTemp;
-      public  FirstPPT fristPPT;
+      public  FirstPPT firstPPT;
       public  SummaryAssent summaryAssent;
       public  InvoicingReport invoicingReport;
       public  LastBrand lastBrand;
+        public SecondPPT secondPPT;
+        public ThirdPPT thirdPPT;
         public BaseTest()
         {
             invertmentTable1 = new InvertmentTable1();
@@ -43,7 +45,9 @@ namespace MSJTest
             invoicingReport = new InvoicingReport(currentShare, marketPrice, stockReport);
             summaryAssent = new SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
             lastBrand = new LastBrand(currentShare);
-            fristPPT = new FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport,priceControl);
+            firstPPT = new FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport,priceControl);
+            secondPPT = new SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);
+            thirdPPT = new ThirdPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, secondPPT);
         }
     }
 }

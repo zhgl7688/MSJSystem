@@ -19,10 +19,10 @@ namespace WebMVC.BLL
         List<StockReportTable> stockReports;
         public Investment(InvertmentTable1 InvertmentTable1, StockReport StockReport)
         {
-            invertMentTable1 =   InvertmentTable1.getBrandTable();
-            agentInputs =   InvertmentTable1.getAgentInputs();
-            agents =   InvertmentTable1.getAgents();
-            stockReports =   StockReport.Get();
+            invertMentTable1 = InvertmentTable1.getBrandTable();
+            agentInputs = InvertmentTable1.getAgentInputs();
+            agents = InvertmentTable1.getAgents();
+            stockReports = StockReport.Get();
             Init();
         }
 
@@ -49,14 +49,14 @@ namespace WebMVC.BLL
                         investment.N = functionRC;
                         investment.O = materialRC;
                         investment.V = item.brandInput;
-                        investment.NewDevelopmentCost = item.NewDevelopmentCost;
+                        investment.NewDevelopmentCostB = item.NewDevelopmentCost;
                         break;
                     case Brand.S品牌:
                         investment.K = item.advertise;
                         investment.P = surfaceRC;
                         investment.Q = functionRC;
                         investment.R = materialRC;
-
+                        investment.NewDevelopmentCostC = item.NewDevelopmentCost;
                         break;
                     case Brand.J品牌:
                         investment.L = item.advertise;
@@ -64,6 +64,7 @@ namespace WebMVC.BLL
                         investment.T = functionRC;
                         investment.U = materialRC;
                         investment.AC = item.brandInput;
+                        investment.NewDevelopmentCostD = item.NewDevelopmentCost;
                         break;
                     default:
                         break;
@@ -81,7 +82,7 @@ namespace WebMVC.BLL
 
 
 
-            
+
             }
             foreach (var item in investments)
             {
@@ -95,7 +96,7 @@ namespace WebMVC.BLL
             foreach (var item in stockReports)
             {
                 var index = (int)Enum.Parse(typeof(Stage), item.Stage);
-                var investment = investments.FirstOrDefault(s => s.Stage ==Enum.GetName(typeof (Stage),index+1));
+                var investment = investments.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), index + 1));
                 if (investment == null)
                 {
                     continue;
@@ -135,48 +136,50 @@ namespace WebMVC.BLL
             return investments;
         }
     }
-    
+
     public class InvestmentTable
     {
 
         [DisplayName("阶段")]
         public string Stage { get; set; }
-        [DisplayName("M投入")]
-        public decimal B { get { return J + M.SurfaceRCSum + N.FunctionRCSum + O.materialRCSum + V.InputSum+NewDevelopmentCost; } }
-        private decimal PQRNew
+        //[DisplayName("M投入")]
+        //=J11+O11+R11+U11+AN11+AO11+AP11+AQ11+AR11+AS11+AT11+开发费用表!B4
+        public decimal B { get { return J + M.SurfaceRCSum + N.FunctionRCSum + O.materialRCSum + V.InputSum + NewDevelopmentCostB; } }
+        public decimal NewDevelopmentCostB { get; set; }
+        public decimal PQRNew
         {
-            get { return P.SurfaceRCSum + Q.FunctionRCSum + R.materialRCSum  + NewDevelopmentCost; }
+            get { return P.SurfaceRCSum + Q.FunctionRCSum + R.materialRCSum + NewDevelopmentCostC; }
         }
-             
-        [DisplayName("对代1投入")]
-        public decimal C { get { return K + PQRNew + AJ.InputSum; } }
-        [DisplayName("对代2投入")]
-        public decimal D { get { return K + PQRNew + AS.InputSum; } }
-        [DisplayName("对代3投入")]
-        public decimal E { get { return K + PQRNew + BB.InputSum; } }
-        [DisplayName("对代4投入")]
-        public decimal F { get { return K + PQRNew + BK.InputSum; } }
-        [DisplayName("对代5投入")]
-        public decimal G { get { return K + PQRNew + BT.InputSum; } }
-        [DisplayName("对代6投入")]
-        public decimal H { get { return K + PQRNew + CC.InputSum; } }
-        [DisplayName("J投入")]
-        public decimal I { get { return L + S.SurfaceRCSum + T.FunctionRCSum + U.materialRCSum+ NewDevelopmentCost + AC.InputSum; } }
 
+        //[DisplayName("对代1投入")]
+        public decimal C { get { return K + PQRNew + AJ.InputSum; } }
+        //[DisplayName("对代2投入")]
+        public decimal D { get { return K + PQRNew + AS.InputSum; } }
+        //[DisplayName("对代3投入")]
+        public decimal E { get { return K + PQRNew + BB.InputSum; } }
+        //[DisplayName("对代4投入")]
+        public decimal F { get { return K + PQRNew + BK.InputSum; } }
+        //[DisplayName("对代5投入")]
+        public decimal G { get { return K + PQRNew + BT.InputSum; } }
+        //[DisplayName("对代6投入")]
+        public decimal H { get { return K + PQRNew + CC.InputSum; } }
+        //[DisplayName("J投入")]
+        public decimal I { get { return L + S.SurfaceRCSum + T.FunctionRCSum + U.materialRCSum + NewDevelopmentCostD + AC.InputSum; } }
+        public decimal NewDevelopmentCostD { get; set; }
         /// <summary>
         /// M品牌广告投入 
         /// </summary>
-        [DisplayName("M品牌广告投入")]
+        //[DisplayName("M品牌广告投入")]
         public decimal J { get; internal set; }
         /// <summary>
         /// S品牌广告投入
         /// </summary>
-        [DisplayName("S品牌广告投入")]
+        //[DisplayName("S品牌广告投入")]
         public decimal K { get; set; }
         /// <summary>
         /// J品牌广告投入
         /// </summary>
-        [DisplayName("J品牌广告投入")]
+        //[DisplayName("J品牌广告投入")]
         public decimal L { get; internal set; }
 
         public SurfaceRC M { get; internal set; } = new SurfaceRC();
@@ -261,7 +264,7 @@ namespace WebMVC.BLL
         }
         public void ItCAL()
         {
-           
+
             AJ = getBrandInput(AJ_SummaryAssert, CL);
 
             AS = getBrandInput(AS_SummaryAssert, CT);
@@ -289,7 +292,7 @@ namespace WebMVC.BLL
         /// <summary>
         /// 新品开发费用
         /// </summary>
-        public decimal NewDevelopmentCost { get; set; }
+        public decimal NewDevelopmentCostC { get; set; }
     }
     public class SurfaceRC
     {

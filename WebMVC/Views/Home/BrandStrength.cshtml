@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<WebMVC.BLL.BrandStrengthTable>
 
 @{
-    ViewBag.Title = "BrandStrength";
+    ViewBag.Title = "品牌力";
 }
 
-<h2>BrandStrength</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+ 
 </p>
 <table class="table">
     <tr>
@@ -56,7 +56,7 @@
         <th>
             @Html.DisplayNameFor(model => model.P)
         </th>
-        <th></th>
+        
     </tr>
 
 @foreach (var item in Model) {
@@ -106,11 +106,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.P)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
+         
     </tr>
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using WebMVC.Common;
@@ -326,11 +327,11 @@ namespace WebMVC.BLL
                 switch (sAgentResult.代理方)
                 {
                     case "代1":
-                        sAgentResult.数量 = ((sAgentResult.期初 + sAgentResult.销售量 - currentShare3.CT[1].Agent1) > 0 ? 0 : (sAgentResult.期初 + sAgentResult.销售量 - currentShare3.CT[1].Agent1));
+                        sAgentResult.数量 = SumRcNumber(sAgentResult.期初 , sAgentResult.销售量, currentShare3.CT[1].Agent1);
                         sAgentResult.金额 = sAgentResult.数量 * priceControl3.K[1].Agent1;
-                        sAgentResult.RC2数量 = decimal.Round(((sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare3.CT[2].Agent1) > 0 ? 0 : (sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare3.CT[2].Agent1)), 0);
+                        sAgentResult.RC2数量 = SumRcNumber(sAgentResult.RC2期初, sAgentResult.RC2销售量, currentShare3.CT[2].Agent1);
                         sAgentResult.RC2金额 = sAgentResult.RC2数量 * priceControl3.K[2].Agent1;
-                        sAgentResult.RC3数量 = decimal.Round(((sAgentResult.RC3期初 + sAgentResult.RC3销售量 - currentShare3.CT[3].Agent1) > 0 ? 0 : (sAgentResult.RC3期初 + sAgentResult.RC3销售量 - currentShare3.CT[3].Agent1)), 0);
+                        sAgentResult.RC3数量 = SumRcNumber(sAgentResult.RC3期初 , sAgentResult.RC3销售量, currentShare3.CT[3].Agent1);
                         sAgentResult.RC3金额 = sAgentResult.RC3数量 * priceControl3.K[3].Agent1;
                         sAgentResult.销售利润 = summary16.X;
                         sAgentResult.库存跌价损失计提 = summary18.X;
@@ -340,9 +341,9 @@ namespace WebMVC.BLL
                     case "代2":
                         sAgentResult.数量 = ((sAgentResult.期初 + sAgentResult.销售量 - currentShare3.CT[1].Agent2) > 0 ? 0 : (sAgentResult.期初 + sAgentResult.销售量 - currentShare3.CT[1].Agent2));
                         sAgentResult.金额 = sAgentResult.数量 * priceControl3.K[1].Agent2;
-                        sAgentResult.RC2数量 = ((sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare3.CT[2].Agent2) > 0 ? 0 : (sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare3.CT[2].Agent2));
+                        sAgentResult.RC2数量 = ((sAgentResult.RC2期初 + sAgentResult.RC2销售量 -decimal.Round( currentShare3.CT[2].Agent2,0)) > 0 ? 0 : (sAgentResult.RC2期初 + sAgentResult.RC2销售量 -decimal.Round( currentShare3.CT[2].Agent2,0)));
                         sAgentResult.RC2金额 = sAgentResult.RC2数量 * priceControl3.K[2].Agent2;
-                        sAgentResult.RC3数量 = ((sAgentResult.RC3期初 + sAgentResult.RC3销售量 - currentShare3.CT[3].Agent2) > 0 ? 0 : (sAgentResult.RC3期初 + sAgentResult.RC3销售量 - currentShare3.CT[3].Agent2));
+                        sAgentResult.RC3数量 = ((sAgentResult.RC3期初 + sAgentResult.RC3销售量 - decimal.Round(currentShare3.CT[3].Agent2,0)) > 0 ? 0 : (sAgentResult.RC3期初 + sAgentResult.RC3销售量 - decimal.Round(currentShare3.CT[3].Agent2,0)));
                         sAgentResult.RC3金额 = sAgentResult.RC3数量 * priceControl3.K[3].Agent2;
                         sAgentResult.销售利润 = summary16.Y;
                         sAgentResult.库存跌价损失计提 = summary18.Y;
@@ -403,6 +404,11 @@ namespace WebMVC.BLL
 
             }
         }
+        private decimal SumRcNumber(decimal a,decimal b ,decimal c)
+        {
+            var result = decimal.Round(a, 0) + decimal.Round(b, 0) - decimal.Round(c, 0);
+          return result > 0 ? 0 : result;
+        }
         #endregion
         #region 累计总利润
         public void ThirdSummaryAdd()
@@ -461,42 +467,62 @@ namespace WebMVC.BLL
     }
     public class ThirdBrandInfo : SecondBrandInfo
     {
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3出厂价 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3指导零售价 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3外观创新 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3功能创新 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3材料创新 { get; set; }
 
 
     }
     public class ThirdSAgentInfo : SecondSAgentInfo
     {
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3供货价 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3零售价 { get; set; }
 
     }
     public class ThirdSAgentResult : SecondSAgentResult
     {
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3期初 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3期末 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3销售量 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3销售金额 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3数量 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC3金额 { get; set; }
 
     }
     public class ThirdBrandProfit : SecondBrandProfit
     {
+        [DisplayFormat(DataFormatString ="{0:P0}")]
         public decimal RC3SM { get; set; }
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal RC3SS { get; set; }
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal RC3SJ { get; set; }
     }
     public class ThirdSummary
     {
         public string 代理方 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal 第一期利润 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal 第二期利润 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal 第三期利润 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal 累计总利润
         {
             get
@@ -504,17 +530,24 @@ namespace WebMVC.BLL
                 return 第一期利润 + 第二期利润 + 第三期利润;
             }
         }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal 库存 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal 销售额 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal 利润 { get { return 第三期利润; } }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal 现金流 { get; set; }
 
     }
     public class ComprehensiveShare
     {
         public string Brand { get; set; }
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal 第一期 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal 第二期 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal 第三期 { get; set; }
     }
 

@@ -51,6 +51,7 @@ namespace WebMVC.Controllers
             thirdPPT = new BLL.ThirdPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, secondPPT);
 
         }
+        
         public ActionResult Index()
         {
             return View();

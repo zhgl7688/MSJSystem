@@ -5,13 +5,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebMVC.Common;
+using WebMVC.Infrastructure;
 using WebMVC.Models;
 
 namespace WebMVC.Controllers
 {
     public class AgentInputController : Controller
     {
-        MSJDBContext db = new MSJDBContext();
+        AppIdentityDbContext db = new AppIdentityDbContext();
 
         // GET: AgentInput
         public ActionResult Index()

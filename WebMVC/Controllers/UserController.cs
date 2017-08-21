@@ -8,71 +8,89 @@ using System.Web.Mvc;
 using System.Web.Security;
 using WebMVC.BLL;
 using WebMVC.Models;
-
+using Microsoft.AspNet.Identity.Owin;
+using System.Threading.Tasks;
+using WebMVC.Infrastructure;
 
 namespace WebMVC.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
-        UserService userService = new UserService();
-        MSJDBContext db = new MSJDBContext();
-        // GET: User
+          // GET: User
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return View("Error", new string[] { " 您已经登录！" });
+            //}
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         //
-        // POST: /Account/Login
+        // POST: /User/Login
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName);
+                AppUser user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user == null)
                 {
-                    ModelState.AddModelError("UserName", "用户不存在");
-                }
-                else if (user.Password == model.Password)
-                {
-                    var _identity = userService.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-                    AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = model.RememberMe }, _identity);
-                    return RedirectToLocal(returnUrl);
+                    ModelState.AddModelError("", "无效的用户名或密码");
                 }
                 else
                 {
-                    ModelState.AddModelError("Password", "密码不正确");
+                    var claimsIdentity =
+               await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthManager.SignOut();
+                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = false }, claimsIdentity);
+                    return Redirect(returnUrl??"/home/index");
                 }
-                return View();
+
             }
-
-
-            // 如果我们进行到这一步时某个地方出错，则重新显示表单
-            ModelState.AddModelError("", "提供的用户名或密码不正确。");
+            //var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName);
+            //if (user == null)
+            //{
+            //    ModelState.AddModelError("UserName", "用户不存在");
+            //}
+            //else if (user.Password == model.Password)
+            //{
+            //    var _identity = userService.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+            //    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            //    AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = model.RememberMe }, _identity);
+            //    return RedirectToLocal(returnUrl);
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError("Password", "密码不正确");
+            //}
+            // return View();
+            // }
+            ViewBag.returnUrl = returnUrl;
+   
             return View(model);
         }
 
         //
-        // POST: /Account/LogOff
+        // POST: /User/LogOff
 
-        [HttpPost]
+
         public ActionResult LogOff()
         {
 
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            AuthManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
         //
-        // GET: /Account/Register
+        // GET: /User/Register
 
         [AllowAnonymous]
         public ActionResult Register()
@@ -81,44 +99,51 @@ namespace WebMVC.Controllers
         }
 
         //
-        // POST: /Account/Register
+        // POST: /User/Register
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public async Task<ActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
                 // 尝试注册用户
                 try
                 {
-                    if (db.Users.FirstOrDefault(s => s.UserName == model.UserName) != null)
-                        ModelState.AddModelError("UserName", "用户名已存在");
-                    else
+                    var user = new AppUser { UserName = model.UserName };
+                    IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
                     {
-                        User _user = new Models.User
-                        {
-                            UserName = model.UserName,
-                            Password = model.Password
-                        };
-                        db.Users.Add(_user);
-                        db.SaveChanges();
-                        if (_user.UserId > 0)
-                        {
-                            var _identity = userService.CreateIdentity(_user, DefaultAuthenticationTypes.ApplicationCookie);
-                            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-                            AuthenticationManager.SignIn(_identity);
-                            return RedirectToAction("Index", "Home");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("", "注册失败！");
-                         }
-
+                        return RedirectToAction("Index", "Home");
                     }
-                    //   return RedirectToAction("Index", "Home");
-                    return View(model);
+                    AddErrorsFromResult(result);
+                    //if (db.Users.FirstOrDefault(s => s.UserName == model.UserName) != null)
+                    //    ModelState.AddModelError("UserName", "用户名已存在");
+                    //else
+                    //{
+                    //    User _user = new Models.User
+                    //    {
+                    //        UserName = model.UserName,
+                    //        Password = model.Password
+                    //    };
+                    //    db.Users.Add(_user);
+                    //    db.SaveChanges();
+                    //    if (_user.UserId > 0)
+                    //    {
+                    //        var _identity = userService.CreateIdentity(_user, DefaultAuthenticationTypes.ApplicationCookie);
+                    //        AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    //        AuthenticationManager.SignIn(_identity);
+                    //        return RedirectToAction("Index", "Home");
+                    //    }
+                    //    else
+                    //    {
+                    //        ModelState.AddModelError("", "注册失败！");
+                    //     }
+
+                    //}
+                    ////   return RedirectToAction("Index", "Home");
+                 return View(model);
 
                 }
                 catch (MembershipCreateUserException e)
@@ -140,6 +165,15 @@ namespace WebMVC.Controllers
 
 
         #region 帮助程序
+
+        private void AddErrorsFromResult(IdentityResult result)
+        {
+            foreach (string error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -155,7 +189,15 @@ namespace WebMVC.Controllers
 
         #endregion
         #region 属性
-        private IAuthenticationManager AuthenticationManager { get { return HttpContext.GetOwinContext().Authentication; } }
+         private IAuthenticationManager AuthManager
+        {
+            get { return HttpContext.GetOwinContext().Authentication; }
+        }
+        private AppUserManager UserManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
+        }
+
         #endregion
     }
 }

@@ -44,11 +44,16 @@ namespace WebMVC.BLL
                 {
 
                     stock.B = 31; stock.C = 30; stock.E.Add(1, new StockAmount { Stock = item.FirstPurchase, Price = prices[1].S });
+                    stock.E.Add(2, new StockAmount());
+                    stock.E.Add(3, new StockAmount());
+
                 }
                 else if (item.Stage == Common.Stage.第二阶段.ToString())
                 {
                     stock.E.Add(1, new StockAmount { Stock = item.FirstPurchase, Price = prices[1].S });
                     stock.E.Add(2, new StockAmount { Stock = item.SecondPurchase, Price = prices[2].S });
+                    stock.E.Add(3, new StockAmount());
+
                 }
                 else
                 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using WebMVC.Common;
@@ -86,6 +87,7 @@ namespace WebMVC.BLL
     {
         public int ID { get; set; }
         public string Stage { get; set; }
+        [DisplayFormat(DataFormatString ="{0:P0}")]
         public decimal B
         {
             get
@@ -93,6 +95,7 @@ namespace WebMVC.BLL
                 return E + F + G==0?0:E / (E + F + G);
             }
         }
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal C
         {
             get
@@ -100,6 +103,7 @@ namespace WebMVC.BLL
                 return E + F + G==0?0: F / (E + F + G);
             }
         }
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal D
         {
             get
@@ -110,30 +114,37 @@ namespace WebMVC.BLL
         /// <summary>
         /// 品牌力指数 M
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal E { get; set; }
         /// <summary>
         /// 品牌力指数 S
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal F { get; set; }
         /// <summary>
         /// 品牌力指数 J
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal G { get; set; }
         /// <summary>
         /// 广告投放金额（包括大型活动投入）M
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal H { get; set; }
         /// <summary>
         /// 广告投放金额（包括大型活动投入）S
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal I { get; set; }
         /// <summary>
         /// 广告投放金额（包括大型活动投入）J
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal J { get; set; }
         /// <summary>
         /// 广告投放指数 M
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal K
         {
             get
@@ -144,6 +155,7 @@ namespace WebMVC.BLL
         /// <summary>
         /// 广告投放指数 S
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal L {
             get
             {
@@ -153,6 +165,7 @@ namespace WebMVC.BLL
         /// <summary>
         /// 广告投放指数 M
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:P1}")]
         public decimal M {
             get
             {
@@ -162,13 +175,14 @@ namespace WebMVC.BLL
         /// <summary>
         /// 广告投放指数的平均指数
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:P1}")]
         public decimal N {
             get
             {
                 return  (K + L + M)/3;
             }
         }
-
+        [DisplayFormat(DataFormatString = "{0:P1}")]
         public decimal P
         {
             get

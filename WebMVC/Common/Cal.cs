@@ -189,6 +189,10 @@ namespace WebMVC.Common
             }
             return child;
         }
-
+        public static decimal FunctionIndex(decimal m,decimal s,decimal j,decimal Averaget)
+        {
+            return m > s && m > j ? 1.3m : m < s && m < j ? 0.7m : m > Averaget ? 1.15m : m == Averaget ? 1 : 0.85m;
+            
+        }
     }
 }

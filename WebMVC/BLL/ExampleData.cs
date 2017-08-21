@@ -402,13 +402,14 @@ namespace WebMVC.BLL
 
                 retailPrice = 659,
                 SystemPrice = 516,
-                NewCostPrice = 869,
-                NewFactoryPrice = 680,
+                NewCostPrice = 355,
+                NewFactoryPrice = 514,
 
-                NewRetailPriceR2 = 355,
-                NewSystemPriceR2 = 514,
+                NewRetailPriceR2 = 869,
+                NewSystemPriceR2 = 680,
                 NewRetailPriceR3 = 999,
                 NewSystemPriceR3 = 775
+                 
             });
             //第1J
             brands.Add(new BrandTable

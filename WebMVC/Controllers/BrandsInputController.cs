@@ -7,13 +7,14 @@ using WebMVC.Common;
 using WebMVC.Models;
 using WebMVC.BLL;
 using System.Net;
+using WebMVC.Infrastructure;
 
 namespace WebMVC.Controllers
 {
     public class BrandsInputController : Controller
     {
         // GET: BrandsInput
-        MSJDBContext db = new MSJDBContext();
+        AppIdentityDbContext db = new AppIdentityDbContext();
 
 
 

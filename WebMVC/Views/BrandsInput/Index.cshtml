@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<WebMVC.Models.BrandsInput>
 
 @{
-    ViewBag.Title = "资源投入表";
+    ViewBag.Title = "品牌商组";
 }
 
 <h2>品牌商资源投入表</h2>
 
 <p class="col-lg-offset-9">
-    @Html.ActionLink("创建", "Create",null, new { @class = "btn btn-success btn-block" })
-</p>
+    @BootstrapHelpers.PrimaryButtonBlock(Url.Action("Create"), "创建")
+  
+     </p>
 <table class="table">
     <tr>
         @*<th>
@@ -193,10 +194,11 @@
             @Html.DisplayFor(modelItem => item.NewRetailPriceR3)
         </td>*@
         <td>
-            @Html.ActionLink("编辑", "Edit", new { id = item.BrandID }, new { @class="btn btn-success"}) |
-            @Html.ActionLink("详细信息", "Details", new {  id=item.BrandID },  new { @class = "btn btn-success" }) |
-            @Html.ActionLink("删除", "Delete", new { id=item.BrandID }, new { @class = "btn btn-success" })
-        </td>
+          @BootstrapHelpers.PrimaryButton(Url.Action("Edit/"+item.BrandID),"编辑")
+            @BootstrapHelpers.PrimaryButton(Url.Action("Details/" + item.BrandID), "详细信息")
+            @BootstrapHelpers.PrimaryButton(Url.Action("Delete/" + item.BrandID), "删除")
+
+           </td>
     </tr>
 }
 

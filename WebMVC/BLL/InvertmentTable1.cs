@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebMVC.Common;
+using WebMVC.Infrastructure;
 using WebMVC.Models;
 
 namespace WebMVC.BLL
@@ -12,7 +13,7 @@ namespace WebMVC.BLL
     /// </summary>
     public class InvertmentTable1
     {
-        MSJDBContext db = new MSJDBContext();
+        AppIdentityDbContext db = new AppIdentityDbContext();
         List<AgentInput> agentInputs;
         List<BrandTable> brands = new List<BrandTable>();
         List<BrandsInput> brandsInputs;

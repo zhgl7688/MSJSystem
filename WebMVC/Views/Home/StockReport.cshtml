@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<WebMVC.BLL.StockReportTable>
 
 @{
-    ViewBag.Title = "StockReport";
+    ViewBag.Title = "进货报表";
 }
 
-<h2>StockReport</h2>
+<h4>进货报表</h4>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+     
 </p>
 <table class="table">
     <tr>
@@ -30,7 +30,14 @@
             @Html.DisplayNameFor(model => model.D)
         </th>
         <th>E</th>
-        <th></th>
+        <th>F</th>
+        <th>G</th>
+        <th>H</th>
+        <th>I</th>
+        <th>J</th>
+        <th>K</th>
+        <th>L</th>
+        <th>M</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -57,9 +64,25 @@
             @Html.DisplayFor(modelItem => item.E[1].Stock)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "StockReportDetails", new { id = item.Id },new{target="_blank"  }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.DisplayFor(modelItem => item.E[1].Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.E[2].Stock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.E[2].Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.E[3].Stock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.E[3].Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sum.Stock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sum.Sum)
         </td>
     </tr>
 }

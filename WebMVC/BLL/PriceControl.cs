@@ -55,15 +55,7 @@ namespace WebMVC.BLL
                 }
 
             }
-            priceControlTables.ForEach(s =>
-            {
-                s.D.Add(1, new AgentRC());
-                s.D.Add(2, new AgentRC());
-                s.D.Add(3, new AgentRC());
-                s.K.Add(1, new AgentRC());
-                s.K.Add(2, new AgentRC());
-                s.K.Add(3, new AgentRC());
-            });
+          
 
             var agents = invertmenetTable1.getAgentInputs();
             foreach (var agentItem in agents)
@@ -137,10 +129,23 @@ namespace WebMVC.BLL
 }
 public class PriceControlTable
 {
+        public PriceControlTable()
+        {
+            B = new CompeteRC();
+            D = new Dictionary<int, AgentRC>();
+            K = new Dictionary<int, AgentRC>();
+                 D.Add(1, new AgentRC());
+                 D.Add(2, new AgentRC());
+                 D.Add(3, new AgentRC());
+                 K.Add(1, new AgentRC());
+                 K.Add(2, new AgentRC());
+                 K.Add(3, new AgentRC());
+           
+        }
     public string Stage { get; set; }
-    public CompeteRC B { get; set; } = new CompeteRC();
-    public Dictionary<int, AgentRC> D { get; set; } = new Dictionary<int, AgentRC>();
-    public Dictionary<int, AgentRC> K { get; set; } = new Dictionary<int, AgentRC>();
+    public   CompeteRC  B { get; set; }  
+    public Dictionary<int, AgentRC> D { get; set; }  
+    public Dictionary<int, AgentRC> K { get; set; } 
     /// <summary>
     /// 成本价
     /// </summary>

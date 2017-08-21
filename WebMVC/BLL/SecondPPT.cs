@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using WebMVC.Common;
@@ -293,6 +294,7 @@ namespace WebMVC.BLL
                         sAgentResult.RC2数量 = ((sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent1) > 0 ? 0 : (sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent1)); ;
                         sAgentResult.RC2金额 = sAgentResult.RC2数量 * marketPrice2.EF[2].Agent1;
                         sAgentResult.销售利润 = summary16.X;
+                        sAgentResult.借款利息 = summary17.X;
                         sAgentResult.库存跌价损失计提 = summary18.X;
                         sAgentResult.最终经营利润 = summary19.X;
                         sAgentResult.现金流 = summary15.X;
@@ -303,6 +305,7 @@ namespace WebMVC.BLL
                         sAgentResult.RC2数量 = ((sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent2) > 0 ? 0 : (sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent2)); ;
                         sAgentResult.RC2金额 = sAgentResult.RC2数量 * marketPrice2.EF[2].Agent2;
                         sAgentResult.销售利润 = summary16.Y;
+                        sAgentResult.借款利息 = summary17.Y;
                         sAgentResult.库存跌价损失计提 = summary18.Y;
                         sAgentResult.最终经营利润 = summary19.Y;
                         sAgentResult.现金流 = summary15.Y;
@@ -313,6 +316,7 @@ namespace WebMVC.BLL
                         sAgentResult.RC2数量 = ((sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent3) > 0 ? 0 : (sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent3)); ;
                         sAgentResult.RC2金额 = sAgentResult.RC2数量 * marketPrice2.EF[2].Agent3;
                         sAgentResult.销售利润 = summary16.Z;
+                        sAgentResult.借款利息 = summary17.Z;
                         sAgentResult.库存跌价损失计提 = summary18.Z;
                         sAgentResult.最终经营利润 = summary19.Z;
                         sAgentResult.现金流 = summary15.Z;
@@ -323,6 +327,7 @@ namespace WebMVC.BLL
                         sAgentResult.RC2数量 = ((sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent4) > 0 ? 0 : (sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent4)); ;
                         sAgentResult.RC2金额 = sAgentResult.RC2数量 * marketPrice2.EF[2].Agent4;
                         sAgentResult.销售利润 = summary16.AA;
+                        sAgentResult.借款利息 = summary17.AA;
                         sAgentResult.库存跌价损失计提 = summary18.AA;
                         sAgentResult.最终经营利润 = summary19.AA;
                         sAgentResult.现金流 = summary15.AA;
@@ -333,6 +338,7 @@ namespace WebMVC.BLL
                         sAgentResult.RC2数量 = ((sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent5) > 0 ? 0 : (sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent5)); ;
                         sAgentResult.RC2金额 = sAgentResult.RC2数量 * marketPrice2.EF[2].Agent5;
                         sAgentResult.销售利润 = summary16.AB;
+                        sAgentResult.借款利息 = summary17.AB;
                         sAgentResult.库存跌价损失计提 = summary18.AB;
                         sAgentResult.最终经营利润 = summary19.AB;
                         sAgentResult.现金流 = summary15.AB;
@@ -343,6 +349,7 @@ namespace WebMVC.BLL
                         sAgentResult.RC2数量 = ((sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent6) > 0 ? 0 : (sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent6)); ;
                         sAgentResult.RC2金额 = sAgentResult.RC2数量 * marketPrice2.EF[2].Agent6;
                         sAgentResult.销售利润 = summary16.AC;
+                        sAgentResult.借款利息 = summary17.AC;
                         sAgentResult.库存跌价损失计提 = summary18.AC;
                         sAgentResult.最终经营利润 = summary19.AC;
                         sAgentResult.现金流 = summary15.AC;
@@ -370,33 +377,50 @@ namespace WebMVC.BLL
     }
     public class SecondBrandInfo : BrandInfo
     {
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2出厂价 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2指导零售价 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2外观创新 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2功能创新 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2材料创新 { get; set; }
 
     }
     public class SecondSAgentInfo : SAgentInfo
     {
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2供货价 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2零售价 { get; set; }
 
     }
     public class SecondSAgentResult : SAgentResult
     {
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2期初 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2期末 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2销售量 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2销售金额 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2数量 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2金额 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal 第一期利润 { get; set; }
     }
     public class SecondBrandProfit : BrandProfit
     {
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal RC2SM { get; set; }
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal RC2SS { get; set; }
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal RC2SJ { get; set; }
     }
 }

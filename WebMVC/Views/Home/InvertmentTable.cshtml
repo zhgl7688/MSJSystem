@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebMVC.BLL.InvestmentTable>
 
 @{
-    ViewBag.Title = "InvertmentTable";
+    ViewBag.Title = "投资表";
 }
 
 <h2>InvertmentTable</h2>
@@ -20,6 +20,15 @@
         <th>
             @Html.DisplayNameFor(model => model.C)
         </th>
+        <th> K</th>
+        <th>PQRNew</th>
+        <th>P.SurfaceRCSum</th>
+        <th>Q.FunctionRCSum</th>
+        <th>R.materialRCSum</th>
+        <th> NewDevelopmentCost</th>
+     
+        <th>AJ.InputSum</th>
+     
         <th>
             @Html.DisplayNameFor(model => model.D)
         </th>
@@ -64,6 +73,29 @@
         <td>
             @Html.DisplayFor(modelItem => item.C)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.K)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PQRNew)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.P.SurfaceRCSum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Q.FunctionRCSum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.R.materialRCSum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewDevelopmentCostC)
+        </td>
+     
+        <td>
+            @Html.DisplayFor(modelItem => item.AJ.InputSum)
+        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.D)
         </td>

@@ -338,8 +338,8 @@ namespace WebMVC.BLL
             {
                 var result = new FunctionOutput();
                 result.RC1 = GetCK(AC.RC1);
-                result.RC2 = GetCK(AC.RC2);
-                result.RC3 = GetCK(AC.RC3);
+                result.RC2 = GetCK(AC.RC1, AC.RC2);
+                result.RC3 = GetCK(AC.RC2, AC.RC3);
                 return result;
             }
         }
@@ -353,9 +353,26 @@ namespace WebMVC.BLL
             //=IF(AND(AC5>AD5,AC5>ae),1.3,IF(AND(AC5<AD5,AC5<ae),(0.7),IF(AC5>AVERAGE(AC5:ae),1.15,IF(AC5=AVERAGE(AC5:ae),1,0.85))))
             return new RC
             {
-                M = m > s && m > j ? 1.3m : m < s && m < j ? 0.7m : m > Averaget ? 1.15m : m == Averaget ? 1 : 0.85m,
-                S = s > j && s > m ? 1.3m : s < j && s < m ? 0.7m : s > Averaget ? 1.15m : s == Averaget ? 1 : 0.85m,
-                J = j > m && j > s ? 1.3m : j < m && j < s ? 0.7m : j > Averaget ? 1.15m : j == Averaget ? 1 : 0.85m
+                M =Cal.FunctionIndex(m,s,j,Averaget),
+                S =Cal.FunctionIndex(s,j,m,Averaget),
+                J =Cal.FunctionIndex(j,m,s,Averaget),
+            };
+        }
+       
+        private RC GetCK(RC rc1,RC rc2)
+        {
+            //=IF(AND(AF5>AD5,AF5>AE5),1.3,IF(AND(AF5<AD5,AF5<AE5),(0.7),IF(AF5>AVERAGE(AD5:AF5),1.15,IF(AF5=AVERAGE(AD5:AF5),1,0.85))))
+            //  = IF(AND(AG5 > AE5, AG5 > AF5), 1.3, IF(AND(AG5 < AE5, AG5 < AF5), (0.7), IF(AG5 > AVERAGE(AE5: AG5), 1.15, IF(AG5 = AVERAGE(AE5: AG5), 1, 0.85))))
+
+            RC rct1 = new RC { M = rc2.M, S = rc1.S, J = rc1.J };
+            RC rct2 = new RC { M = rc2.S, S = rc1.J, J = rc2.M };
+            RC rct3 = new RC { M = rc2.J, S = rc2.M, J = rc2.S };
+
+            return new RC
+            {
+                M =Cal.FunctionIndex(rct1.M,rct1.S,rct1.J,rct1.Average),
+                S = Cal.FunctionIndex(rct2.M, rct2.S, rct2.J, rct2.Average),
+                J = Cal.FunctionIndex(rct3.M, rct3.S, rct3.J, rct3.Average),
             };
         }
         /// <summary>

@@ -247,6 +247,7 @@ namespace WebMVC.BLL
                         sAgentResult.数量 = summary20.J;
                         sAgentResult.金额 = summary21.J;
                         sAgentResult.销售利润 = summary16.J;
+                        sAgentResult.借款利息 = summary17.J;
                         sAgentResult.库存跌价损失计提 = summary18.J;
                         sAgentResult.最终经营利润 = summary19.J;
                         sAgentResult.现金流 = summary15.J;
@@ -255,6 +256,7 @@ namespace WebMVC.BLL
                         sAgentResult.数量 = summary20.K;
                         sAgentResult.金额 = summary21.K;
                         sAgentResult.销售利润 = summary16.K;
+                        sAgentResult.借款利息 = summary17.K;
                         sAgentResult.库存跌价损失计提 = summary18.K;
                         sAgentResult.最终经营利润 = summary19.K;
                         sAgentResult.现金流 = summary15.K;
@@ -263,6 +265,7 @@ namespace WebMVC.BLL
                         sAgentResult.数量 = summary20.L;
                         sAgentResult.金额 = summary21.L;
                         sAgentResult.销售利润 = summary16.L;
+                        sAgentResult.借款利息 = summary17.L;
                         sAgentResult.库存跌价损失计提 = summary18.L;
                         sAgentResult.最终经营利润 = summary19.L;
                         sAgentResult.现金流 = summary15.L;
@@ -271,6 +274,7 @@ namespace WebMVC.BLL
                         sAgentResult.数量 = summary20.M;
                         sAgentResult.金额 = summary21.M;
                         sAgentResult.销售利润 = summary16.M;
+                        sAgentResult.借款利息 = summary17.M;
                         sAgentResult.库存跌价损失计提 = summary18.M;
                         sAgentResult.最终经营利润 = summary19.M;
                         sAgentResult.现金流 = summary15.M;
@@ -279,6 +283,7 @@ namespace WebMVC.BLL
                         sAgentResult.数量 = summary20.N;
                         sAgentResult.金额 = summary21.N;
                         sAgentResult.销售利润 = summary16.N;
+                        sAgentResult.借款利息 = summary17.N;
                         sAgentResult.库存跌价损失计提 = summary18.N;
                         sAgentResult.最终经营利润 = summary19.N;
                         sAgentResult.现金流 = summary15.N;
@@ -287,6 +292,7 @@ namespace WebMVC.BLL
                         sAgentResult.数量 = summary20.O;
                         sAgentResult.金额 = summary21.O;
                         sAgentResult.销售利润 = summary16.O;
+                        sAgentResult.借款利息 = summary17.O;
                         sAgentResult.库存跌价损失计提 = summary18.O;
                         sAgentResult.最终经营利润 = summary19.O;
                         sAgentResult.现金流 = summary15.O;

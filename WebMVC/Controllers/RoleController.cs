@@ -11,13 +11,17 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace WebMVC.Controllers
 {
-    [Authorize(Roles ="Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class RoleController : Controller
     {
         // GET: Role
         public ActionResult Index()
         {
-            return View(RoleManager.Roles);
+            return View(RoleManager.Roles.ToList());
+        }
+        public ActionResult Create()
+        {
+            return View();
         }
         [HttpPost]
         public async Task<ActionResult> Create(string name)

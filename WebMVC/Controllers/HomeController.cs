@@ -31,11 +31,12 @@ namespace WebMVC.Controllers
         public HomeController()
         {
             invertmentTable1 = new InvertmentTable1();
-            priceControl = new PriceControl(invertmentTable1);
+   
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             channelService = new ChannelService(invertmentTable1);
             marketPromotion = new MarketPromotion(invertmentTable1);
             productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
+            priceControl = new PriceControl(invertmentTable1);
             marketPriceTemp = new MarketPriceTemp(priceControl);
             intentionIndex = new BLL.IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
             currentShare = new BLL.CurrentShare(intentionIndex, priceControl);

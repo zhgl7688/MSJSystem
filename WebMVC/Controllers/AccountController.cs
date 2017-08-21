@@ -1,23 +1,22 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using WebMVC.BLL;
-using WebMVC.Models;
-using Microsoft.AspNet.Identity.Owin;
-using System.Threading.Tasks;
 using WebMVC.Infrastructure;
+using WebMVC.Models;
 
 namespace WebMVC.Controllers
 {
-    [Authorize]
-    public class UserController : Controller
+    public class AccountController : Controller
     {
-          // GET: User
+        // GET: Account
+        // GET: User
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -49,33 +48,16 @@ namespace WebMVC.Controllers
                 {
                     var claimsIdentity =
                await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-                 
+
                     AuthManager.SignOut();
-                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = false }, claimsIdentity);
-                    return Redirect(returnUrl??"/home/index");
+                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = model.RememberMe }, claimsIdentity);
+                    return Redirect(returnUrl ?? "/home/index");
                 }
 
             }
-            //var user = db.Users.FirstOrDefault(s => s.UserName == model.UserName);
-            //if (user == null)
-            //{
-            //    ModelState.AddModelError("UserName", "用户不存在");
-            //}
-            //else if (user.Password == model.Password)
-            //{
-            //    var _identity = userService.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-            //    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            //    AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = model.RememberMe }, _identity);
-            //    return RedirectToLocal(returnUrl);
-            //}
-            //else
-            //{
-            //    ModelState.AddModelError("Password", "密码不正确");
-            //}
-            // return View();
-            // }
+         
             ViewBag.returnUrl = returnUrl;
-   
+
             return View(model);
         }
 
@@ -144,12 +126,12 @@ namespace WebMVC.Controllers
 
                     //}
                     ////   return RedirectToAction("Index", "Home");
-                 return View(model);
+                    return View(model);
 
                 }
                 catch (MembershipCreateUserException e)
                 {
-                   // ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    // ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }
             }
 
@@ -190,7 +172,7 @@ namespace WebMVC.Controllers
 
         #endregion
         #region 属性
-         private IAuthenticationManager AuthManager
+        private IAuthenticationManager AuthManager
         {
             get { return HttpContext.GetOwinContext().Authentication; }
         }

@@ -5,9 +5,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using WebMVC.BLL;
 using WebMVC.Infrastructure;
-using WebMVC.Models;
+
 
 [assembly: OwinStartupAttribute(typeof(WebMVC.Startup))]
 namespace WebMVC
@@ -35,11 +34,7 @@ namespace WebMVC
             app.CreatePerOwinContext<AppUserManager>(AppUserManager.Create);
               app.CreatePerOwinContext<AppRoleManager>(AppRoleManager.Create);
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/user/Login"),
-            });
+            
         }
     }
 }

@@ -26,8 +26,8 @@
     <li>@Html.ActionLink("产品创新力", "ProductInnovation", "Home")</li>*@
                     <li>@Html.ActionLink("代理商组", "Index", "AgentInput")</li>
                     <li>@Html.ActionLink("品牌商组", "Index", "BrandsInput")</li>
-                 @* <li>@Html.ActionLink("资产汇总表", "SummaryAssent", "Home" )</li>
-                     <li>@Html.ActionLink("进货报表", "StockReport", "Home" )</li>
+                @*  <li>@Html.ActionLink("资产汇总表", "SummaryAssent", "Home" )</li>
+                   <li>@Html.ActionLink("进货报表", "StockReport", "Home" )</li>
                       <li>@Html.ActionLink("市场价格", "MarketPrice", "Home" )</li>
     <li>@Html.ActionLink("进销存报表", "InvoicingReport", "Home", null, new { target = "_blank" })</li>
      <li>@Html.ActionLink("投资表", "InvertmentTable", "Home", null, new { target = "_blank" })</li>
@@ -36,18 +36,18 @@
                     <li>@Html.ActionLink("第二期PPT", "SecondPPT", "Home")</li>
                     <li>@Html.ActionLink("第三期PPT", "ThirdPPT", "Home")</li>
                     <li>@Html.ActionLink("最终市场占有率", "LastBrand", "Home")</li>
-                    <li>@Html.ActionLink("用户管理", "Index", "Admin")</li>
+                    <li>@Html.ActionLink("用户管理", "Index", "Account")</li>
                     <li>@Html.ActionLink("角色管理", "Index", "Role")</li>
                     <li>@Html.ActionLink("Claims", "Index", "Claims")</li>
 
                     <li>@Html.ActionLink("              ", " ", " ")</li>
                     @{ if (User.Identity.IsAuthenticated) {
                      <li>@Html.ActionLink( @User.Identity.Name,"","")</li>
-                    <li>@Html.ActionLink("用户退出", "LogOff", "User")</li>
+                    <li>@Html.ActionLink("用户退出", "LogOut", "Account")</li>
                         }
                         else
                         {
-                            <li>@Html.ActionLink("用户登录", "Login", "User")</li>
+                            <li>@Html.ActionLink("用户登录", "Login", "Account")</li>
                         }
                     }
                     @*<li>@Html.ActionLink("联系方式", "Contact", "Home")</li>*@

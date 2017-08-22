@@ -28,7 +28,7 @@ namespace WebMVC.BLL
             lastBrands.Add(lastBrandTableJ);
 
 
-            var count = 4;
+            var count = new InvertmentTable1().GetAgentCount;
             foreach (var item in currentShares)
             {
                 Stage stage = (Stage)Enum.Parse(typeof(Stage), item.Stage);

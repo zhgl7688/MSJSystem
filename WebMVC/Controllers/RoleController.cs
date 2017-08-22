@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace WebMVC.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Administrator")]
     public class RoleController : Controller
     {
         // GET: Role
@@ -31,7 +31,7 @@ namespace WebMVC.Controllers
                 IdentityResult result = await  RoleManager.CreateAsync(new AppRole(name));
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Login","User");
+                    return RedirectToAction("Login","Accout");
                 }
                 else
                 {

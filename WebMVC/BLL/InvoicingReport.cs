@@ -58,10 +58,6 @@ namespace WebMVC.BLL
                         invoicing.AA = stockReport.E[3].Stock;
                         break;
                 }
-
-
-
-
             }
             var currentShare0 = currentShares.FirstOrDefault(s => s.Stage == Common.Stage.起始阶段.ToString());
             var currentShare1 = currentShares.FirstOrDefault(s => s.Stage == Common.Stage.第一阶段.ToString());

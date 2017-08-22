@@ -25,5 +25,11 @@ namespace MSJTest.BLL
             var result = invertmentTable1.getAgents();
             Assert.AreEqual(80, result[0].J.servet);
         }
+        [TestMethod]
+        public void TestAgentCount()
+        {
+            var result = invertmentTable1.GetAgentCount;
+            Assert.AreEqual(4, result);
+        }
     }
 }

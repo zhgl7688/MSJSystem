@@ -11,7 +11,7 @@ namespace WebMVC.Infrastructure
 {
         public class AppIdentityDbContext : IdentityDbContext<AppUser>
         {
-            public AppIdentityDbContext() : base("ConnectionString") { }
+            public AppIdentityDbContext() : base("DefaultConnection") { }
             static AppIdentityDbContext()
             {
                 Database.SetInitializer<AppIdentityDbContext>(new IdentityDbInit());

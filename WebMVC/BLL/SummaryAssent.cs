@@ -455,9 +455,11 @@ namespace WebMVC.BLL
 
             summaryAssent4.W = cb6_ce6 * market2.DE[1].J / (1 + 0.12m) + ch6_ck6 * market2.DE[2].J / (1 + 0.12m);
             summaryAssent11.W = summaryAssent4.W * 0.2m;
-
+            //=AVERAGE(市场容量及各品牌当年占有率!BJ7:BM7)*市场价格!DE7/(1+10%)+
+            //AVERAGE(市场容量及各品牌当年占有率!BP7:BS7)*市场价格!DG7/(1+10%)+
+            //AVERAGE(市场容量及各品牌当年占有率!BV7:BY7)*市场价格!DI7/(1+10%)
             summaryAssent4.AD = bj7_bm7 * market3.DE[1].M / (1 + 0.10m) + bp7_bs7 * market3.DE[2].M / (1 + 0.10m)
-                +bv7_by7*market3.DE[3].M;
+                +bv7_by7*market3.DE[3].M/(1+0.10m);
             summaryAssent11.AD = summaryAssent4.AD * 0.19m;
 
 
@@ -729,13 +731,13 @@ namespace WebMVC.BLL
             summaryAssent13.AI = summaryAssent4.AI - summaryAssent5.AI - summaryAssent6.AI - summaryAssent11.AI;
             summaryAssent13.AJ = summaryAssent4.AJ - summaryAssent5.AJ - summaryAssent6.AJ - summaryAssent11.AJ;
             summaryAssent13.AK = summaryAssent4.AK - summaryAssent5.AK - summaryAssent6.AK - summaryAssent7.AK - summaryAssent11.AK;
-
-            summaryAssent13.AL = summaryAssent4.AL - summaryAssent5.AL - summaryAssent6.AL - summaryAssent7.AL + summaryAssent11.AL - summaryAssent8.AL;
-            summaryAssent13.AM = summaryAssent4.AM - summaryAssent5.AM - summaryAssent6.AM - summaryAssent7.AM + summaryAssent11.AM - summaryAssent8.AM;
-            summaryAssent13.AN = summaryAssent4.AN - summaryAssent5.AN - summaryAssent6.AN - summaryAssent7.AN + summaryAssent11.AN - summaryAssent8.AN;
-            summaryAssent13.AO = summaryAssent4.AO - summaryAssent5.AO - summaryAssent6.AO - summaryAssent7.AO + summaryAssent11.AO - summaryAssent8.AO;
-            summaryAssent13.AP = summaryAssent4.AP - summaryAssent5.AP - summaryAssent6.AP - summaryAssent7.AP + summaryAssent11.AP - summaryAssent8.AP;
-            summaryAssent13.AQ = summaryAssent4.AQ - summaryAssent5.AQ - summaryAssent6.AQ - summaryAssent7.AQ + summaryAssent11.AQ - summaryAssent8.AQ;
+            //=AL7-AL8-AL9-AL10+AL13-AL11
+            summaryAssent13.AL = summaryAssent4.AL - summaryAssent5.AL - summaryAssent6.AL - summaryAssent7.AL + summaryAssent10.AL - summaryAssent8.AL;
+            summaryAssent13.AM = summaryAssent4.AM - summaryAssent5.AM - summaryAssent6.AM - summaryAssent7.AM + summaryAssent10.AM - summaryAssent8.AM;
+            summaryAssent13.AN = summaryAssent4.AN - summaryAssent5.AN - summaryAssent6.AN - summaryAssent7.AN + summaryAssent10.AN - summaryAssent8.AN;
+            summaryAssent13.AO = summaryAssent4.AO - summaryAssent5.AO - summaryAssent6.AO - summaryAssent7.AO + summaryAssent10.AO - summaryAssent8.AO;
+            summaryAssent13.AP = summaryAssent4.AP - summaryAssent5.AP - summaryAssent6.AP - summaryAssent7.AP + summaryAssent10.AP - summaryAssent8.AP;
+            summaryAssent13.AQ = summaryAssent4.AQ - summaryAssent5.AQ - summaryAssent6.AQ - summaryAssent7.AQ + summaryAssent10.AQ - summaryAssent8.AQ;
 
             #endregion
 
@@ -794,42 +796,42 @@ namespace WebMVC.BLL
                         summaryAssent18.Q = (summaryAssent17.Q == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent1) * market2.CM[1].S + (item.M - currentShare2.CT[2].Agent1) * market2.CM[2].S);
                         summaryAssent18.X = (summaryAssent17.X == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent1) * market2.EF[1].Agent1 + (item.M - currentShare2.CT[2].Agent1) * market2.EF[2].Agent1);
                         summaryAssent18.AE = (summaryAssent17.AE == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent1) * market3.CM[1].S + (item.U + item.Y - currentShare3.CT[2].Agent1) * market3.CM[2].S + (item.AA - currentShare3.CT[3].Agent1) * market3.CM[3].S);
-                        summaryAssent18.AL = (summaryAssent17.AL == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent1) * market3.EF[1].Agent1 + (item.U + item.Y - currentShare3.CT[2].Agent1) * market3.EF[2].Agent1 + (item.AA - currentShare3.CT[3].Agent1) * market3.EF[2].Agent1);
-
+                        summaryAssent18.AL = (summaryAssent17.AL == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent1) * market3.EF[1].Agent1 + (item.U + item.Y - currentShare3.CT[2].Agent1) * market3.EF[2].Agent1 + (item.AA - currentShare3.CT[3].Agent1) * market3.EF[3].Agent1);
+                        //=IF(AL20=0,0,(进销存报表!$S4+进销存报表!$W4-市场容量及各品牌当年占有率!CT7)*市场价格!EF7+(进销存报表!$U4+进销存报表!$Y4-市场容量及各品牌当年占有率!CZ7)*市场价格!EL7+(进销存报表!$AA4-市场容量及各品牌当年占有率!DF7)*市场价格!ER7)
                         break;
                     case AgentName.代2:
                         summaryAssent18.R = (summaryAssent17.Q == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent2) * market2.CM[1].S + (item.M - currentShare2.CT[2].Agent2) * market2.CM[2].S);
                         summaryAssent18.Y = (summaryAssent17.Y == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent2) * market2.EF[1].Agent2 + (item.M - currentShare2.CT[2].Agent2) * market2.EF[2].Agent2);
                         summaryAssent18.AF = (summaryAssent17.AF == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent2) * market3.CM[1].S + (item.U + item.Y - currentShare3.CT[2].Agent2) * market3.CM[2].S + (item.AA - currentShare3.CT[3].Agent2) * market3.CM[3].S);
-                        summaryAssent18.AM = (summaryAssent17.AM == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent2) * market3.EF[1].Agent2 + (item.U + item.Y - currentShare3.CT[2].Agent2) * market3.EF[2].Agent2 + (item.AA - currentShare3.CT[3].Agent2) * market3.EF[2].Agent2);
+                        summaryAssent18.AM = (summaryAssent17.AM == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent2) * market3.EF[1].Agent2 + (item.U + item.Y - currentShare3.CT[2].Agent2) * market3.EF[2].Agent2 + (item.AA - currentShare3.CT[3].Agent2) * market3.EF[3].Agent2);
 
                         break;
                     case AgentName.代3:
                         summaryAssent18.S = (summaryAssent17.Q == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent3) * market2.CM[1].S + (item.M - currentShare2.CT[2].Agent3) * market2.CM[2].S);
                         summaryAssent18.Z = (summaryAssent17.Z == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent3) * market2.EF[1].Agent3 + (item.M - currentShare2.CT[2].Agent3) * market2.EF[2].Agent3);
                         summaryAssent18.AG = (summaryAssent17.AG == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent3) * market3.CM[1].S + (item.U + item.Y - currentShare3.CT[2].Agent3) * market3.CM[2].S + (item.AA - currentShare3.CT[3].Agent3) * market3.CM[3].S);
-                        summaryAssent18.AN = (summaryAssent17.AN == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent3) * market3.EF[1].Agent3 + (item.U + item.Y - currentShare3.CT[2].Agent3) * market3.EF[2].Agent3 + (item.AA - currentShare3.CT[3].Agent3) * market3.EF[2].Agent3);
+                        summaryAssent18.AN = (summaryAssent17.AN == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent3) * market3.EF[1].Agent3 + (item.U + item.Y - currentShare3.CT[2].Agent3) * market3.EF[2].Agent3 + (item.AA - currentShare3.CT[3].Agent3) * market3.EF[3].Agent3);
 
                         break;
                     case AgentName.代4:
                         summaryAssent18.T = (summaryAssent17.Q == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent4) * market2.CM[1].S + (item.M - currentShare2.CT[2].Agent4) * market2.CM[2].S);
                         summaryAssent18.AA = (summaryAssent17.AA == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent4) * market2.EF[1].Agent4 + (item.M - currentShare2.CT[2].Agent4) * market2.EF[2].Agent4);
                         summaryAssent18.AH = (summaryAssent17.AH == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent4) * market3.CM[1].S + (item.U + item.Y - currentShare3.CT[2].Agent4) * market3.CM[2].S + (item.AA - currentShare3.CT[3].Agent4) * market3.CM[3].S);
-                        summaryAssent18.AO = (summaryAssent17.AO == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent4) * market3.EF[1].Agent4 + (item.U + item.Y - currentShare3.CT[2].Agent4) * market3.EF[2].Agent4 + (item.AA - currentShare3.CT[3].Agent4) * market3.EF[2].Agent4);
+                        summaryAssent18.AO = (summaryAssent17.AO == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent4) * market3.EF[1].Agent4 + (item.U + item.Y - currentShare3.CT[2].Agent4) * market3.EF[2].Agent4 + (item.AA - currentShare3.CT[3].Agent4) * market3.EF[3].Agent4);
 
                         break;
                     case AgentName.代5:
                         summaryAssent18.U = (summaryAssent17.Q == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent5) * market2.CM[1].S + (item.M - currentShare2.CT[2].Agent5) * market2.CM[2].S);
                         summaryAssent18.AB = (summaryAssent17.AB == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent5) * market2.EF[1].Agent5 + (item.M - currentShare2.CT[2].Agent5) * market2.EF[2].Agent5);
                         summaryAssent18.AI = (summaryAssent17.AI == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent5) * market3.CM[1].S + (item.U + item.Y - currentShare3.CT[2].Agent5) * market3.CM[2].S + (item.AA - currentShare3.CT[3].Agent5) * market3.CM[3].S);
-                        summaryAssent18.AP = (summaryAssent17.AP == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent5) * market3.EF[1].Agent5 + (item.U + item.Y - currentShare3.CT[2].Agent5) * market3.EF[2].Agent5 + (item.AA - currentShare3.CT[3].Agent5) * market3.EF[2].Agent5);
+                        summaryAssent18.AP = (summaryAssent17.AP == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent5) * market3.EF[1].Agent5 + (item.U + item.Y - currentShare3.CT[2].Agent5) * market3.EF[2].Agent5 + (item.AA - currentShare3.CT[3].Agent5) * market3.EF[3].Agent5);
 
                         break;
                     case AgentName.代6:
                         summaryAssent18.V = (summaryAssent17.Q == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent6) * market2.CM[1].S + (item.M - currentShare2.CT[2].Agent6) * market2.CM[2].S);
                         summaryAssent18.AC = (summaryAssent17.AC == 0 ? 0 : (item.I + item.K - currentShare2.CT[1].Agent6) * market2.EF[1].Agent6 + (item.M - currentShare2.CT[2].Agent6) * market2.EF[2].Agent6);
                         summaryAssent18.AJ = (summaryAssent17.AJ == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent6) * market3.CM[1].S + (item.U + item.Y - currentShare3.CT[2].Agent6) * market3.CM[2].S + (item.AA - currentShare3.CT[3].Agent6) * market3.CM[3].S);
-                        summaryAssent18.AQ = (summaryAssent17.AQ == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent6) * market3.EF[1].Agent6 + (item.U + item.Y - currentShare3.CT[2].Agent6) * market3.EF[2].Agent6 + (item.AA - currentShare3.CT[3].Agent6) * market3.EF[2].Agent6);
+                        summaryAssent18.AQ = (summaryAssent17.AQ == 0 ? 0 : (item.S + item.W - currentShare3.CT[1].Agent6) * market3.EF[1].Agent6 + (item.U + item.Y - currentShare3.CT[2].Agent6) * market3.EF[2].Agent6 + (item.AA - currentShare3.CT[3].Agent6) * market3.EF[3].Agent6);
 
                         break;
                     default:

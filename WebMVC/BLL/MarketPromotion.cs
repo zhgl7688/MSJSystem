@@ -73,9 +73,7 @@ namespace WebMVC.BLL
                 #endregion
 
                 #region 导购派驻投入							
-
-
-                promotion.J.Agent1 = itemAgent.B.Salesperson;
+               promotion.J.Agent1 = itemAgent.B.Salesperson;
                 promotion.J.Agent2 = itemAgent.J.Salesperson;
                 promotion.J.Agent3 = itemAgent.R.Salesperson;
                 promotion.J.Agent4 = itemAgent.Z.Salesperson;

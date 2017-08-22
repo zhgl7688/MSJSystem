@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using WebMVC.Common;
@@ -15,8 +16,12 @@ namespace WebMVC.Controllers
         AppIdentityDbContext db = new AppIdentityDbContext();
 
         // GET: AgentInput
+
+        [Authorize]
         public ActionResult Index()
         {
+           // ClaimsIdentity claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+
             var models = db.AgentInputs.ToList();
             return View(models);
         }

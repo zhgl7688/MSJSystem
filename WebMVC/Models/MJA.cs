@@ -7,6 +7,7 @@ namespace WebMVC.Models
 {
     public class MJA
     {
+
         public decimal M1 { get; set; }
         public decimal M2 { get; set; }
         public decimal M3 { get; set; }
@@ -37,7 +38,7 @@ namespace WebMVC.Models
         }
         public decimal AverageM
         {
-            get { return SumM/6m; }
+            get { return SumM/ 6m; }
         }
         public decimal SumJ
         {

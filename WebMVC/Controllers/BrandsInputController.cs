@@ -11,15 +11,17 @@ using WebMVC.Infrastructure;
 
 namespace WebMVC.Controllers
 {
+    [Authorize]
     public class BrandsInputController : Controller
     {
         // GET: BrandsInput
         AppIdentityDbContext db = new AppIdentityDbContext();
 
 
-
+        [Authorize(Roles = "Users")]
         public ActionResult Index()
         {
+
             var models = db.BrandsInputs.ToList();
             return View(models);
         }

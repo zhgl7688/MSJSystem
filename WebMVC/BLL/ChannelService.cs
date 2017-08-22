@@ -113,13 +113,12 @@ namespace WebMVC.BLL
                         Agent5 =0.98m,
                         Agent6 =0.98m,
                     };
+                     
                     return result;
                 }
                 else
                 {
-
-
-                    var result = new MJA()
+                 var result = new MJA()
                     {
                         M1 = LastAB.M1 * 0.4m + Cal.Percent(B.M, B.J, B.Agent1),
                         M2 = LastAB.M2 * 0.4m + Cal.Percent(B.M, B.J, B.Agent2),

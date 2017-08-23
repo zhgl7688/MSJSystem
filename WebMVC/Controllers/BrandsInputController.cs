@@ -8,21 +8,20 @@ using WebMVC.Models;
 using WebMVC.BLL;
 using System.Net;
 using WebMVC.Infrastructure;
+using System.Threading.Tasks;
 
 namespace WebMVC.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="品牌商")]
     public class BrandsInputController : Controller
     {
         // GET: BrandsInput
         AppIdentityDbContext db = new AppIdentityDbContext();
 
-
-        [Authorize(Roles = "Users")]
-        public ActionResult Index()
+        public  ActionResult Index()
         {
-
-            var models = db.BrandsInputs.ToList();
+          // var  models= db.BrandsInputs.Where(s => s.UserId == User.Identity.Name).ToList();
+           var  models= db.BrandsInputs.ToList();
             return View(models);
         }
 
@@ -64,7 +63,8 @@ namespace WebMVC.Controllers
                     ViewData["brands"] = GetBrandList();
                     return View(collection);
                 }
-                // collection.UserId = ((User)Session["user"]).UserId;
+
+                collection.UserId = User.Identity.Name;
                 db.BrandsInputs.Add(collection);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -106,7 +106,7 @@ namespace WebMVC.Controllers
                         return View(collection);
                     }
                     db.Entry(collection).State = System.Data.Entity.EntityState.Modified;
-                    // collection.UserId = ((User)Session["user"]).UserId;
+                     collection.UserId = User.Identity.Name;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -178,5 +178,6 @@ namespace WebMVC.Controllers
             }
             return brandList;
         }
+        
     }
 }

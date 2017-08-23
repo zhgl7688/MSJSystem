@@ -13,9 +13,11 @@ namespace WebMVC.BLL
     {
         List<LastBrandTable> lastBrands = new List<LastBrandTable>();
         List<CurrentShareTable> currentShares;
-        public LastBrand(CurrentShare CurrentShare)
+        int count; 
+        public LastBrand(CurrentShare CurrentShare, int count)
         {
             this.currentShares = CurrentShare.Get();
+            this.count = count;
             Init();
         }
         private void Init()
@@ -28,7 +30,7 @@ namespace WebMVC.BLL
             lastBrands.Add(lastBrandTableJ);
 
 
-            var count = new InvertmentTable1().GetAgentCount;
+         
             foreach (var item in currentShares)
             {
                 Stage stage = (Stage)Enum.Parse(typeof(Stage), item.Stage);

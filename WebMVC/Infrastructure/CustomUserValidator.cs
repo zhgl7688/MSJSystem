@@ -19,7 +19,7 @@ namespace WebMVC.Infrastructure
         {
             IdentityResult result = await base.ValidateAsync(user);
 
-            if (!user.Email.ToLower().EndsWith("@gmail.com"))
+            if (user.Email!=null&&!user.Email.ToLower().EndsWith("@gmail.com"))
             {
                 List<string> errors = result.Errors.ToList();
                 errors.Add("Email 地址只支持gmail域名");

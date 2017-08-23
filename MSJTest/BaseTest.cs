@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebMVC.BLL;
+using WebMVC.Infrastructure;
 
 namespace MSJTest
 {
@@ -29,7 +30,12 @@ namespace MSJTest
         public ThirdPPT thirdPPT;
         public BaseTest()
         {
-            invertmentTable1 = new InvertmentTable1();
+           // AppIdentityDbContext db = new AppIdentityDbContext();
+          // var agentInputs = db.AgentInputs.Where(s=>s.UserId=="11").ToList();
+          // var brandsInputs = db.BrandsInputs.ToList();
+            var agentInputs = new ExampleData().agentInputs.Where(s => s.UserId == "11").ToList();
+            var brandsInputs = new ExampleData().brands.ToList();
+            invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             priceControl = new PriceControl(invertmentTable1);
             brandStrength = new BrandStrength(invertmentTable1);
             channelService = new ChannelService(invertmentTable1);
@@ -44,7 +50,7 @@ namespace MSJTest
             investment = new Investment(invertmentTable1, stockReport);
             invoicingReport = new InvoicingReport(currentShare, marketPrice, stockReport);
             summaryAssent = new SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
-            lastBrand = new LastBrand(currentShare);
+            lastBrand = new LastBrand(currentShare,invertmentTable1.GetAgentCount);
             firstPPT = new FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport,priceControl);
             secondPPT = new SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);
             thirdPPT = new ThirdPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, secondPPT);

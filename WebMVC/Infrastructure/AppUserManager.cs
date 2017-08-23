@@ -29,11 +29,11 @@ namespace WebMVC.Infrastructure
             AppUserManager manager = new AppUserManager(new UserStore<AppUser>(db));
 
             //自定义的User Validator
-            manager.UserValidator = new CustomUserValidator(manager)
-            {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
-            };
+            //manager.UserValidator = new CustomUserValidator(manager)
+            //{
+            //    AllowOnlyAlphanumericUserNames = false,
+            //    RequireUniqueEmail = true
+            //};
 
             //自定义的Password Validator
             //manager.PasswordValidator = new CustomPasswordValidator

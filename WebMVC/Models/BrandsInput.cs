@@ -155,7 +155,7 @@ namespace WebMVC.Models
         /// </summary>
         [DisplayName("新增单品零售价R3")]
         public decimal NewRetailPriceR3 { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public BrandInput brandInput
         {

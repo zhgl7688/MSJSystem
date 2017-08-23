@@ -131,7 +131,7 @@ namespace WebMVC.Models
         /// </summary>
         [DisplayName("RC3进货")]
         public decimal ThirdPurchase { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public decimal InputSum
         {
             get

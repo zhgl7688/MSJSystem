@@ -3,13 +3,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebMVC.BLL;
 using System.Linq;
 using WebMVC;
+using WebMVC.Infrastructure;
 
 namespace MSJTest.BLL
 {
     [TestClass]
     public class InvertmentTable1Test
     {
-        InvertmentTable1 invertmentTable1 = new InvertmentTable1();
+        InvertmentTable1 invertmentTable1;
+        public InvertmentTable1Test()
+        {
+            AppIdentityDbContext db = new AppIdentityDbContext();
+            var agentInputs =new ExampleData().agentInputs.Where(s => s.UserId == "11").ToList();
+            var brandsInputs = new ExampleData().brands.ToList();
+            invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
+        }
         [TestMethod]
         public void TestgetBrandsInputs()
         {

@@ -17,12 +17,12 @@ namespace WebMVC.Controllers
 
         // GET: AgentInput
 
-        [Authorize]
+       //[Authorize]
         public ActionResult Index()
         {
-           // ClaimsIdentity claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
-
-            var models = db.AgentInputs.ToList();
+            // ClaimsIdentity claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+         
+            var models = db.AgentInputs.Where(s=>s.UserId==User.Identity.Name).ToList();
             return View(models);
         }
 
@@ -67,7 +67,7 @@ namespace WebMVC.Controllers
                     ViewData["agentName"] = GetAgentNameList();
                     return View(collection);
                   }
-                  // collection.UserId = ((User)Session["user"]).UserId;
+                collection.UserId = User.Identity.Name;
                 db.AgentInputs.Add(collection);
                 db.SaveChanges();
                 return RedirectToAction("Index");

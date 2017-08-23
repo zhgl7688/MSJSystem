@@ -51,13 +51,43 @@ namespace WebMVC.Controllers
                     claimsIdentity.AddClaims(LocationClaimsProvider.GetClaims(claimsIdentity));
                     claimsIdentity.AddClaims(ClaimsRoles.CreateRolesFromClaims(claimsIdentity));
                     AuthManager.SignOut();
-                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = false }, claimsIdentity);
+                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = model.RememberMe }, claimsIdentity);
 
-                    return Redirect(returnUrl);
+                    return Redirect(returnUrl??"/home/index");
                 }
             }
             ViewBag.returnUrl = returnUrl;
 
+            return View(model);
+        }
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new AppUser { UserName = model.UserName };
+                //传入Password并转换成PasswordHash
+                IdentityResult result = await UserManager.CreateAsync(user,model.Password);
+                if (result.Succeeded)
+                {
+                    var claimsIdentity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+                    claimsIdentity.AddClaims(LocationClaimsProvider.GetClaims(claimsIdentity));
+                    claimsIdentity.AddClaims(ClaimsRoles.CreateRolesFromClaims(claimsIdentity));
+                    AuthManager.SignOut();
+                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = false }, claimsIdentity);
+
+                    return RedirectToAction("Index","Home");
+                }
+                AddErrorsFromResult(result);
+            }
             return View(model);
         }
 
@@ -89,6 +119,8 @@ namespace WebMVC.Controllers
                 {
                     Email = loginInfo.Email,
                     UserName = loginInfo.DefaultUserName,
+                    //City = Cities.Shanghai,
+                    //Country = Countries.China
                 };
 
                 IdentityResult result = await UserManager.CreateAsync(user);
@@ -118,6 +150,13 @@ namespace WebMVC.Controllers
         private AppUserManager UserManager
         {
             get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
+        }
+        private void AddErrorsFromResult(IdentityResult result)
+        {
+            foreach (string error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
         }
     }
 }

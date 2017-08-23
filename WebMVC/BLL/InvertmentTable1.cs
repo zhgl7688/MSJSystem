@@ -12,15 +12,14 @@ namespace WebMVC.BLL
     /// 投资表1
     /// </summary>
     public class InvertmentTable1
-    {
-        AppIdentityDbContext db = new AppIdentityDbContext();
+    {  
         List<AgentInput> agentInputs;
         List<BrandTable> brands = new List<BrandTable>();
         List<BrandsInput> brandsInputs;
-        public InvertmentTable1()
+        public InvertmentTable1(List<AgentInput> agentInputs, List<BrandsInput> brandsInputs)
         {
-            agentInputs = db.AgentInputs.ToList();
-            brandsInputs = db.BrandsInputs.ToList();
+            this.agentInputs = agentInputs;
+            this.brandsInputs = brandsInputs;
         }
 
         public List<AgentInput> getAgentInputs()

@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 进销存管理</title>
@@ -23,27 +23,34 @@
                 <ul class="nav navbar-nav">
                     @*<li class="active">@Html.ActionLink("主页", "Index", "Home")</li>*@
                     @*<li >@Html.ActionLink("品牌力", "BrandStrength", "Home")</li>
-    <li>@Html.ActionLink("产品创新力", "ProductInnovation", "Home")</li>*@
+                        <li>@Html.ActionLink("产品创新力", "ProductInnovation", "Home")</li>*@
                     <li>@Html.ActionLink("代理商组", "Index", "AgentInput")</li>
                     <li>@Html.ActionLink("品牌商组", "Index", "BrandsInput")</li>
-                @*  <li>@Html.ActionLink("资产汇总表", "SummaryAssent", "Home" )</li>
-                   <li>@Html.ActionLink("进货报表", "StockReport", "Home" )</li>
-                      <li>@Html.ActionLink("市场价格", "MarketPrice", "Home" )</li>
-    <li>@Html.ActionLink("进销存报表", "InvoicingReport", "Home", null, new { target = "_blank" })</li>
-     <li>@Html.ActionLink("投资表", "InvertmentTable", "Home", null, new { target = "_blank" })</li>
-     <li>@Html.ActionLink("当年占有率", "CurrentShare", "Home")</li>*@
-                  @*  <li>@Html.ActionLink("第一期PPT", "FirstPPT", "Home")</li>*@
+                    @*  <li>@Html.ActionLink("资产汇总表", "SummaryAssent", "Home" )</li>
+                         <li>@Html.ActionLink("进货报表", "StockReport", "Home" )</li>
+                        <li>@Html.ActionLink("市场价格", "MarketPrice", "Home" )</li>
+                        <li>@Html.ActionLink("进销存报表", "InvoicingReport", "Home")</li>
+                         <li>@Html.ActionLink("投资表", "InvertmentTable", "Home")</li>*@
+                    @*<li>@Html.ActionLink("当年占有率", "CurrentShare", "Home")</li>*@
+                    <li>@Html.ActionLink("第一期PPT", "FirstPPT", "Home")</li>
                     <li>@Html.ActionLink("第二期PPT", "SecondPPT", "Home")</li>
                     <li>@Html.ActionLink("第三期PPT", "ThirdPPT", "Home")</li>
                     <li>@Html.ActionLink("最终市场占有率", "LastBrand", "Home")</li>
-                    <li>@Html.ActionLink("用户管理", "Index", "Account")</li>
-                    <li>@Html.ActionLink("角色管理", "Index", "Role")</li>
-                    <li>@Html.ActionLink("Claims", "Index", "Claims")</li>
+                    @{if (User.IsInRole("Administrators"))
+                        {
+                            <li>@Html.ActionLink("用户管理", "Index", "Admin")</li>
+                            <li>@Html.ActionLink("角色管理", "Index", "Role")</li>
+                            @*<li>@Html.ActionLink("Claims", "Index", "Claims")</li>*@
+                        }
 
-                    <li>@Html.ActionLink("              ", " ", " ")</li>
-                    @{ if (User.Identity.IsAuthenticated) {
-                     <li>@Html.ActionLink( @User.Identity.Name,"","")</li>
-                    <li>@Html.ActionLink("用户退出", "LogOut", "Account")</li>
+                    }
+
+
+
+                    @{ if (User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink(@User.Identity.Name, "", "")</li>
+                            <li>@Html.ActionLink("用户退出", "LogOut", "Account")</li>
                         }
                         else
                         {
@@ -59,7 +66,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - 进销存管理</p>
+            <p>&copy; @DateTime.Now.Year - 进销存管理</p>   @ViewData["role"]
         </footer>
     </div>
 
@@ -72,9 +79,11 @@
     var index = "@ViewBag.Title";
     var lis = $('.navbar-nav li');
     for (var i = 0; i < lis.length; i++) {
-         if (index == lis[i].innerText) {
-             $(lis[i]).addClass("active");
-             break;
+        $(lis[i]).addClass("active");
+        if (index == lis[i].innerText) {
+            $(lis[i]).removeClass("active");
+            $(lis[i]).addClass("Success");
+            // break;
         }
     }
 </script>

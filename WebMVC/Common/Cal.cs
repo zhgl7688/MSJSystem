@@ -162,7 +162,7 @@ namespace WebMVC.Common
         /// <returns></returns>
         public static decimal GetMJAAverage(MJA mja, int count, MJAType mjatype)
         {
-            Func<decimal[], int, decimal> av = (a, b) => (a.Take(count).Sum() / b);
+            Func<decimal[], int, decimal> av = (a, b) => (b==0?0:a.Take(count).Sum() / b);
             switch (mjatype)
             {
                 case MJAType.M: return av(new decimal[] { mja.M1, mja.M2, mja.M3, mja.M4, mja.M5, mja.M6 }, count);

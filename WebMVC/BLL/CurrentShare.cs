@@ -146,8 +146,8 @@ namespace WebMVC.BLL
                     switch (stage)
                     {
                         case Common.Stage.起始阶段:
-                            result[1] = new MJA { M1 =D*F*H[1].M1, M2 = D * F * H[2].M1, M3 = D * F * H[3].M1,
-                                M4 = D * F * H[4].M1, M5 = D * F * H[5].M1, M6 = D * F * H[6].M1
+                            result[1] = new MJA { M1 =D*F*H[1].M1, M2 = D * F * H[1].M2, M3 = D * F * H[1].M3,
+                                M4 = D * F * H[1].M4, M5 = D * F * H[1].M5, M6 = D * F * H[1].M6
                             };
                             break;
                         case Common.Stage.第一阶段:

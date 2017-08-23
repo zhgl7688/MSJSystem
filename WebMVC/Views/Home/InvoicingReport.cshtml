@@ -1,19 +1,20 @@
 ﻿@model IEnumerable<WebMVC.BLL.InvoicingTable>
 
 @{
-    ViewBag.Title = "InvoicingReport";
+    ViewBag.Title = "进销存报表";
 }
 
-<h2>InvoicingReport</h2>
+<h4>进销存报表</h4>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.AgentName)
         </th>
+
         <th>
             @Html.DisplayNameFor(model => model.B)
         </th>

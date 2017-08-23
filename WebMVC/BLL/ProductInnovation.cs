@@ -11,14 +11,14 @@ namespace WebMVC.BLL
     {
         List<ProductInnvoationTable> productInnvoations = new List<ProductInnvoationTable>();
         List<BrandStrengthTable> brandStrengths;
-        List<BrandTable> investments;
+        List<BrandTable> brandTables;
         /// <summary>
         ///  厂家主导的产品创新力
         /// </summary>
         public ProductInnovation(BrandStrength brandStrength, InvertmentTable1 invertmentTable1)
         {
             brandStrengths =brandStrength.Get();
-            investments = invertmentTable1.getBrandTable();
+            brandTables = invertmentTable1.getBrandTable();
             Init();
         }
         RC initRC = new RC{
@@ -33,7 +33,8 @@ namespace WebMVC.BLL
            
             ProductInnvoationTable initT = new ProductInnvoationTable()
             {
-                Stage = brandStrength0.Stage,ID=(int)Stage.起始阶段
+                Stage = Stage.起始阶段.ToString(),
+                ID=(int)Stage.起始阶段
             };
             initT.K.RC1 = new RC
             {
@@ -57,7 +58,7 @@ namespace WebMVC.BLL
             initT.PTCal();
             productInnvoations.Add(initT);
             #endregion
-            foreach (var item in investments)
+            foreach (var item in brandTables)
             {
    
                 var productInnvoation = productInnvoations.FirstOrDefault(s => s.Stage == item.Stage);

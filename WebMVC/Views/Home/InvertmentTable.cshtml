@@ -9,129 +9,417 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Stage)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.B)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C)
-        </th>
-        <th> K</th>
-        <th>PQRNew</th>
-        <th>P.SurfaceRCSum</th>
-        <th>Q.FunctionRCSum</th>
-        <th>R.materialRCSum</th>
-        <th> NewDevelopmentCost</th>
-     
-        <th>AJ.InputSum</th>
-     
-        <th>
-            @Html.DisplayNameFor(model => model.D)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.F)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.G)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.H)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.I)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.J)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.K)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.L)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.M.SurfaceRC1)
-        </th>
-        <th></th>
+        <th>B</th>
+        <th>C</th>
+        <th>D</th>
+        <th>E</th>
+        <th>F</th>
+        <th>G</th>
+        <th>H</th>
+        <th>I</th>
+        <th>J</th>
+        <th>K</th>
+        <th>L</th>
+        <!--M产品-->
+        <th>M</th>
+        <th>N</th>
+        <th>O</th>
+        <th>P</th>
+        <th>Q</th>
+        <th>R</th>
+        <th>S</th>
+        <th>T</th>
+        <th>U</th>
+        <th>V</th>
+        <th>W</th>
+        <th>X</th>
+        <!--S产品-->
+        <th>Y</th>
+        <th>Z</th>
+        <th>AA</th>
+        <th>AB</th>
+        <th>AC</th>
+        <th>AD</th>
+        <th>AE</th>
+        <th>AF</th>
+        <th>AG</th>
+        <th>AH</th>
+        <th>AI</th>
+        <th>AJ</th>
+        <!--J产品-->
+        <th>AK</th>
+        <th>AL</th>
+        <th>AM</th>
+        <th>AN</th>
+        <th>AO</th>
+        <th>AP</th>
+        <th>AQ</th>
+        <th>AR</th>
+        <th>AS</th>
+        <th>AT</th>
+        <th>AU</th>
+        <th>AV</th>
+        <!--M品牌-->
+        <th>AW</th>
+        <th>AX</th>
+        <th>AY</th>
+        <th>AZ</th>
+        <th>BA</th>
+        <th>BB</th>
+        <th>BC</th>
+        <!--J品牌-->
+        <th>BD</th>
+        <th>BE</th>
+        <th>BF</th>
+        <th>BG</th>
+        <th>BH</th>
+        <th>BI</th>
+        <th>BJ</th>
+        <!--S品牌 代1-->
+        <th>BK</th>
+        <th>BL</th>
+        <th>BM</th>
+        <th>BN</th>
+        <th>BO</th>
+        <th>BP</th>
+        <th>BQ</th>
+        <th>BR</th>
+        <th>BS</th>
+        <!--S品牌 代2-->
+        <th>BT</th>
+        <th>BU</th>
+        <th>BV</th>
+        <th>BW</th>
+        <th>BX</th>
+        <th>BY</th>
+        <th>BZ</th>
+        <th>CA</th>
+        <th>CB</th>
+        <!--S品牌 代3-->
+        <th>CC</th>
+        <th>CD</th>
+        <th>CE</th>
+        <th>CF</th>
+        <th>CG</th>
+        <th>CH</th>
+        <th>CI</th>
+        <th>CJ</th>
+        <th>CK</th>
+        <!--S品牌 代4-->
+        <th>CL</th>
+        <th>CM</th>
+        <th>CN</th>
+        <th>CO</th>
+        <th>CP</th>
+        <th>CQ</th>
+        <th>CR</th>
+        <th>CS</th>
+        <th>CT</th>
+        <!--S品牌 代5-->
+        <th>CU</th>
+        <th>CV</th>
+        <th>CW</th>
+        <th>CX</th>
+        <th>CY</th>
+        <th>CZ</th>
+        <th>DA</th>
+        <th>DB</th>
+        <th>DC</th>
+        <!--S品牌 代6-->
+        <th>DD</th>
+        <th>DE</th>
+        <th>DF</th>
+        <th>DG</th>
+        <th>DH</th>
+        <th>DI</th>
+        <th>DJ</th>
+        <th>DK</th>
+        <th>DL</th>
+        <!--  代1 总-->
+        <th>DM</th>
+        <th>DN</th>
+        <th>DO</th>
+        <th>DP</th>
+        <th>DQ</th>
+        <th>DR</th>
+        <th>DS</th>
+        <th>DT</th>
+        <!--  代2 总-->
+        <th>DU</th>
+        <th>DV</th>
+        <th>DW</th>
+        <th>DX</th>
+        <th>DY</th>
+    
+        <th>DZ</th>
+        
+        <!--  代3 总-->
+        
+        <!--  代4 总-->
+       
+        <!--  代5 总-->
+      
+        <th>EA</th>
+        <th>EB</th>
+        <th>EC</th>
+        <th>ED</th>
+        <th>EE</th>
+        <th>EF</th>
+        <th>EG</th>
+        <!--  代6 总-->
+        <th>EH</th>
+        <th>EI</th>
+        <th>EJ</th>
+        <th>EK</th>
+        <th>EL</th>
+        <th>EM</th>
+        <th>EN</th>
+        <th>EO</th>
+
+        <th>EP</th>
+        <th>EQ</th>
+        <th>ER</th>
+        <th>ES</th>
+        <th>ET</th>
+        <th>EU</th>
+        <th>EV</th>
+        <th>EW</th>
+        <th>EX</th>
+        <th>EY</th>
+        <th>EZ</th>
+        <th>FA</th>
+        <th>FB</th>
+        <th>FC</th>
+        <th>FD</th>
+        <th>FE</th>
+        <th>FF</th>
+        <th>FG</th>
+        <th>FH</th>
+
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.B)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.K)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PQRNew)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P.SurfaceRCSum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Q.FunctionRCSum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.R.materialRCSum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NewDevelopmentCostC)
-        </td>
-     
-        <td>
-            @Html.DisplayFor(modelItem => item.AJ.InputSum)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.D)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.F)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.G)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.H)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.I)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.J)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.K)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.L)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.M.SurfaceRC1)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.B)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.C)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.D)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.E)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.G)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.H)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.I)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.J)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.K)
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.L)</td>
+            <!--M产品-->
+            <td>@Html.DisplayFor(modelItem => item.M.SurfaceRC1)</td>
+            <td>@Html.DisplayFor(modelItem => item.M.SurfaceRC2)</td>
+            <td>@Html.DisplayFor(modelItem => item.M.SurfaceRC3)</td>
+            <td>@Html.DisplayFor(modelItem => item.M.SurfaceRCSum)</td>
+            <td>@Html.DisplayFor(modelItem => item.N.FunctionRC1)</td>
+            <td>@Html.DisplayFor(modelItem => item.N.FunctionRC2)</td>
+            <td>@Html.DisplayFor(modelItem => item.N.FunctionRC3)</td>
+            <td>@Html.DisplayFor(modelItem => item.N.FunctionRCSum)</td>
+            <td>@Html.DisplayFor(modelItem => item.O.materialRC1)</td>
+            <td>@Html.DisplayFor(modelItem => item.O.materialRC2)</td>
+            <td>@Html.DisplayFor(modelItem => item.O.materialRC3)</td>
+            <td>@Html.DisplayFor(modelItem => item.O.materialRCSum)</td>
+            <!--S产品-->
+            <td>@Html.DisplayFor(modelItem => item.P.SurfaceRC1)</td>
+            <td>@Html.DisplayFor(modelItem => item.P.SurfaceRC2)</td>
+            <td>@Html.DisplayFor(modelItem => item.P.SurfaceRC3)</td>
+            <td>@Html.DisplayFor(modelItem => item.P.SurfaceRCSum)</td>
+            <td>@Html.DisplayFor(modelItem => item.Q.FunctionRC1)</td>
+            <td>@Html.DisplayFor(modelItem => item.Q.FunctionRC2)</td>
+            <td>@Html.DisplayFor(modelItem => item.Q.FunctionRC3)</td>
+            <td>@Html.DisplayFor(modelItem => item.Q.FunctionRCSum)</td>
+            <td>@Html.DisplayFor(modelItem => item.R.materialRC1)</td>
+            <td>@Html.DisplayFor(modelItem => item.R.materialRC2)</td>
+            <td>@Html.DisplayFor(modelItem => item.R.materialRC3)</td>
+            <td>@Html.DisplayFor(modelItem => item.R.materialRCSum)</td>
+            <!--J产品-->
+            <td>@Html.DisplayFor(modelItem => item.S.SurfaceRC1)</td>
+            <td>@Html.DisplayFor(modelItem => item.S.SurfaceRC2)</td>
+            <td>@Html.DisplayFor(modelItem => item.S.SurfaceRC3)</td>
+            <td>@Html.DisplayFor(modelItem => item.S.SurfaceRCSum)</td>
+            <td>@Html.DisplayFor(modelItem => item.T.FunctionRC1)</td>
+            <td>@Html.DisplayFor(modelItem => item.T.FunctionRC2)</td>
+            <td>@Html.DisplayFor(modelItem => item.T.FunctionRC3)</td>
+            <td>@Html.DisplayFor(modelItem => item.T.FunctionRCSum)</td>
+            <td>@Html.DisplayFor(modelItem => item.U.materialRC1)</td>
+            <td>@Html.DisplayFor(modelItem => item.U.materialRC2)</td>
+            <td>@Html.DisplayFor(modelItem => item.U.materialRC3)</td>
+            <td>@Html.DisplayFor(modelItem => item.U.materialRCSum)</td>
+            <!--M品牌-->
+            <td>@Html.DisplayFor(modelItem => item.V.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.V.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.V.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.V.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.V.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.V.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.V.servet)</td>
+            <!--J品牌-->
+            <td>@Html.DisplayFor(modelItem => item.AC.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.AC.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.AC.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.AC.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.AC.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.AC.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.AC.servet)</td>
+            <!--S品牌 代1-->
+            <td>@Html.DisplayFor(modelItem => item.AJ.AJ)</td>
+            <td>@Html.DisplayFor(modelItem => item.AJ.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.AJ.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.AJ.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.AJ.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.AJ.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.AJ.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.AJ.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.AJ.InputSum)</td>
+            <!--S品牌 代2-->
+            <td>@Html.DisplayFor(modelItem => item.AS.AJ)</td>
+            <td>@Html.DisplayFor(modelItem => item.AS.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.AS.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.AS.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.AS.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.AS.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.AS.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.AS.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.AS.InputSum)</td>
+            <!--S品牌 代3-->
+            <td>@Html.DisplayFor(modelItem => item.BB.AJ)</td>
+            <td>@Html.DisplayFor(modelItem => item.BB.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.BB.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.BB.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.BB.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.BB.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.BB.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.BB.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.BB.InputSum)</td>
+            <!--S品牌 代4-->
+            <td>@Html.DisplayFor(modelItem => item.BK.AJ)</td>
+            <td>@Html.DisplayFor(modelItem => item.BK.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.BK.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.BK.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.BK.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.BK.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.BK.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.BK.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.BK.InputSum)</td>
+            <!--S品牌 代5-->
+            <td>@Html.DisplayFor(modelItem => item.BT.AJ)</td>
+            <td>@Html.DisplayFor(modelItem => item.BT.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.BT.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.BT.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.BT.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.BT.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.BT.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.BT.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.BT.InputSum)</td>
+            <!--S品牌 代6-->
+            <td>@Html.DisplayFor(modelItem => item.CC.AJ)</td>
+            <td>@Html.DisplayFor(modelItem => item.CC.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.CC.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.CC.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.CC.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.CC.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.CC.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.CC.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.CC.InputSum)</td>
+
+            <!--  代1 总-->
+            <td>@Html.DisplayFor(modelItem => item.CL.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.CL.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.CL.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.CL.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.CL.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.CL.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.CL.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.CL.InputSum)</td>
+            <!--  代2 总-->
+            <td>@Html.DisplayFor(modelItem => item.CT.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.CT.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.CT.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.CT.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.CT.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.CT.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.CT.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.CT.InputSum)</td>
+            <!--  代3 总-->
+            <td>@Html.DisplayFor(modelItem => item.DB.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.DB.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.DB.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.DB.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.DB.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.DB.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.DB.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.DB.InputSum)</td>
+            <!--  代4 总-->
+            <td>@Html.DisplayFor(modelItem => item.DJ.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.DJ.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.DJ.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.DJ.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.DJ.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.DJ.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.DJ.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.DJ.InputSum)</td>
+            <!--  代5 总-->
+            <td>@Html.DisplayFor(modelItem => item.DR.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.DR.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.DR.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.DR.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.DR.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.DR.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.DR.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.DR.InputSum)</td>
+            <!--  代6 总-->
+            <td>@Html.DisplayFor(modelItem => item.DZ.EndImage)</td>
+            <td>@Html.DisplayFor(modelItem => item.DZ.Salesperson)</td>
+            <td>@Html.DisplayFor(modelItem => item.DZ.HousePromote)</td>
+            <td>@Html.DisplayFor(modelItem => item.DZ.demonstrator)</td>
+            <td>@Html.DisplayFor(modelItem => item.DZ.outdoorActivity)</td>
+            <td>@Html.DisplayFor(modelItem => item.DZ.promotionTeam)</td>
+            <td>@Html.DisplayFor(modelItem => item.DZ.servet)</td>
+            <td>@Html.DisplayFor(modelItem => item.DZ.InputSum)</td>
+
+            <td>@Html.DisplayFor(modelItem => item.EI[1])</td>
+            <td>@Html.DisplayFor(modelItem => item.EI[2])</td>
+            <td>@Html.DisplayFor(modelItem => item.EI[3])</td>
+            <td>@Html.DisplayFor(modelItem => item.EI[4])</td>
+            <td>@Html.DisplayFor(modelItem => item.EI[5])</td>
+            <td>@Html.DisplayFor(modelItem => item.EI[6])</td>
+
+
+        </tr>
+    }
 
 </table>

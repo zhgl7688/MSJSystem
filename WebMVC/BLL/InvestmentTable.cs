@@ -90,7 +90,7 @@ namespace WebMVC.BLL
                 foreach (var agentInput in agentInputList)
                 {
                     var ss = (int)Enum.Parse(typeof(AgentName), agentInput.AgentName);
-                    item.EI.Add(ss, agentInput.bankLoan);
+                    item.EI[ss]=agentInput.bankLoan;
                 }
             }
             foreach (var item in stockReports)
@@ -139,7 +139,17 @@ namespace WebMVC.BLL
 
     public class InvestmentTable
     {
+        public InvestmentTable()
+        {
+            EI = new Dictionary<int, decimal>();
+            EI.Add(1, 0);
+            EI.Add(2, 0);
+            EI.Add(3, 0);
+            EI.Add(4, 0);
+            EI.Add(5, 0);
+            EI.Add(6, 0);
 
+        }
         [DisplayName("阶段")]
         public string Stage { get; set; }
         //[DisplayName("M投入")]
@@ -288,7 +298,7 @@ namespace WebMVC.BLL
         /// <summary>
         /// 银行贷款
         /// </summary>
-        public Dictionary<int, decimal> EI { get; set; } = new Dictionary<int, decimal>();
+        public Dictionary<int, decimal> EI { get; set; } 
         /// <summary>
         /// 新品开发费用
         /// </summary>

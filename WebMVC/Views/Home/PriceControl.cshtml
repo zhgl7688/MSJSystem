@@ -1,0 +1,132 @@
+﻿@model IEnumerable<WebMVC.BLL.PriceControlTable>
+
+@{
+    ViewBag.Title = "价格管控表";
+}
+
+<h2>价格管控表</h2>
+
+ 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage)
+        </th>
+        <th>B</th>
+        <th>C</th>
+        <th>D</th>
+        <th>E</th>
+        <th>F</th>
+        <th>G</th>
+        <th>H</th>
+        <th>I</th>
+        <th>J</th>
+        <th>K</th>
+        <th>L</th>
+        <th>M</th>
+        <th>N</th>
+        <th>O</th>
+        <th>P</th>
+        <th>Q</th>
+        <th>R</th>
+        <th>S</th>
+        <th>T</th>
+        <th>U</th>
+        <th>V</th>
+        <th>W</th>
+        <th>X</th>
+        <th>Y</th>
+        <th>Z</th>
+        <th>AA</th>
+        <th>AB</th>
+        <th>AC</th>
+        <th>AD</th>
+        <th>AE</th>
+        <th>AF</th>
+        <th>AG</th>
+        <th>AH</th>
+        <th>AI</th>
+        <th>AJ</th>
+        <th>AK</th>
+        <th>AL</th>
+        <th>AM</th>
+        <th>AN</th>
+        <th>AO</th>
+        <th>AP</th>
+        <th>AQ</th>
+        <th>AR</th>
+        <th>AS</th>
+        <th>AT</th>
+
+        <th>AV</th>
+        <th>AW</th>
+        <th>AX</th>
+        <th>AY</th>
+        <th>AZ</th>
+        <th>BA</th>
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td> @Html.DisplayFor(modelItem => item.Stage)</td>
+        <td> @Html.DisplayFor(modelItem => item.B.RC1M)</td>
+        <td> @Html.DisplayFor(modelItem => item.B.RC1J)</td>
+        <td> @Html.DisplayFor(modelItem => item.B.RC2M)</td>
+        <td> @Html.DisplayFor(modelItem => item.B.RC2J)</td>
+        <td> @Html.DisplayFor(modelItem => item.B.RC3M)</td>
+        <td> @Html.DisplayFor(modelItem => item.B.RC3J)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[1].Agent1)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[1].Agent2)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[1].Agent3)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[1].Agent4)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[1].Agent5)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[1].Agent6)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[1].Average)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[2].Agent1)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[2].Agent2)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[2].Agent3)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[2].Agent4)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[2].Agent5)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[2].Agent6)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[2].Average)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[3].Agent1)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[3].Agent2)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[3].Agent3)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[3].Agent4)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[3].Agent5)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[3].Agent6)</td>
+        <td>@Html.DisplayFor(modelItem => item.D[3].Average)</td>
+       
+        <td>@Html.DisplayFor(modelItem => item.K[1].Agent1)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[1].Agent2)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[1].Agent3)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[1].Agent4)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[1].Agent5)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[1].Agent6)</td>
+ 
+        <td>@Html.DisplayFor(modelItem => item.K[2].Agent1)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[2].Agent2)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[2].Agent3)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[2].Agent4)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[2].Agent5)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[2].Agent6)</td>
+       
+        <td>@Html.DisplayFor(modelItem => item.K[3].Agent1)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[3].Agent2)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[3].Agent3)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[3].Agent4)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[3].Agent5)</td>
+        <td>@Html.DisplayFor(modelItem => item.K[3].Agent6)</td>
+     
+        <td>@Html.DisplayFor(modelItem => item.AG.M)</td>
+        <td>@Html.DisplayFor(modelItem => item.AG.S)</td>
+        <td>@Html.DisplayFor(modelItem => item.AG.J)</td>
+        <td>@Html.DisplayFor(modelItem => item.AJ.M)</td>
+        <td>@Html.DisplayFor(modelItem => item.AJ.S)</td>
+        <td>@Html.DisplayFor(modelItem => item.AJ.J)</td>
+        
+    </tr>
+}
+
+</table>

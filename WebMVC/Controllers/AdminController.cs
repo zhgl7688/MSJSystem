@@ -12,8 +12,43 @@ namespace WebMVC.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+        public AdminController()
+        {
+
+        }
+        public AdminController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         public ActionResult Index()
         {
+       
             return View(UserManager.Users);
         }
 
@@ -27,7 +62,7 @@ namespace WebMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = model.UserName };
+                var user = new Models.ApplicationUser { UserName = model.UserName };
                 //传入Password并转换成PasswordHash
                 IdentityResult result = await UserManager.CreateAsync(user,
                     model.Password);
@@ -43,7 +78,7 @@ namespace WebMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {
-            AppUser user = await UserManager.FindByIdAsync(id);
+            Models.ApplicationUser user = await UserManager.FindByIdAsync(id);
             if (user != null)
             {
                 if (user.UserName == "Admin")
@@ -63,7 +98,7 @@ namespace WebMVC.Controllers
 
         public async Task<ActionResult> Edit(string id)
         {
-            AppUser user = await UserManager.FindByIdAsync(id);
+            Models.ApplicationUser user = await UserManager.FindByIdAsync(id);
             if (user != null)
             {
                 return View(user);
@@ -75,7 +110,7 @@ namespace WebMVC.Controllers
         public async Task<ActionResult> Edit(string id, string email, string password)
         {
             //根据Id找到AppUser对象
-            AppUser user = await UserManager.FindByIdAsync(id);
+            Models.ApplicationUser user = await UserManager.FindByIdAsync(id);
 
             if (user != null)
             {
@@ -132,9 +167,6 @@ namespace WebMVC.Controllers
             }
         }
 
-        private AppUserManager UserManager
-        {
-            get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
-        }
+ 
     }
 }

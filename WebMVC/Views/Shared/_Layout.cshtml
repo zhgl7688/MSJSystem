@@ -52,18 +52,9 @@
 
                     }
 
+                    @Html.Partial("_LoginPartial")
 
-
-                    @{ if (User.Identity.IsAuthenticated)
-                        {
-                            <li>@Html.ActionLink(@User.Identity.Name, "", "")</li>
-                            <li>@Html.ActionLink("用户退出", "LogOut", "Account")</li>
-                        }
-                        else
-                        {
-                            <li>@Html.ActionLink("用户登录", "Login", "Account")</li>
-                        }
-                    }
+                   
                     @*<li>@Html.ActionLink("联系方式", "Contact", "Home")</li>*@
                 </ul>
             </div>

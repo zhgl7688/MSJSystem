@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Security.Claims;
-using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using WebMVC.Common;
 using WebMVC.Infrastructure;
 using WebMVC.Models;
+
 
 namespace WebMVC.Controllers
 {
@@ -16,13 +16,14 @@ namespace WebMVC.Controllers
         AppIdentityDbContext db = new AppIdentityDbContext();
 
         // GET: AgentInput
+        //代理
 
-       //[Authorize]
+        //[Authorize]
         public ActionResult Index()
         {
             // ClaimsIdentity claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
-         
-            var models = db.AgentInputs.Where(s=>s.UserId==User.Identity.Name).ToList();
+
+            var models = db.AgentInputs.Where(s => s.UserId == User.Identity.Name).ToList();
             return View(models);
         }
 
@@ -39,15 +40,15 @@ namespace WebMVC.Controllers
                 return HttpNotFound();
             }
             return View(model);
- 
+
         }
 
         // GET: AgentInput/Create
         public ActionResult Create()
         {
-            ViewData["stageList"] = GetStageList();
+            ViewData["stageList"] = GetStageListRemoveOne();
             ViewData["agentName"] = GetAgentNameList();
-            AgentInput agentInput =  new AgentInput();
+            AgentInput agentInput = new AgentInput();
             return View(new AgentInput());
         }
 
@@ -59,14 +60,24 @@ namespace WebMVC.Controllers
             try
             {
                 // TODO: Add insert logic here
-                var agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage);
+                AgentInput agentInput;
+                var userName = User.Identity.GetUserName();
+                if (string.IsNullOrEmpty(userName))
+                {
+                    agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.UserId == "");
+
+                }
+                else
+                {
+                    agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.UserId == userName);
+                }
                 if (agentInput != null)
                 {
                     ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
-                    ViewData["stageList"] = GetStageList();
+                    ViewData["stageList"] = GetStageListRemoveOne();
                     ViewData["agentName"] = GetAgentNameList();
                     return View(collection);
-                  }
+                }
                 collection.UserId = User.Identity.Name;
                 db.AgentInputs.Add(collection);
                 db.SaveChanges();
@@ -87,23 +98,36 @@ namespace WebMVC.Controllers
             ViewData["stageList"] = GetStageList();
             ViewData["agentNames"] = GetAgentNameList();
             return View(model);
-   }
+        }
 
         // POST: AgentInput/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(  AgentInput collection)
+        public ActionResult Edit(AgentInput collection)
         {
 
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var repeatbrand = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.AgentId != collection.AgentId);
+                    AgentInput repeatbrand;
+                    var userName = User.Identity.GetUserName();
+                    if (string.IsNullOrEmpty(userName))
+                    {
+                        userName = "";
+
+                    }
+                    repeatbrand = db.AgentInputs.FirstOrDefault(
+                        s => s.AgentName == collection.AgentName &&
+                        s.Stage == collection.Stage &&
+                        s.UserId == userName &&
+                        s.AgentId != collection.AgentId);
+
+
                     if (repeatbrand != null)
                     {
                         ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
-                        ViewData["stageList"] = GetStageList();
+                        ViewData["stageList"] = GetStageListRemoveOne();
                         ViewData["agentName"] = GetAgentNameList();
                         return View(collection);
                     }
@@ -114,12 +138,12 @@ namespace WebMVC.Controllers
                 }
                 else
                 {
-                    ViewData["stageList"] = GetStageList();
+                    ViewData["stageList"] = GetStageListRemoveOne();
                     ViewData["agentName"] = GetAgentNameList();
                     return View(collection);
                 }
-                
-                 
+
+
             }
             catch
             {
@@ -167,6 +191,16 @@ namespace WebMVC.Controllers
             List<SelectListItem> stageList = new List<SelectListItem>();
             foreach (var item in Enum.GetNames(typeof(Stage)))
             {
+                stageList.Add(new SelectListItem { Text = item, Value = item });
+            }
+            return stageList;
+        }
+        public List<SelectListItem> GetStageListRemoveOne()
+        {
+            List<SelectListItem> stageList = new List<SelectListItem>();
+            foreach (var item in Enum.GetNames(typeof(Stage)))
+            {
+                if (item == Stage.起始阶段.ToString()) continue;
                 stageList.Add(new SelectListItem { Text = item, Value = item });
             }
             return stageList;

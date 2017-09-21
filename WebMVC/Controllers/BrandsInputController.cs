@@ -9,20 +9,33 @@ using WebMVC.BLL;
 using System.Net;
 using WebMVC.Infrastructure;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace WebMVC.Controllers
 {
-    [Authorize(Roles ="品牌商")]
+   // [Authorize(Roles = "品牌商")]
     public class BrandsInputController : Controller
     {
         // GET: BrandsInput
         AppIdentityDbContext db = new AppIdentityDbContext();
 
-        public  ActionResult Index()
+        public ActionResult Index()
         {
-          // var  models= db.BrandsInputs.Where(s => s.UserId == User.Identity.Name).ToList();
-           var  models= db.BrandsInputs.ToList();
-            return View(models);
+            List<BrandsInput> models;
+            if (string.IsNullOrEmpty(User.Identity.GetUserName()))
+            {
+                models = db.BrandsInputs.Where(s => s.UserId == "").ToList();
+
+                return View(models);
+            }
+            if (User.IsInRole("品牌商"))
+            {
+                models = db.BrandsInputs.Where(s => s.UserId == "admin").ToList();
+                //  var  models= db.BrandsInputs.ToList();
+                return View(models);
+            }
+            return Content("<script>alert('没有权限');location='" + Url.Action("index", "home") + "'</script>");
+        
         }
 
         // GET: BrandsInput/Details/5
@@ -45,7 +58,7 @@ namespace WebMVC.Controllers
         {
             ViewData["stageList"] = GetStageList();
             ViewData["brands"] = GetBrandList();
-            var model =  new BrandsInput();
+            var model = new BrandsInput();
             return View(model);
         }
 
@@ -97,7 +110,18 @@ namespace WebMVC.Controllers
                 // TODO: Add update logic here
                 if (ModelState.IsValid)
                 {
-                    var repeatbrand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage && s.BrandID != collection.BrandID);
+
+                    BrandsInput repeatbrand;
+                    var userName = User.Identity.GetUserName();
+                    if (string.IsNullOrEmpty(userName))
+                    {
+                        repeatbrand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage && s.BrandID != collection.BrandID && s.UserId == "");
+                    }
+                    else
+                    {
+                        repeatbrand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage && s.BrandID != collection.BrandID && s.UserId == "admin");
+
+                    }
                     if (repeatbrand != null)
                     {
                         ModelState.AddModelError("", "已有" + collection.Brand + collection.Stage + "信息，请重新选择");
@@ -106,7 +130,7 @@ namespace WebMVC.Controllers
                         return View(collection);
                     }
                     db.Entry(collection).State = System.Data.Entity.EntityState.Modified;
-                     collection.UserId = User.Identity.Name;
+                    collection.UserId = User.Identity.Name;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -178,6 +202,6 @@ namespace WebMVC.Controllers
             }
             return brandList;
         }
-        
+
     }
 }

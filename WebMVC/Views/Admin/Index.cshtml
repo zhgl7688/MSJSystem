@@ -1,5 +1,5 @@
-﻿@using Users.Models
-@model IEnumerable<AppUser>
+﻿@using WebMVC.Models
+@model IEnumerable<ApplicationUser>
 @{
     ViewBag.Title = "Index";
 }
@@ -20,7 +20,7 @@
         }
         else
         {
-            foreach (AppUser user in Model)
+            foreach (var user in Model)
             {
                 <tr>
                     <td>@user.Id</td>

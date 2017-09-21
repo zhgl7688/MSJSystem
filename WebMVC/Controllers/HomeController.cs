@@ -31,8 +31,24 @@ namespace WebMVC.Controllers
         FirstPPT firstPPT;
         SecondPPT secondPPT;
         ThirdPPT thirdPPT;
-        List<Models.AgentInput> agentInputs;
-        List<Models.BrandsInput> brandsInputs;
+
+        List<Models.AgentInput> agentInputs
+        {
+            get { return db.AgentInputs.Where(s => s.UserId == User.Identity.Name).ToList(); }
+
+        }
+
+        List<Models.BrandsInput> brandsInputs
+        {
+
+            get
+            {
+                var userName = string.IsNullOrEmpty(User.Identity.Name) ? "" : "admin";
+                return db.BrandsInputs.Where(s => s.UserId == userName).ToList();
+            }
+        }
+
+
         AppIdentityDbContext db = new AppIdentityDbContext();
         string useId = "";// Common.AgentName.代1.ToString();
         bool debug = false;
@@ -40,7 +56,7 @@ namespace WebMVC.Controllers
         {
             //if (!debug)
             //    useId = User.Identity.Name;
-            //agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
+            //agentInputs = db.AgentInputs.Where(s =>  s.UserId == useId).ToList();
             //brandsInputs = db.BrandsInputs.ToList();
 
             //invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
@@ -76,18 +92,14 @@ namespace WebMVC.Controllers
 
         public ActionResult InvertmentTable1()
         {
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == User.Identity.Name).ToList();
-            brandsInputs = db.BrandsInputs .ToList();
-
+          
             var model = invertmentTable1.getBrandTable().OrderByDescending(s => s.Stage).ThenByDescending(s => s.Brand);
             return View(model);
         }
-        
+
         public ActionResult BrandStrength()
         {
-            var useId = "11";// User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs .ToList();
+            
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             var model = brandStrength.Get();
@@ -95,9 +107,7 @@ namespace WebMVC.Controllers
         }
         public ActionResult SummaryAssent()
         {
-               agentInputs = db.AgentInputs.Where(s => s.AgentName == User.Identity.Name).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
-
+           
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             channelService = new ChannelService(invertmentTable1);
@@ -121,12 +131,7 @@ namespace WebMVC.Controllers
         //进货报表
         public ActionResult StockReport()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
-
-
+      
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             channelService = new ChannelService(invertmentTable1);
@@ -148,16 +153,37 @@ namespace WebMVC.Controllers
             var model = stockReport.Get().FirstOrDefault(s => s.Id == id);
             return JsonConvert.SerializeObject(model);
         }
-         
-     
-        
-         
+
+
+
+
         public ActionResult FirstPPT()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
+            
+            invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
+            brandStrength = new BLL.BrandStrength(invertmentTable1);
+            channelService = new ChannelService(invertmentTable1);
+            marketPromotion = new MarketPromotion(invertmentTable1);
+            productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
+            priceControl = new PriceControl(invertmentTable1);
+            marketPriceTemp = new MarketPriceTemp(priceControl);
+            intentionIndex = new BLL.IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
+            currentShare = new BLL.CurrentShare(intentionIndex, priceControl);
+            marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
+
+            stockReport = new StockReport(invertmentTable1, marketPrice);
+            investment = new Investment(invertmentTable1, stockReport);
+            invoicingReport = new BLL.InvoicingReport(currentShare, marketPrice, stockReport);
+            summaryAssent = new BLL.SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
+            lastBrand = new LastBrand(currentShare, invertmentTable1.GetAgentCount);
+            firstPPT = new BLL.FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl);
+
+
+            var model = firstPPT.GetFirstPPTList();
+            return View(model);
+        }
+        public ActionResult LastBrand()
+        { 
 
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
@@ -172,26 +198,15 @@ namespace WebMVC.Controllers
 
             stockReport = new StockReport(invertmentTable1, marketPrice);
             investment = new Investment(invertmentTable1, stockReport);
-         invoicingReport = new BLL.InvoicingReport(currentShare, marketPrice, stockReport);
-          summaryAssent = new BLL.SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
-             lastBrand = new LastBrand(currentShare,invertmentTable1.GetAgentCount);
-            firstPPT = new BLL.FirstPPT(marketPrice, investment,invertmentTable1, summaryAssent, lastBrand, invoicingReport,priceControl);
-            
-
-            var model = firstPPT.GetFirstPPTList();
-            return View(model);
-        }
-        public ActionResult LastBrand()
-        {
+            invoicingReport = new BLL.InvoicingReport(currentShare, marketPrice, stockReport);
+            summaryAssent = new BLL.SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
+            lastBrand = new LastBrand(currentShare, invertmentTable1.GetAgentCount);
             var model = lastBrand.Get();
             return View(model);
         }
         public ActionResult SecondPPT()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
+           
 
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
@@ -217,10 +232,7 @@ namespace WebMVC.Controllers
         }
         public ActionResult ThirdPPT()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
+           
 
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
@@ -249,10 +261,7 @@ namespace WebMVC.Controllers
         //厂家主导的产品创新力
         public ActionResult ProductInnovation()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
+           
 
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
@@ -263,11 +272,7 @@ namespace WebMVC.Controllers
         //渠道服务
         public ActionResult ChannelService()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
-
+            
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             channelService = new ChannelService(invertmentTable1);
             var model = channelService.Get();
@@ -276,10 +281,7 @@ namespace WebMVC.Controllers
         //市场推广（包含促销投入）
         public ActionResult MarketPromotion()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
+            
 
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             marketPromotion = new MarketPromotion(invertmentTable1);
@@ -289,10 +291,7 @@ namespace WebMVC.Controllers
         //市场价格
         public ActionResult MarketPrice()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
+          
 
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
@@ -311,10 +310,7 @@ namespace WebMVC.Controllers
         // 各品牌购买意愿指数
         public ActionResult IntentionIndex()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
+             
 
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
@@ -331,25 +327,18 @@ namespace WebMVC.Controllers
         //价格管控表
         public ActionResult PriceControl()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
+           
 
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
-             priceControl = new PriceControl(invertmentTable1);
-              
+            priceControl = new PriceControl(invertmentTable1);
+
             var model = priceControl.Get();
             return View(model);
         }
         // 市场容量及各品牌当年占有率
         public ActionResult CurrentShare()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
-
+           
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             channelService = new ChannelService(invertmentTable1);
@@ -366,10 +355,7 @@ namespace WebMVC.Controllers
         //进销存报表
         public ActionResult InvoicingReport()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
+           
 
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
@@ -393,10 +379,7 @@ namespace WebMVC.Controllers
         //投资表
         public ActionResult InvertmentTable()
         {
-            if (!debug)
-                useId = User.Identity.Name;
-            agentInputs = db.AgentInputs.Where(s => s.AgentName == useId).ToList();
-            brandsInputs = db.BrandsInputs.ToList();
+           
 
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
 

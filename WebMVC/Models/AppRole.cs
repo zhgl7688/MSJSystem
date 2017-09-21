@@ -16,8 +16,8 @@ namespace WebMVC.Models
     public class RoleEditModel
     {
         public AppRole Role { get; set; }
-        public IEnumerable<AppUser> Members { get; set; }
-        public IEnumerable<AppUser> NonMembers { get; set; }
+        public IEnumerable<ApplicationUser> Members { get; set; }
+        public IEnumerable<ApplicationUser> NonMembers { get; set; }
     }
     public class RoleModificationModel
     {

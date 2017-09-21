@@ -194,10 +194,12 @@
             @Html.DisplayFor(modelItem => item.NewRetailPriceR3)
         </td>*@
         <td>
-          @BootstrapHelpers.PrimaryButton(Url.Action("Edit/"+item.BrandID),"编辑")
+          @BootstrapHelpers.PrimaryButton(Url.Action("Edit/" + item.BrandID), "编辑")
             @BootstrapHelpers.PrimaryButton(Url.Action("Details/" + item.BrandID), "详细信息")
-           @{if (User.IsInRole("Administrators")){
+           @{if (User.IsInRole("Administrators"))
+               {
                    @BootstrapHelpers.PrimaryButton(Url.Action("Delete/" + item.BrandID), "删除")
+                   }
                }
            </td>
     </tr>

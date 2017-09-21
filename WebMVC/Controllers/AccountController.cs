@@ -1,24 +1,55 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using WebMVC.Infrastructure;
 using WebMVC.Models;
-using System.Security.Claims;
+
 
 namespace WebMVC.Controllers
 {
     [Authorize]
     public class AccountController : Controller
-    {
+    {  
         // GET: Account
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+  
+        public AccountController()
+        {
+        }
 
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -40,21 +71,35 @@ namespace WebMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                AppUser user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user == null)
+                var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
                 {
-                    ModelState.AddModelError("", "无效的用户名或密码");
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "无效的登录尝试。");
+                        return View(model);
                 }
-                else
-                {
-                    var claimsIdentity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-                    claimsIdentity.AddClaims(LocationClaimsProvider.GetClaims(claimsIdentity));
-                    claimsIdentity.AddClaims(ClaimsRoles.CreateRolesFromClaims(claimsIdentity));
-                    AuthManager.SignOut();
-                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = model.RememberMe }, claimsIdentity);
+                //AppUser user = await UserManager.FindAsync(model.UserName, model.Password);
+                //if (user == null)
+                //{
+                //    ModelState.AddModelError("", "无效的用户名或密码");
+                //}
+                //else
+                //{
+                //    var claimsIdentity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+                //    claimsIdentity.AddClaims(LocationClaimsProvider.GetClaims(claimsIdentity));
+                //    claimsIdentity.AddClaims(ClaimsRoles.CreateRolesFromClaims(claimsIdentity));
+                //    AuthManager.SignOut();
+                //    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = model.RememberMe }, claimsIdentity);
 
-                    return Redirect(returnUrl??"/home/index");
-                }
+                //    return Redirect(returnUrl??"/home/index");
+                //}
             }
             ViewBag.returnUrl = returnUrl;
 
@@ -73,7 +118,7 @@ namespace WebMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = model.UserName };
+                var user = new Models.ApplicationUser { UserName = model.UserName };
                 //传入Password并转换成PasswordHash
                 IdentityResult result = await UserManager.CreateAsync(user,model.Password);
                 if (result.Succeeded)
@@ -91,66 +136,22 @@ namespace WebMVC.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult GoogleLogin(string returnUrl)
-        {
-            var properties = new AuthenticationProperties
-            {
-                RedirectUri = Url.Action("GoogleLoginCallback",
-                new { returnUrl = returnUrl })
-            };
-            HttpContext.GetOwinContext().Authentication.Challenge(properties, "Google");
-            return new HttpUnauthorizedResult();
-        }
-        /// <summary>
-        /// Google登陆成功后（即授权成功）回掉此Action
-        /// </summary>
-        /// <param name="returnUrl"></param>
-        /// <returns></returns>
-        [AllowAnonymous]
-        public async Task<ActionResult> GoogleLoginCallback(string returnUrl)
-        {
-            ExternalLoginInfo loginInfo = await AuthManager.GetExternalLoginInfoAsync();
-            AppUser user = await UserManager.FindAsync(loginInfo.Login);
-            if (user == null)
-            {
-                user = new AppUser
-                {
-                    Email = loginInfo.Email,
-                    UserName = loginInfo.DefaultUserName,
-                    //City = Cities.Shanghai,
-                    //Country = Countries.China
-                };
-
-                IdentityResult result = await UserManager.CreateAsync(user);
-                if (!result.Succeeded)
-                {
-                    return View("Error", result.Errors);
-                }
-                result = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
-                if (!result.Succeeded)
-                {
-                    return View("Error", result.Errors);
-                }
-            }
-            ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
-                DefaultAuthenticationTypes.ApplicationCookie);
-            ident.AddClaims(loginInfo.ExternalIdentity.Claims);
-            AuthManager.SignIn(new AuthenticationProperties
-            {
-                IsPersistent = false
-            }, ident);
-            return Redirect(returnUrl ?? "/");
-        }
+         
+       
         private IAuthenticationManager AuthManager
         {
             get { return HttpContext.GetOwinContext().Authentication; }
         }
-        private AppUserManager UserManager
+
+        private ActionResult RedirectToLocal(string returnUrl)
         {
-            get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
         }
+
         private void AddErrorsFromResult(IdentityResult result)
         {
             foreach (string error in result.Errors)

@@ -8,14 +8,14 @@ using WebMVC.Models;
 
 namespace WebMVC.Infrastructure
 {
-    public class CustomUserValidator : UserValidator<AppUser>
+    public class CustomUserValidator : UserValidator<Models.ApplicationUser>
     {
-        public CustomUserValidator(AppUserManager mgr)
+        public CustomUserValidator(ApplicationUserManager mgr)
             : base(mgr)
         {
         }
 
-        public override async Task<IdentityResult> ValidateAsync(AppUser user)
+        public override async Task<IdentityResult> ValidateAsync(Models.ApplicationUser user)
         {
             IdentityResult result = await base.ValidateAsync(user);
 

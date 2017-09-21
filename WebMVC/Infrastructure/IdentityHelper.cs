@@ -13,7 +13,7 @@ namespace WebMVC.Infrastructure
     {
         public static MvcHtmlString GetUserName(this HtmlHelper html, string id)
         {
-            AppUserManager userManager = HttpContext.Current.GetOwinContext().GetUserManager<AppUserManager>();
+            ApplicationUserManager userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             return new MvcHtmlString(userManager.FindByIdAsync(id).Result.UserName);
         }
         public static MvcHtmlString ClaimType(this HtmlHelper html, string claimType)

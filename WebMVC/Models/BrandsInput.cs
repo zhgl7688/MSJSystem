@@ -118,12 +118,12 @@ namespace WebMVC.Models
         /// <summary>
         /// 零售价
         /// </summary>
-        [DisplayName("零售价")]
+        [DisplayName("零售价RC1")]
         public decimal retailPrice { get; set; }
         /// <summary>
         /// 零售系统供价
         /// </summary>
-        [DisplayName("零售系统供价")]
+        [DisplayName("零售系统供价RC1")]
         public decimal SystemPrice { get; set; }
         /// <summary>
         /// 新增单品成本价
@@ -138,22 +138,22 @@ namespace WebMVC.Models
         /// <summary>
         /// 新增单品零售价R2
         /// </summary>
-        [DisplayName("新增单品零售价R2")]
+        [DisplayName("新增单品零售价RC2")]
         public decimal NewRetailPriceR2 { get; set; }
         /// <summary>
         /// 新增单品系统供价R2
         /// </summary>
-        [DisplayName("新增单品系统供价R2")]
+        [DisplayName("新增单品系统供价RC2")]
         public decimal NewSystemPriceR2 { get; set; }
         /// <summary>
         /// 新增单品系统供价R3
         /// </summary>
-        [DisplayName("新增单品系统供价R3")]
+        [DisplayName("新增单品系统供价RC3")]
         public decimal NewSystemPriceR3 { get; set; }
         /// <summary>
         /// 新增单品零售价R3
         /// </summary>
-        [DisplayName("新增单品零售价R3")]
+        [DisplayName("新增单品零售价RC3")]
         public decimal NewRetailPriceR3 { get; set; }
         public string UserId { get; set; }
 

@@ -27,7 +27,7 @@
                     <td>用户名</td>
                     <td>添加至角色</td>
                 </tr>
-                foreach (AppUser user in Model.NonMembers)
+                foreach (ApplicationUser user in Model.NonMembers)
                 {
                     <tr>
                         <td>@user.UserName</td>
@@ -54,7 +54,7 @@
                     <td>用户名</td>
                     <td>从角色中移除</td>
                 </tr>
-                foreach (AppUser user in Model.Members)
+                foreach (ApplicationUser user in Model.Members)
                 {
                     <tr>
                         <td>@user.UserName</td>

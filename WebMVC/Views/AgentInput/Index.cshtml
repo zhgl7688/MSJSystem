@@ -7,7 +7,7 @@
 <h2>代理商列表</h2>
 
 <p class="col-lg-offset-9">
-    @Html.ActionLink("创建", "Create", null, new { @class = "btn btn-success btn-block" })
+    @Html.ActionLink("创建", "Create", null, new { @class = "btn btn-warning btn-block" })
 </p>
 <table class="table">
     <tr>
@@ -167,9 +167,9 @@
             @Html.DisplayFor(modelItem => item.InputSum)
         </td>*@
         <td>
-            @Html.ActionLink("编辑", "Edit", new { id = item.AgentId }, new { @class = "btn btn-success" }) |
-            @Html.ActionLink("详细信息", "Details", new { id = item.AgentId }, new { @class = "btn btn-success" }) |
-            @Html.ActionLink("删除", "Delete", new { id = item.AgentId }, new { @class = "btn btn-success" })
+            @Html.ActionLink("编辑", "Edit", new { id = item.AgentId }, new { @class = "btn  btn-warning" }) |
+            @Html.ActionLink("详细信息", "Details", new { id = item.AgentId }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.AgentId }, new { @class = "btn btn-warning" })
         </td>
     </tr>
 }

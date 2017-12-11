@@ -69,32 +69,32 @@ namespace WebMVC.Models
         /// <summary>
         /// 零售价
         /// </summary>
-        [DisplayName("零售价")]
+        [DisplayName("零售价RC1")]
         public decimal retailPriceRC1 { get; set; }
         /// <summary>
         /// 零售系统供价
         /// </summary>
-        [DisplayName("零售系统供价")]
+        [DisplayName("零售系统供价RC1")]
         public decimal SystemPriceRC1 { get; set; }
         /// <summary>
         /// 零售价
         /// </summary>
-        [DisplayName("零售价")]
+        [DisplayName("零售价RC2")]
         public decimal retailPriceRC2 { get; set; }
         /// <summary>
         /// 零售系统供价
         /// </summary>
-        [DisplayName("零售系统供价")]
+        [DisplayName("零售系统供价RC2")]
         public decimal SystemPriceRC2 { get; set; }
         /// <summary>
         /// 零售价
         /// </summary>
-        [DisplayName("零售价")]
+        [DisplayName("零售价RC3")]
         public decimal retailPriceRC3 { get; set; }
         /// <summary>
         /// 零售系统供价
         /// </summary>
-        [DisplayName("零售系统供价")]
+        [DisplayName("零售系统供价RC3")]
         public decimal SystemPriceRC3 { get; set; }
         /// <summary>
         /// 品牌代理商
@@ -104,17 +104,17 @@ namespace WebMVC.Models
         /// <summary>
         /// 起始进货
         /// </summary>
-        [DisplayName("起始进货")]
+        [DisplayName("进货")]
         public decimal purchase { get; set; }
         /// <summary>
         /// 起始实际销售
         /// </summary>
-        [DisplayName("起始实际销售")]
+        [DisplayName("实际销售")]
         public decimal actualSale { get; set; }
         /// <summary>
         /// 起始库存
         /// </summary>
-        [DisplayName("起始库存")]
+        [DisplayName("库存")]
         public decimal Inventory { get; set; }
         /// <summary>
         /// RC1进货

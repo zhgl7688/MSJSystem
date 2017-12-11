@@ -12,8 +12,6 @@ namespace WebMVC.BLL
     /// </summary>
     public class SummaryAssent
     {
-
-
         List<SummaryTable> summarys = new List<SummaryTable>();
         List<StockReportTable> stockReports;//=进货报表!F3
         List<InvoicingTable> invocicings;  // =进销存报表!E4*
@@ -94,10 +92,10 @@ namespace WebMVC.BLL
             var market3 = markets.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
             market3 = market3 ?? new MarketTable();
             var stockReport1 = stockReports.Where(s => s.Stage == Stage.第一阶段.ToString());
-             var stockReport2 = stockReports.Where(s => s.Stage == Stage.第二阶段.ToString());
+            var stockReport2 = stockReports.Where(s => s.Stage == Stage.第二阶段.ToString());
             var stockReport3 = stockReports.Where(s => s.Stage == Stage.第三阶段.ToString());
             // AVERAGE(市场容量及各品牌当年占有率!CB5:CE5)
-            var cb5_ce5 = Common.Cal.GetMJAAverage(currentShare1.CB[1], count, MJAType.J); 
+            var cb5_ce5 = Common.Cal.GetMJAAverage(currentShare1.CB[1], count, MJAType.J);
             //AVERAGE(市场容量及各品牌当年占有率!BJ5:BM5)
             var bj5_bm5 = Common.Cal.GetMJAAverage(currentShare1.BJ[1], count, MJAType.M);
 
@@ -319,37 +317,42 @@ namespace WebMVC.BLL
                         break;
                 }
             }
-
-            foreach (var item in investment1.EI.Keys)
+            if (investment1 != null && investment1.EI != null && investment1.EI.Keys != null)
             {
-                switch (item)
+                foreach (var item in investment1.EI.Keys)
                 {
-                    case 1: summaryAssent3.J = investment1.EI[item]; break;
-                    case 2: summaryAssent3.K = investment1.EI[item]; break;
-                    case 3: summaryAssent3.L = investment1.EI[item]; break;
-                    case 4: summaryAssent3.M = investment1.EI[item]; break;
-                    case 5: summaryAssent3.N = investment1.EI[item]; break;
-                    case 6: summaryAssent3.O = investment1.EI[item]; break;
+                    switch (item)
+                    {
+                        case 1: summaryAssent3.J = investment1.EI[item]; break;
+                        case 2: summaryAssent3.K = investment1.EI[item]; break;
+                        case 3: summaryAssent3.L = investment1.EI[item]; break;
+                        case 4: summaryAssent3.M = investment1.EI[item]; break;
+                        case 5: summaryAssent3.N = investment1.EI[item]; break;
+                        case 6: summaryAssent3.O = investment1.EI[item]; break;
+                    }
                 }
             }
+
             summaryAssent14.J = summaryAssent3.J * 0.08m;
             summaryAssent14.K = summaryAssent3.K * 0.08m;
             summaryAssent14.L = summaryAssent3.L * 0.08m;
             summaryAssent14.M = summaryAssent3.M * 0.08m;
             summaryAssent14.N = summaryAssent3.N * 0.08m;
             summaryAssent14.O = summaryAssent3.O * 0.08m;
-
-            foreach (var item in investment2.EI.Keys)
+            if (investment2 != null && investment2.EI != null && investment2.EI.Keys != null)
             {
-                switch (item)
+                foreach (var item in investment2.EI.Keys)
                 {
-                    case 1: summaryAssent3.X = investment2.EI[item]; break;
-                    case 2: summaryAssent3.Y = investment2.EI[item]; break;
-                    case 3: summaryAssent3.Z = investment2.EI[item]; break;
-                    case 4: summaryAssent3.AA = investment2.EI[item]; break;
-                    case 5: summaryAssent3.AB = investment2.EI[item]; break;
-                    case 6: summaryAssent3.AC = investment2.EI[item]; break;
+                    switch (item)
+                    {
+                        case 1: summaryAssent3.X = investment2.EI[item]; break;
+                        case 2: summaryAssent3.Y = investment2.EI[item]; break;
+                        case 3: summaryAssent3.Z = investment2.EI[item]; break;
+                        case 4: summaryAssent3.AA = investment2.EI[item]; break;
+                        case 5: summaryAssent3.AB = investment2.EI[item]; break;
+                        case 6: summaryAssent3.AC = investment2.EI[item]; break;
 
+                    }
                 }
             }
             summaryAssent14.X = summaryAssent3.X * 0.08m;
@@ -358,16 +361,20 @@ namespace WebMVC.BLL
             summaryAssent14.AA = summaryAssent3.AA * 0.08m;
             summaryAssent14.AB = summaryAssent3.AB * 0.08m;
             summaryAssent14.AC = summaryAssent3.AC * 0.08m;
-            foreach (var item in investment3.EI.Keys)
+
+            if (investment3 != null && investment3.EI != null && investment3.EI.Keys != null)
             {
-                switch (item)
+                foreach (var item in investment3.EI.Keys)
                 {
-                    case 1: summaryAssent3.AL = investment3.EI[item]; break;
-                    case 2: summaryAssent3.AM = investment3.EI[item]; break;
-                    case 3: summaryAssent3.AN = investment3.EI[item]; break;
-                    case 4: summaryAssent3.AO = investment3.EI[item]; break;
-                    case 5: summaryAssent3.AP = investment3.EI[item]; break;
-                    case 6: summaryAssent3.AQ = investment3.EI[item]; break;
+                    switch (item)
+                    {
+                        case 1: summaryAssent3.AL = investment3.EI[item]; break;
+                        case 2: summaryAssent3.AM = investment3.EI[item]; break;
+                        case 3: summaryAssent3.AN = investment3.EI[item]; break;
+                        case 4: summaryAssent3.AO = investment3.EI[item]; break;
+                        case 5: summaryAssent3.AP = investment3.EI[item]; break;
+                        case 6: summaryAssent3.AQ = investment3.EI[item]; break;
+                    }
                 }
             }
             summaryAssent14.AL = summaryAssent3.AL * 0.08m;
@@ -459,7 +466,7 @@ namespace WebMVC.BLL
             //AVERAGE(市场容量及各品牌当年占有率!BP7:BS7)*市场价格!DG7/(1+10%)+
             //AVERAGE(市场容量及各品牌当年占有率!BV7:BY7)*市场价格!DI7/(1+10%)
             summaryAssent4.AD = bj7_bm7 * market3.DE[1].M / (1 + 0.10m) + bp7_bs7 * market3.DE[2].M / (1 + 0.10m)
-                +bv7_by7*market3.DE[3].M/(1+0.10m);
+                + bv7_by7 * market3.DE[3].M / (1 + 0.10m);
             summaryAssent11.AD = summaryAssent4.AD * 0.19m;
 
 
@@ -496,50 +503,58 @@ namespace WebMVC.BLL
             summaryAssent5.AK = cb7_ce7 * market3.CD[1].J + ch7_ck7 * market3.CD[2].J + cn7_cq7 * market3.CD[3].J;
 
             #region 期间产生费用
-            summaryAssent6.B = investment1.B;
-            summaryAssent6.C = investment1.C;
-            summaryAssent6.D = investment1.D;
-            summaryAssent6.E = investment1.E;
-            summaryAssent6.F = investment1.F;
-            summaryAssent6.G = investment1.G;
-            summaryAssent6.H = investment1.H;
-            summaryAssent6.I = investment1.I;
-            summaryAssent6.J = investment1.CL.InputSum;
-            summaryAssent6.K = investment1.CT.InputSum;
-            summaryAssent6.L = investment1.DB.InputSum;
-            summaryAssent6.M = investment1.DJ.InputSum;
-            summaryAssent6.N = investment1.DR.InputSum;
-            summaryAssent6.O = investment1.DZ.InputSum;
-            summaryAssent6.P = investment2.B;
-            summaryAssent6.Q = investment2.C;
-            summaryAssent6.R = investment2.D;
-            summaryAssent6.S = investment2.E;
-            summaryAssent6.T = investment2.F;
-            summaryAssent6.U = investment2.G;
-            summaryAssent6.V = investment2.H;
-            summaryAssent6.W = investment2.I;
-            summaryAssent6.X = investment2.CL.InputSum;
-            summaryAssent6.Y = investment2.CT.InputSum;
-            summaryAssent6.Z = investment2.DB.InputSum;
-            summaryAssent6.AA = investment2.DJ.InputSum;
-            summaryAssent6.AB = investment2.DR.InputSum;
-            summaryAssent6.AC = investment2.DZ.InputSum;
-            summaryAssent6.AD = investment3.B;
-            summaryAssent6.AE = investment3.C;
-            summaryAssent6.AF = investment3.D;
-            summaryAssent6.AG = investment3.E;
-            summaryAssent6.AH = investment3.F;
-            summaryAssent6.AI = investment3.G;
-            summaryAssent6.AJ = investment3.H;
-            summaryAssent6.AK = investment3.I;
-            summaryAssent6.AL = investment3.CL.InputSum;
-            summaryAssent6.AM = investment3.CT.InputSum;
-            summaryAssent6.AN = investment3.DB.InputSum;
-            summaryAssent6.AO = investment3.DJ.InputSum;
-            summaryAssent6.AP = investment3.DR.InputSum;
-            summaryAssent6.AQ = investment3.DZ.InputSum;
+            if (investment1 != null)
+            {
+                summaryAssent6.B = investment1.B;
+                summaryAssent6.C = investment1.C;
+                summaryAssent6.D = investment1.D;
+                summaryAssent6.E = investment1.E;
+                summaryAssent6.F = investment1.F;
+                summaryAssent6.G = investment1.G;
+                summaryAssent6.H = investment1.H;
+                summaryAssent6.I = investment1.I;
+                summaryAssent6.J = investment1.CL.InputSum;
+                summaryAssent6.K = investment1.CT.InputSum;
+                summaryAssent6.L = investment1.DB.InputSum;
+                summaryAssent6.M = investment1.DJ.InputSum;
+                summaryAssent6.N = investment1.DR.InputSum;
+                summaryAssent6.O = investment1.DZ.InputSum;
+            }
+            if (investment2 != null)
+            {
+                summaryAssent6.P = investment2.B;
+                summaryAssent6.Q = investment2.C;
+                summaryAssent6.R = investment2.D;
+                summaryAssent6.S = investment2.E;
+                summaryAssent6.T = investment2.F;
+                summaryAssent6.U = investment2.G;
+                summaryAssent6.V = investment2.H;
+                summaryAssent6.W = investment2.I;
+                summaryAssent6.X = investment2.CL.InputSum;
+                summaryAssent6.Y = investment2.CT.InputSum;
+                summaryAssent6.Z = investment2.DB.InputSum;
+                summaryAssent6.AA = investment2.DJ.InputSum;
+                summaryAssent6.AB = investment2.DR.InputSum;
+                summaryAssent6.AC = investment2.DZ.InputSum;
+            }
+            if (investment3 != null)
+            {
+                summaryAssent6.AD = investment3.B;
+                summaryAssent6.AE = investment3.C;
+                summaryAssent6.AF = investment3.D;
+                summaryAssent6.AG = investment3.E;
+                summaryAssent6.AH = investment3.F;
+                summaryAssent6.AI = investment3.G;
+                summaryAssent6.AJ = investment3.H;
+                summaryAssent6.AK = investment3.I;
+                summaryAssent6.AL = investment3.CL.InputSum;
+                summaryAssent6.AM = investment3.CT.InputSum;
+                summaryAssent6.AN = investment3.DB.InputSum;
+                summaryAssent6.AO = investment3.DJ.InputSum;
+                summaryAssent6.AP = investment3.DR.InputSum;
+                summaryAssent6.AQ = investment3.DZ.InputSum;
 
-
+            }
 
             #endregion
             #region 卖场费用 summaryAssent7
@@ -561,25 +576,33 @@ namespace WebMVC.BLL
                 ch7_ck7 * 0.07m + market3.DE[3].J * cn7_cq7 * 0.04m + market3.DE[3].J / (1 + 0.12m) * cn7_cq7 * 0.07m;
             #endregion
             #region 年末S品牌商费用投放返还 summaryAssent10
-            summaryAssent10.J = investment1.AJ.InputSum;
-            summaryAssent10.K = investment1.AS.InputSum;
-            summaryAssent10.L = investment1.BB.InputSum;
-            summaryAssent10.M = investment1.BK.InputSum;
-            summaryAssent10.N = investment1.BT.InputSum;
-            summaryAssent10.O = investment1.CC.InputSum;
-            summaryAssent10.X = investment2.AJ.InputSum;
-            summaryAssent10.Y = investment2.AS.InputSum;
-            summaryAssent10.Z = investment2.BB.InputSum;
-            summaryAssent10.AA = investment2.BK.InputSum;
-            summaryAssent10.AB = investment2.BT.InputSum;
-            summaryAssent10.AC = investment2.CC.InputSum;
-
-            summaryAssent10.AL = investment3.AJ.InputSum;
-            summaryAssent10.AM = investment3.AS.InputSum;
-            summaryAssent10.AN = investment3.BB.InputSum;
-            summaryAssent10.AO = investment3.BK.InputSum;
-            summaryAssent10.AP = investment3.BT.InputSum;
-            summaryAssent10.AQ = investment3.CC.InputSum;
+            if (investment1 != null)
+            {
+                summaryAssent10.J = investment1.AJ.InputSum;
+                summaryAssent10.K = investment1.AS.InputSum;
+                summaryAssent10.L = investment1.BB.InputSum;
+                summaryAssent10.M = investment1.BK.InputSum;
+                summaryAssent10.N = investment1.BT.InputSum;
+                summaryAssent10.O = investment1.CC.InputSum;
+            }
+            if (investment2 != null)
+            {
+                summaryAssent10.X = investment2.AJ.InputSum;
+                summaryAssent10.Y = investment2.AS.InputSum;
+                summaryAssent10.Z = investment2.BB.InputSum;
+                summaryAssent10.AA = investment2.BK.InputSum;
+                summaryAssent10.AB = investment2.BT.InputSum;
+                summaryAssent10.AC = investment2.CC.InputSum;
+            }
+            if (investment3 != null)
+            {
+                summaryAssent10.AL = investment3.AJ.InputSum;
+                summaryAssent10.AM = investment3.AS.InputSum;
+                summaryAssent10.AN = investment3.BB.InputSum;
+                summaryAssent10.AO = investment3.BK.InputSum;
+                summaryAssent10.AP = investment3.BT.InputSum;
+                summaryAssent10.AQ = investment3.CC.InputSum;
+            }
             #endregion
 
 

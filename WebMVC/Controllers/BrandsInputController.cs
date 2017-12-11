@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace WebMVC.Controllers
 {
-   // [Authorize(Roles = "品牌商")]
+    // [Authorize(Roles = "品牌商")]
     public class BrandsInputController : Controller
     {
         // GET: BrandsInput
@@ -35,7 +35,7 @@ namespace WebMVC.Controllers
                 return View(models);
             }
             return Content("<script>alert('没有权限');location='" + Url.Action("index", "home") + "'</script>");
-        
+
         }
 
         // GET: BrandsInput/Details/5
@@ -56,7 +56,7 @@ namespace WebMVC.Controllers
         // GET: BrandsInput/Create
         public ActionResult Create()
         {
-            ViewData["stageList"] = GetStageList();
+            ViewData["stageList"] = GetStageListRemoveOne();
             ViewData["brands"] = GetBrandList();
             var model = new BrandsInput();
             return View(model);
@@ -72,12 +72,21 @@ namespace WebMVC.Controllers
                 if (brand != null)
                 {
                     ModelState.AddModelError("", "已有" + collection.Brand + collection.Stage + "信息，请重新选择");
-                    ViewData["stageList"] = GetStageList();
+                    ViewData["stageList"] = GetStageListRemoveOne();
                     ViewData["brands"] = GetBrandList();
                     return View(collection);
                 }
+                var userName = User.Identity.GetUserName();
+                if (string.IsNullOrEmpty(userName))
+                {
+                    userName = "";
+                }
+                else
+                {
+                    userName = "admin";
 
-                collection.UserId = User.Identity.Name;
+                }
+                collection.UserId = userName;// User.Identity.Name;
                 db.BrandsInputs.Add(collection);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -95,7 +104,7 @@ namespace WebMVC.Controllers
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var brand = db.BrandsInputs.Find(id);
             if (brand == null) return HttpNotFound();
-            ViewData["stageList"] = GetStageList();
+            ViewData["stageList"] = GetStageListRemoveOne();
             ViewData["brands"] = GetBrandList();
             return View(brand);
         }
@@ -115,22 +124,27 @@ namespace WebMVC.Controllers
                     var userName = User.Identity.GetUserName();
                     if (string.IsNullOrEmpty(userName))
                     {
-                        repeatbrand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage && s.BrandID != collection.BrandID && s.UserId == "");
+                        userName = "";
                     }
                     else
                     {
-                        repeatbrand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage && s.BrandID != collection.BrandID && s.UserId == "admin");
+                        userName = "admin";
 
                     }
+                    repeatbrand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand &&
+                    s.Stage == collection.Stage &&
+                    s.BrandID != collection.BrandID &&
+                    s.UserId == userName);
+
                     if (repeatbrand != null)
                     {
                         ModelState.AddModelError("", "已有" + collection.Brand + collection.Stage + "信息，请重新选择");
-                        ViewData["stageList"] = GetStageList();
+                        ViewData["stageList"] = GetStageListRemoveOne();
                         ViewData["brands"] = GetBrandList();
                         return View(collection);
                     }
                     db.Entry(collection).State = System.Data.Entity.EntityState.Modified;
-                    collection.UserId = User.Identity.Name;
+                    collection.UserId = userName;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -142,7 +156,7 @@ namespace WebMVC.Controllers
             }
             catch
             {
-                ViewData["stageList"] = GetStageList();
+                ViewData["stageList"] = GetStageListRemoveOne();
                 ViewData["brands"] = GetBrandList();
                 return View(collection);
             }
@@ -189,6 +203,17 @@ namespace WebMVC.Controllers
             List<SelectListItem> stageList = new List<SelectListItem>();
             foreach (var item in Enum.GetNames(typeof(Stage)))
             {
+
+                stageList.Add(new SelectListItem { Text = item, Value = item });
+            }
+            return stageList;
+        }
+        public List<SelectListItem> GetStageListRemoveOne()
+        {
+            List<SelectListItem> stageList = new List<SelectListItem>();
+            foreach (var item in Enum.GetNames(typeof(Stage)))
+            {
+                if (item == Stage.起始阶段.ToString()) continue;
                 stageList.Add(new SelectListItem { Text = item, Value = item });
             }
             return stageList;

@@ -203,7 +203,13 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AgentInputController.cs" />
     <Compile Include="Controllers\BrandsInputController.cs" />
+    <Compile Include="Controllers\BrandStrengthInitsController.cs" />
+    <Compile Include="Controllers\ChannelServiceInitsController.cs" />
+    <Compile Include="Controllers\CurrentShareInitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MarketPriceInitsController.cs" />
+    <Compile Include="Controllers\MarketPromotionInitsController.cs" />
+    <Compile Include="Controllers\ProductInnovationInitsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -222,10 +228,16 @@
     <Compile Include="Models\BrandInput.cs" />
     <Compile Include="Models\BrandProfit.cs" />
     <Compile Include="Models\BrandsInput.cs" />
+    <Compile Include="Models\BrandStrengthInit.cs" />
+    <Compile Include="Models\ChannelServiceInit.cs" />
     <Compile Include="Models\CompeteRC.cs" />
+    <Compile Include="Models\CurrentShareInit.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MarketPriceInit.cs" />
+    <Compile Include="Models\MarketPromotionInit.cs" />
     <Compile Include="Models\MJA.cs" />
     <Compile Include="Models\MP.cs" />
+    <Compile Include="Models\ProductInnovationInit.cs" />
     <Compile Include="Models\RC.cs" />
     <Compile Include="Models\SAgentInfo.cs" />
     <Compile Include="Models\SAgentResult.cs" />
@@ -333,6 +345,36 @@
     <Content Include="Views\Home\MarketPromotion.cshtml" />
     <Content Include="Views\Home\PriceControl.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\BrandStrengthInits\Create.cshtml" />
+    <Content Include="Views\BrandStrengthInits\Delete.cshtml" />
+    <Content Include="Views\BrandStrengthInits\Details.cshtml" />
+    <Content Include="Views\BrandStrengthInits\Edit.cshtml" />
+    <Content Include="Views\BrandStrengthInits\Index.cshtml" />
+    <Content Include="Views\ProductInnovationInits\Create.cshtml" />
+    <Content Include="Views\ProductInnovationInits\Delete.cshtml" />
+    <Content Include="Views\ProductInnovationInits\Details.cshtml" />
+    <Content Include="Views\ProductInnovationInits\Edit.cshtml" />
+    <Content Include="Views\ProductInnovationInits\Index.cshtml" />
+    <Content Include="Views\MarketPromotionInits\Create.cshtml" />
+    <Content Include="Views\MarketPromotionInits\Delete.cshtml" />
+    <Content Include="Views\MarketPromotionInits\Details.cshtml" />
+    <Content Include="Views\MarketPromotionInits\Edit.cshtml" />
+    <Content Include="Views\MarketPromotionInits\Index.cshtml" />
+    <Content Include="Views\ChannelServiceInits\Create.cshtml" />
+    <Content Include="Views\ChannelServiceInits\Delete.cshtml" />
+    <Content Include="Views\ChannelServiceInits\Details.cshtml" />
+    <Content Include="Views\ChannelServiceInits\Edit.cshtml" />
+    <Content Include="Views\ChannelServiceInits\Index.cshtml" />
+    <Content Include="Views\MarketPriceInits\Create.cshtml" />
+    <Content Include="Views\MarketPriceInits\Delete.cshtml" />
+    <Content Include="Views\MarketPriceInits\Details.cshtml" />
+    <Content Include="Views\MarketPriceInits\Edit.cshtml" />
+    <Content Include="Views\MarketPriceInits\Index.cshtml" />
+    <Content Include="Views\CurrentShareInits\Create.cshtml" />
+    <Content Include="Views\CurrentShareInits\Delete.cshtml" />
+    <Content Include="Views\CurrentShareInits\Details.cshtml" />
+    <Content Include="Views\CurrentShareInits\Edit.cshtml" />
+    <Content Include="Views\CurrentShareInits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

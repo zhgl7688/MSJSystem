@@ -1,0 +1,111 @@
+﻿@model IEnumerable<WebMVC.Models.MarketPriceInit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.M_GrossMargin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.M_promotional)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price_M)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price_S)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price_J)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.priceIndex_M)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.priceIndex_S)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.priceIndex_J)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.M_GrossMargin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.M_promotional)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price_M)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price_S)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price_J)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.priceIndex_M)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.priceIndex_S)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.priceIndex_J)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

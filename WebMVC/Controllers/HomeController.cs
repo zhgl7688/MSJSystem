@@ -87,7 +87,10 @@ namespace WebMVC.Controllers
             return View();
         }
 
-
+        public ActionResult BaseInfo()
+        {
+            return View();
+        }
 
 
         public ActionResult InvertmentTable1()
@@ -159,7 +162,7 @@ namespace WebMVC.Controllers
 
         public ActionResult FirstPPT()
         {
-            
+ 
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             channelService = new ChannelService(invertmentTable1);

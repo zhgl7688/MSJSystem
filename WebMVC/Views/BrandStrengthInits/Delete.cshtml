@@ -1,0 +1,72 @@
+﻿@model WebMVC.Models.BrandStrengthInit
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>BrandStrengthInit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BrandStrength_E)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrandStrength_E)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrandStrength_M1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrandStrength_M1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrandStrength_M2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrandStrength_M2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrandStrength_Agent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrandStrength_Agent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lastM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lastM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.currentM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.currentM)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

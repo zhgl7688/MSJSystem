@@ -1,0 +1,117 @@
+﻿@model IEnumerable<WebMVC.Models.ProductInnovationInit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_M)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_S)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_J)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_T)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_AC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_AL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CB1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CB2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CB3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CB4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CK1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CK2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CK3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CK4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CK5)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_M)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_S)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_J)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_T)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_AC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_AL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CB1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CB2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CB3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CB4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CK1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CK2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CK3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CK4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CK5)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

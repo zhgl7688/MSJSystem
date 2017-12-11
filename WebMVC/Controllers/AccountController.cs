@@ -135,9 +135,35 @@ namespace WebMVC.Controllers
             }
             return View(model);
         }
-
-         
-       
+        private bool HasPassword()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user != null)
+            {
+                return user.PasswordHash != null;
+            }
+            return false;
+        }
+        public enum ManageMessageId
+        {
+            ChangePasswordSuccess,
+            SetPasswordSuccess,
+            RemoveLoginSuccess,
+            Error
+        }
+        [AllowAnonymous]
+        public ActionResult Manage(ManageMessageId? message)
+        {
+            ViewBag.StatusMessage =
+                message == ManageMessageId.ChangePasswordSuccess ? "你的密码已更改。"
+                : message == ManageMessageId.SetPasswordSuccess ? "已设置你的密码。"
+                : message == ManageMessageId.RemoveLoginSuccess ? "已删除外部登录名。"
+                : message == ManageMessageId.Error ? "出现错误。"
+                : "";
+            ViewBag.HasLocalPassword = HasPassword();
+            ViewBag.ReturnUrl = Url.Action("Manage");
+            return View();
+        }
         private IAuthenticationManager AuthManager
         {
             get { return HttpContext.GetOwinContext().Authentication; }

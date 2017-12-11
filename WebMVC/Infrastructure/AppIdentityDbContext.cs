@@ -25,6 +25,13 @@ namespace WebMVC.Infrastructure
         }
         public DbSet<AgentInput> AgentInputs { get; set; }
         public DbSet<BrandsInput> BrandsInputs { get; set; }
+        public DbSet<BrandStrengthInit> BrandStrengthInit { get; set; }
+        public DbSet<ProductInnovationInit> ProductInnovationInit { get; set; }
+        public DbSet<MarketPromotionInit> MarketPromotionInit { get; set; }
+        public DbSet<ChannelServiceInit> ChannelServiceInit { get; set; }
+        public DbSet<MarketPriceInit> MarketPriceInit { get; set; }
+        public DbSet<CurrentShareInit> CurrentShareInit { get; set; }
+
     }
     public class IdentityDbInit : DropCreateDatabaseIfModelChanges<AppIdentityDbContext>
     {

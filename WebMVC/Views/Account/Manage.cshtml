@@ -1,4 +1,4 @@
-﻿@model MvcApplication2.Models.LocalPasswordModel
+﻿@model WebMVC.Models.LocalPasswordModel
 @{
     ViewBag.Title = "管理帐户";
 }
@@ -20,12 +20,12 @@ else
     @Html.Partial("_SetPasswordPartial")
 }
 
-<section id="externalLogins">
+@*<section id="externalLogins">
     @Html.Action("RemoveExternalLogins")
 
     <h3>添加外部登录</h3>
     @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
+</section>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

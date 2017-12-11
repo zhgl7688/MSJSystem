@@ -326,7 +326,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Manage.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
-    <Content Include="Views\User\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\User\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\User\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\User\_SetPasswordPartial.cshtml" />

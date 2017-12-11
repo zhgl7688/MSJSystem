@@ -55,30 +55,9 @@
 
                     @{if (User.IsInRole("Administrators"))
                         {
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    参数设置
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/BrandStrengthInits/Edit/1">品牌力</a></li>
-                                    <li><a href="/ProductInnovationInits/Edit/1">产品创新力</a></li>
-                                    <li><a href="/MarketPromotionInits/Edit/1">市场推广</a></li>
-                                    <li><a href="/ChannelServiceInits/Edit/1">渠道服务</a></li>
-                                    <li><a href="/MarketPriceInits/Edit/1">市场价格</a></li>
-                                    <li><a href="/CurrentShareInits/Edit/1">市场容量</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    权限管理
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("用户管理", "Index", "Admin")</li>
-                                    <li>@Html.ActionLink("角色管理", "Index", "Role")</li>
-                                </ul>
-                            </li>
+                            <li>@Html.ActionLink("用户管理", "Index", "Admin")</li>
+                            <li>@Html.ActionLink("角色管理", "Index", "Role")</li>
+                            @*<li>@Html.ActionLink("Claims", "Index", "Claims")</li>*@
                         }
 
                     }

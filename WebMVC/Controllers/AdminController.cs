@@ -35,6 +35,7 @@ namespace WebMVC.Controllers
             }
         }
 
+
         public ApplicationUserManager UserManager
         {
             get
@@ -166,7 +167,7 @@ namespace WebMVC.Controllers
                 ModelState.AddModelError("", error);
             }
         }
-
+    
  
     }
 }

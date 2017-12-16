@@ -4,42 +4,48 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2> </h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>ChannelServiceInit</h4>
+        <h4>渠道服务部分设置</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ChannelService_J1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.ChannelService_J1, htmlAttributes: new { @class = "control-label col-md-8" })
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.ChannelService_J1, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ChannelService_J1, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ChannelService_J2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.ChannelService_J2, htmlAttributes: new { @class = "control-label col-md-8" })
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.ChannelService_J2, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ChannelService_J2, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div class="form-group col-md-12" style="margin-top:230px">
+            <div class="col-md-offset-6 col-md-4">
+                <input type="submit" value="更新" class="btn btn-warning btn-block" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+<pre style="width:1143px;height:100px;margin-top:30px">
+ 渠道服务部分：	
+         1) 服务投入影响下一年顾客满意度指数。当年顾客满意度指数对下一年有40%的叠加影响；
+         2) 起始阶段三个品牌商顾客满意度指数均为98%；
+</pre>
+
+
 </div>

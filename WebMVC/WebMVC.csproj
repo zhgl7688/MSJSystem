@@ -179,6 +179,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BLL\AgentStages.cs" />
     <Compile Include="BLL\BrandStrength.cs" />
     <Compile Include="BLL\ChannelService.cs" />
     <Compile Include="BLL\CurrentShare.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Controllers\BrandsInputController.cs" />
     <Compile Include="Controllers\BrandStrengthInitsController.cs" />
     <Compile Include="Controllers\ChannelServiceInitsController.cs" />
+    <Compile Include="Controllers\CodeInitController.cs" />
     <Compile Include="Controllers\CurrentShareInitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MarketPriceInitsController.cs" />
@@ -237,10 +239,13 @@
     <Compile Include="Models\MarketPromotionInit.cs" />
     <Compile Include="Models\MJA.cs" />
     <Compile Include="Models\MP.cs" />
+    <Compile Include="Models\PriceMange.cs" />
     <Compile Include="Models\ProductInnovationInit.cs" />
     <Compile Include="Models\RC.cs" />
     <Compile Include="Models\SAgentInfo.cs" />
     <Compile Include="Models\SAgentResult.cs" />
+    <Compile Include="Models\CodeInit.cs" />
+    <Compile Include="Models\StageAdds.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -269,6 +274,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\agentinput.js" />
     <Content Include="说明.txt" />
     <Content Include="App_Code\BootstrapHelpers.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
@@ -378,6 +384,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\CodeInit\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

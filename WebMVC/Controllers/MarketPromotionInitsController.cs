@@ -48,13 +48,13 @@ namespace WebMVC.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,MarketPromotionInit_AY1,MarketPromotionInit_AY2,MarketPromotionInit_AX1,MarketPromotionInit_AX2,MarketPromotionInit_AX3,MarketPromotionInit_AX4,MarketPromotionInit_AX5,MarketPromotionInit_AX6")] MarketPromotionInit marketPromotionInit)
+        public async Task<ActionResult> Create( MarketPromotionInit marketPromotionInit)
         {
             if (ModelState.IsValid)
             {
                 db.MarketPromotionInit.Add(marketPromotionInit);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             return View(marketPromotionInit);

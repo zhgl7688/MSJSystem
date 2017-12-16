@@ -15,6 +15,8 @@ namespace WebMVC.BLL
         List<IntentionIndexTable> intentionIndexs;
 
         List<PriceControlTable> priceControlTables;
+        private int bcount=6;
+        private int acount=6;
         /// <summary>
         /// 市场容量及各品牌当年占有率
         /// </summary>  
@@ -27,11 +29,32 @@ namespace WebMVC.BLL
 
         public void Init()
         {
-
-            var current0 = new CurrentShareTable { A = "", B = "", C = "", D = 100, E = 100, Stage = Stage.起始阶段.ToString() };
-            current0.H[1] = new MJA { M1 = 0.45m, M2 = 0.45m, M3 = 0.45m, M4 = 0.45m, M5 = 0.45m, M6 = 0.45m, };
-            current0.Z[1] = new MJA { J1 = 0.25m, J2 = 0.25m, J3 = 0.25m, J4 = 0.25m, J5 = 0.25m, J6 = 0.25m, };
-            current0.AR[1] = new MJA { Agent1 = 0.3m, Agent2 = 0.3m, Agent3 = 0.3m, Agent4 = 0.3m, Agent5 = 0.3m, Agent6 = 0.3m, };
+            
+            decimal d;
+            decimal e;
+            string g;
+            decimal h,j,z;
+            using (var db = new Infrastructure.AppIdentityDbContext())
+            {
+                var bs = db.CurrentShareInit.FirstOrDefault(s => s.id == 0);
+                d = bs.D;
+                e = bs.E;
+                g = bs.G;
+                h = bs.H;
+                j = bs.J;
+                z = bs.Z;
+            }
+            var current0 = new CurrentShareTable { A = "", B = "", C = "", D = d, E = e, Stage = g };
+            var m1 = new List<decimal>(); var j1 = new List<decimal>(); var z1 = new List<decimal>();
+            for (int i = 0; i <acount-1 ; i++)
+            {
+                m1.Add(h);
+                j1.Add(j);
+                z1.Add(z);
+            }
+            current0.H[1] = new MJA { M1 = m1 };
+            current0.Z[1] = new MJA {  J1=z1};
+            current0.AR[1] = new MJA { Agent1 =j1 };
 
             currentShares.Add(current0);
             foreach (var item in intentionIndexs)
@@ -39,25 +62,35 @@ namespace WebMVC.BLL
                 var currentShare = currentShares.FirstOrDefault(s => s.Stage == item.Stage);
                 if (currentShare == null)
                 {
-                    if (item.Stage == Stage.第一阶段.ToString())
+                    using (var db = new Infrastructure.AppIdentityDbContext())
                     {
-                        currentShare = new CurrentShareTable { A = "M≤659", B = "S≤699", C = "J≤599", D = 100, E = 90, Stage = Stage.第一阶段.ToString() };
+                        var cs = db.CurrentShareInit.Where(s => s.id != 0);
+                        foreach (var csitem in cs)
+                        {
+                            currentShare = new CurrentShareTable {  D = 100, E = 90, Stage = Stage.第一阶段.ToString() };
+                            currentShares.Add(currentShare);
+                        }
 
                     }
-                    else if (item.Stage == Stage.第二阶段.ToString())
-                    {
+                    //if (item.Stage == Stage.第一阶段.ToString())
+                    //{
+                    //    currentShare = new CurrentShareTable { A = "M≤659", B = "S≤699", C = "J≤599", D = 100, E = 90, Stage = Stage.第一阶段.ToString() };
 
-                        currentShare = new CurrentShareTable { A = "659<M≤799", B = "699<S≤845", C = "599<J≤739", D = 80, E = 105, Stage = Stage.第二阶段.ToString() };
+                    //}
+                    //else if (item.Stage == Stage.第二阶段.ToString())
+                    //{
 
-                    }
-                    else if (item.Stage == Stage.第三阶段.ToString())
-                    {
+                    //    currentShare = new CurrentShareTable { A = "659<M≤799", B = "699<S≤845", C = "599<J≤739", D = 80, E = 105, Stage = Stage.第二阶段.ToString() };
 
-                        currentShare = new CurrentShareTable { A = "M>799", B = "S>845", C = "J>739", D = 50, E = 98, Stage = Stage.第三阶段.ToString() };
+                    //}
+                    //else if (item.Stage == Stage.第三阶段.ToString())
+                    //{
 
-                    }
+                    //    currentShare = new CurrentShareTable { A = "M>799", B = "S>845", C = "J>739", D = 50, E = 98, Stage = Stage.第三阶段.ToString() };
 
-                    currentShares.Add(currentShare);
+                    //}
+
+                    //currentShares.Add(currentShare);
                 }
 
                 var ss = item.B;
@@ -69,17 +102,17 @@ namespace WebMVC.BLL
                 var curretnpriceControl = priceControlTables.FirstOrDefault(s => s.Stage == item.Stage);
                 var DE = new Dictionary<int, RC>(); var DK = new Dictionary<int, MJA>();
                 DE.Add(1, new RC { M = curretnpriceControl.B.RC1M, J = curretnpriceControl.B.RC1J });
-                DK.Add(1, new MJA { Agent1 = curretnpriceControl.D[1].Agent1, Agent2 = curretnpriceControl.D[1].Agent2, Agent3 = curretnpriceControl.D[1].Agent3, Agent4 = curretnpriceControl.D[1].Agent4, Agent5 = curretnpriceControl.D[1].Agent5, Agent6 = curretnpriceControl.D[1].Agent6 });
+                DK.Add(1, new MJA { Agent1 = curretnpriceControl.D[1].Agent1, });
                 if ((item.Stage == Stage.第二阶段.ToString() || item.Stage == Stage.第三阶段.ToString()))
                 {
                     DE.Add(2, new RC { M = curretnpriceControl.B.RC2M, J = curretnpriceControl.B.RC2J });
-                    DK.Add(2, new MJA { Agent1 = curretnpriceControl.D[2].Agent1, Agent2 = curretnpriceControl.D[2].Agent2, Agent3 = curretnpriceControl.D[2].Agent3, Agent4 = curretnpriceControl.D[2].Agent4, Agent5 = curretnpriceControl.D[2].Agent5, Agent6 = curretnpriceControl.D[2].Agent6 });
+                    DK.Add(2, new MJA { Agent1 = curretnpriceControl.D[2].Agent1 });
 
                 }
                 if (item.Stage == Stage.第三阶段.ToString())
                 {
                     DE.Add(3, new RC { M = curretnpriceControl.B.RC3M, J = curretnpriceControl.B.RC3J });
-                    DK.Add(3, new MJA { Agent1 = curretnpriceControl.D[3].Agent1, Agent2 = curretnpriceControl.D[3].Agent2, Agent3 = curretnpriceControl.D[3].Agent3, Agent4 = curretnpriceControl.D[3].Agent4, Agent5 = curretnpriceControl.D[3].Agent5, Agent6 = curretnpriceControl.D[3].Agent6 });
+                    DK.Add(3, new MJA { Agent1 = curretnpriceControl.D[3].Agent1});
                 }
                 currentShare.DE = DE;
                 currentShare.DK = DK;

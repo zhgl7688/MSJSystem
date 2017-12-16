@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>市场容量</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="col-lg-offset-9">
+    @Html.ActionLink("创建", "Create", null, new { @class = "btn btn-warning btn-block" })
 </p>
 <table class="table">
     <tr>
@@ -27,43 +27,50 @@
             @Html.DisplayNameFor(model => model.H)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Z)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.J)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Z)
+        </th>
+        <th width="300px"></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.D)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.F)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.G)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.H)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Z)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.J)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.G)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.D)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.E)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.H)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.J)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Z)
+            </td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", new { id = item.id }, new { @class = "btn  btn-warning" }) 
+                @*@Html.ActionLink("详细信息", "Details", new { id = item.id }, new { @class = "btn btn-warning" }) |*@
+               @{if (item.id != 1)
+                   {
+                    @Html.ActionLink("删除", "Delete", new { id = item.id }, new { @class = "btn btn-warning" })
+                   }
+
+            }
+            </td>
+        </tr>
+    }
 
 </table>

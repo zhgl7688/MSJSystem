@@ -28,7 +28,7 @@ namespace WebMVC.Controllers
 
                 return View(models);
             }
-            if (User.IsInRole("品牌商"))
+            if (User.IsInRole("品牌商")||User.IsInRole("Administrators"))
             {
                 models = db.BrandsInputs.Where(s => s.UserId == "admin").ToList();
                 //  var  models= db.BrandsInputs.ToList();

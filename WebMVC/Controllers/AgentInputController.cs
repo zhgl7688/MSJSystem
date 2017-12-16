@@ -24,6 +24,7 @@ namespace WebMVC.Controllers
             // ClaimsIdentity claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
 
             var models = db.AgentInputs.Where(s => s.UserId == User.Identity.Name).ToList();
+            
             return View(models);
         }
 
@@ -46,8 +47,8 @@ namespace WebMVC.Controllers
         // GET: AgentInput/Create
         public ActionResult Create()
         {
-            ViewData["stageList"] = GetStageListRemoveOne();
-            ViewData["agentName"] = GetAgentNameList();
+            ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value!=0), "Text", "Text", "");
+            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
             AgentInput agentInput = new AgentInput();
             return View(new AgentInput());
         }
@@ -59,32 +60,45 @@ namespace WebMVC.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-                AgentInput agentInput;
-                var userName = User.Identity.GetUserName();
-                if (string.IsNullOrEmpty(userName))
+                if (ModelState.IsValid)
                 {
-                    agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.UserId == "");
+                    // TODO: Add insert logic here
+                    AgentInput agentInput;
+                    var userName = User.Identity.GetUserName();
+                    if (string.IsNullOrEmpty(userName))
+                    {
+                        agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.UserId == "");
 
+                    }
+                    else
+                    {
+                        agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.UserId == userName);
+                    }
+                    if (agentInput != null)
+                    {
+                        ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
+                        ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
+                        ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+                        return View(collection);
+                    }
+                    collection.UserId = User.Identity.Name;
+                    db.AgentInputs.Add(collection);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.UserId == userName);
+                    ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
+                    ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+
+                    return View();
                 }
-                if (agentInput != null)
-                {
-                    ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
-                    ViewData["stageList"] = GetStageListRemoveOne();
-                    ViewData["agentName"] = GetAgentNameList();
-                    return View(collection);
-                }
-                collection.UserId = User.Identity.Name;
-                db.AgentInputs.Add(collection);
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
             catch
             {
+                ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
+                ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+
                 return View();
             }
         }
@@ -95,15 +109,16 @@ namespace WebMVC.Controllers
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var model = db.AgentInputs.Find(id);
             if (model == null) return HttpNotFound();
-            ViewData["stageList"] = GetStageList();
-            ViewData["agentNames"] = GetAgentNameList();
+            ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text",model.Stage);
+            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", model.AgentName);
+
             return View(model);
         }
 
         // POST: AgentInput/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(AgentInput collection)
+        public ActionResult Edit([Bind(Exclude ="UserId")]AgentInput collection)
         {
 
             try
@@ -127,10 +142,11 @@ namespace WebMVC.Controllers
                     if (repeatbrand != null)
                     {
                         ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
-                        ViewData["stageList"] = GetStageListRemoveOne();
-                        ViewData["agentName"] = GetAgentNameList();
+                        ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
+                        ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
                         return View(collection);
                     }
+                    collection.UserId = User.Identity.Name;
                     db.Entry(collection).State = System.Data.Entity.EntityState.Modified;
                     // collection.UserId = ((User)Session["user"]).UserId;
                     db.SaveChanges();
@@ -138,8 +154,9 @@ namespace WebMVC.Controllers
                 }
                 else
                 {
-                    ViewData["stageList"] = GetStageListRemoveOne();
-                    ViewData["agentName"] = GetAgentNameList();
+                    ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", collection.Stage);
+                    ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", collection.AgentName);
+
                     return View(collection);
                 }
 
@@ -210,7 +227,7 @@ namespace WebMVC.Controllers
             List<SelectListItem> brandList = new List<SelectListItem>();
             foreach (var item in Enum.GetNames(typeof(AgentName)))
             {
-                brandList.Add(new SelectListItem { Text = item, Value = item });
+                brandList.Add(new SelectListItem {  Text = item, Value = item });
             }
             return brandList;
         }

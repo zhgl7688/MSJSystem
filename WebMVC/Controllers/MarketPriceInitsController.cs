@@ -80,13 +80,13 @@ namespace WebMVC.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,CD,CE,CF,CM,CN,CO,M_GrossMargin,M_promotional,price_M,price_S,price_J,priceIndex_M,priceIndex_S,priceIndex_J")] MarketPriceInit marketPriceInit)
+        public async Task<ActionResult> Edit(MarketPriceInit marketPriceInit)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(marketPriceInit).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             return View(marketPriceInit);
         }

@@ -17,6 +17,11 @@ namespace WebMVC.BLL
             brands = new List<BrandsInput>();
             #region 代理设定
             //第1代1
+            PriceMange pm = new PriceMange
+            {
+                retailPriceRC1 = 709.8M,
+                SystemPriceRC1 = 845,
+            };
             agentInputs.Add(new AgentInput
             {
                 Stage = Common.Stage.第一阶段.ToString(),
@@ -27,8 +32,7 @@ namespace WebMVC.BLL
                 outdoorActivity = 98,
                 promotionTeam = 49,
                 servet = 1,
-                retailPriceRC1 = 709.8M,
-                SystemPriceRC1 = 845,
+
                 AgentName = AgentName.代1.ToString(),
                 purchase = 31,
                 actualSale = 30,

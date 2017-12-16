@@ -4,138 +4,268 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2> </h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>MarketPriceInit</h4>
+        <h4>市场价格部分设置</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CD, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CD, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CD, "", new { @class = "text-danger" })
+        <div class="panel panel-primary">
+            <div class="panel-heading">第一阶段成本价</div>
+
+            <div class="panel-body">
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.CD, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.CD, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CD, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.CE, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.CE, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CE, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.CF, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.CF, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CF, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">第一阶段出厂价</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CE, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.CM, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.CM, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CM, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.CN, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.CN, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CN, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.CO, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.CO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">卖场对M品牌的政策</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CF, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CF, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CF, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.M_GrossMargin, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.M_GrossMargin, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.M_GrossMargin, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.M_promotional, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.M_promotional, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.M_promotional, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.M_Year, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.M_Year, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.M_Year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.M_FixedCharges, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.M_FixedCharges, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.M_FixedCharges, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
             </div>
         </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">卖场对S品牌的政策</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CM, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CM, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CM, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.S_GrossMargin, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.S_GrossMargin, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.S_GrossMargin, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.S_promotional, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.S_promotional, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.S_promotional, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.S_Year, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.S_Year, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.S_Year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.S_FixedCharges, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.S_FixedCharges, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.S_FixedCharges, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
             </div>
         </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">卖场对J品牌的政策</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CN, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CN, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.J_GrossMargin, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.J_GrossMargin, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.J_GrossMargin, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.J_promotional, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.J_promotional, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.J_promotional, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.J_Year, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.J_Year, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.J_Year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.J_FixedCharges, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.J_FixedCharges, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.J_FixedCharges, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
             </div>
         </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">产品价格和价格指数</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CO, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.price_M, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.price_M, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.price_M, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.price_S, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.price_S, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.price_S, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.price_J, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.price_J, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.price_J, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.priceIndex_M, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.priceIndex_M, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.priceIndex_M, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.priceIndex_S, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.priceIndex_S, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.priceIndex_S, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.priceIndex_J, htmlAttributes: new { @class = "control-label col-md-7" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.priceIndex_J, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.priceIndex_J, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.M_GrossMargin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.M_GrossMargin, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.M_GrossMargin, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.M_promotional, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.M_promotional, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.M_promotional, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.price_M, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.price_M, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.price_M, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.price_S, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.price_S, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.price_S, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.price_J, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.price_J, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.price_J, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.priceIndex_M, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.priceIndex_M, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.priceIndex_M, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.priceIndex_S, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.priceIndex_S, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.priceIndex_S, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.priceIndex_J, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.priceIndex_J, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.priceIndex_J, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div class="form-group col-md-12">
+            <div class="col-md-offset-6 col-md-4">
+                <input type="submit" value="更新" class="btn btn-warning btn-block" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+<pre style="width:1143px;height:330px;margin-top:30px">
+  市场价格部分：
+     1)	M/S/J三大品牌的第一阶段成本价和出厂价假定维持不变，分别为：300、315、285和435、465、395；M和J的零售价由各自品牌确定，不准溢价，S品牌的指导零售价由S品牌发布，
+     但市场实际零售价由代理商确定；
+     2)	假定卖场对M品牌的政策为：前台毛利率不低于10%（按零售价）、促销费用5%（按零售价）、年度退佣5%（按供价）、固定费用500万/年；
+     3)	假定卖场对S品牌的政策为：前台毛利率不低于11%（按零售价）、促销费用5%（按零售价）、年度退佣6%（按供价）、固定费用300万/年；
+     第二阶段起，如果零售同比增长达到15%及以上，则卖场年度退佣按照5%；
+     4)	假定卖场对J品牌的政策为：前台毛利率不低于12%（按零售价）、促销费用4%（按零售价）、年度退佣7%（按供价）、固定费用200万/年；
+     5)	如果第一阶段三大品牌的产品价格都定为799，则M价格指数为34、S价格指数为36、J价格指数为31；
+     6)	如果第一阶段三大品牌的产品价格分别定为799、845、739，则M、S、J的价格指数均为33.3；
+     7)	S价格指数的计算公式：（1/3)*((M的零售价/(S的零售价-（相同价格指数下的S售价549-相同价格指数下的M售价529））
+     +J的零售价/(S的零售价-（相同价格指数下的S售价549-相同价格指数下的J售价479））)/2；
+     8)	M价格指数的计算公式：（1/3)*((S的零售价/(M的零售价-（相同价格指数下的M售价529-相同价格指数下的S售价549））
+     +J的零售价/(M的零售价-（相同价格指数下的M售价529-相同价格指数下的J售价479））)/2；
+     9)	J的价格指数计算公式：（1/3)*((M的零售价/(J的零售价-（相同价格指数下的J售价479-相同价格指数下的M售价529））
+     +S的零售价/(J的零售价-（相同价格指数下的J售价479-相同价格指数下的S售价529））)/2；
+
+</pre>
+
+
 </div>

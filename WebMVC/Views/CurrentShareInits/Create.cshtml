@@ -6,14 +6,22 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>CurrentShareInit</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group ">
+            @Html.LabelFor(model => model.G, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("G", string.Empty)
+                @* @Html.DropDownListFor(model => model.Stage,ViewBag.StageId, "请选择", new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.G, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.D, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -37,16 +45,7 @@
                 @Html.ValidationMessageFor(model => model.F, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.G, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.G, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.G, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
+        <div class="form-group First">
             @Html.LabelFor(model => model.H, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.H, new { htmlAttributes = new { @class = "form-control" } })
@@ -54,7 +53,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group First">
             @Html.LabelFor(model => model.Z, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Z, new { htmlAttributes = new { @class = "form-control" } })
@@ -62,7 +61,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group First">
             @Html.LabelFor(model => model.J, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.J, new { htmlAttributes = new { @class = "form-control" } })
@@ -70,14 +69,38 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+        <div class="form-group col-md-12">
+            <div class="col-md-4">
+                @BootstrapHelpers.PrimaryButton(Url.Action("Index"), "返回列表")
+
+            </div>   <div class="col-md-offset-4 col-md-4">
+                <input type="submit" value="保存" class="btn btn-warning btn-block" />
             </div>
         </div>
     </div>
 }
+<hr />
+<br>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+   
+<script>
+    function stageSet(stage) {
+        
+        if (stage == "起始阶段") {
+            $('.First').show();
+        } else {
+            $('.First').hide();
+        }
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    $(function () {
+        stageSet($("#G").val());
+         $("#G").change(function () {
+            stageSet($(this).val());
+        })
+
+    })
+
+</script>
+}

@@ -13,30 +13,42 @@ namespace WebMVC.BLL
     /// </summary>
     public class BrandStrength
     {
+        private int e;
+        private int h;
+
+
         List<BrandStrengthTable> brandStrengths = new List<BrandStrengthTable>();
         List<BrandTable> investMents;
         public BrandStrength(InvertmentTable1 invertmentTable1)
         {
-            investMents = invertmentTable1.getBrandTable(); 
+            using (var db = new Infrastructure.AppIdentityDbContext())
+            {
+                BrandStrengthInit bs = db.BrandStrengthInit.FirstOrDefault(s => s.id == 0);
+                this.e = bs.BrandStrength_E;
+                this.h = bs.BrandStrength_M1;
+            }
+            investMents = invertmentTable1.getBrandTable();
+
             Init();
         }
         public void Init()
         {
             BrandStrengthTable initT = new BrandStrengthTable
             {
+
                 ID = (int)Stage.起始阶段,
-                Stage= "起始阶段",
-                E = 33,
-                F = 33,
-                G = 33,
-                H = 800,
-                I = 800,
-                J = 800
+                Stage = "起始阶段",
+                E = e,
+                F = e,
+                G = e,
+                H = h,
+                I = h,
+                J = h
             };
             brandStrengths.Add(initT);
             foreach (var item in investMents)
             {
-               var brandStrength = brandStrengths.FirstOrDefault(s => s.Stage == item.Stage);
+                var brandStrength = brandStrengths.FirstOrDefault(s => s.Stage == item.Stage);
                 if (brandStrength == null)
                 {
                     brandStrength = new BrandStrengthTable
@@ -46,24 +58,24 @@ namespace WebMVC.BLL
                     };
                     brandStrengths.Add(brandStrength);
                 }
-                    Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
-                    switch (brand)
-                    {
-                        case Brand.M品牌:
+                Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
+                switch (brand)
+                {
+                    case Brand.M品牌:
                         brandStrength.H = item.advertise;
-                            break;
-                        case Brand.S品牌:
+                        break;
+                    case Brand.S品牌:
                         brandStrength.I = item.advertise;
                         break;
-                        case Brand.J品牌:
+                    case Brand.J品牌:
                         brandStrength.J = item.advertise;
                         break;
-                        default:
-                            break;
-                    }
+                    default:
+                        break;
                 }
+            }
             SetCBPI(brandStrengths, brandStrengths.OrderByDescending(s => s.ID).Take(1).ToList()[0]);
-            
+
         }
         private void SetCBPI(List<BrandStrengthTable> brands, BrandStrengthTable s)
         {
@@ -75,7 +87,7 @@ namespace WebMVC.BLL
             s.E = Cal.CBPI(last.E, last.K, last.N, s.K, s.N);
             s.F = Cal.CBPI(last.F, last.L, last.N, s.L, s.N);
             s.G = Cal.CBPI(last.G, last.M, last.N, s.M, s.N);
-       }
+        }
 
 
         public List<BrandStrengthTable> Get()
@@ -87,12 +99,12 @@ namespace WebMVC.BLL
     {
         public int ID { get; set; }
         public string Stage { get; set; }
-        [DisplayFormat(DataFormatString ="{0:P0}")]
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal B
         {
             get
             {
-                return E + F + G==0?0:E / (E + F + G);
+                return E + F + G == 0 ? 0 : E / (E + F + G);
             }
         }
         [DisplayFormat(DataFormatString = "{0:P0}")]
@@ -100,7 +112,7 @@ namespace WebMVC.BLL
         {
             get
             {
-                return E + F + G==0?0: F / (E + F + G);
+                return E + F + G == 0 ? 0 : F / (E + F + G);
             }
         }
         [DisplayFormat(DataFormatString = "{0:P0}")]
@@ -149,37 +161,40 @@ namespace WebMVC.BLL
         {
             get
             {
-                return H + I + J==0?0: H / (H + I + J);
+                return H + I + J == 0 ? 0 : H / (H + I + J);
             }
         }
         /// <summary>
         /// 广告投放指数 S
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:P0}")]
-        public decimal L {
+        public decimal L
+        {
             get
             {
-                return H + I + J==0?0: I / (H + I + J);
+                return H + I + J == 0 ? 0 : I / (H + I + J);
             }
         }
         /// <summary>
         /// 广告投放指数 M
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:P1}")]
-        public decimal M {
+        public decimal M
+        {
             get
             {
-                return H + I + J==0?0:J / (H + I + J);
+                return H + I + J == 0 ? 0 : J / (H + I + J);
             }
         }
         /// <summary>
         /// 广告投放指数的平均指数
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:P1}")]
-        public decimal N {
+        public decimal N
+        {
             get
             {
-                return  (K + L + M)/3;
+                return (K + L + M) / 3;
             }
         }
         [DisplayFormat(DataFormatString = "{0:P1}")]

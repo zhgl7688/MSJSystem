@@ -16,7 +16,8 @@ namespace WebMVC.BLL
         List<AgentInput> agentInputs;
         List<BrandTable> brands = new List<BrandTable>();
         List<BrandsInput> brandsInputs;
-        public InvertmentTable1(List<AgentInput> agentInputs, List<BrandsInput> brandsInputs)
+        private AgentStages agentStages;
+        public InvertmentTable1(List<AgentInput> agentInputs, List<BrandsInput> brandsInputs, AgentStages agentStages)
         {
             this.agentInputs = agentInputs;
             this.brandsInputs = brandsInputs;
@@ -51,7 +52,7 @@ namespace WebMVC.BLL
                     agent = new AgentTable { Stage = item.Stage };
                     agents.Add(agent);
                 }
-                var agentName = (AgentName)Enum.Parse(typeof(AgentName), item.AgentName);
+                var index = agentStages.agents .FindIndex(s => s == item.AgentName);
                 switch (agentName)
                 {
                     case AgentName.代1:

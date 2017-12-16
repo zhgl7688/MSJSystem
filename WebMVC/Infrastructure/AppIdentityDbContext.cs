@@ -11,7 +11,7 @@ using WebMVC.Models;
 
 namespace WebMVC.Infrastructure
 {
- 
+
     public class AppIdentityDbContext : IdentityDbContext<Models.ApplicationUser>
     {
         public AppIdentityDbContext() : base("DefaultConnection") { }
@@ -31,13 +31,43 @@ namespace WebMVC.Infrastructure
         public DbSet<ChannelServiceInit> ChannelServiceInit { get; set; }
         public DbSet<MarketPriceInit> MarketPriceInit { get; set; }
         public DbSet<CurrentShareInit> CurrentShareInit { get; set; }
-
+        public DbSet<CodeInit> CodeInit { get; set; }
+        public DbSet<PriceMange> PriceMange { get;set;}
+        public DbSet<StageAdd> StageAdd { get;set;}
+        
     }
     public class IdentityDbInit : DropCreateDatabaseIfModelChanges<AppIdentityDbContext>
     {
         protected override void Seed(AppIdentityDbContext context)
         {
             PerformInitialSetup(context);
+            context.CodeInit.Add(new CodeInit
+            {
+                Code = "Stage",
+                Value = 0,
+                Text = "起始阶段",
+                CreateDate = DateTime.Now
+            });
+            context.CodeInit.Add(new CodeInit
+            {
+                Code = "Stage",
+                Value = 1,
+                Text = "第1阶段",
+                CreateDate = DateTime.Now
+            });
+            context.CodeInit.Add(new Models.CodeInit
+            {
+                Code = "Agent",
+                Value = 1,
+                Text = "代1",
+                CreateDate = DateTime.Now
+            });
+            context.BrandStrengthInit.Add(new BrandStrengthInit());
+            context.ChannelServiceInit.Add(new ChannelServiceInit());
+            context.CurrentShareInit.Add(new CurrentShareInit());
+            context.MarketPriceInit.Add(new MarketPriceInit());
+            context.MarketPromotionInit.Add(new MarketPromotionInit());
+            context.ProductInnovationInit.Add(new ProductInnovationInit());
             base.Seed(context);
         }
 
@@ -47,12 +77,17 @@ namespace WebMVC.Infrastructure
             ApplicationUserManager userMgr = new ApplicationUserManager(new UserStore<Models.ApplicationUser>(context));
             AppRoleManager roleMgr = new AppRoleManager(new RoleStore<AppRole>(context));
             string roleName = "Administrators";
+            string roleName1 = "品牌商";
             string userName = "Admin";
             string password = "Password2017";
             string email = "amin@MSJ.com";
             if (!roleMgr.RoleExists(roleName))
             {
                 roleMgr.Create(new AppRole(roleName));
+            }
+            if (!roleMgr.RoleExists(roleName1))
+            {
+                roleMgr.Create(new AppRole(roleName1));
             }
             Models.ApplicationUser user = userMgr.FindByName(userName);
             if (user == null)
@@ -64,6 +99,8 @@ namespace WebMVC.Infrastructure
             {
                 userMgr.AddToRole(user.Id, roleName);
             }
+          
+             
         }
     }
     public class MsjDbContext : DbContext

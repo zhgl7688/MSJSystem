@@ -1,324 +1,90 @@
-﻿<!DOCTYPE html>
-<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
-<head data-ej-android="true">
-    <title>隐患信息</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <link rel="stylesheet" href="css/ui-box.css">
-    <link rel="stylesheet" href="css/ui-base.css">
-    <link rel="stylesheet" href="css/ui-color.css">
-    <link rel="stylesheet" href="css/appcan.icon.css">
-    <link rel="stylesheet" href="css/appcan.control.css">
-    <link rel="stylesheet" href="css/fms.css">
-    <style type="text/css">
-        #yhDay {
-            color: initial;
-            cursor: initial;
-        }
+﻿<body>
+    <div style="width:500px; height: 350px; border: 1px solid black; background:#C7EDCC;  float:left; ">
 
-        #content {
-            background-color: #f5f5f5 !important;
-        }
-
-        .group {
-            padding: .75em .5em;
-            background-color: #fff;
-            border-bottom: 1px solid #e2e2e2;
-        }
-
-        .group_item {
-            padding-bottom: .5em;
-        }
-
-        li[data-type='form_button_system'] .form-group label {
-            display: none !important;
-        }
-
-        .no-replay {
-            background: url(images/no-replay.png)
-        }
-
-        .filename {
-            display: none !important;
-        }
-
-        .imgBox {
-            width: 4em !important;
-            height: 4em !important;
-        }
-
-        .p_errorMsg {
-            padding-bottom: .5em;
-            color: red;
-        }
-    </style>
-    <script type="text/javascript" src="js/config.js"></script>
-    <script type="text/javascript" src="js/appcan.min.js"></script>
-    <script type="text/javascript" src="js/appcan.control.min.js"></script>
-    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="js/fms.widget.js"></script>
-    <script type="text/javascript" src="js/fms.js"></script>
-    <script type="text/javascript" src="js/fms.control.js"></script>
-    <script type="text/javascript" src="js/project.js"></script>
-    <script type="text/javascript" src="js/fms.extend.js"></script>
-
-    <script type="text/javascript">
-            Handlebars.registerHelper("formatReplay", function(type, item, options) {
-                var _base_url_ = downip + "uploads/";
-                var _base_img_url_ = 'images/suffix/';
-                var fileType = {
-                    image : _base_img_url_ + 'image.png',
-                    txt : _base_img_url_ + 'txt.png',
-                    ppt : _base_img_url_ + 'ppt.png',
-                    word : _base_img_url_ + 'word.png',
-                    excel : _base_img_url_ + 'excel.png',
-                    audio : _base_img_url_ + 'audio.png',
-                    video : _base_img_url_ + 'video.png',
-                    other : _base_img_url_ + 'other.png'
-                };
-
-                var _base_url_ = downip + "uploads/";
-                var url = _base_url_ + item.MsgContent_cutting;
-                if (type === "image") {
-                    return url;
-                } else {
-                    return fileType[type];
-                }
-            });
-
-    </script>
-    <!-- 回复模板 -->
-    <script id="ReplyListTemp" type="text/x-handlebars-template">
-        {{#if items}}
-        <div class="ub ub-f1 ub-ver group">
-            {{#each items}}
-            <div class="ub ub-f1 ub-ac group_item" data-item="{{builddata this}}">
-                <div class="ub ub-f1">
-
-                    <div class="ub ub-ver ub-f1 uba bc-border uc-a1 uinn">
-
-                        <div class="ub ub-f1 c-999 umar-b">
-
-                            <div class="ub ut-s ulev-1">{{MsgRelayPrsnName}}</div>
-                            <div class="ub italic umar-l ulev-1 ub-ac ub-pc">{{formatdatamonthday MsgDT}}</div>
-                            <div class="ub ub-f1 ub-pe">
-                                <div class="ub fa fa-phone mobile-call-action" data-phone-number="{{MsgRelayPrsnMobile}}"></div>
-                            </div>
-
-                        </div>
-                        <div class="ub ub-f1 ulev-1 " onclick="showContent(this);" data-item="{{builddata this}}">
-                            {{#ifdengyu MsgType 'text'}}
-                            {{MsgContent}}
-                            {{else}}
-                            <div class="ub ub-f1 ub-ac ub-pe">
-                                <img src="{{formatReplay MsgType this}}" onerror="errorHander(this)" class="default_img default_img_sm" />
-                            </div>
-                            {{/ifdengyu}}
-                        </div>
-
-                    </div>
-                    <div class="ub ub-ac ub-pc umar-l">
-                        <img class="ub default_img default_img_sm img-circle us mobile-call-action" data-phone-number="{{MsgRelayPrsnMobile}}" src="{{formatURL RelayPrsnLogoFile}}" onerror="errorHander(this,1)" style="margin-right: 0;" />
-                    </div>
-
-                </div>
-            </div>
-            {{/each}}
-            {{fmsPager 0}}
-        </div>
-        {{else}}
-        <div class="ub ub-f1 ub-ac ub-pc uinn5 c-bbb">暂无留言</div>
-        {{/if}}
-    </script>
-
-    <!-- 隐患详情模板 -->
-    <script id="YhDetailTemp" type="text/x-handlebars-template">
-        <div class="ub ub-f1 ub-ver group">
-            {{#each items}}
-            <div class="ub ub-f1 ub-ver">
-                <div class="ub ub-f1 group_item">
-                    <div class="ub"><img class="default_img default_img_sm us img-circle" src="{{formatURL yhPrsnLogo}}" onerror="errorHander(this,1)" /></div>
-                    <div class="ub ub-f1 ub-ver">
-                        <div class="ub ub-f1 umar-t">
-                            <div class="ub ub-f1 ut-s ulev1 c-333 mobile-call-action" data-phone-number="{{yhPrsnMobile}}">{{yhPrsnName}}</div>
-                            <div class="ub ulev-1 c-bbb  umar-r">{{yh_Name}}</div>
-                            <div class="ub ulev-1 c-bbb  umar-r">{{yhGrade}}</div>
-                            <div class="ub ulev-1 c-bbb  ">{{yhStat}}</div>
-                        </div>
-                        <div class="ub ub-f1 umar-t">
-                            <div class="ub ub-f1 ut-s ulev-1 c-bbb">{{formatdatamonthday yhDT}} </div>
-                            <div class="ub ulev-1 c-bbb ">{{QName}}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ub ub-f1 group_item  c-bbb ulev-1">该指令由<span class="c-06c mobile-call-action" data-phone-number="{{yhZxrMobile}}">【{{yhZxrName}}】</span>来执行，应于<span class="c-06c">【{{yhCpDT1}}】</span>前完成。 </div>
-                <div class="ub ub-f1 group_item ">{{yhDesc}}</div>
-                <div class="ub ub-f1 uinn ub-ae ub-pe">
-                    <div class="btn btn bc-btn-white ub ub-f1 ub-ac  ub-pc c-7f8 uc-a1  " onclick="more(this);" id="more"><i class="fa fa-angle-down umar-r"></i>显示更多</div>
-                </div>
-                <div id="morediv" class="uhide group_item">
-
-                    <div class="ub">隐患编号：  {{FormID}}</div>
-                    <div class="ub">隐患描述：  {{yhContent}}</div>
-                    <div class="ub">隐患位置： {{yhWz}}</div>
-                    <div class="ub">隐患类型： {{yhfq}}</div>
-                    {{#ifdengyu yhfq '内业'}}
-                    <div class="ub">部门： {{deptName}}</div>
-                    {{else}}
-                    <div class="ub">发生位置： {{yhfswz_name}}</div>
-                    <div class="ub">具体位置： {{yhfswz_bd_name}}</div>
-                    {{/ifdengyu}}
-                </div>
-
-                <div class="ub ub-f1 ub-ver">
-                    <div class="ub ub-f1">
-                        <div class="img-list">
-
-                            <div id="imglist" data-fms-type="imgbox"
-                                 data-fms-imgbox-bg="css/images/addImg.png"
-                                 data-fms-imgbox-more="true"
-                                 data-fms-imgbox-guid="{{yhFile}}"
-                                 data-fms-imgbox-file=""
-                                 data-fms-imgbox-mode="read"
-                                 data-fms-callback="formatFileName" data-fms-imgbox-style="watemark"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{/each}}
-        </div>
-    </script>
-
-    <script type="text/javascript" data-type="default">
-            //页面附加菜单开始
-
-            rightAppenMenu = [];
-
-            //页面附加菜单结束
-            //API配置开始
-
-            //API配置结束
-            //控件自动生成代码开始
-
-            //控件自动生成代码结束
-            //自定义JS代码开始
-
-            //自定义JS代码结束
-    </script>
-</head>
-<body class="um-vp bc-bg" ontouchstart="">
-
-    <div id="page_0" class="up ub ub-ver" tabindex="0">
-        <header data-fms-type="pagetop" data-fms-pagetop-title="隐患信息" data-fms-pagetop-leftaction="goBack" data-fms-pagetop-nav="true" data-fms-pagetop-add="true" id="header"></header>
-
-        <div id="content" class="ub-f1 tx-l">
-            <div id="listView2" data-type="listview" data-fms-type="listview" data-fms-templ="YhDetailTemp" class="list-group" data-fms-templ="" data-source="v_yh_zlfs" data-fms-list-currentpage="1" data-fms-list-key="FormID" data-fms-list-conditions="FormID:fms.local.getJson('yh_main').FormID;" data-fms-list-itemclick="" data-fms-list-success="YHAction" data-dataconfig="YH-022" data-datapagesize="1" data-datatype="0" data-primary="FormID" data-fms-datasource="YH-022">
-                <ul style="display:none;" data-type="listview_info" data-title="FormID">
-                    <li data-field="QNO" data-name="群号" data-show="True"></li>
-                    <li data-field="QName" data-name="群名称" data-show="True"></li>
-                    <li data-field="FormID" data-name="隐患编号" data-show="True"></li>
-                    <li data-field="yhGrade" data-name="隐患等级" data-show="True"></li>
-                    <li data-field="yhDesc" data-name="隐患内容" data-show="True"></li>
-                    <li data-field="yhPrsn" data-name="隐患发现人编号" data-show="True"></li>
-                    <li data-field="yhPrsnMobile" data-name="隐患发现人电话" data-show="True"></li>
-                    <li data-field="yhPrsnName" data-name="隐患发现人姓名" data-show="True"></li>
-                    <li data-field="yhDT" data-name="发现日期" data-show="True"></li>
-                    <li data-field="yhStat" data-name="隐患状态" data-show="True"></li>
-                    <li data-field="NextYhStat" data-name="隐患状态的下一个状态" data-show="True"></li>
-                    <li data-field="yh_Name" data-name="隐患类别" data-show="True"></li>
-                    <li data-field="yhZxr" data-name="执行人编号" data-show="True"></li>
-                    <li data-field="yhZxrMobile" data-name="执行人电话" data-show="True"></li>
-                    <li data-field="yhZxrName" data-name="执行人姓名" data-show="True"></li>
-                    <li data-field="yhWz" data-name="隐患位置" data-show="True"></li>
-                    <li data-field="PfSign" data-name="再次发生" data-show="True"></li>
-                    <li data-field="yhFile" data-name="附件" data-show="True"></li>
-                    <li data-field="yhCpDT" data-name="完成时限" data-show="True"></li>
-                    <li data-field="yhCpDT1" data-name="完成时限时间" data-show="True"></li>
-                    <li data-field="yhPrsnLogo" data-name="发现人LOGO" data-show="False"></li>
-                    <li data-field="yhContent" data-name="隐患描述" data-show="False"></li>
-
-                    <li data-field="yhfq" data-name="发生类型" data-show="False"></li>
-                    <li data-field="deptName" data-name="部门" data-show="False"></li>
-                    <li data-field="yhfswz_name" data-name="发生位置" data-show="False"></li>
-                    <li data-field="yhfswz_bd_name" data-name="具体位置" data-show="False"></li>
-                </ul>
-            </div>
-
-            <div id="listView0" data-type="listview" data-fms-templ="ReplyListTemp" data-fms-type="listview" class="list-group" data-source="v_yh_zlfs_msg_file" data-fms-list-currentpage="1" data-fms-list-key="MsgDT,ID" data-fms-list-conditions="FormID:fms.local.getJson('yh_main').FormID;" data-fms-list-itemclick="" data-fms-list-success="" data-paging="True" data-pagingtype="0" data-dataconfig="YH-018" data-datapagesize="20" data-datatype="0" data-primary="FormID" data-fms-datasource="YH-018">
-                <ul style="display:none;" data-type="listview_info" data-title="MsgContent">
-                    <li data-field="FormID" data-name="隐患编号" data-show="False"></li>
-                    <li data-field="MsgContent" data-name="回复内容" data-show="True"></li>
-                    <li data-field="MsgRelayPrsnName" data-name="回复人" data-show="True"></li>
-                    <li data-field="MsgRelay" data-name="回复人编号" data-show="False"></li>
-                    <li data-field="MsgDT" data-name="回复时间" data-show="True"></li>
-                    <li data-field="MsgType" data-name="类型" data-show="True"></li>
-                    <li data-field="MsgContent_cutting" data-name="缩略图" data-show="True"></li>
-                    <li data-field="RelayPrsnLogoFile" data-name="回复人LOGO" data-show="True"></li>
-                    <li data-field="MsgRelayPrsnMobile" data-name="手机" data-show="True"></li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="footer">
-            <div class="ub ub-f1 ubt bc-border ">
-                <div class="ub ub-ac ub-pc ">
-                    <div class="fa fa-comments-o btn ub ub-ac  ub-pc  c-7f8 uc-a1 btn-item-action" id="replay">
-                        回复
-                    </div>
-                </div>
-                <div class="ub ub-ac ub-pc ">
-                    <div class="fa fa-reply-all btn ub ub-ac  ub-pc c-7f8 uc-a1 btn-item-action" id="zhuanfa">
-                        转发
-                    </div>
-                </div>
-                <div class="ub ub-ac ub-pc">
-                    <div class="fa fa-external-link btn ub ub-ac  ub-pc c-7f8 uc-a1 btn-item-action" id="zgcs">
-                        整改措施
-                    </div>
-                </div>
-                <div class="ub ub-f1 ub-pe ub-ac">
-                    <div class="fa fa-plus-circle fa-lg btn ub ub-ac c-7f8 ub-pc  uc-a1 btn-item-action" id="btn_op"></div>
-                </div>
-            </div>
-        </div>
-
+        <video id="video" width="500" height="350"></video>
+    </div> 
+    <div id="vo" style="width:200px;height:350px;background:#C7EDCC; border: 1px solid black;float:left">
+       <div><input id="live" type="button" value="打开" /></div>
+        <div><input id="snap" type="button" value="拍照" /></div>
     </div>
+
+    <div style="width:500px; height: 350px; background:#C7EDCC; border: 1px solid black;float:left">
+        <canvas id="canvas"></canvas>
+    </div>
+     
 </body>
-
-</html>
-
-<script>
-    function bindAction() {
-        var _yhzxr = $.trim($('#yhzxr').val());
-        var _yhDay = $.trim($('#yhDay').val());
-        if (NextYhStat === '复核') {
-            //复核增加了，整改功能
-            var btn_zg_html = '<div class="btn ub ub-ac bc-text-head ub-pc bc-btn ub-f1 uc-a1" style="margin-left:.5em !important;" id="btn_re_zhenggai">重新整改</div>';
-           if ($("#btn_re_zhenggai").length === 0) {
-                $(".btn-yh-level-action-panel").append(btn_zg_html);
-            }
-        }
-          
-        if (NextYhStat === '响应' || NextYhStat === '复核') {
-            $("#showyhDay").show();
-        } else {
-            $("#showyhDay").hide();
-        }
-        if (IsEnable === "0") {
-          
-            $("#btn_finish").addClass("disabled").off('click', btn_finish);
-            $("#btn_quit_yh").addClass("disabled").off('click', btn_quit_yh);
-            $("#btn_re_zhenggai").addClass("disabled").off('click', btn_fix_yh);
-
-
-        } else {
-            $("#btn_finish").removeClass("disabled").off('click', btn_finish).on('click', btn_finish);
-            $("#btn_quit_yh").removeClass("disabled").off('click', btn_quit_yh).on('click', btn_quit_yh);
-            $("#btn_re_zhenggai").removeClass("disabled").off('click', btn_fix_yh).on('click', btn_fix_yh);
-
-        }
-         
+<style>
+   #vo input{
+        height:80px;
+        width:160px;
+        margin:30px 20px;
+        font-size:30px;
+        background:#0094ff;
+        color:#FFF;
     }
+</style>
+<script>
+    var base64Data;
+
+    function UpdataFile(id) {
+
+        if (!base64Data) {
+            alert("请拍照后上传");
+            return;
+        }
+        var url = "/file/UploadBase64";
+        var data = { base64Data: base64Data, filename: filename };
+        console.log(data);
+        $.ajax({
+            url: url,
+            type: "post",
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                if (data.success == true) {
+                    var obj = document.getElementById("Scan" + id);
+                    obj.value = data.filename;
+                    console.log(data.filename);
+                    console.log("上传成功");
+                } else {
+                    alert("上传失败");
+                }
+            },
+            error: function () {
+                console.log("上传失败");
+            }
+        });
+    }
+
+    var video = document.getElementById('video');
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var width = video.width;
+    var height = video.height;
+    canvas.width = width;
+    canvas.height = height;
+    function liveVideo() {
+        var URL = window.URL || window.webkitURL;   // 获取到window.URL对象
+        navigator.getUserMedia({
+            video: true
+        }, function (stream) {
+            video.src = URL.createObjectURL(stream);   // 将获取到的视频流对象转换为地址
+            video.play();   // 播放
+            //点击截图
+            document.getElementById("snap").addEventListener('click', function () {
+                ctx.drawImage(video, 0, 0, width, height);
+                // var url = canvas.toDataURL('image/png');
+                var imgData = canvas.toDataURL();
+                //将图像转换为base64数据
+                var base64Data = imgData.substr(22);
+            });
+        }, function (error) {
+            console.log(error.name || error);
+        });
+    }
+    document.getElementById("live").addEventListener('click', function () {
+        liveVideo();
+    });
+    
+
 </script>

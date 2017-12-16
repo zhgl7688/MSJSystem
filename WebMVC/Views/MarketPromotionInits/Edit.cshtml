@@ -4,90 +4,108 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2> </h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>MarketPromotionInit</h4>
+        <h4> 市场推广部分设置</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
+        <div class="panel panel-primary">
+            <div class="panel-heading">加强影响系数</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MarketPromotionInit_AY1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MarketPromotionInit_AY1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MarketPromotionInit_AY1, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.MarketPromotionInit_AY1, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MarketPromotionInit_AY1, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MarketPromotionInit_AY1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.MarketPromotionInit_AY2, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MarketPromotionInit_AY2, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MarketPromotionInit_AY2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">对市场推广影响指数的权重</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MarketPromotionInit_AY2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MarketPromotionInit_AY2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MarketPromotionInit_AY2, "", new { @class = "text-danger" })
+            <div class="panel-body">
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.MarketPromotionInit_AX1, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MarketPromotionInit_AX1, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.MarketPromotionInit_AX2, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MarketPromotionInit_AX2, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.MarketPromotionInit_AX3, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MarketPromotionInit_AX3, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX3, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.MarketPromotionInit_AX4, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MarketPromotionInit_AX4, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX4, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.MarketPromotionInit_AX5, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MarketPromotionInit_AX5, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX5, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.MarketPromotionInit_AX6, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MarketPromotionInit_AX6, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX6, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MarketPromotionInit_AX1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MarketPromotionInit_AX1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX1, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MarketPromotionInit_AX2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MarketPromotionInit_AX2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX2, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MarketPromotionInit_AX3, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MarketPromotionInit_AX3, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX3, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MarketPromotionInit_AX4, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MarketPromotionInit_AX4, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX4, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MarketPromotionInit_AX5, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MarketPromotionInit_AX5, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX5, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MarketPromotionInit_AX6, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MarketPromotionInit_AX6, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MarketPromotionInit_AX6, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div class="form-group col-md-12">
+            <div class="col-md-offset-6 col-md-4">
+                <input type="submit" value="更新" class="btn btn-warning btn-block" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+<pre style="width:1143px;height:110px;margin-top:30px">
+  市场推广部分：
+        1)	市场推广当年投入当年产生影响，同时对第二期、第三期可以构成加强影响，加强影响系数分别为：0.6、0.25；假定起始阶段三大品牌均无形象投入。
+        2)	市场推广和渠道服务投入：M/J均由工厂投入，S由代理商投入，工厂按照1:1的投入原则在年底一次性贴补代理商，但贴补金额不能超过年度费用预算；
+        3)	对市场推广影响指数的权重分别为：终端形象25%、导购派驻25%、店内促销20%、演示开展15%、户外活动10%、推广小分队5%；
+
+</pre>
+
+
 </div>

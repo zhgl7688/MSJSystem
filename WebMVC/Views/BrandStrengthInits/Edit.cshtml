@@ -11,7 +11,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>品牌力部分初始化</h4>
+        <h4>品牌力设置</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
@@ -64,19 +64,22 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div class="form-group col-md-12">
+            <div class="col-md-offset-6 col-md-4">
+                <input type="submit" value="更新" class="btn btn-warning btn-block" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    	品牌力部分：
+<pre style="width:800px;height:150px;margin-top:30px">
+ 品牌力部分：
     1)	最初品牌力指数均为33；
     2)	起始阶段每个品牌商的启动资金为1000万，投放范围包括：广告（800万）、研发创新（200万）两方面；
     3)	起始阶段每个代理商启动资金为1000万；
     4)	上年广告投入影响力指数对品牌力指数的影响占35%，本年广告投入影响力指数对对品牌力指数的影响占65%；
+</pre>
+
 
 </div>

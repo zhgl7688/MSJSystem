@@ -20,11 +20,13 @@ namespace WebMVC.Models
         /// 代理商
         /// </summary>
         [DisplayName("代理商")]
+        [Required]
         public string AgentName { get; set; }
         /// <summary>
         /// 阶段
         /// </summary>
         [DisplayName("阶段")]
+        [Required]
         public string Stage { get; set; }
         /// <summary>
         /// 终端形象
@@ -69,32 +71,32 @@ namespace WebMVC.Models
         /// <summary>
         /// 零售价
         /// </summary>
-        [DisplayName("零售价RC1")]
+        [DisplayName("零售价1")]
         public decimal retailPriceRC1 { get; set; }
         /// <summary>
         /// 零售系统供价
         /// </summary>
-        [DisplayName("零售系统供价RC1")]
+        [DisplayName("零售系统供价1")]
         public decimal SystemPriceRC1 { get; set; }
         /// <summary>
         /// 零售价
         /// </summary>
-        [DisplayName("零售价RC2")]
+        [DisplayName("零售价2")]
         public decimal retailPriceRC2 { get; set; }
         /// <summary>
         /// 零售系统供价
         /// </summary>
-        [DisplayName("零售系统供价RC2")]
+        [DisplayName("零售系统供价2")]
         public decimal SystemPriceRC2 { get; set; }
         /// <summary>
         /// 零售价
         /// </summary>
-        [DisplayName("零售价RC3")]
+        [DisplayName("零售价3")]
         public decimal retailPriceRC3 { get; set; }
         /// <summary>
         /// 零售系统供价
         /// </summary>
-        [DisplayName("零售系统供价RC3")]
+        [DisplayName("零售系统供价3")]
         public decimal SystemPriceRC3 { get; set; }
         /// <summary>
         /// 品牌代理商
@@ -131,7 +133,11 @@ namespace WebMVC.Models
         /// </summary>
         [DisplayName("RC3进货")]
         public decimal ThirdPurchase { get; set; }
+
+
         public string UserId { get; set; }
+        public virtual PriceMange PriceMange { get; set; }
+        public virtual PurchaseTable PurchaseTable { get; set; }
         public decimal InputSum
         {
             get
@@ -158,6 +164,15 @@ namespace WebMVC.Models
                 };
             }
         }
+
+       
     }
 
+    public class PurchaseTable
+    {
+        public virtual int PriceMangeId { get; set; }
+        public virtual int AgentInputId { get; set; }
+        public virtual string Name { get; set; }
+        public virtual decimal Value { get; set; }
+    }
 }

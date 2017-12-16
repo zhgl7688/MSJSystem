@@ -13,11 +13,13 @@ namespace WebMVC.BLL
     /// </summary>
     public class ChannelService
     {
+      
         List<ChannelServiceTable> channelServices = new List<ChannelServiceTable>();
         List<BrandTable> brands;
         List<AgentTable> agents;
         public ChannelService(InvertmentTable1 invertmentTable1)
         {
+           
             brands = invertmentTable1.getBrandTable();
               agents = invertmentTable1.getAgents();
             Init();
@@ -90,28 +92,36 @@ namespace WebMVC.BLL
         {
             get
             {
+                decimal I1;
+                decimal I2;
+                using (var db = new Infrastructure.AppIdentityDbContext())
+                {
+                    var bs = db.ChannelServiceInit.FirstOrDefault(s => s.id == 0);
+                    I1 = bs.ChannelService_J1;
+                    I2 = bs.ChannelService_J2;
+                }
                 if (Stage == Common.Stage.起始阶段.ToString())
                 {
                     var result = new MJA()
                     {
-                        M1 =0.98m,
-                        M2 =0.98m,
-                        M3 =0.98m,
-                        M4 =0.98m,
-                        M5 =0.98m,
-                        M6 =0.98m,
-                        J1 =0.98m,
-                        J2 =0.98m,
-                        J3 =0.98m,
-                        J4 =0.98m,
-                        J5 =0.98m,
-                        J6 =0.98m,
-                        Agent1 =0.98m,
-                        Agent2 =0.98m,
-                        Agent3 =0.98m,
-                        Agent4 =0.98m,
-                        Agent5 =0.98m,
-                        Agent6 =0.98m,
+                        M1 =I2,
+                        M2 =I2,
+                        M3 =I2,
+                        M4 =I2,
+                        M5 =I2,
+                        M6 =I2,
+                        J1 =I2,
+                        J2 =I2,
+                        J3 =I2,
+                        J4 =I2,
+                        J5 =I2,
+                        J6 =I2,
+                        Agent1 =I2,
+                        Agent2 =I2,
+                        Agent3 =I2,
+                        Agent4 =I2,
+                        Agent5 =I2,
+                        Agent6 =I2,
                     };
                      
                     return result;
@@ -120,24 +130,24 @@ namespace WebMVC.BLL
                 {
                  var result = new MJA()
                     {
-                        M1 = LastAB.M1 * 0.4m + Cal.Percent(B.M, B.J, B.Agent1),
-                        M2 = LastAB.M2 * 0.4m + Cal.Percent(B.M, B.J, B.Agent2),
-                        M3 = LastAB.M3 * 0.4m + Cal.Percent(B.M, B.J, B.Agent3),
-                        M4 = LastAB.M4 * 0.4m + Cal.Percent(B.M, B.J, B.Agent4),
-                        M5 = LastAB.M5 * 0.4m + Cal.Percent(B.M, B.J, B.Agent5),
-                        M6 = LastAB.M6 * 0.4m + Cal.Percent(B.M, B.J, B.Agent6),
-                        J1 = LastAB.J1 * 0.4m + Cal.Percent(B.J, B.M, B.Agent1),
-                        J2 = LastAB.J2 * 0.4m + Cal.Percent(B.J, B.M, B.Agent2),
-                        J3 = LastAB.J3 * 0.4m + Cal.Percent(B.J, B.M, B.Agent3),
-                        J4 = LastAB.J4 * 0.4m + Cal.Percent(B.J, B.M, B.Agent4),
-                        J5 = LastAB.J5 * 0.4m + Cal.Percent(B.J, B.M, B.Agent5),
-                        J6 = LastAB.J6 * 0.4m + Cal.Percent(B.J, B.M, B.Agent6),
-                        Agent1 = LastAB.Agent1 * 0.4m + Cal.Percent(B.Agent1, B.M, B.J),
-                        Agent2 = LastAB.Agent2 * 0.4m + Cal.Percent(B.Agent2, B.M, B.J),
-                        Agent3 = LastAB.Agent3 * 0.4m + Cal.Percent(B.Agent3, B.M, B.J),
-                        Agent4 = LastAB.Agent4 * 0.4m + Cal.Percent(B.Agent4, B.M, B.J),
-                        Agent5 = LastAB.Agent5 * 0.4m + Cal.Percent(B.Agent5, B.M, B.J),
-                        Agent6 = LastAB.Agent6 * 0.4m + Cal.Percent(B.Agent6, B.M, B.J),
+                        M1 = LastAB.M1 * I1 + Cal.Percent(B.M, B.J, B.Agent1),
+                        M2 = LastAB.M2 * I1 + Cal.Percent(B.M, B.J, B.Agent2),
+                        M3 = LastAB.M3 * I1 + Cal.Percent(B.M, B.J, B.Agent3),
+                        M4 = LastAB.M4 * I1 + Cal.Percent(B.M, B.J, B.Agent4),
+                        M5 = LastAB.M5 * I1 + Cal.Percent(B.M, B.J, B.Agent5),
+                        M6 = LastAB.M6 * I1 + Cal.Percent(B.M, B.J, B.Agent6),
+                        J1 = LastAB.J1 * I1 + Cal.Percent(B.J, B.M, B.Agent1),
+                        J2 = LastAB.J2 * I1 + Cal.Percent(B.J, B.M, B.Agent2),
+                        J3 = LastAB.J3 * I1 + Cal.Percent(B.J, B.M, B.Agent3),
+                        J4 = LastAB.J4 * I1 + Cal.Percent(B.J, B.M, B.Agent4),
+                        J5 = LastAB.J5 * I1 + Cal.Percent(B.J, B.M, B.Agent5),
+                        J6 = LastAB.J6 * I1 + Cal.Percent(B.J, B.M, B.Agent6),
+                        Agent1 = LastAB.Agent1 * I1 + Cal.Percent(B.Agent1, B.M, B.J),
+                        Agent2 = LastAB.Agent2 * I1 + Cal.Percent(B.Agent2, B.M, B.J),
+                        Agent3 = LastAB.Agent3 * I1 + Cal.Percent(B.Agent3, B.M, B.J),
+                        Agent4 = LastAB.Agent4 * I1 + Cal.Percent(B.Agent4, B.M, B.J),
+                        Agent5 = LastAB.Agent5 * I1 + Cal.Percent(B.Agent5, B.M, B.J),
+                        Agent6 = LastAB.Agent6 * I1 + Cal.Percent(B.Agent6, B.M, B.J),
                     };
                     return result;
                 }

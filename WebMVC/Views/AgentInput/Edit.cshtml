@@ -28,16 +28,16 @@
             <div class="panel-body">
                 <div class="form-group col-md-4">
                     @Html.LabelFor(model => model.AgentName, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-6">
-                        @Html.DropDownListFor(model => model.AgentName, ViewData["agentName"] as List<SelectListItem>, "请选择", new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="col-md-8">
+                        @Html.DropDownList("AgentName",  "")
                         @Html.ValidationMessageFor(model => model.AgentName, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group col-md-4">
                     @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-6">
-                        @Html.DropDownListFor(model => model.Stage, ViewData["stageList"] as List<SelectListItem>, "请选择", new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="col-md-8">
+                        @Html.DropDownList("Stage", "")
                         @Html.ValidationMessageFor(model => model.Stage, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -47,7 +47,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">投资表</div>
 
-            <div class="panel-body">
+            <div class="panel-body" id="invest">
                 <div class="form-group col-md-3">
                     @Html.LabelFor(model => model.EndImage, htmlAttributes: new { @class = "control-label col-md-6" })
                     <div class="col-md-6">
@@ -111,6 +111,8 @@
                         @Html.ValidationMessageFor(model => model.bankLoan, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                <div class="col-md-12 col-md-offset-10"><span style="font-weight:700;margin:10px 10px">合计金额：</span><span id="investSum">0</span>万元</div>
+
             </div>
         </div>
         <div class="panel panel-primary">
@@ -244,33 +246,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
-    $('.rc0').hide();
-    $('.rc1').hide();
-    $('.rc2').hide();
-    $('.rc3').hide();
-    $("#Stage").change(function () {
-        var stage = $(this).val();
-        $('.rc0').hide();
-        $('.rc1').hide();
-        $('.rc2').hide();
-        $('.rc3').hide();
-
-        if (stage == "第一阶段") {
-            $('.rc0').show();
-            $('.rc1').show();
-        } else if (stage == "第二阶段") {
-
-            $('.rc1').show();
-            $('.rc2').show();
-        } else if (stage == "第三阶段") {
-
-            $('.rc1').show();
-            $('.rc2').show();
-            $('.rc3').show();
-        }
-
-    });
-
-    </script>
+<script src="~/Scripts/agentinput.js"></script>
 }

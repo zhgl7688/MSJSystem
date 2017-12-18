@@ -25,7 +25,7 @@ namespace WebMVC.BLL
             agentInputs = InvertmentTable1.getAgentInputs();
             agents = InvertmentTable1.getAgents();
             stockReports = StockReport.Get();
-         
+
             Init();
         }
 
@@ -45,27 +45,17 @@ namespace WebMVC.BLL
                     investments.Add(investment);
 
                 }
-                //var surfaceRC = new SurfaceRC { SurfaceRC1 = item.SurfaceRC1, SurfaceRC2 = item.SurfaceRC2, SurfaceRC3 = item.SurfaceRC3 };
+                var indexStage = agentStage.stages.IndexOf(item.Stage);
                 var surfaceRC = new SurfaceRC();
-                surfaceRC.Surfacerc.Add(item.SurfaceRC1);
-                surfaceRC.Surfacerc.Add(item.SurfaceRC2);
-                surfaceRC.Surfacerc.Add(item.SurfaceRC3);
-                
-                //var functionRC = new FunctionRC { FunctionRC1 = item.FunctionRC1, FunctionRC2 = item.FunctionRC2, FunctionRC3 = item.FunctionRC3 };
                 var functionRC = new FunctionRC();
-                functionRC.Functionrc.Add(item.FunctionRC1);
-                functionRC.Functionrc.Add(item.FunctionRC2);
-                functionRC.Functionrc.Add(item.FunctionRC3);
-
-              
-
-                //var materialRC = new MaterialRC { MaterialRC1 = item.MaterialRC1, MaterialRC2  = item.MaterialRC2, MaterialRC3= item.MaterialRC3 };
                 var materialRC = new MaterialRC();
-                materialRC.Material.Add(item.MaterialRC1);
-                materialRC.Material.Add(item.MaterialRC2);
-                materialRC.Material.Add(item.MaterialRC3);
+                for (int i = 0; i < indexStage; i++)
+                {
+                    surfaceRC.Surfacerc.Add(item.SurfaceRC[i]);
+                    functionRC.Functionrc.Add(item.FunctionRC[i]);
+                    materialRC.Material.Add(item.MaterialRC[i]);
+                }
 
-      
                 Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
                 switch (brand)
                 {
@@ -196,7 +186,7 @@ namespace WebMVC.BLL
         public decimal PQRNew
         {
             get { return P.SurfaceRCSum + Q.FunctionRCSum + R.MaterialRCSum + NewDevelopmentCostC; }
-        } 
+        }
         //[DisplayName("对代1投入")]
         public List<decimal> CAgents
         {
@@ -212,7 +202,7 @@ namespace WebMVC.BLL
 
         }
 
-    
+
         //public decimal C { get { return K + PQRNew + AJ.InputSum; } }
         ////[DisplayName("对代2投入")]
         //public decimal D { get { return K + PQRNew + AS.InputSum; } }
@@ -364,10 +354,7 @@ namespace WebMVC.BLL
     }
     public class SurfaceRC
     {
-        public List<decimal> Surfacerc { get; set; } = new List<decimal>(); 
-        //public decimal SurfaceRC1 { get; set; }
-        //public decimal SurfaceRC2 { get; set; }
-        //public decimal SurfaceRC3 { get; set; }
+        public List<decimal> Surfacerc { get; set; } = new List<decimal>();
         public decimal SurfaceRCSum
         {
             get
@@ -392,7 +379,7 @@ namespace WebMVC.BLL
     }
     public class MaterialRC
     {
-        public List<decimal> Material{ get; set; } = new List<decimal>();
+        public List<decimal> Material { get; set; } = new List<decimal>();
         //public decimal MaterialRC1 { get; set; }
         //public decimal MaterialRC2 { get; set; }
         //public decimal MaterialRC3 { get; set; }

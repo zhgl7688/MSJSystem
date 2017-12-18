@@ -74,7 +74,6 @@ namespace WebMVC.BLL
             #endregion
             foreach (var item in brandTables)
             {
-
                 var productInnvoation = productInnvoations.FirstOrDefault(s => s.Stage == item.Stage);
                 if (productInnvoation == null)
                 {
@@ -86,50 +85,34 @@ namespace WebMVC.BLL
                     };
                     productInnvoations.Add(productInnvoation);
                 }
-                var indexStage = agentStages.stages.Count;
+                var indexStage = agentStages.stages.IndexOf(item.Stage);
+                Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
                 for (int i = productInnvoation.T.AIRC.Count; i < indexStage; i++)
                 {
-                      productInnvoation.T.AIRC.Add( new RC());
+                    productInnvoation.T.AIRC.Add(new RC());
+                    productInnvoation.AC.FIRC.Add(new RC());
+                    productInnvoation.AL.MIRC.Add(new RC());
                 }
-                Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
-                switch (brand)
+                for (int i = 0; i < indexStage; i++)
                 {
-                    case Brand.M品牌:
-                        productInnvoation.T.AIRC[0].M = item.SurfaceRC1;
-                        productInnvoation.AC.FIRC[0].M = item.FunctionRC1;
-                        productInnvoation.AL.MIRC[0].M = item.MaterialRC1;
-                        productInnvoation.T.AIRC[1].M = item.SurfaceRC2;
-                        productInnvoation.AC.FIRC[1].M = item.FunctionRC2;
-                        productInnvoation.AL.MIRC[1].M = item.MaterialRC2;
-                        productInnvoation.T.AIRC[2].M = item.SurfaceRC3;
-                        productInnvoation.AC.FIRC[2].M = item.FunctionRC3;
-                        productInnvoation.AL.MIRC[2].M = item.MaterialRC3;
-                        break;
-                    case Brand.S品牌:
-                        productInnvoation.T.AIRC[0].S = item.SurfaceRC1;
-                        productInnvoation.AC.FIRC[0].S = item.FunctionRC1;
-                        productInnvoation.AL.MIRC[0].S = item.MaterialRC1;
-                        productInnvoation.T.AIRC[1].S = item.SurfaceRC2;
-                        productInnvoation.AC.FIRC[1].S = item.FunctionRC2;
-                        productInnvoation.AL.MIRC[1].S = item.MaterialRC2;
-                        productInnvoation.T.AIRC[2].S = item.SurfaceRC3;
-                        productInnvoation.AC.FIRC[2].S = item.FunctionRC3;
-                        productInnvoation.AL.MIRC[2].S = item.MaterialRC3;
-                        break;
-                    case Brand.J品牌:
-                        productInnvoation.T.AIRC[0].J = item.SurfaceRC1;
-                        productInnvoation.AC.FIRC[0].J = item.FunctionRC1;
-                        productInnvoation.AL.MIRC[0].J = item.MaterialRC1;
-                        productInnvoation.T.AIRC[1].J = item.SurfaceRC2;
-                        productInnvoation.AC.FIRC[1].J = item.FunctionRC2;
-                        productInnvoation.AL.MIRC[1].J = item.MaterialRC2;
-                        productInnvoation.T.AIRC[2].J = item.SurfaceRC3;
-                        productInnvoation.AC.FIRC[2].J = item.FunctionRC3;
-                        productInnvoation.AL.MIRC[2].J = item.MaterialRC3;
-
-                        break;
-                    default:
-                        break;
+                    switch (brand)
+                    {
+                        case Brand.M品牌:
+                            productInnvoation.T.AIRC[i].M = item.SurfaceRC[i];
+                            productInnvoation.AC.FIRC[i].M = item.FunctionRC[i];
+                            productInnvoation.AL.MIRC[i].M = item.MaterialRC[i];
+                            break;
+                        case Brand.S品牌:
+                            productInnvoation.T.AIRC[i].S = item.SurfaceRC[i];
+                            productInnvoation.AC.FIRC[i].S = item.FunctionRC[i];
+                            productInnvoation.AL.MIRC[i].S = item.MaterialRC[i];
+                            break;
+                        case Brand.J品牌:
+                            productInnvoation.T.AIRC[i].J = item.SurfaceRC[i];
+                            productInnvoation.AC.FIRC[i].J = item.FunctionRC[i];
+                            productInnvoation.AL.MIRC[i].J = item.MaterialRC[i];
+                            break;
+                    }
                 }
             }
             SetInvovation(productInnvoations, productInnvoations.OrderByDescending(s => s.ID).Take(1).ToList()[0]);
@@ -141,21 +124,29 @@ namespace WebMVC.BLL
             if (index == 0) return;
             var last = products.FirstOrDefault(j => j.Stage == agentStages.stages[index - 1]);
             SetInvovation(products, last);
-            product.K.IIXRC[0].M = last.InnovationIndexM[0];
-            product.K.IIXRC[0].S = last.InnovationIndexS[0];
-            product.K.IIXRC[0].J = last.InnovationIndexJ[0]; ;
 
-            if (index == 2)
+            for (int i = 0; i < index; i++)
             {
-                product.K.IIXRC[1] = initRC;
+                if (product.K.IIXRC.Count <= i) product.K.IIXRC.Add(new RC());
+                product.K.IIXRC[i].M = last.InnovationIndexM[i];
+                product.K.IIXRC[i].S = last.InnovationIndexS[i];
+                product.K.IIXRC[i].J = last.InnovationIndexJ[i];
+
             }
-            if (index == 3)
+
+
+            if (index > 1)
             {
-                product.K.IIXRC[1].M = last.InnovationIndexM[1];
-                product.K.IIXRC[1].S = last.InnovationIndexS[1];
-                product.K.IIXRC[1].J = last.InnovationIndexJ[1];
-                product.K.IIXRC[2] = initRC;
+                product.K.IIXRC.Add(new RC());
+                product.K.IIXRC[index - 1] = initRC;
             }
+            //if (index == 3)
+            //{
+            //    product.K.IIXRC[1].M = last.InnovationIndexM[1];
+            //    product.K.IIXRC[1].S = last.InnovationIndexS[1];
+            //    product.K.IIXRC[1].J = last.InnovationIndexJ[1];
+            //    product.K.IIXRC[2] = initRC;
+            //}
             product.PTCal();
         }
         public List<ProductInnvoationTable> Get()
@@ -198,7 +189,7 @@ namespace WebMVC.BLL
             #endregion
 
             #region 外观创新指数
-            for (int i = 0; i <T.AIRC.Count; i++)
+            for (int i = 0; i < T.AIRC.Count; i++)
             {
                 BD.AIIRC.Add(new RC
                 {
@@ -234,7 +225,7 @@ namespace WebMVC.BLL
                     J = T.AIRC[i].OutputCoefficient(3),
 
                 });
-            }  
+            }
             #endregion
 
 
@@ -261,7 +252,7 @@ namespace WebMVC.BLL
                 var result = new List<decimal>();
                 for (int i = 0; i < K.IIXRC.Count; i++)
                 {
-                    var res =  Cal.InnovationIndex(K.IIXRC[i].S, BD.AIIRC[i].S, BD.AIIRC[i].Average, CB.AORC[i].S, BP.FIIRC[i].S, BP.FIIRC[i].Average, CK.FORC[i].S);
+                    var res = Cal.InnovationIndex(K.IIXRC[i].S, BD.AIIRC[i].S, BD.AIIRC[i].Average, CB.AORC[i].S, BP.FIIRC[i].S, BP.FIIRC[i].Average, CK.FORC[i].S);
                     result.Add(res);
                 }
                 return result;
@@ -281,7 +272,7 @@ namespace WebMVC.BLL
             }
         }
 
-         
+
         public string Stage { get; set; }
         /// <summary>
         /// 创新影响力
@@ -327,9 +318,15 @@ namespace WebMVC.BLL
             get
             {
                 var result = new FunctionOutput();
-                result.FORC[0] = GetCK(AC.FIRC[0]);
-                result.FORC[1] = GetCK(AC.FIRC[0], AC.FIRC[1]);
-                result.FORC[2] = GetCK(AC.FIRC[1], AC.FIRC[2]);
+                for (int i = 0; i < AC.FIRC.Count; i++)
+                {
+                    if (i == 0) result.FORC.Add(GetCK(AC.FIRC[i]));
+                    else
+                        result.FORC.Add(GetCK(AC.FIRC[i-1],AC.FIRC[i]));
+                }
+                //result.FORC[0] = GetCK(AC.FIRC[0]);
+                //result.FORC[1] = GetCK(AC.FIRC[0], AC.FIRC[1]);
+                //result.FORC[2] = GetCK(AC.FIRC[1], AC.FIRC[2]);
                 return result;
             }
         }
@@ -387,23 +384,25 @@ namespace WebMVC.BLL
                 return result;
             }
         }
-        public List<decimal> DDStage { get
+        public List<decimal> DDStage
+        {
+            get
             {
-               var result =new List<decimal>() ;
+                var result = new List<decimal>();
                 for (int i = 0; i < B.IIRC.Count; i++)
                 {
                     result.Add(B.IIRC[i].Sum);
                 }
-         
+
                 return result;
             }
         }
-         
+
     }
     public class InnovationImpact
     {
         public List<RC> IIRC { get; set; } = new List<RC>();
- 
+
     }
     public class InnovationIndex
     {
@@ -444,19 +443,17 @@ namespace WebMVC.BLL
     public class FunctionInnovationIndex
     {
         public List<RC> FIIRC { get; set; } = new List<RC>();
- 
+
     }
     public class FunctionOutput
     {
         public List<RC> FORC { get; set; } = new List<RC>();
- 
+
     }
     public class ProfitFactor
     {
         public List<RC> PFRC { get; set; } = new List<RC>();
-        public RC RC1 { get; set; } = new RC();
-        public RC RC2 { get; set; } = new RC();
-        public RC RC3 { get; set; } = new RC();
+
     }
 
 }

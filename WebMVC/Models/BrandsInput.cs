@@ -31,55 +31,55 @@ namespace WebMVC.Models
         [DisplayName("品牌广告投入")]
         public decimal advertise { get; set; }
         public List<decimal> SurfaceRC { get; set; } = new List<decimal>();
-        /// <summary>
-        /// 外观常规RC1
-        /// </summary>
-        [DisplayName("外观常规RC1")]
-        public decimal SurfaceRC1 { get; set; }
-        /// <summary>
-        /// 外观新增RC2
-        /// </summary>
-        [DisplayName("外观新增RC2")]
-        public decimal SurfaceRC2 { get; set; }
-        /// <summary>
-        /// 外观新增RC3
-        /// </summary>
-        [DisplayName("外观新增RC3")]
-        public decimal SurfaceRC3 { get; set; }
+        ///// <summary>
+        ///// 外观常规RC1
+        ///// </summary>
+        //[DisplayName("外观常规RC1")]
+        //public decimal SurfaceRC1 { get; set; }
+        ///// <summary>
+        ///// 外观新增RC2
+        ///// </summary>
+        //[DisplayName("外观新增RC2")]
+        //public decimal SurfaceRC2 { get; set; }
+        ///// <summary>
+        ///// 外观新增RC3
+        ///// </summary>
+        //[DisplayName("外观新增RC3")]
+        //public decimal SurfaceRC3 { get; set; }
         public List<decimal> FunctionRC { get; set; } = new List<decimal>();
 
-        /// <summary>
-        /// 功能常规RC1
-        /// </summary>
-        [DisplayName("功能常规RC1")]
-        public decimal FunctionRC1 { get; set; }
-        /// <summary>
-        /// 功能新增RC2
-        /// </summary>
-        [DisplayName("功能新增RC2")]
-        public decimal FunctionRC2 { get; set; }
-        /// <summary>
-        /// 功能新增RC3
-        /// </summary>
-        [DisplayName("功能新增RC3")]
-        public decimal FunctionRC3 { get; set; }
+        ///// <summary>
+        ///// 功能常规RC1
+        ///// </summary>
+        //[DisplayName("功能常规RC1")]
+        //public decimal FunctionRC1 { get; set; }
+        ///// <summary>
+        ///// 功能新增RC2
+        ///// </summary>
+        //[DisplayName("功能新增RC2")]
+        //public decimal FunctionRC2 { get; set; }
+        ///// <summary>
+        ///// 功能新增RC3
+        ///// </summary>
+        //[DisplayName("功能新增RC3")]
+        //public decimal FunctionRC3 { get; set; }
         public List<decimal> MaterialRC { get; set; } = new List<decimal>();
 
-        /// <summary>
-        /// 材料常规RC1
-        /// </summary>
-        [DisplayName("材料常规RC1")]
-        public decimal MaterialRC1 { get; set; }
-        /// <summary>
-        /// 材料新增RC2
-        /// </summary>
-        [DisplayName("材料新增RC2")]
-        public decimal MaterialRC2 { get; set; }
-        /// <summary>
-        /// 材料新增RC3
-        /// </summary>
-        [DisplayName("材料新增RC3")]
-        public decimal MaterialRC3 { get; set; }
+        ///// <summary>
+        ///// 材料常规RC1
+        ///// </summary>
+        //[DisplayName("材料常规RC1")]
+        //public decimal MaterialRC1 { get; set; }
+        ///// <summary>
+        ///// 材料新增RC2
+        ///// </summary>
+        //[DisplayName("材料新增RC2")]
+        //public decimal MaterialRC2 { get; set; }
+        ///// <summary>
+        ///// 材料新增RC3
+        ///// </summary>
+        //[DisplayName("材料新增RC3")]
+        //public decimal MaterialRC3 { get; set; }
         /// <summary>
         /// 终端形象
         /// </summary>
@@ -189,7 +189,7 @@ namespace WebMVC.Models
         {
             get
             {
-                return this.SurfaceRC1 + this.SurfaceRC2 + this.SurfaceRC3;
+                return this.SurfaceRC.Sum();
             }
         }
         /// <summary>
@@ -199,7 +199,7 @@ namespace WebMVC.Models
         {
             get
             {
-                return this.FunctionRC1 + this.FunctionRC2 + this.FunctionRC3;
+                return this.FunctionRC.Sum();
             }
         }
         /// <summary>
@@ -209,7 +209,7 @@ namespace WebMVC.Models
         {
             get
             {
-                return this.MaterialRC1 + this.MaterialRC2 + this.MaterialRC3;
+                return this.MaterialRC.Sum();
             }
         }
         public decimal InputSum

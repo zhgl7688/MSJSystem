@@ -31,7 +31,7 @@ namespace WebMVC.Models
         [DisplayName("S品牌销售")]
         public decimal Z { get; set; } = 0.25m;
         [DisplayName("J品牌销售")]
-        public decimal J { get; set; } = 0.3m;
+        public decimal AR { get; set; } = 0.3m;
 
 
     }

@@ -16,15 +16,16 @@ namespace WebMVC.BLL
         List<MarketTable> markets;    //市场价格
         List<StockReportTable> stockReports; //进货报表
 
-
+        AgentStages agentStages;
         /// <summary>
         /// 进销存报表
         /// </summary>
         public InvoicingReport(CurrentShare CurrentShare, MarketPrice MarketPrice, StockReport StockReport)
         {
-            currentShares =  CurrentShare.Get();
-            markets =  MarketPrice.Get();
-            stockReports =  StockReport.Get();
+            agentStages = new AgentStages();
+            currentShares = CurrentShare.Get();
+            markets = MarketPrice.Get();
+            stockReports = StockReport.Get();
             Init();
         }
         private void Init()
@@ -42,234 +43,78 @@ namespace WebMVC.BLL
                     };
                     invoicings.Add(invoicing);
                 }
-                Stage stage = (Stage)Enum.Parse(typeof(Stage), stockReport.Stage);
-                switch (stage)
+                var indexStage = agentStages.stages.IndexOf(stockReport.Stage);
+                var es = new List<decimal>();
+                for (int i = 0; i < indexStage; i++)
                 {
-                    case Stage.第一阶段:
-                        invoicing.E = stockReport.E[1].Stock;
-                        break;
-                    case Stage.第二阶段:
-                        invoicing.K = stockReport.E[1].Stock;
-                        invoicing.M = stockReport.E[2].Stock;
-                        break;
-                    case Stage.第三阶段:
-                        invoicing.W = stockReport.E[1].Stock;
-                        invoicing.Y = stockReport.E[2].Stock;
-                        invoicing.AA = stockReport.E[3].Stock;
-                        break;
-                }
-            }
-            var currentShare0 = currentShares.FirstOrDefault(s => s.Stage == Common.Stage.起始阶段.ToString());
-            var currentShare1 = currentShares.FirstOrDefault(s => s.Stage == Common.Stage.第一阶段.ToString());
-            var currentShare2 = currentShares.FirstOrDefault(s => s.Stage == Common.Stage.第二阶段.ToString());
-            var currentShare3 = currentShares.FirstOrDefault(s => s.Stage == Common.Stage.第三阶段.ToString());
+                    es.Add(stockReport.E[i + 1].Stock);
 
-            var market1 = markets.FirstOrDefault(s => s.Stage == Common.Stage.第一阶段.ToString());
-            var market2 = markets.FirstOrDefault(s => s.Stage == Common.Stage.第二阶段.ToString());
-            var market3 = markets.FirstOrDefault(s => s.Stage == Common.Stage.第三阶段.ToString());
+                }
+                invoicing.EStage.Add(indexStage, es);
+                //Stage stage = (Stage)Enum.Parse(typeof(Stage), stockReport.Stage);
+                //switch (stage)
+                //{
+                //    case Stage.第一阶段:
+                //        invoicing.E = stockReport.E[1].Stock;
+                //        break;
+                //    case Stage.第二阶段:
+                //        invoicing.K = stockReport.E[1].Stock;
+                //        invoicing.M = stockReport.E[2].Stock;
+                //        break;
+                //    case Stage.第三阶段:
+                //        invoicing.W = stockReport.E[1].Stock;
+                //        invoicing.Y = stockReport.E[2].Stock;
+                //        invoicing.AA = stockReport.E[3].Stock;
+                //        break;
+                //}
+            }
+ 
+            var currentShareList = currentShares.OrderBy(s => s.Stage).ToList();
+            var marketList = markets.OrderBy(s=>s.Stage).ToList();
 
             foreach (var invoicing in invoicings)
             {
-
-                AgentName agentName = (AgentName)Enum.Parse(typeof(AgentName), invoicing.AgentName);
-
-                switch (agentName)
+                var indexAgent = agentStages.agents.IndexOf(invoicing.AgentName);
+                invoicing.C = currentShareList[0].CT[1].Agent[indexAgent];
+                if (currentShareList.Count>1) invoicing.G = currentShareList[1].CT[1].Agent[indexAgent];
+                if (currentShareList.Count >2)
                 {
-                    case AgentName.代1:
-                        invoicing.C = currentShare0.CT[1].Agent1;
-                        if (currentShare1 != null)
-                            invoicing.G = currentShare1.CT[1].Agent1;
-                        if (currentShare2 != null)
-                        {
-                            invoicing.O = currentShare2.CT[1].Agent1;
-                            invoicing.Q = currentShare2.CT[2].Agent1;
-                        }
-                        if (currentShare3 != null)
-                        {
-                            invoicing.AC = currentShare3.CT[1].Agent1;
-                            invoicing.AE = currentShare3.CT[2].Agent1;
-                            invoicing.AG = currentShare3.CT[3].Agent1;
-                        }
-                        if (market1 != null)
-                            invoicing.H = market1.EF[1].Agent1;
-                        if (market2 != null)
-                        {
-                            invoicing.P = market2.EF[1].Agent1;
-                            invoicing.R = market2.EF[2].Agent1;
-                        }
-                        if (market3 != null)
-                        {
-                            invoicing.AD = market3.EF[1].Agent1;
-                            invoicing.AF = market3.EF[2].Agent1;
-                            invoicing.AH = market3.EF[3].Agent1;
-                        }
-
-
-                        break;
-                    case AgentName.代2:
-                        invoicing.C = currentShare0.CT[1].Agent2;
-                        if (currentShare1 != null)
-                            invoicing.G = currentShare1.CT[1].Agent2;
-                        if (currentShare2 != null)
-                        {
-                            invoicing.O = currentShare2.CT[1].Agent2;
-                            invoicing.Q = currentShare2.CT[2].Agent2;
-                        }
-                        if (currentShare3 != null)
-                        {
-                            invoicing.AC = currentShare3.CT[1].Agent2;
-                            invoicing.AE = currentShare3.CT[2].Agent2;
-                            invoicing.AG = currentShare3.CT[3].Agent2;
-                        }
-                        if (market1 != null)
-                            invoicing.H = market1.EF[1].Agent2;
-                        if (market2 != null)
-                        {
-                            invoicing.P = market2.EF[1].Agent2;
-                            invoicing.R = market2.EF[2].Agent2;
-                        }
-                        if (market3 != null)
-                        {
-                            invoicing.AD = market3.EF[1].Agent2;
-                            invoicing.AF = market3.EF[2].Agent2;
-                            invoicing.AH = market3.EF[3].Agent2;
-                        }
-                        break;
-                    case AgentName.代3:
-                        invoicing.C = currentShare0.CT[1].Agent3;
-                        if (currentShare1 != null)
-                            invoicing.G = currentShare1.CT[1].Agent3;
-                        if (currentShare2 != null)
-                        {
-                            invoicing.O = currentShare2.CT[1].Agent3;
-                            invoicing.Q = currentShare2.CT[2].Agent3;
-                        }
-                        if (currentShare3 != null)
-                        {
-                            invoicing.AC = currentShare3.CT[1].Agent3;
-                            invoicing.AE = currentShare3.CT[2].Agent3;
-                            invoicing.AG = currentShare3.CT[3].Agent3;
-                        }
-                        if (market1 != null)
-                            invoicing.H = market1.EF[1].Agent3;
-                        if (market2 != null)
-                        {
-                            invoicing.P = market2.EF[1].Agent3;
-                            invoicing.R = market2.EF[2].Agent3;
-                        }
-                        if (market3 != null)
-                        {
-                            invoicing.AD = market3.EF[1].Agent3;
-                            invoicing.AF = market3.EF[2].Agent3;
-                            invoicing.AH = market3.EF[3].Agent3;
-                        }
-
-                        break;
-                    case AgentName.代4:
-                        invoicing.C = currentShare0.CT[1].Agent4;
-                        if (currentShare1 != null)
-                            invoicing.G = currentShare1.CT[1].Agent4;
-                        if (currentShare2 != null)
-                        {
-                            invoicing.O = currentShare2.CT[1].Agent4;
-                            invoicing.Q = currentShare2.CT[2].Agent4;
-                        }
-                        if (currentShare3 != null)
-                        {
-                            invoicing.AC = currentShare3.CT[1].Agent4;
-                            invoicing.AE = currentShare3.CT[2].Agent4;
-                            invoicing.AG = currentShare3.CT[3].Agent4;
-                        }
-                        if (market1 != null)
-                            invoicing.H = market1.EF[1].Agent4;
-                        if (market2 != null)
-                        {
-                            invoicing.P = market2.EF[1].Agent4;
-                            invoicing.R = market2.EF[2].Agent4;
-                        }
-                        if (market3 != null)
-                        {
-                            invoicing.AD = market3.EF[1].Agent4;
-                            invoicing.AF = market3.EF[2].Agent4;
-                            invoicing.AH = market3.EF[3].Agent4;
-                        }
-                        break;
-                    case AgentName.代5:
-                        invoicing.C = currentShare0.CT[1].Agent5;
-                        if (currentShare1 != null)
-                            invoicing.G = currentShare1.CT[1].Agent5;
-                        if (currentShare2 != null)
-                        {
-                            invoicing.O = currentShare2.CT[1].Agent5;
-                            invoicing.Q = currentShare2.CT[2].Agent5;
-                        }
-                        if (currentShare3 != null)
-                        {
-                            invoicing.AC = currentShare3.CT[1].Agent5;
-                            invoicing.AE = currentShare3.CT[2].Agent5;
-                            invoicing.AG = currentShare3.CT[3].Agent5;
-                        }
-                        if (market1 != null)
-                            invoicing.H = market1.EF[1].Agent5;
-                        if (market2 != null)
-                        {
-                            invoicing.P = market2.EF[1].Agent5;
-                            invoicing.R = market2.EF[2].Agent5;
-                        }
-                        if (market3 != null)
-                        {
-                            invoicing.AD = market3.EF[1].Agent5;
-                            invoicing.AF = market3.EF[2].Agent5;
-                            invoicing.AH = market3.EF[3].Agent5;
-                        }
-                        break;
-                    case AgentName.代6:
-                        invoicing.C = currentShare0.CT[1].Agent6;
-                        if (currentShare1 != null)
-                            invoicing.G = currentShare1.CT[1].Agent6;
-                        if (currentShare2 != null)
-                        {
-                            invoicing.O = currentShare2.CT[1].Agent6;
-                            invoicing.Q = currentShare2.CT[2].Agent6;
-                        }
-                        if (currentShare3 != null)
-                        {
-                            invoicing.AC = currentShare3.CT[1].Agent6;
-                            invoicing.AE = currentShare3.CT[2].Agent6;
-                            invoicing.AG = currentShare3.CT[3].Agent6;
-                        }
-                        if (market1 != null)
-                            invoicing.H = market1.EF[1].Agent6;
-                        if (market2 != null)
-                        {
-                            invoicing.P = market2.EF[1].Agent6;
-                            invoicing.R = market2.EF[2].Agent6;
-                        }
-                        if (market3 != null)
-                        {
-                            invoicing.AD = market3.EF[1].Agent6;
-                            invoicing.AF = market3.EF[2].Agent6;
-                            invoicing.AH = market3.EF[3].Agent6;
-                        }
-
-                        break;
-                    default:
-                        break;
+                    invoicing.O = currentShareList[2].CT[1].Agent[indexAgent];
+                    invoicing.Q = currentShareList[2].CT[2].Agent[indexAgent];
+                }
+                if (currentShareList.Count >3)
+                {
+                    invoicing.AC = currentShareList[3].CT[1].Agent[indexAgent];
+                    invoicing.AE = currentShareList[3].CT[2].Agent[indexAgent];
+                    invoicing.AG = currentShareList[3].CT[3].Agent[indexAgent];
+                }
+                if (marketList.Count>0)
+                    invoicing.H = marketList[0].EF[1].Agent[indexAgent];
+                if (marketList.Count > 1)
+                {
+                    invoicing.P = marketList[1].EF[1].Agent[indexAgent];
+                    invoicing.R = marketList[1].EF[2].Agent[indexAgent];
+                }
+                if (marketList.Count > 2)
+                {
+                    invoicing.AD = marketList[2].EF[1].Agent[indexAgent];
+                    invoicing.AF = marketList[2].EF[2].Agent[indexAgent];
+                    invoicing.AH = marketList[2].EF[3].Agent[indexAgent];
                 }
             }
 
-            if (market1 != null) invoicings.ForEach(s => s.F_MarketPrice_CN5 = market1.CM[1].S);
-            if (market2 != null)
+            if (marketList.Count > 0) invoicings.ForEach(s => s.F_MarketPrice_CN5 = marketList[0].CM[1].S);
+            if (marketList.Count > 1)
             {
-                invoicings.ForEach(s => s.F_MarketPrice_CN6 = market2.CM[1].S);
-                invoicings.ForEach(s => s.F_MarketPrice_CQ6 = market2.CM[2].S);
+                invoicings.ForEach(s => s.F_MarketPrice_CN6 = marketList[1].CM[1].S);
+                invoicings.ForEach(s => s.F_MarketPrice_CQ6 = marketList[1].CM[2].S);
 
             }
-            if (market3 != null)
+            if (marketList.Count > 1)
             {
-                invoicings.ForEach(s => s.F_MarketPrice_CN7 = market3.CM[1].S);
-                invoicings.ForEach(s => s.F_MarketPrice_CQ7 = market3.CM[2].S);
-                invoicings.ForEach(s => s.F_MarketPrice_CT7 = market3.CM[3].S);
+                invoicings.ForEach(s => s.F_MarketPrice_CN7 = marketList[2].CM[1].S);
+                invoicings.ForEach(s => s.F_MarketPrice_CQ7 = marketList[2].CM[2].S);
+                invoicings.ForEach(s => s.F_MarketPrice_CT7 = marketList[2].CM[3].S);
 
             }
 
@@ -286,8 +131,9 @@ namespace WebMVC.BLL
         public decimal B { get; set; }
         public decimal C { get; set; }
         public decimal D { get { return B - C; } }
+        public Dictionary<int, List<decimal>> EStage { get; set; } = new Dictionary<int, List<decimal>>();
         public decimal E { get; set; }
-        public decimal F { get { return E * F_MarketPrice_CN5; } }
+        public decimal F { get { return EStage[1][0] * F_MarketPrice_CN5; } }
         private decimal g;
         public decimal G
         {
@@ -295,17 +141,17 @@ namespace WebMVC.BLL
             { return g; }
             set
             {
-                g = decimal.Round((D + E) < value ? D + E : value, 0);
+                g = decimal.Round((D + EStage[1][0]) < value ? D + EStage[1][0] : value, 0);
             }
         }
         private decimal h;
         public decimal H { get { return h; } set { h = G * value; } }
-        public decimal I { get { return D + E - G > 0 ? D + E - G : 0; } }
+        public decimal I { get { return D + EStage[1][0] - G > 0 ? D + EStage[1][0] - G : 0; } }
         public decimal J { get { return I * F_MarketPrice_CN5; } }
         public decimal K { get; set; }
-        public decimal L { get { return K * F_MarketPrice_CN6; } }
+        public decimal L { get { return EStage[2][0] * F_MarketPrice_CN6; } }
         public decimal M { get; set; }
-        public decimal N { get { return K * F_MarketPrice_CQ6; } }
+        public decimal N { get { return EStage[2][0] * F_MarketPrice_CQ6; } }
         private decimal o;
         public decimal O
         {
@@ -313,7 +159,7 @@ namespace WebMVC.BLL
             { return o; }
             set
             {
-                o = decimal.Round((I + K) < value ? I + K : value, 0);
+                o = decimal.Round((I + EStage[2][0]) < value ? I + EStage[2][0] : value, 0);
             }
         }
         private decimal p;
@@ -325,21 +171,21 @@ namespace WebMVC.BLL
             { return q; }
             set
             {
-                q = decimal.Round(M < value ? M : value, 0);
+                q = decimal.Round(EStage[2][1] < value ? EStage[2][1] : value, 0);
             }
         }
         private decimal r;
         public decimal R { get { return r; } set { r = Q * value; } }
-        public decimal S { get { return I + K - O > 0 ? I + K - O : 0; } }
+        public decimal S { get { return I + EStage[2][0] - O > 0 ? I + EStage[2][0] - O : 0; } }
         public decimal T { get { return S * F_MarketPrice_CN6; } }
-        public decimal U { get { return M - Q; } }
+        public decimal U { get { return EStage[2][1] - Q; } }
         public decimal V { get { return U * F_MarketPrice_CQ6; } }
         public decimal W { get; set; }
-        public decimal X { get { return W * F_MarketPrice_CN7; } }
+        public decimal X { get { return EStage[3][0] * F_MarketPrice_CN7; } }
         public decimal Y { get; set; }
-        public decimal Z { get { return Y * F_MarketPrice_CQ7; } }
+        public decimal Z { get { return EStage[3][1] * F_MarketPrice_CQ7; } }
         public decimal AA { get; set; }
-        public decimal AB { get { return AA * F_MarketPrice_CT7; } }
+        public decimal AB { get { return EStage[3][2] * F_MarketPrice_CT7; } }
         private decimal ac;
         public decimal AC
         {
@@ -347,7 +193,7 @@ namespace WebMVC.BLL
             { return ac; }
             set
             {
-                ac = decimal.Round(S + W < value ? S + W : value, 0);
+                ac = decimal.Round(S + EStage[3][0] < value ? S + EStage[3][0] : value, 0);
             }
         }
         private decimal ad;
@@ -359,7 +205,7 @@ namespace WebMVC.BLL
             { return ae; }
             set
             {
-                ae = decimal.Round((U + Y) < value ? U + Y : value, 0);
+                ae = decimal.Round((U + EStage[3][1]) < value ? U + EStage[3][1] : value, 0);
             }
         }
         private decimal af;
@@ -371,16 +217,16 @@ namespace WebMVC.BLL
             { return ag; }
             set
             {
-                ag = decimal.Round(AA < value ? AA : value, 0);
+                ag = decimal.Round(EStage[3][2] < value ? EStage[3][2] : value, 0);
             }
         }
         private decimal ah;
         public decimal AH { get { return ah; } set { ah = AG * value; } }
-        public decimal AI { get { return S + W - AC > 0 ? S + W - AC : 0; } }
+        public decimal AI { get { return S + EStage[3][0] - AC > 0 ? S + EStage[3][0] - AC : 0; } }
         public decimal AJ { get { return AI * F_MarketPrice_CN7; } }
-        public decimal AK { get { return U + Y - AE > 0 ? U + Y - AE : 0; } }
+        public decimal AK { get { return U + EStage[3][1] - AE > 0 ? U + EStage[3][1] - AE : 0; } }
         public decimal AL { get { return AK * F_MarketPrice_CQ7; } }
-        public decimal AM { get { return AA - AG; } }
+        public decimal AM { get { return EStage[3][2] - AG; } }
         public decimal AN { get { return AM * F_MarketPrice_CT7; } }
         public decimal F_MarketPrice_CN5 { get; internal set; }
         public decimal F_MarketPrice_CN6 { get; internal set; }

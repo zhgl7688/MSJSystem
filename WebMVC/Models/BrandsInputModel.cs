@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebMVC.Models
 {
-    public class BrandsInput
+    public class BrandsInputModel
     {
         /// <summary>
         /// 主键 编号
@@ -30,56 +30,24 @@ namespace WebMVC.Models
         /// </summary>
         [DisplayName("品牌广告投入")]
         public decimal advertise { get; set; }
-        public List<decimal> SurfaceRC { get; set; } = new List<decimal>();
         /// <summary>
         /// 外观常规RC1
         /// </summary>
-        [DisplayName("外观常规RC1")]
-        public decimal SurfaceRC1 { get; set; }
-        /// <summary>
-        /// 外观新增RC2
-        /// </summary>
-        [DisplayName("外观新增RC2")]
-        public decimal SurfaceRC2 { get; set; }
-        /// <summary>
-        /// 外观新增RC3
-        /// </summary>
-        [DisplayName("外观新增RC3")]
-        public decimal SurfaceRC3 { get; set; }
-        public List<decimal> FunctionRC { get; set; } = new List<decimal>();
-
+        [DisplayName("外观常规")]
+        public List<decimal> SurfaceRC { get; set; }
+        
         /// <summary>
         /// 功能常规RC1
         /// </summary>
-        [DisplayName("功能常规RC1")]
-        public decimal FunctionRC1 { get; set; }
-        /// <summary>
-        /// 功能新增RC2
-        /// </summary>
-        [DisplayName("功能新增RC2")]
-        public decimal FunctionRC2 { get; set; }
-        /// <summary>
-        /// 功能新增RC3
-        /// </summary>
-        [DisplayName("功能新增RC3")]
-        public decimal FunctionRC3 { get; set; }
-        public List<decimal> MaterialRC { get; set; } = new List<decimal>();
-
+        [DisplayName("功能常规RC")]
+        public List<decimal> FunctionRC { get; set; }
+         
         /// <summary>
         /// 材料常规RC1
         /// </summary>
         [DisplayName("材料常规RC1")]
-        public decimal MaterialRC1 { get; set; }
-        /// <summary>
-        /// 材料新增RC2
-        /// </summary>
-        [DisplayName("材料新增RC2")]
-        public decimal MaterialRC2 { get; set; }
-        /// <summary>
-        /// 材料新增RC3
-        /// </summary>
-        [DisplayName("材料新增RC3")]
-        public decimal MaterialRC3 { get; set; }
+        public List<decimal> MaterialRC { get; set; }
+        
         /// <summary>
         /// 终端形象
         /// </summary>
@@ -180,52 +148,5 @@ namespace WebMVC.Models
             }
         }
     }
-    public class BrandTable : BrandsInput
-    {
-        /// <summary>
-        /// 外观常规汇总
-        /// </summary>
-        public decimal SurfaceSum
-        {
-            get
-            {
-                return this.SurfaceRC1 + this.SurfaceRC2 + this.SurfaceRC3;
-            }
-        }
-        /// <summary>
-        /// 功能常规汇总
-        /// </summary>
-        public decimal FunctionSum
-        {
-            get
-            {
-                return this.FunctionRC1 + this.FunctionRC2 + this.FunctionRC3;
-            }
-        }
-        /// <summary>
-        /// 材料常规汇总
-        /// </summary>
-        public decimal materialSum
-        {
-            get
-            {
-                return this.MaterialRC1 + this.MaterialRC2 + this.MaterialRC3;
-            }
-        }
-        public decimal InputSum
-        {
-            get
-            {
-                return this.EndImage + this.Salesperson + this.HousePromote + this.demonstrator
-                     + this.outdoorActivity + this.promotionTeam + this.servet;
-            }
-        }
-        public decimal Sum
-        {
-            get
-            {
-                return this.advertise + this.FunctionSum + this.materialSum + this.SurfaceSum + InputSum;
-            }
-        }
-    }
+     
 }

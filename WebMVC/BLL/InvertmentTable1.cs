@@ -12,12 +12,12 @@ namespace WebMVC.BLL
     /// 投资表1
     /// </summary>
     public class InvertmentTable1
-    {  
+    {
         List<AgentInput> agentInputs;
         List<BrandTable> brands = new List<BrandTable>();
         List<BrandsInput> brandsInputs;
-        private AgentStages agentStages;
-        public InvertmentTable1(List<AgentInput> agentInputs, List<BrandsInput> brandsInputs, AgentStages agentStages)
+
+        public InvertmentTable1(List<AgentInput> agentInputs, List<BrandsInput> brandsInputs)
         {
             this.agentInputs = agentInputs;
             this.brandsInputs = brandsInputs;
@@ -32,50 +32,44 @@ namespace WebMVC.BLL
             List<BrandTable> brands = new List<BrandTable>();
             foreach (var item in brandsInputs)
             {
-               brands.Add( Cal.AutoCopy<BrandsInput, BrandTable>(item));
+                brands.Add(Cal.AutoCopy<BrandsInput, BrandTable>(item));
             }
-               return brands;
+            return brands;
         }
-        
+
         public List<BrandsInput> getBrandsInputs()
-        {  
+        {
             return brandsInputs;
         }
         public List<AgentTable> getAgents()
         {
             List<AgentTable> agents = new List<AgentTable>();
+            var agentStages = new AgentStages();
+            //初始化行列
+            for (int i = 1; i < agentStages.stages.Count; i++)
+            {
+                agents.Add(new AgentTable() { Stage = agentStages.stages[i] });
+            }
+            agents.ForEach(s =>
+            {
+                for (int i = 0; i < agentStages.agents.Count; i++)
+                {
+                    s.Bagent.Add(new BrandInput());
+                }
+            });
+
             foreach (var item in agentInputs)
             {
-                var agent = agents.FirstOrDefault(s => s.Stage == item.Stage);
-                if (agent == null)
+                agents.ForEach(s =>
                 {
-                    agent = new AgentTable { Stage = item.Stage };
-                    agents.Add(agent);
-                }
-                var index = agentStages.agents .FindIndex(s => s == item.AgentName);
-                switch (agentName)
-                {
-                    case AgentName.代1:
-                        agent.B = item.brandInput;
-                        break;
-                    case AgentName.代2:
-                        agent.J = item.brandInput;
-                        break;
-                    case AgentName.代3:
-                        agent.R = item.brandInput;
-                        break;
-                    case AgentName.代4:
-                        agent.Z = item.brandInput;
-                        break;
-                    case AgentName.代5:
-                        agent.AH = item.brandInput;
-                        break;
-                    case AgentName.代6:
-                        agent.AP = item.brandInput;
-                        break;
-                    default:
-                        break;
-                }
+                    if (s.Stage == item.Stage)
+                    {
+                        var index = agentStages.agents.FindIndex(j => j == item.AgentName);
+                        s.Bagent[index] = item.brandInput;
+                    }
+
+
+                });
 
 
             }
@@ -86,11 +80,12 @@ namespace WebMVC.BLL
             get { return agentInputs.Select(s => s.AgentName).Distinct().Count(); }
         }
     }
-  
+
 
     public class AgentTable
     {
         public string Stage { get; set; }
+        public List<BrandInput> Bagent { get; set; } = new List<BrandInput>();
         /// <summary>
         /// 代1
         /// </summary>

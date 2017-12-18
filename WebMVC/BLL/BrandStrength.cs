@@ -19,16 +19,20 @@ namespace WebMVC.BLL
 
         List<BrandStrengthTable> brandStrengths = new List<BrandStrengthTable>();
         List<BrandTable> investMents;
+        AgentStages agentStage;
         public BrandStrength(InvertmentTable1 invertmentTable1)
         {
             using (var db = new Infrastructure.AppIdentityDbContext())
             {
-                BrandStrengthInit bs = db.BrandStrengthInit.FirstOrDefault(s => s.id == 0);
-                this.e = bs.BrandStrength_E;
-                this.h = bs.BrandStrength_M1;
+                BrandStrengthInit bs = db.BrandStrengthInit.FirstOrDefault(s => s.id == 1);
+                if (bs != null)
+                {
+                    this.e = bs.BrandStrength_E;
+                    this.h = bs.BrandStrength_M1;
+                }
             }
             investMents = invertmentTable1.getBrandTable();
-
+            agentStage = new AgentStages();
             Init();
         }
         public void Init()
@@ -36,8 +40,8 @@ namespace WebMVC.BLL
             BrandStrengthTable initT = new BrandStrengthTable
             {
 
-                ID = (int)Stage.起始阶段,
-                Stage = "起始阶段",
+                ID = 0,
+                Stage =agentStage.stages[0],
                 E = e,
                 F = e,
                 G = e,
@@ -53,7 +57,7 @@ namespace WebMVC.BLL
                 {
                     brandStrength = new BrandStrengthTable
                     {
-                        ID = (int)Enum.Parse(typeof(Stage), item.Stage),
+                        ID = agentStage.stages.IndexOf(item.Stage),
                         Stage = item.Stage,
                     };
                     brandStrengths.Add(brandStrength);
@@ -79,10 +83,9 @@ namespace WebMVC.BLL
         }
         private void SetCBPI(List<BrandStrengthTable> brands, BrandStrengthTable s)
         {
-            Stage stage = (Stage)Enum.Parse(typeof(Stage), s.Stage);
-            if (stage == Stage.起始阶段) return;
-            int index = (int)Enum.Parse(typeof(Stage), s.Stage);
-            var last = brands.FirstOrDefault(j => j.Stage == Enum.GetName(typeof(Stage), index - 1));
+             int index =agentStage.stages.IndexOf( s.Stage);
+            if (index == 0) return;
+             var last = brands.FirstOrDefault(j => j.Stage == agentStage.stages[ index - 1]);
             SetCBPI(brands, last);
             s.E = Cal.CBPI(last.E, last.K, last.N, s.K, s.N);
             s.F = Cal.CBPI(last.F, last.L, last.N, s.L, s.N);

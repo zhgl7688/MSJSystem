@@ -11,24 +11,17 @@ namespace WebMVC.BLL
     {
         List<PriceControlTable> priceControlTables = new List<PriceControlTable>();
         InvertmentTable1 invertmenetTable1;
-        private int aCount;
-        private int bCount;
-        List<string> agents, stages;
+ 
+        AgentStages agentStages;
         /// <summary>
         /// 价格管控表
         /// </summary>
         public PriceControl(InvertmentTable1 invertmentTable1)
         {
+            agentStages = new AgentStages();
             invertmenetTable1 = invertmentTable1;
             init();
-            //代理数
-            using (var db = new Infrastructure.AppIdentityDbContext())
-            {
-                agents = db.StageAdd.Select(s => s.AgentName).Distinct().ToList();
-                aCount = agents.Count();
-                stages = db.StageAdd.Select(s => s.Stage).Distinct().ToList();
-                bCount = stages.Count();
-            }
+         
         }
         public void init()
         {
@@ -45,18 +38,18 @@ namespace WebMVC.BLL
                 {
                     priceControl.AG.M = agentItem.NewCostPrice;
                     priceControl.AJ.M = agentItem.NewFactoryPrice;
-                    priceControl.B.RC1M = agentItem.retailPrice;
-                    priceControl.B.RC2M = agentItem.NewRetailPriceR2;
-                    priceControl.B.RC3M = agentItem.NewRetailPriceR3;
+                    priceControl.B.RcM.Add(agentItem.retailPrice);
+                    priceControl.B.RcM.Add(agentItem.NewRetailPriceR2);
+                    priceControl.B.RcM.Add(agentItem.NewRetailPriceR3);
                 }
                 else
                 if (agentItem.Brand == Common.Brand.J品牌.ToString())
                 {
                     priceControl.AG.J = agentItem.NewCostPrice;
                     priceControl.AJ.J = agentItem.NewFactoryPrice;
-                    priceControl.B.RC1J = agentItem.retailPrice;
-                    priceControl.B.RC2J = agentItem.NewRetailPriceR2;
-                    priceControl.B.RC3J = agentItem.NewRetailPriceR3;
+                    priceControl.B.RcJ.Add(agentItem.retailPrice);
+                    priceControl.B.RcJ.Add(agentItem.NewRetailPriceR2);
+                    priceControl.B.RcJ.Add(agentItem.NewRetailPriceR3);
                 }
                 else
                 if (agentItem.Brand == Common.Brand.S品牌.ToString())
@@ -77,24 +70,28 @@ namespace WebMVC.BLL
                     continue;
                 }
                 string agentName = agentItem.AgentName;
-
-                if (agentItem.Stage == Stage.第一阶段.ToString())
+                var countStage = agentStages.stages.IndexOf(agentItem.Stage);
+                for (int i = 0; i < countStage; i++)
                 {
-                    SetAgents(agentName, priceControl.D[1], priceControl.K[1], agentItem.retailPriceRC1, agentItem.SystemPriceRC1);
-                }
-                else
-                if (agentItem.Stage == Stage.第二阶段.ToString())
-                {
-                    SetAgents(agentName, priceControl.D[1], priceControl.K[1], agentItem.retailPriceRC1, agentItem.SystemPriceRC1);
-                    SetAgents(agentName, priceControl.D[2], priceControl.K[2], agentItem.retailPriceRC2, agentItem.SystemPriceRC2);
+                    SetAgents(agentName, priceControl.D[i], priceControl.K[i], agentItem.retailPriceRC[i], agentItem.SystemPriceRC[i]);
 
                 }
-                if (agentItem.Stage == Stage.第三阶段.ToString())
-                {
-                    SetAgents(agentName, priceControl.D[1], priceControl.K[1], agentItem.retailPriceRC1, agentItem.SystemPriceRC1);
-                    SetAgents(agentName, priceControl.D[2], priceControl.K[2], agentItem.retailPriceRC2, agentItem.SystemPriceRC2);
-                    SetAgents(agentName, priceControl.D[3], priceControl.K[3], agentItem.retailPriceRC3, agentItem.SystemPriceRC3);
-                }
+                //if (agentItem.Stage == Stage.第一阶段.ToString())
+                //{
+                //}
+                //else
+                //if (agentItem.Stage == Stage.第二阶段.ToString())
+                //{
+                //    SetAgents(agentName, priceControl.D[1], priceControl.K[1], agentItem.retailPriceRC1, agentItem.SystemPriceRC1);
+                //    SetAgents(agentName, priceControl.D[2], priceControl.K[2], agentItem.retailPriceRC2, agentItem.SystemPriceRC2);
+
+                //}
+                //if (agentItem.Stage == Stage.第三阶段.ToString())
+                //{
+                //    SetAgents(agentName, priceControl.D[1], priceControl.K[1], agentItem.retailPriceRC1, agentItem.SystemPriceRC1);
+                //    SetAgents(agentName, priceControl.D[2], priceControl.K[2], agentItem.retailPriceRC2, agentItem.SystemPriceRC2);
+                //    SetAgents(agentName, priceControl.D[3], priceControl.K[3], agentItem.retailPriceRC3, agentItem.SystemPriceRC3);
+                //}
             }
 
 
@@ -102,9 +99,18 @@ namespace WebMVC.BLL
         }
         public void SetAgents(string agentName, AgentRC D, AgentRC K, decimal retailPrice, decimal SystemPrice)
         {
-            var index = agents.FindIndex(s => s == agentName);
-            D.Agent1[index] = retailPrice;
-            K.Agent1[index] = SystemPrice;
+            var agentStages = new AgentStages();
+            var index = agentStages.agents.FindIndex(s => s == agentName);
+            for (int i = D.Agent.Count; i < index + 1; i++)
+            {
+                D.Agent.Add(0);
+            }
+            for (int i = K.Agent.Count; i < index + 1; i++)
+            {
+                K.Agent.Add(0);
+            }
+            D.Agent[index] = retailPrice;
+            K.Agent[index] = SystemPrice;
 
         }
         public List<PriceControlTable> Get()
@@ -116,21 +122,20 @@ namespace WebMVC.BLL
     {
         public PriceControlTable()
         {
-            B = new CompeteRC();
-            D = new Dictionary<int, AgentRC>();
-            K = new Dictionary<int, AgentRC>();
-            D.Add(1, new AgentRC());
-            D.Add(2, new AgentRC());
-            D.Add(3, new AgentRC());
-            K.Add(1, new AgentRC());
-            K.Add(2, new AgentRC());
-            K.Add(3, new AgentRC());
+            var countStage = new AgentStages().stages.Count;
+            for (int i = 0; i < countStage; i++)
+            {
+                D.Add(i, new AgentRC());
+                K.Add(i, new AgentRC());
+            }
+
+
 
         }
         public string Stage { get; set; }
-        public CompeteRC B { get; set; }
-        public Dictionary<int, AgentRC> D { get; set; }
-        public Dictionary<int, AgentRC> K { get; set; }
+        public CompeteRC B { get; set; } = new CompeteRC();
+        public Dictionary<int, AgentRC> D { get; set; } = new Dictionary<int, AgentRC>();
+        public Dictionary<int, AgentRC> K { get; set; } = new Dictionary<int, AgentRC>();
         /// <summary>
         /// 成本价
         /// </summary>
@@ -143,11 +148,16 @@ namespace WebMVC.BLL
 
     public class AgentRC
     {
-        public List<decimal> Agent1 { get; set; }
-
+        public List<decimal> Agent { get; set; } = new List<decimal>();
+        //public decimal Agent1 { get; set; }
+        //public decimal Agent2 { get; set; }
+        //public decimal Agent3 { get; set; }
+        //public decimal Agent4 { get; set; }
+        //public decimal Agent5 { get; set; }
+        //public decimal Agent6 { get; set; }
         public decimal Average
         {
-            get { return (this.Agent1.Average(s => s)); }
+            get { return (this.Agent.Average(s => s)); }
         }
     }
 

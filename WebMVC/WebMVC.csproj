@@ -224,11 +224,13 @@
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Infrastructure\IdentityHelper.cs" />
     <Compile Include="Infrastructure\LocationClaimsProvider.cs" />
+    <Compile Include="Models\AgentInputModel.cs" />
     <Compile Include="Models\AgentInput.cs" />
     <Compile Include="Models\AppRole.cs" />
     <Compile Include="Models\BrandInfo.cs" />
     <Compile Include="Models\BrandInput.cs" />
     <Compile Include="Models\BrandProfit.cs" />
+    <Compile Include="Models\BrandsInputModel.cs" />
     <Compile Include="Models\BrandsInput.cs" />
     <Compile Include="Models\BrandStrengthInit.cs" />
     <Compile Include="Models\ChannelServiceInit.cs" />

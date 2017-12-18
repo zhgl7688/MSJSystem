@@ -275,8 +275,7 @@ namespace WebMVC.Controllers
         //渠道服务
         public ActionResult ChannelService()
         {
-            
-            invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
+           invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             channelService = new ChannelService(invertmentTable1);
             var model = channelService.Get();
             return View(model);

@@ -17,12 +17,15 @@ namespace WebMVC.BLL
         List<AgentInput> agentInputs;
         List<AgentTable> agents;
         List<StockReportTable> stockReports;
+        AgentStages agentStage;
         public Investment(InvertmentTable1 InvertmentTable1, StockReport StockReport)
         {
+            agentStage = new AgentStages();
             invertMentTable1 = InvertmentTable1.getBrandTable();
             agentInputs = InvertmentTable1.getAgentInputs();
             agents = InvertmentTable1.getAgents();
             stockReports = StockReport.Get();
+         
             Init();
         }
 
@@ -35,11 +38,34 @@ namespace WebMVC.BLL
                 if (investment == null)
                 {
                     investment = new InvestmentTable { Stage = item.Stage };
+                    agentStage.agents.ForEach(s =>
+                    {
+                        investment.AJ_SummaryAsserts.Add(0);
+                    });
                     investments.Add(investment);
+
                 }
-                var surfaceRC = new SurfaceRC { SurfaceRC1 = item.SurfaceRC1, SurfaceRC2 = item.SurfaceRC2, SurfaceRC3 = item.SurfaceRC3 };
-                var functionRC = new FunctionRC { FunctionRC1 = item.FunctionRC1, FunctionRC2 = item.FunctionRC2, FunctionRC3 = item.FunctionRC3 };
-                var materialRC = new MaterialRC { materialRC1 = item.MaterialRC1, materialRC2 = item.MaterialRC2, materialRC3 = item.MaterialRC3 };
+                //var surfaceRC = new SurfaceRC { SurfaceRC1 = item.SurfaceRC1, SurfaceRC2 = item.SurfaceRC2, SurfaceRC3 = item.SurfaceRC3 };
+                var surfaceRC = new SurfaceRC();
+                surfaceRC.Surfacerc.Add(item.SurfaceRC1);
+                surfaceRC.Surfacerc.Add(item.SurfaceRC2);
+                surfaceRC.Surfacerc.Add(item.SurfaceRC3);
+                
+                //var functionRC = new FunctionRC { FunctionRC1 = item.FunctionRC1, FunctionRC2 = item.FunctionRC2, FunctionRC3 = item.FunctionRC3 };
+                var functionRC = new FunctionRC();
+                functionRC.Functionrc.Add(item.FunctionRC1);
+                functionRC.Functionrc.Add(item.FunctionRC2);
+                functionRC.Functionrc.Add(item.FunctionRC3);
+
+              
+
+                //var materialRC = new MaterialRC { MaterialRC1 = item.MaterialRC1, MaterialRC2  = item.MaterialRC2, MaterialRC3= item.MaterialRC3 };
+                var materialRC = new MaterialRC();
+                materialRC.Material.Add(item.MaterialRC1);
+                materialRC.Material.Add(item.MaterialRC2);
+                materialRC.Material.Add(item.MaterialRC3);
+
+      
                 Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
                 switch (brand)
                 {
@@ -72,59 +98,65 @@ namespace WebMVC.BLL
                 var agent = agents.FirstOrDefault(s => s.Stage == item.Stage);
                 if (agent != null)
                 {
-                    investment.CL = agent.B;
-                    investment.CT = agent.J;
-                    investment.DB = agent.R;
-                    investment.DJ = agent.Z;
-                    investment.DR = agent.AH;
-                    investment.DZ = agent.AP;
+                    investment.CLAgent = agent.Bagent;
+                    //investment.CL = agent.B;
+                    //investment.CT = agent.J;
+                    //investment.DB = agent.R;
+                    //investment.DJ = agent.Z;
+                    //investment.DR = agent.AH;
+                    //investment.DZ = agent.AP;
                 }
-
-
-
 
             }
+
             foreach (var item in investments)
             {
-                var agentInputList = agentInputs.Where(s => s.Stage == item.Stage);
-                foreach (var agentInput in agentInputList)
+                var agentInputList = agentInputs.Where(s => s.Stage == item.Stage).ToList();
+                agentInputList.ForEach(s =>
                 {
-                    var ss = (int)Enum.Parse(typeof(AgentName), agentInput.AgentName);
-                    item.EI[ss]=agentInput.bankLoan;
-                }
+                    var ss = agentStage.agents.IndexOf(s.AgentName);
+                    item.EI[ss] = s.bankLoan;
+                });
+
             }
             foreach (var item in stockReports)
             {
-                var index = (int)Enum.Parse(typeof(Stage), item.Stage);
-                var investment = investments.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), index + 1));
+                var index = agentStage.stages.FindIndex(s => s == item.Stage);//(int)Enum.Parse(typeof(Stage), item.Stage);
+                if (index == agentStage.stages.Count - 1) continue;
+                var investment = investments.FirstOrDefault(s => s.Stage == agentStage.stages[index + 1]);// Enum.GetName(typeof(Stage), index + 1));
                 if (investment == null)
                 {
                     continue;
                 }
-                AgentName agentName = (AgentName)Enum.Parse(typeof(AgentName), item.AgentName);
-                switch (agentName)
-                {
-                    case AgentName.代1:
-                        investment.AJ_SummaryAssert = item.Sum.Sum;
-                        break;
-                    case AgentName.代2:
-                        investment.AS_SummaryAssert = item.Sum.Sum;
-                        break;
-                    case AgentName.代3:
-                        investment.BB_SummaryAssert = item.Sum.Sum;
-                        break;
-                    case AgentName.代4:
-                        investment.BK_SummaryAssert = item.Sum.Sum;
-                        break;
-                    case AgentName.代5:
-                        investment.BT_SummaryAssert = item.Sum.Sum;
-                        break;
-                    case AgentName.代6:
-                        investment.CC_SummaryAssert = item.Sum.Sum;
-                        break;
-                    default:
-                        break;
-                }
+                index = agentStage.agents.IndexOf(item.AgentName);
+                investment.AJ_SummaryAsserts[index] = item.Sum.Sum;
+                //var index = (int)Enum.Parse(typeof(Stage), item.Stage);
+                //var investment = investments.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), index + 1));
+
+                //AgentName agentName = (AgentName)Enum.Parse(typeof(AgentName), item.AgentName);
+                //switch (agentName)
+                //{
+                //    case AgentName.代1:
+                //        investment.AJ_SummaryAssert = item.Sum.Sum;
+                //        break;
+                //    case AgentName.代2:
+                //        investment.AS_SummaryAssert = item.Sum.Sum;
+                //        break;
+                //    case AgentName.代3:
+                //        investment.BB_SummaryAssert = item.Sum.Sum;
+                //        break;
+                //    case AgentName.代4:
+                //        investment.BK_SummaryAssert = item.Sum.Sum;
+                //        break;
+                //    case AgentName.代5:
+                //        investment.BT_SummaryAssert = item.Sum.Sum;
+                //        break;
+                //    case AgentName.代6:
+                //        investment.CC_SummaryAssert = item.Sum.Sum;
+                //        break;
+                //    default:
+                //        break;
+                //}
 
             }
             investments.ForEach(s => s.ItCAL());
@@ -142,39 +174,58 @@ namespace WebMVC.BLL
         public InvestmentTable()
         {
             EI = new Dictionary<int, decimal>();
-            EI.Add(1, 0);
-            EI.Add(2, 0);
-            EI.Add(3, 0);
-            EI.Add(4, 0);
-            EI.Add(5, 0);
-            EI.Add(6, 0);
+            var agentStages = new AgentStages();
+            for (int i = 0; i < agentStages.agents.Count; i++)
+            {
+                EI.Add(i + 1, 0);
+            }
+            //EI.Add(1, 0);
+            //EI.Add(2, 0);
+            //EI.Add(3, 0);
+            //EI.Add(4, 0);
+            //EI.Add(5, 0);
+            //EI.Add(6, 0);
 
         }
         [DisplayName("阶段")]
         public string Stage { get; set; }
         //[DisplayName("M投入")]
         //=J11+O11+R11+U11+AN11+AO11+AP11+AQ11+AR11+AS11+AT11+开发费用表!B4
-        public decimal B { get { return J + M.SurfaceRCSum + N.FunctionRCSum + O.materialRCSum + V.InputSum + NewDevelopmentCostB; } }
+        public decimal B { get { return J + M.SurfaceRCSum + N.FunctionRCSum + O.MaterialRCSum + V.InputSum + NewDevelopmentCostB; } }
         public decimal NewDevelopmentCostB { get; set; }
         public decimal PQRNew
         {
-            get { return P.SurfaceRCSum + Q.FunctionRCSum + R.materialRCSum + NewDevelopmentCostC; }
+            get { return P.SurfaceRCSum + Q.FunctionRCSum + R.MaterialRCSum + NewDevelopmentCostC; }
+        } 
+        //[DisplayName("对代1投入")]
+        public List<decimal> CAgents
+        {
+            get
+            {
+                var result = new List<decimal>();
+                for (int i = 0; i < AJAgent.Count; i++)
+                {
+                    result.Add(K + PQRNew + AJAgent[i].InputSum);
+                }
+                return result;
+            }
+
         }
 
-        //[DisplayName("对代1投入")]
-        public decimal C { get { return K + PQRNew + AJ.InputSum; } }
-        //[DisplayName("对代2投入")]
-        public decimal D { get { return K + PQRNew + AS.InputSum; } }
-        //[DisplayName("对代3投入")]
-        public decimal E { get { return K + PQRNew + BB.InputSum; } }
-        //[DisplayName("对代4投入")]
-        public decimal F { get { return K + PQRNew + BK.InputSum; } }
-        //[DisplayName("对代5投入")]
-        public decimal G { get { return K + PQRNew + BT.InputSum; } }
-        //[DisplayName("对代6投入")]
-        public decimal H { get { return K + PQRNew + CC.InputSum; } }
+    
+        //public decimal C { get { return K + PQRNew + AJ.InputSum; } }
+        ////[DisplayName("对代2投入")]
+        //public decimal D { get { return K + PQRNew + AS.InputSum; } }
+        ////[DisplayName("对代3投入")]
+        //public decimal E { get { return K + PQRNew + BB.InputSum; } }
+        ////[DisplayName("对代4投入")]
+        //public decimal F { get { return K + PQRNew + BK.InputSum; } }
+        ////[DisplayName("对代5投入")]
+        //public decimal G { get { return K + PQRNew + BT.InputSum; } }
+        ////[DisplayName("对代6投入")]
+        //public decimal H { get { return K + PQRNew + CC.InputSum; } }
         //[DisplayName("J投入")]
-        public decimal I { get { return L + S.SurfaceRCSum + T.FunctionRCSum + U.materialRCSum + NewDevelopmentCostD + AC.InputSum; } }
+        public decimal I { get { return L + S.SurfaceRCSum + T.FunctionRCSum + U.MaterialRCSum + NewDevelopmentCostD + AC.InputSum; } }
         public decimal NewDevelopmentCostD { get; set; }
         /// <summary>
         /// M品牌广告投入 
@@ -212,38 +263,39 @@ namespace WebMVC.BLL
         /// J品牌市场推广
         /// </summary>
         public BrandInput AC { get; set; } = new BrandInput();
+        public List<BrandInput> AJAgent { get; set; } = new List<BrandInput>();
+        //public BrandInput AJ { get; set; } = new BrandInput();
 
-        public BrandInput AJ { get; set; } = new BrandInput();
-
-        public BrandInput AS { get; set; } = new BrandInput();
-        public BrandInput BB { get; set; } = new BrandInput();
-        public BrandInput BK { get; set; } = new BrandInput();
-        public BrandInput BT { get; set; } = new BrandInput();
-        public BrandInput CC { get; set; } = new BrandInput();
+        //public BrandInput AS { get; set; } = new BrandInput();
+        //public BrandInput BB { get; set; } = new BrandInput();
+        //public BrandInput BK { get; set; } = new BrandInput();
+        //public BrandInput BT { get; set; } = new BrandInput();
+        //public BrandInput CC { get; set; } = new BrandInput();
+        public List<BrandInput> CLAgent { get; set; } = new List<BrandInput>();
         /// <summary>
         /// 代1
         /// </summary>
-        public BrandInput CL { get; set; } = new BrandInput();
-        /// <summary>
-        /// 代2
-        /// </summary>
-        public BrandInput CT { get; set; } = new BrandInput();
-        /// <summary>
-        /// 代3
-        /// </summary>
-        public BrandInput DB { get; set; } = new BrandInput();
-        /// <summary>
-        /// 代4
-        /// </summary>
-        public BrandInput DJ { get; set; } = new BrandInput();
-        /// <summary>
-        /// 代5
-        /// </summary>
-        public BrandInput DR { get; set; } = new BrandInput();
-        /// <summary>
-        /// 代6
-        /// </summary>
-        public BrandInput DZ { get; set; } = new BrandInput();
+        //public BrandInput CL { get; set; } = new BrandInput();
+        ///// <summary>
+        ///// 代2
+        ///// </summary>
+        //public BrandInput CT { get; set; } = new BrandInput();
+        ///// <summary>
+        ///// 代3
+        ///// </summary>
+        //public BrandInput DB { get; set; } = new BrandInput();
+        ///// <summary>
+        ///// 代4
+        ///// </summary>
+        //public BrandInput DJ { get; set; } = new BrandInput();
+        ///// <summary>
+        ///// 代5
+        ///// </summary>
+        //public BrandInput DR { get; set; } = new BrandInput();
+        ///// <summary>
+        ///// 代6
+        ///// </summary>
+        //public BrandInput DZ { get; set; } = new BrandInput();
 
 
         private decimal KPQR(decimal d)
@@ -253,7 +305,7 @@ namespace WebMVC.BLL
             decimal r;
             if (Stage == Common.Stage.第一阶段.ToString()) d = 2000;
             else d *= 0.2m;
-            r = d - K - P.SurfaceRC1 - Q.FunctionRC1 - R.materialRC1;
+            r = d - K - P.Surfacerc[0] - Q.Functionrc[0] - R.Material[0];
 
             return r < 0 ? 0 : r;
 
@@ -274,31 +326,37 @@ namespace WebMVC.BLL
         }
         public void ItCAL()
         {
+            AJAgent.ForEach(s =>
+            {
+                var index = AJAgent.IndexOf(s);
+                s = getBrandInput(AJ_SummaryAsserts[index], CLAgent[index]);
+            });
 
-            AJ = getBrandInput(AJ_SummaryAssert, CL);
+            //AJ = getBrandInput(AJ_SummaryAssert, CL);
 
-            AS = getBrandInput(AS_SummaryAssert, CT);
+            //AS = getBrandInput(AS_SummaryAssert, CT);
 
-            BB = getBrandInput(BB_SummaryAssert, DB);
+            //BB = getBrandInput(BB_SummaryAssert, DB);
 
-            BK = getBrandInput(BK_SummaryAssert, DJ);
+            //BK = getBrandInput(BK_SummaryAssert, DJ);
 
-            BT = getBrandInput(BT_SummaryAssert, DR);
+            //BT = getBrandInput(BT_SummaryAssert, DR);
 
-            CC = getBrandInput(CC_SummaryAssert, DZ);
+            //CC = getBrandInput(CC_SummaryAssert, DZ);
 
 
         }
-        public decimal AJ_SummaryAssert { get; set; }
-        public decimal AS_SummaryAssert { get; set; }
-        public decimal BB_SummaryAssert { get; set; }
-        public decimal BK_SummaryAssert { get; set; }
-        public decimal BT_SummaryAssert { get; set; }
-        public decimal CC_SummaryAssert { get; set; }
+        public List<decimal> AJ_SummaryAsserts { get; set; } = new List<decimal>();
+        //public decimal AJ_SummaryAssert { get; set; }
+        //public decimal AS_SummaryAssert { get; set; }
+        //public decimal BB_SummaryAssert { get; set; }
+        //public decimal BK_SummaryAssert { get; set; }
+        //public decimal BT_SummaryAssert { get; set; }
+        //public decimal CC_SummaryAssert { get; set; }
         /// <summary>
         /// 银行贷款
         /// </summary>
-        public Dictionary<int, decimal> EI { get; set; } 
+        public Dictionary<int, decimal> EI { get; set; }
         /// <summary>
         /// 新品开发费用
         /// </summary>
@@ -306,40 +364,43 @@ namespace WebMVC.BLL
     }
     public class SurfaceRC
     {
-        public decimal SurfaceRC1 { get; set; }
-        public decimal SurfaceRC2 { get; set; }
-        public decimal SurfaceRC3 { get; set; }
+        public List<decimal> Surfacerc { get; set; } = new List<decimal>(); 
+        //public decimal SurfaceRC1 { get; set; }
+        //public decimal SurfaceRC2 { get; set; }
+        //public decimal SurfaceRC3 { get; set; }
         public decimal SurfaceRCSum
         {
             get
             {
-                return this.SurfaceRC1 + this.SurfaceRC2 + this.SurfaceRC3;
+                return this.Surfacerc.Sum();
             }
         }
     }
     public class FunctionRC
     {
-        public decimal FunctionRC1 { get; set; }
-        public decimal FunctionRC2 { get; set; }
-        public decimal FunctionRC3 { get; set; }
+        public List<decimal> Functionrc { get; set; } = new List<decimal>();
+        //public decimal FunctionRC1 { get; set; }
+        //public decimal FunctionRC2 { get; set; }
+        //public decimal FunctionRC3 { get; set; }
         public decimal FunctionRCSum
         {
             get
             {
-                return this.FunctionRC1 + this.FunctionRC2 + this.FunctionRC3;
+                return this.Functionrc.Sum();
             }
         }
     }
     public class MaterialRC
     {
-        public decimal materialRC1 { get; set; }
-        public decimal materialRC2 { get; set; }
-        public decimal materialRC3 { get; set; }
-        public decimal materialRCSum
+        public List<decimal> Material{ get; set; } = new List<decimal>();
+        //public decimal MaterialRC1 { get; set; }
+        //public decimal MaterialRC2 { get; set; }
+        //public decimal MaterialRC3 { get; set; }
+        public decimal MaterialRCSum
         {
             get
             {
-                return this.materialRC1 + this.materialRC2 + this.materialRC3;
+                return Material.Sum();
             }
         }
     }

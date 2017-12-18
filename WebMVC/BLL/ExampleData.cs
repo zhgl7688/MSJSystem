@@ -16,12 +16,9 @@ namespace WebMVC.BLL
             agentInputs = new List<AgentInput>();
             brands = new List<BrandsInput>();
             #region 代理设定
-            //第1代1
-            PriceMange pm = new PriceMange
-            {
-                retailPriceRC1 = 709.8M,
-                SystemPriceRC1 = 845,
-            };
+
+
+
             agentInputs.Add(new AgentInput
             {
                 Stage = Common.Stage.第一阶段.ToString(),
@@ -32,13 +29,31 @@ namespace WebMVC.BLL
                 outdoorActivity = 98,
                 promotionTeam = 49,
                 servet = 1,
-
                 AgentName = AgentName.代1.ToString(),
-                purchase = 31,
                 actualSale = 30,
                 Inventory = 1,
-                FirstPurchase = 30
-
+                retailPriceRC = new List<decimal> { 709.8M },
+                SystemPriceRC = new List<decimal> { 845 },
+                Purchase = new List<decimal> {  30 },
+                BasePurchase=31,
+                
+            });
+            //第2代1
+            agentInputs.Add(new AgentInput
+            {
+                Stage = Common.Stage.第二阶段.ToString(),
+                EndImage = 400,
+                Salesperson = 450,
+                HousePromote = 280,
+                demonstrator = 115,
+                outdoorActivity = 115,
+                promotionTeam = 70,
+                servet = 50,
+                retailPriceRC = new List<decimal> { 699, 845, },
+                SystemPriceRC = new List<decimal> { 587.16m, 709.8m, },
+                AgentName = AgentName.代1.ToString(),
+                Purchase = new List<decimal> { 18 },
+                BasePurchase=10,
             });
             //第1代2
             agentInputs.Add(new AgentInput
@@ -51,14 +66,14 @@ namespace WebMVC.BLL
                 outdoorActivity = 196,
                 promotionTeam = 98,
                 servet = 80,
-                retailPriceRC1 = 839,
-                SystemPriceRC1 = 746,
+                retailPriceRC = new List<decimal> { 839 },
+                SystemPriceRC = new List<decimal> { 746 },
                 AgentName = AgentName.代2.ToString(),
-                purchase = 31,
+                Purchase = new List<decimal> {  29 },
                 actualSale = 30,
                 Inventory = 1,
-                FirstPurchase = 29,
 
+                BasePurchase=31,
 
             });
             //第1代3
@@ -72,14 +87,15 @@ namespace WebMVC.BLL
                 outdoorActivity = 230,
                 promotionTeam = 115,
                 servet = 200,
-                retailPriceRC1 = 839,
-                SystemPriceRC1 = 746.71M,
+ 
                 AgentName = AgentName.代3.ToString(),
-                purchase = 31,
+               BasePurchase   = 31,
                 actualSale = 30,
                 Inventory = 1,
-                FirstPurchase = 25
-
+          
+                   retailPriceRC = new List<decimal> { 839},
+                SystemPriceRC = new List<decimal> { 746.71M },
+                Purchase = new List<decimal> { 25 },
             });
             //第1代4
             agentInputs.Add(new AgentInput
@@ -92,36 +108,16 @@ namespace WebMVC.BLL
                 outdoorActivity = 100,
                 promotionTeam = 70,
                 servet = 100,
-                retailPriceRC1 = 799,
-                SystemPriceRC1 = 623,
+           
                 AgentName = AgentName.代4.ToString(),
-                purchase = 31,
+               BasePurchase   = 31,
                 actualSale = 30,
                 Inventory = 1,
-                FirstPurchase = 26
-
+                retailPriceRC = new List<decimal> { 799,  },
+                SystemPriceRC = new List<decimal> { 623,  },
+                Purchase = new List<decimal> { 26,  },
             });
-            //第2代1
-            agentInputs.Add(new AgentInput
-            {
-                Stage = Common.Stage.第二阶段.ToString(),
-                EndImage = 400,
-                Salesperson = 450,
-                HousePromote = 280,
-                demonstrator = 115,
-                outdoorActivity = 115,
-                promotionTeam = 70,
-                servet = 50,
-                retailPriceRC1 = 699,
-                SystemPriceRC1 = 587.16m,
-                retailPriceRC2 = 845,
-                SystemPriceRC2 = 709.8m,
-                AgentName = AgentName.代1.ToString(),
 
-                FirstPurchase = 10,
-                SecondPurchase = 18
-
-            });
             //第2代2
             agentInputs.Add(new AgentInput
             {
@@ -134,14 +130,12 @@ namespace WebMVC.BLL
                 promotionTeam = 50,
                 servet = 50,
                 bankLoan = 7000,
-                retailPriceRC1 = 699,
-                SystemPriceRC1 = 622,
-                retailPriceRC2 = 845,
-                SystemPriceRC2 = 752,
+                retailPriceRC = new List<decimal> { 699, 845, },
+                SystemPriceRC = new List<decimal> { 622, 752, },
+                Purchase = new List<decimal> { 32, 25 },
+      
                 AgentName = AgentName.代2.ToString(),
-
-                FirstPurchase = 32,
-                SecondPurchase = 25
+ 
 
             });
             //第2代3
@@ -156,14 +150,11 @@ namespace WebMVC.BLL
                 promotionTeam = 90,
                 servet = 200,
 
-                retailPriceRC1 = 699,
-                SystemPriceRC1 = 622.11m,
-                retailPriceRC2 = 999,
-                SystemPriceRC2 = 889.11m,
                 AgentName = AgentName.代3.ToString(),
+                retailPriceRC = new List<decimal> { 699, 999, },
+                SystemPriceRC = new List<decimal> { 622.11m, 889.11m, },
+                Purchase = new List<decimal> { 25, 15 },
 
-                FirstPurchase = 25,
-                SecondPurchase = 15
 
             });
             //第2代4
@@ -177,15 +168,13 @@ namespace WebMVC.BLL
                 outdoorActivity = 84,
                 promotionTeam = 70,
 
+                retailPriceRC = new List<decimal> { 699, 1099, },
+                SystemPriceRC = new List<decimal> { 545, 857, },
+                Purchase = new List<decimal> { 10, 6 },
 
-                retailPriceRC1 = 699,
-                SystemPriceRC1 = 545,
-                retailPriceRC2 = 1099,
-                SystemPriceRC2 = 857,
+
                 AgentName = AgentName.代4.ToString(),
 
-                FirstPurchase = 10,
-                SecondPurchase = 6
 
             });
             //第3代1
@@ -199,17 +188,13 @@ namespace WebMVC.BLL
                 outdoorActivity = 120,
                 promotionTeam = 80,
                 servet = 200,
-                retailPriceRC1 = 599,
-                SystemPriceRC1 = 503.16m,
-                retailPriceRC2 = 799,
-                SystemPriceRC2 = 671.16m,
-                retailPriceRC3 = 999,
-                SystemPriceRC3 = 839.16m,
+
+
                 AgentName = AgentName.代1.ToString(),
 
-                FirstPurchase = 20,
-                SecondPurchase = 20,
-                ThirdPurchase = 11
+                retailPriceRC = new List<decimal> { 599, 799, 999, },
+                SystemPriceRC = new List<decimal> { 503.16m, 671.16m, 839.16m, },
+                Purchase = new List<decimal> { 20, 20, 11 }
             });
 
             //第3代2
@@ -224,17 +209,12 @@ namespace WebMVC.BLL
                 promotionTeam = 200,
                 servet = 200,
                 bankLoan = 10000,
-                retailPriceRC1 = 599,
-                SystemPriceRC1 = 533,
-                retailPriceRC2 = 799,
-                SystemPriceRC2 = 712,
-                retailPriceRC3 = 999,
-                SystemPriceRC3 = 890,
+
                 AgentName = AgentName.代2.ToString(),
 
-                FirstPurchase = 35,
-                SecondPurchase = 30,
-                ThirdPurchase = 22
+                retailPriceRC = new List<decimal> { 599, 799, 999, },
+                SystemPriceRC = new List<decimal> { 533m, 712m, 890, },
+                Purchase = new List<decimal> { 35, 30, 22 }
             });
 
             //第3代3
@@ -249,17 +229,12 @@ namespace WebMVC.BLL
                 promotionTeam = 180,
                 servet = 100,
                 bankLoan = 11296,
-                retailPriceRC1 = 599,
-                SystemPriceRC1 = 533.11m,
-                retailPriceRC2 = 799,
-                SystemPriceRC2 = 711.11m,
-                retailPriceRC3 = 999,
-                SystemPriceRC3 = 889.11m,
-                AgentName = AgentName.代3.ToString(),
+                retailPriceRC = new List<decimal> { 599, 799, 999, },
+                SystemPriceRC = new List<decimal> { 533.11m, 711.11m, 889.11m, },
 
-                FirstPurchase = 45,
-                SecondPurchase = 25,
-                ThirdPurchase = 15
+                AgentName = AgentName.代3.ToString(),
+                Purchase = new List<decimal> { 45, 25, 15 }
+
             });
 
             //第3代4
@@ -273,18 +248,12 @@ namespace WebMVC.BLL
                 outdoorActivity = 360,
                 promotionTeam = 144,
                 servet = 108,
+                retailPriceRC = new List<decimal> { 599, 799, 1099, },
+                SystemPriceRC = new List<decimal> { 468, 623, 857, },
 
-                retailPriceRC1 = 599,
-                SystemPriceRC1 = 468,
-                retailPriceRC2 = 799,
-                SystemPriceRC2 = 623,
-                retailPriceRC3 = 1099,
-                SystemPriceRC3 = 857,
                 AgentName = AgentName.代4.ToString(),
+                Purchase = new List<decimal> { 5, 25, 15 }
 
-                FirstPurchase = 5,
-                SecondPurchase = 25,
-                ThirdPurchase = 15
             });
 
             #endregion
@@ -413,7 +382,7 @@ namespace WebMVC.BLL
                 NewSystemPriceR2 = 680,
                 NewRetailPriceR3 = 999,
                 NewSystemPriceR3 = 775
-                 
+
             });
             //第1J
             brands.Add(new BrandTable

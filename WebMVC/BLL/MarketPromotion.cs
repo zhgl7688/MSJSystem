@@ -15,10 +15,12 @@ namespace WebMVC.BLL
         List<MarketPromotionTable> marketPromotions = new List<MarketPromotionTable>();
         List<BrandTable> brands;
         List<AgentTable> agents;
+        AgentStages agentStages;
         public MarketPromotion(InvertmentTable1 InvertmentTable1)
         {
-            brands =   InvertmentTable1.getBrandTable();
-            agents =   InvertmentTable1.getAgents();
+            agentStages = new AgentStages();
+            brands = InvertmentTable1.getBrandTable();
+            agents = InvertmentTable1.getAgents();
             init();
         }
         public void init()
@@ -62,79 +64,27 @@ namespace WebMVC.BLL
                     marketPromotions.Add(promotion);
 
                 }
-
-                #region 终端形象投入							
-                promotion.B.Agent1 = itemAgent.B.EndImage;
-                promotion.B.Agent2 = itemAgent.J.EndImage;
-                promotion.B.Agent3 = itemAgent.R.EndImage;
-                promotion.B.Agent4 = itemAgent.Z.EndImage;
-                promotion.B.Agent5 = itemAgent.AH.EndImage;
-                promotion.B.Agent6 = itemAgent.AP.EndImage;
-                #endregion
-
-                #region 导购派驻投入							
-               promotion.J.Agent1 = itemAgent.B.Salesperson;
-                promotion.J.Agent2 = itemAgent.J.Salesperson;
-                promotion.J.Agent3 = itemAgent.R.Salesperson;
-                promotion.J.Agent4 = itemAgent.Z.Salesperson;
-                promotion.J.Agent5 = itemAgent.AH.Salesperson;
-                promotion.J.Agent6 = itemAgent.AP.Salesperson;
-                #endregion
-
-                #region 店内促销投入							
-
-
-                promotion.R.Agent1 = itemAgent.B.HousePromote;
-                promotion.R.Agent2 = itemAgent.J.HousePromote;
-                promotion.R.Agent3 = itemAgent.R.HousePromote;
-                promotion.R.Agent4 = itemAgent.Z.HousePromote;
-                promotion.R.Agent5 = itemAgent.AH.HousePromote;
-                promotion.R.Agent6 = itemAgent.AP.HousePromote;
-                #endregion
-
-                #region 演示开展投入							
-                promotion.Z.Agent1 = itemAgent.B.demonstrator;
-                promotion.Z.Agent2 = itemAgent.J.demonstrator;
-                promotion.Z.Agent3 = itemAgent.R.demonstrator;
-                promotion.Z.Agent4 = itemAgent.Z.demonstrator;
-                promotion.Z.Agent5 = itemAgent.AH.demonstrator;
-                promotion.Z.Agent6 = itemAgent.AP.demonstrator;
-                #endregion
-
-                #region 户外活动投入							
-                promotion.AH.Agent1 = itemAgent.B.outdoorActivity;
-                promotion.AH.Agent2 = itemAgent.J.outdoorActivity;
-                promotion.AH.Agent3 = itemAgent.R.outdoorActivity;
-                promotion.AH.Agent4 = itemAgent.Z.outdoorActivity;
-                promotion.AH.Agent5 = itemAgent.AH.outdoorActivity;
-                promotion.AH.Agent6 = itemAgent.AP.outdoorActivity;
-                #endregion
-
-                #region 推广小分队投入							
-
-                promotion.AP.Agent1 = itemAgent.B.promotionTeam;
-                promotion.AP.Agent2 = itemAgent.J.promotionTeam;
-                promotion.AP.Agent3 = itemAgent.R.promotionTeam;
-                promotion.AP.Agent4 = itemAgent.Z.promotionTeam;
-                promotion.AP.Agent5 = itemAgent.AH.promotionTeam;
-                promotion.AP.Agent6 = itemAgent.AP.promotionTeam;
-                #endregion
-
-
+                for (int i = 0; i < agentStages.agents.Count; i++)
+                {
+                    promotion.B.Agent.Add(itemAgent.Bagent[i].EndImage);//终端形象投入	
+                    promotion.J.Agent.Add(itemAgent.Bagent[i].Salesperson);//导购派驻投入
+                    promotion.R.Agent.Add(itemAgent.Bagent[i].HousePromote);//店内促销投入	
+                    promotion.Z.Agent.Add(itemAgent.Bagent[i].demonstrator);//演示开展投入
+                    promotion.AH.Agent.Add(itemAgent.Bagent[i].outdoorActivity);//户外活动投入
+                    promotion.AP.Agent.Add(itemAgent.Bagent[i].promotionTeam);//推广小分队投入
+                }
             }
-
-            var s1 = marketPromotions.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
-
+  
             marketPromotions.ForEach(s =>
               {
-                  if (s.Stage != Stage.第一阶段.ToString())
-                  {
-                      s.FirstBP = s1.BP;
-                  }
+                  var indexStage = agentStages.stages.IndexOf(s.Stage);
+                  if (indexStage > 1)
+                      s.SecondBP = marketPromotions.FirstOrDefault(ks => ks.Stage == agentStages.stages[indexStage - 1]).BP;
+                  if (indexStage>2)
+                      s.FirstBP = marketPromotions.FirstOrDefault(ks => ks.Stage == agentStages.stages[indexStage - 2]).BP;
+                   
               });
-            var s3 = marketPromotions.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
-            if (s3 != null)
-                s3.SecondBP = marketPromotions.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString()).BP;
+           
 
         }
 
@@ -160,31 +110,33 @@ namespace WebMVC.BLL
         {
             get
             {
-                decimal t = 1;
-                decimal t2 = Stage == Common.Stage.第三阶段.ToString()? 0.6m:0;
-                if (Stage == Common.Stage.第二阶段.ToString()) t = 0.6m;
-                else if (Stage == Common.Stage.第三阶段.ToString()) t = 0.25m;
-
+                //decimal t = 1;
+                //decimal t2 = Stage == Common.Stage.第三阶段.ToString() ? 0.6m : 0;
+                //if (Stage == Common.Stage.第二阶段.ToString()) t = 0.6m;
+                //else if (Stage == Common.Stage.第三阶段.ToString()) t = 0.25m;
+                decimal t = 0.25m; 
+                decimal t2 = 0.6m;
                 var result = new MJA();
+                var count = new AgentStages().agents.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    if (FirstBP.M.Count < i + 1)
+                    {
+                        FirstBP.M.Add(0);
+                        FirstBP.J.Add(0);
+                        FirstBP.Agent.Add(0);
+                    }
+                    if (SecondBP.M.Count < i + 1)
+                    {
+                        SecondBP.M.Add(0);
+                        SecondBP.J.Add(0);
+                        SecondBP.Agent.Add(0);
+                    }
+                    result.M.Add(FirstBP.M[i] * t + SecondBP.M[i] * t2 + MarketingIndex(B.M, B.J, B.Agent[i], J.M, J.J, J.Agent[i], R.M, R.J, R.Agent[i], Z.M, Z.J, Z.Agent[i], AH.M, AH.J, AH.Agent[i], AP.M, AP.J, AP.Agent[i]));
+                    result.J.Add(FirstBP.J[i] * t + SecondBP.J[i] * t2 + MarketingIndex(B.J, B.M, B.Agent[i], J.J, J.M, J.Agent[i], R.J, R.M, R.Agent[i], Z.J, Z.M, Z.Agent[i], AH.J, AH.M, AH.Agent[i], AP.J, AP.M, AP.Agent[i]));
+                    result.Agent.Add(FirstBP.Agent[i] * t + SecondBP.Agent[i] * t2 + MarketingIndex(B.Agent[i], B.J, B.M, J.Agent[i], J.J, J.M, R.Agent[i], R.J, R.M, Z.Agent[i], Z.J, Z.M, AH.Agent[i], AH.J, AH.M, AP.Agent[i], AP.J, AP.M));
 
-                result.M1 = FirstBP.M1 * t+SecondBP.M1*t2 + MarketingIndex(B.M, B.J, B.Agent1, J.M, J.J, J.Agent1, R.M, R.J, R.Agent1, Z.M, Z.J, Z.Agent1, AH.M, AH.J, AH.Agent1, AP.M, AP.J, AP.Agent1);
-                result.M2 = FirstBP.M2 * t+SecondBP.M2*t2 + MarketingIndex(B.M, B.J, B.Agent2, J.M, J.J, J.Agent2, R.M, R.J, R.Agent2, Z.M, Z.J, Z.Agent2, AH.M, AH.J, AH.Agent2, AP.M, AP.J, AP.Agent2);
-                result.M3 = FirstBP.M3 * t+SecondBP.M3*t2 + MarketingIndex(B.M, B.J, B.Agent3, J.M, J.J, J.Agent3, R.M, R.J, R.Agent3, Z.M, Z.J, Z.Agent3, AH.M, AH.J, AH.Agent3, AP.M, AP.J, AP.Agent3);
-                result.M4 = FirstBP.M4 * t+SecondBP.M4*t2 + MarketingIndex(B.M, B.J, B.Agent4, J.M, J.J, J.Agent4, R.M, R.J, R.Agent4, Z.M, Z.J, Z.Agent4, AH.M, AH.J, AH.Agent4, AP.M, AP.J, AP.Agent4);
-                result.M5 = FirstBP.M5 * t+SecondBP.M5*t2 + MarketingIndex(B.M, B.J, B.Agent5, J.M, J.J, J.Agent5, R.M, R.J, R.Agent5, Z.M, Z.J, Z.Agent5, AH.M, AH.J, AH.Agent5, AP.M, AP.J, AP.Agent5);
-                result.M6 = FirstBP.M6 * t+SecondBP.M6*t2 + MarketingIndex(B.M, B.J, B.Agent6, J.M, J.J, J.Agent6, R.M, R.J, R.Agent6, Z.M, Z.J, Z.Agent6, AH.M, AH.J, AH.Agent6, AP.M, AP.J, AP.Agent6);
-                result.J1 = FirstBP.J1 * t+SecondBP.J1*t2 + MarketingIndex(B.J, B.M, B.Agent1, J.J, J.M, J.Agent1, R.J, R.M, R.Agent1, Z.J, Z.M, Z.Agent1, AH.J, AH.M, AH.Agent1, AP.J, AP.M, AP.Agent1);
-                result.J2 = FirstBP.J2 * t+SecondBP.J2*t2 + MarketingIndex(B.J, B.M, B.Agent2, J.J, J.M, J.Agent2, R.J, R.M, R.Agent2, Z.J, Z.M, Z.Agent2, AH.J, AH.M, AH.Agent2, AP.J, AP.M, AP.Agent2);
-                result.J3 = FirstBP.J3 * t+SecondBP.J3*t2 + MarketingIndex(B.J, B.M, B.Agent3, J.J, J.M, J.Agent3, R.J, R.M, R.Agent3, Z.J, Z.M, Z.Agent3, AH.J, AH.M, AH.Agent3, AP.J, AP.M, AP.Agent3);
-                result.J4 = FirstBP.J4 * t+SecondBP.J4*t2 + MarketingIndex(B.J, B.M, B.Agent4, J.J, J.M, J.Agent4, R.J, R.M, R.Agent4, Z.J, Z.M, Z.Agent4, AH.J, AH.M, AH.Agent4, AP.J, AP.M, AP.Agent4);
-                result.J5 = FirstBP.J5 * t+SecondBP.J5*t2 + MarketingIndex(B.J, B.M, B.Agent5, J.J, J.M, J.Agent5, R.J, R.M, R.Agent5, Z.J, Z.M, Z.Agent5, AH.J, AH.M, AH.Agent5, AP.J, AP.M, AP.Agent5);
-                result.J6 = FirstBP.J6 * t + SecondBP.J6 * t2 + MarketingIndex(B.J, B.M, B.Agent6, J.J, J.M, J.Agent6, R.J, R.M, R.Agent6, Z.J, Z.M, Z.Agent6, AH.J, AH.M, AH.Agent6, AP.J, AP.M, AP.Agent6);
-                result.Agent1 = FirstBP.Agent1 * t +SecondBP.Agent1*t2 + MarketingIndex(B.Agent1, B.J, B.M, J.Agent1, J.J, J.M, R.Agent1, R.J, R.M, Z.Agent1, Z.J, Z.M, AH.Agent1, AH.J, AH.M, AP.Agent1, AP.J, AP.M);
-                result.Agent2 = FirstBP.Agent2 * t +SecondBP.Agent2*t2 + MarketingIndex(B.Agent2, B.J, B.M, J.Agent2, J.J, J.M, R.Agent2, R.J, R.M, Z.Agent2, Z.J, Z.M, AH.Agent2, AH.J, AH.M, AP.Agent2, AP.J, AP.M);
-                result.Agent3 = FirstBP.Agent3 * t +SecondBP.Agent3*t2 + MarketingIndex(B.Agent3, B.J, B.M, J.Agent3, J.J, J.M, R.Agent3, R.J, R.M, Z.Agent3, Z.J, Z.M, AH.Agent3, AH.J, AH.M, AP.Agent3, AP.J, AP.M);
-                result.Agent4 = FirstBP.Agent4 * t +SecondBP.Agent4*t2 + MarketingIndex(B.Agent4, B.J, B.M, J.Agent4, J.J, J.M, R.Agent4, R.J, R.M, Z.Agent4, Z.J, Z.M, AH.Agent4, AH.J, AH.M, AP.Agent4, AP.J, AP.M);
-                result.Agent5 = FirstBP.Agent5 * t +SecondBP.Agent5*t2 + MarketingIndex(B.Agent5, B.J, B.M, J.Agent5, J.J, J.M, R.Agent5, R.J, R.M, Z.Agent5, Z.J, Z.M, AH.Agent5, AH.J, AH.M, AP.Agent5, AP.J, AP.M);
-                result.Agent6 = FirstBP.Agent6 * t + SecondBP.Agent6*t2 + MarketingIndex(B.Agent6, B.J, B.M, J.Agent6, J.J, J.M, R.Agent6, R.J, R.M, Z.Agent6, Z.J, Z.M, AH.Agent6, AH.J, AH.M, AP.Agent6, AP.J, AP.M);
+                }
 
                 return result;
             }
@@ -199,71 +151,33 @@ namespace WebMVC.BLL
             get
             {
                 var result = new MJA();
-                result.M1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.M1 / (AX.M1 + AX.J1 + AX.Agent1);
-                result.M2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.M2 / (AX.M2 + AX.J2 + AX.Agent2);
-                result.M3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.M3 / (AX.M3 + AX.J3 + AX.Agent3);
-                result.M4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.M4 / (AX.M4 + AX.J4 + AX.Agent4);
-                result.M5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.M5 / (AX.M5 + AX.J5 + AX.Agent5);
-                result.M6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.M6 / (AX.M6 + AX.J6 + AX.Agent6);
-                result.J1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.J1 / (AX.M1 + AX.J1 + AX.Agent1);
-                result.J2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.J2 / (AX.M2 + AX.J2 + AX.Agent2);
-                result.J3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.J3 / (AX.M3 + AX.J3 + AX.Agent3);
-                result.J4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.J4 / (AX.M4 + AX.J4 + AX.Agent4);
-                result.J5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.J5 / (AX.M5 + AX.J5 + AX.Agent5);
-                result.J6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.J6 / (AX.M6 + AX.J6 + AX.Agent6);
-                result.Agent1 = AX.M1 + AX.J1 + AX.Agent1 == 0 ? 0 : AX.Agent1 / (AX.M1 + AX.J1 + AX.Agent1);
-                result.Agent2 = AX.M2 + AX.J2 + AX.Agent2 == 0 ? 0 : AX.Agent2 / (AX.M2 + AX.J2 + AX.Agent2);
-                result.Agent3 = AX.M3 + AX.J3 + AX.Agent3 == 0 ? 0 : AX.Agent3 / (AX.M3 + AX.J3 + AX.Agent3);
-                result.Agent4 = AX.M4 + AX.J4 + AX.Agent4 == 0 ? 0 : AX.Agent4 / (AX.M4 + AX.J4 + AX.Agent4);
-                result.Agent5 = AX.M5 + AX.J5 + AX.Agent5 == 0 ? 0 : AX.Agent5 / (AX.M5 + AX.J5 + AX.Agent5);
-                result.Agent6 = AX.M6 + AX.J6 + AX.Agent6 == 0 ? 0 : AX.Agent6 / (AX.M6 + AX.J6 + AX.Agent6);
+                var count = new AgentStages().agents.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    result.M.Add(AX.M[i] + AX.J[i] + AX.Agent[i] == 0 ? 0 : AX.M[i] / (AX.M[i] + AX.J[i] + AX.Agent[i]));
+                    result.J.Add(AX.M[i] + AX.J[i] + AX.Agent[i] == 0 ? 0 : AX.J[i] / (AX.M[i] + AX.J[i] + AX.Agent[i]));
+                    result.Agent.Add(AX.M[i] + AX.J[i] + AX.Agent[i] == 0 ? 0 : AX.Agent[i] / (AX.M[i] + AX.J[i] + AX.Agent[i]));
+
+                }
                 return result;
 
             }
         }
+        public List<decimal> CIAgent
+        {
+            get
 
-        public decimal CI
-        {
-            get
             {
-                return BP.M1 + BP.J1 + BP.Agent1;
+                var result = new List<decimal>();
+                var count = new AgentStages().agents.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    result.Add(BP.M[i] + BP.J[i] + BP.Agent[i]);
+                }
+                return result;
             }
         }
-        public decimal CJ
-        {
-            get
-            {
-                return BP.M2 + BP.J2 + BP.Agent2;
-            }
-        }
-        public decimal CK
-        {
-            get
-            {
-                return BP.M3 + BP.J3 + BP.Agent3;
-            }
-        }
-        public decimal CL
-        {
-            get
-            {
-                return BP.M4 + BP.J4 + BP.Agent4;
-            }
-        }
-        public decimal CM
-        {
-            get
-            {
-                return BP.M5 + BP.J5 + BP.Agent5;
-            }
-        }
-        public decimal CN
-        {
-            get
-            {
-                return BP.M6 + BP.J6 + BP.Agent6;
-            }
-        }
+        
         public decimal MarketingIndex(decimal b, decimal c, decimal d, decimal j, decimal k, decimal l, decimal r, decimal s,
            decimal t, decimal z, decimal aa, decimal ab, decimal ah, decimal ai, decimal aj, decimal ap, decimal aq, decimal ar)
         {

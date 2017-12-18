@@ -13,15 +13,17 @@ namespace WebMVC.BLL
     /// </summary>
     public class ChannelService
     {
-      
+
         List<ChannelServiceTable> channelServices = new List<ChannelServiceTable>();
         List<BrandTable> brands;
         List<AgentTable> agents;
+        AgentStages agentStage;
         public ChannelService(InvertmentTable1 invertmentTable1)
         {
-           
+
             brands = invertmentTable1.getBrandTable();
-              agents = invertmentTable1.getAgents();
+            agents = invertmentTable1.getAgents();
+            agentStage = new AgentStages();
             Init();
         }
         private void Init()
@@ -29,9 +31,9 @@ namespace WebMVC.BLL
             #region 起始阶段
             ChannelServiceTable channl0 = new ChannelServiceTable()
             {
-                Stage = Stage.起始阶段.ToString(),
+                Stage = agentStage.stages[0],
             };
-            
+
             channelServices.Add(channl0);
 
             foreach (var item in brands)
@@ -44,7 +46,7 @@ namespace WebMVC.BLL
                 }
                 if (item.Brand == Brand.M品牌.ToString()) { channel.B.M = item.servet; }
                 else if (item.Brand == Brand.J品牌.ToString()) { channel.B.J = item.servet; }
-              }
+            }
             foreach (var itemAgent in agents)
             {
                 var channel = channelServices.FirstOrDefault(s => s.Stage == itemAgent.Stage);
@@ -54,23 +56,24 @@ namespace WebMVC.BLL
                     channelServices.Add(channel);
 
                 }
+                for (int i = 0; i < itemAgent.Bagent.Count; i++)
+                {
+                    channel.B.Agent.Add(itemAgent.Bagent[i].servet);
+                }
 
-                channel.B.Agent1 = itemAgent.B.servet;
-                channel.B.Agent2 = itemAgent.J.servet;
-                channel.B.Agent3 = itemAgent.R.servet;
-                channel.B.Agent4 = itemAgent.Z.servet;
-                channel.B.Agent5 = itemAgent.AH.servet;
-                channel.B.Agent6 = itemAgent.AP.servet;
+                //channel.B.Agent1 = itemAgent.B.servet;
+                //channel.B.Agent2 = itemAgent.J.servet;
+                //channel.B.Agent3 = itemAgent.R.servet;
+                //channel.B.Agent4 = itemAgent.Z.servet;
+                //channel.B.Agent5 = itemAgent.AH.servet;
+                //channel.B.Agent6 = itemAgent.AP.servet;
             }
             #endregion
-            foreach (var item in channelServices)
+            for (int i = 1; i < channelServices.Count; i++)
             {
-                if (item.Stage == Stage.第一阶段.ToString()) item.LastAB = channl0.AB;
-                else
-                if (item.Stage == Stage.第二阶段.ToString()) item.LastAB = channelServices.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString()).AB;
-                else if (item.Stage == Stage.第三阶段.ToString()) item.LastAB = channelServices.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString()).AB;
-
+                channelServices[i].LastAB = channelServices[i - 1].AB;
             }
+
 
         }
         public List<ChannelServiceTable> Get()
@@ -92,65 +95,39 @@ namespace WebMVC.BLL
         {
             get
             {
-                decimal I1;
-                decimal I2;
+                decimal I1 = 0;
+                decimal I2 = 0;
                 using (var db = new Infrastructure.AppIdentityDbContext())
                 {
-                    var bs = db.ChannelServiceInit.FirstOrDefault(s => s.id == 0);
-                    I1 = bs.ChannelService_J1;
-                    I2 = bs.ChannelService_J2;
-                }
-                if (Stage == Common.Stage.起始阶段.ToString())
-                {
-                    var result = new MJA()
+
+                    var bs = db.ChannelServiceInit.FirstOrDefault(s => s.id == 1);
+                    if (bs != null)
                     {
-                        M1 =I2,
-                        M2 =I2,
-                        M3 =I2,
-                        M4 =I2,
-                        M5 =I2,
-                        M6 =I2,
-                        J1 =I2,
-                        J2 =I2,
-                        J3 =I2,
-                        J4 =I2,
-                        J5 =I2,
-                        J6 =I2,
-                        Agent1 =I2,
-                        Agent2 =I2,
-                        Agent3 =I2,
-                        Agent4 =I2,
-                        Agent5 =I2,
-                        Agent6 =I2,
-                    };
-                     
-                    return result;
+                        I1 = bs.ChannelService_J1;
+                        I2 = bs.ChannelService_J2;
+                    }
+
                 }
-                else
+
+                var result = new MJA();
+                var count = new AgentStages().agents.Count;
+                for (int i = 0; i <count; i++)
                 {
-                 var result = new MJA()
+
+                    if (Stage == new AgentStages().stages[0])
                     {
-                        M1 = LastAB.M1 * I1 + Cal.Percent(B.M, B.J, B.Agent1),
-                        M2 = LastAB.M2 * I1 + Cal.Percent(B.M, B.J, B.Agent2),
-                        M3 = LastAB.M3 * I1 + Cal.Percent(B.M, B.J, B.Agent3),
-                        M4 = LastAB.M4 * I1 + Cal.Percent(B.M, B.J, B.Agent4),
-                        M5 = LastAB.M5 * I1 + Cal.Percent(B.M, B.J, B.Agent5),
-                        M6 = LastAB.M6 * I1 + Cal.Percent(B.M, B.J, B.Agent6),
-                        J1 = LastAB.J1 * I1 + Cal.Percent(B.J, B.M, B.Agent1),
-                        J2 = LastAB.J2 * I1 + Cal.Percent(B.J, B.M, B.Agent2),
-                        J3 = LastAB.J3 * I1 + Cal.Percent(B.J, B.M, B.Agent3),
-                        J4 = LastAB.J4 * I1 + Cal.Percent(B.J, B.M, B.Agent4),
-                        J5 = LastAB.J5 * I1 + Cal.Percent(B.J, B.M, B.Agent5),
-                        J6 = LastAB.J6 * I1 + Cal.Percent(B.J, B.M, B.Agent6),
-                        Agent1 = LastAB.Agent1 * I1 + Cal.Percent(B.Agent1, B.M, B.J),
-                        Agent2 = LastAB.Agent2 * I1 + Cal.Percent(B.Agent2, B.M, B.J),
-                        Agent3 = LastAB.Agent3 * I1 + Cal.Percent(B.Agent3, B.M, B.J),
-                        Agent4 = LastAB.Agent4 * I1 + Cal.Percent(B.Agent4, B.M, B.J),
-                        Agent5 = LastAB.Agent5 * I1 + Cal.Percent(B.Agent5, B.M, B.J),
-                        Agent6 = LastAB.Agent6 * I1 + Cal.Percent(B.Agent6, B.M, B.J),
-                    };
-                    return result;
+                        result.M.Add(I2);
+                        result.J.Add(I2);
+                        result.Agent.Add(I2);
+                    }
+                    else
+                    {
+                        result.M.Add(LastAB.M[i] * I1 + Cal.Percent(B.M, B.J, B.Agent[i]));
+                        result.J.Add(LastAB.J[i] * I1 + Cal.Percent(B.J, B.M, B.Agent[i]));
+                        result.Agent.Add(LastAB.Agent[i] * I1 + Cal.Percent(B.Agent[i], B.M, B.J));
+                    }
                 }
+                return result;
             }
         }
         /// <summary>
@@ -164,72 +141,33 @@ namespace WebMVC.BLL
 
             }
         }
+
         public MJA LastAB { get; set; } = new MJA();
         public MJA ABCal()
         {
-            return new MJA()
+            var mja = new MJA();
+            for (int i = 0; i < J.M.Count; i++)
             {
-                M1 = Cal.Percent(J.M1, J.J1, J.Agent1),
-                M2 = Cal.Percent(J.M2, J.J2, J.Agent2),
-                M3 = Cal.Percent(J.M3, J.J3, J.Agent3),
-                M4 = Cal.Percent(J.M4, J.J4, J.Agent4),
-                M5 = Cal.Percent(J.M5, J.J5, J.Agent5),
-                M6 = Cal.Percent(J.M6, J.J6, J.Agent6),
-                J1 = Cal.Percent(J.J1, J.M1, J.Agent1),
-                J2 = Cal.Percent(J.J2, J.M2, J.Agent2),
-                J3 = Cal.Percent(J.J3, J.M3, J.Agent3),
-                J4 = Cal.Percent(J.J4, J.M4, J.Agent4),
-                J5 = Cal.Percent(J.J5, J.M5, J.Agent5),
-                J6 = Cal.Percent(J.J6, J.M6, J.Agent6),
-                Agent1 = Cal.Percent(J.Agent1, J.M1, J.J1),
-                Agent2 = Cal.Percent(J.Agent2, J.M2, J.J2),
-                Agent3 = Cal.Percent(J.Agent3, J.M3, J.J3),
-                Agent4 = Cal.Percent(J.Agent4, J.M4, J.J4),
-                Agent5 = Cal.Percent(J.Agent5, J.M5, J.J5),
-                Agent6 = Cal.Percent(J.Agent6, J.M6, J.J6),
-            };
+                mja.M.Add(Cal.Percent(J.M[i], J.J[i], J.Agent[i]));
+                mja.J.Add(Cal.Percent(J.J[i], J.M[i], J.Agent[i]));
+                mja.Agent.Add(Cal.Percent(J.Agent[i], J.M[i], J.J[i]));
+            }
+            return mja;
         }
-        public decimal AU
+        public List<decimal> AUSum
         {
             get
             {
-                return AB.M1 + AB.J1 + AB.Agent1;
+                var mjaSum = new List<decimal>();
+                for (int i = 0; i < AB.M.Count; i++)
+                {
+                    mjaSum.Add(AB.M[i] + AB.J[i] + AB.Agent[i]);
+                }
+                return mjaSum;
             }
+
         }
-        public decimal AV
-        {
-            get
-            {
-                return AB.M2 + AB.J2 + AB.Agent2;
-            }
-        }
-        public decimal AW
-        {
-            get
-            {
-                return AB.M3 + AB.J3 + AB.Agent3;
-            }
-        }
-        public decimal AX
-        {
-            get
-            {
-                return AB.M4 + AB.J4 + AB.Agent4;
-            }
-        }
-        public decimal AY
-        {
-            get
-            {
-                return AB.M5 + AB.J5 + AB.Agent5;
-            }
-        }
-        public decimal AZ
-        {
-            get
-            {
-                return AB.M6 + AB.J6 + AB.Agent6;
-            }
-        }
+       
+         
     }
 }

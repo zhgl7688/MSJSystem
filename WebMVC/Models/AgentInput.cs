@@ -8,7 +8,7 @@ using WebMVC.Common;
 
 namespace WebMVC.Models
 {
-    public class AgentInput
+    public partial class AgentInput
     {
         /// <summary>
         /// 主键 编号
@@ -68,11 +68,13 @@ namespace WebMVC.Models
         /// </summary>
         [DisplayName("银行贷款")]
         public decimal bankLoan { get; set; }
+  
         /// <summary>
         /// 零售价
         /// </summary>
         [DisplayName("零售价1")]
         public decimal retailPriceRC1 { get; set; }
+       
         /// <summary>
         /// 零售系统供价
         /// </summary>
@@ -135,9 +137,26 @@ namespace WebMVC.Models
         public decimal ThirdPurchase { get; set; }
 
 
+        /// <summary>
+        /// 零售价
+        /// </summary>
+        [DisplayName("零售价")]
+        public List<decimal> retailPriceRC { get; set; } = new List<decimal>();
+        /// <summary>
+        /// 零售系统供价
+        /// </summary>
+        [DisplayName("零售系统供价")]
+        public List<decimal> SystemPriceRC { get; set; } = new List<decimal>();
+
+        /// <summary>
+        /// RC1进货
+        /// </summary>
+        [DisplayName("进货")]
+        public List<decimal> Purchase { get; set; }
+        public decimal BasePurchase { get; set; }
         public string UserId { get; set; }
-        public virtual PriceMange PriceMange { get; set; }
-        public virtual PurchaseTable PurchaseTable { get; set; }
+        public virtual ICollection< PriceMange> PriceMange { get; set; }
+        public virtual ICollection< PurchaseTable> PurchaseTable { get; set; }
         public decimal InputSum
         {
             get
@@ -170,7 +189,8 @@ namespace WebMVC.Models
 
     public class PurchaseTable
     {
-        public virtual int PriceMangeId { get; set; }
+        [Key]
+        public virtual int PurchaseId { get; set; }
         public virtual int AgentInputId { get; set; }
         public virtual string Name { get; set; }
         public virtual decimal Value { get; set; }

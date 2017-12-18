@@ -37,9 +37,9 @@ namespace WebMVC.BLL
                 switch (stage)
                 {
                     case Stage.起始阶段:
-                        lastBrandTableM.B = item.H[1].AverageM;
-                        lastBrandTableS.B = item.AR[1].AverageAgent;
-                        lastBrandTableJ.B = item.Z[1].AverageJ;
+                        lastBrandTableM.B = item.H[1].M.Average();
+                        lastBrandTableS.B = item.AR[1].Agent.Average();
+                        lastBrandTableJ.B = item.Z[1].J.Average();
                         break;
                     case Stage.第一阶段:
                         lastBrandTableM.C = Common.Cal.GetMJAAverage(item.H[1], count, MJAType.M);

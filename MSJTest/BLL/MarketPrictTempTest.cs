@@ -11,8 +11,8 @@ namespace MSJTest.BLL
         public void TestmarketPriceTemp()
         {
             var result = marketPriceTemp.Get();
-            Assert.AreEqual(1.09m,decimal.Round( result[0].EY[1].M1,2));
-            Assert.AreEqual(-2.86m,decimal.Round( result[0].EY[1].M5,2));
+            Assert.AreEqual(1.09m,decimal.Round( result[0].EY[1].M[0],2));
+            Assert.AreEqual(-2.86m,decimal.Round( result[0].EY[1].M[4],2));
         }
     }
 }

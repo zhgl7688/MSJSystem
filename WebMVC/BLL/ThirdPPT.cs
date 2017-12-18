@@ -33,7 +33,7 @@ namespace WebMVC.BLL
         {
             thirdPPTList.sAgentResults.Add(sAgentResult);
         }
- 
+
         protected void AddThirdSummary(ThirdSummary thirdSummary)
         {
             thirdPPTList.thirdSummarys.Add(thirdSummary);
@@ -57,10 +57,11 @@ namespace WebMVC.BLL
         List<CurrentShareTable> currentShares;
         SecondPPT secondPPT;
         string stage;
+        AgentStages agentStages;
         public ThirdPPT(MarketPrice MarketPrice, Investment Investment, InvertmentTable1 InvertmentTable1, SummaryAssent SummaryAssent,
             LastBrand LastBrand, InvoicingReport InvoicingReport, PriceControl priceControl, CurrentShare currentShare, SecondPPT SecondPPT)
         {
-
+            agentStages = new AgentStages();
             marketPrices = MarketPrice.Get();
             this.investment = Investment;
             this.invertmentTable1 = InvertmentTable1;
@@ -99,21 +100,21 @@ namespace WebMVC.BLL
                 {
                     品牌方 = Brand.M品牌,
                     出厂价 = marketPrice3.CM[1].M,
-                    指导零售价 = priceControl3.B.RC1M,
+                    指导零售价 = priceControl3.B.RcM[0],
                     RC2出厂价 = marketPrice3.CM[2].M,
-                    RC2指导零售价 = priceControl3.B.RC2M,
+                    RC2指导零售价 = priceControl3.B.RcM[1],
                     RC3出厂价 = marketPrice3.CM[3].M,
-                    RC3指导零售价 = priceControl3.B.RC3M,
+                    RC3指导零售价 = priceControl3.B.RcM[2],
                     品牌广告 = inverstment3.J,
-                    外观创新 = inverstment3.M.SurfaceRC1,
-                    功能创新 = inverstment3.N.FunctionRC1,
-                    材料创新 = inverstment3.O.materialRC1,
-                    RC2外观创新 = inverstment3.M.SurfaceRC2,
-                    RC2功能创新 = inverstment3.N.FunctionRC2,
-                    RC2材料创新 = inverstment3.O.materialRC2,
-                    RC3外观创新 = inverstment3.M.SurfaceRC3,
-                    RC3功能创新 = inverstment3.N.FunctionRC3,
-                    RC3材料创新 = inverstment3.O.materialRC3,
+                    外观创新 = inverstment3.M.Surfacerc[0],
+                    功能创新 = inverstment3.N.Functionrc[0],
+                    材料创新 = inverstment3.O.Material[0],
+                    RC2外观创新 = inverstment3.M.Surfacerc[1],
+                    RC2功能创新 = inverstment3.N.Functionrc[1],
+                    RC2材料创新 = inverstment3.O.Material[1],
+                    RC3外观创新 = inverstment3.M.Surfacerc[2],
+                    RC3功能创新 = inverstment3.N.Functionrc[2],
+                    RC3材料创新 = inverstment3.O.Material[2],
                 });
                 AddBrandInfo(new ThirdBrandInfo()
                 {
@@ -125,38 +126,35 @@ namespace WebMVC.BLL
                     RC3出厂价 = marketPrice3.CM[3].S,
                     RC3指导零售价 = brand3.NewRetailPriceR3,
                     品牌广告 = inverstment3.K,
-                    外观创新 = inverstment3.P.SurfaceRC1,
-                    功能创新 = inverstment3.Q.FunctionRC1,
-                    材料创新 = inverstment3.R.materialRC1,
-                    RC2外观创新 = inverstment3.P.SurfaceRC2,
-                    RC2功能创新 = inverstment3.Q.FunctionRC2,
-                    RC2材料创新 = inverstment3.R.materialRC2,
-                    RC3外观创新 = inverstment3.P.SurfaceRC3,
-                    RC3功能创新 = inverstment3.Q.FunctionRC3,
-                    RC3材料创新 = inverstment3.R.materialRC3,
+                    外观创新 = inverstment3.P.Surfacerc[0],
+                    功能创新 = inverstment3.Q.Functionrc[0],
+                    材料创新 = inverstment3.R.Material[0],
+                    RC2外观创新 = inverstment3.P.Surfacerc[1],
+                    RC2功能创新 = inverstment3.Q.Functionrc[1],
+                    RC2材料创新 = inverstment3.R.Material[1],
+                    RC3外观创新 = inverstment3.P.Surfacerc[2],
+                    RC3功能创新 = inverstment3.Q.Functionrc[2],
+                    RC3材料创新 = inverstment3.R.Material[2],
                 });
-
-
-
                 AddBrandInfo(new ThirdBrandInfo
                 {
                     品牌方 = Brand.J品牌,
                     出厂价 = marketPrice3.CM[1].J,
-                    指导零售价 = priceControl3.B.RC1J,
+                    指导零售价 = priceControl3.B.RcJ[0],
                     RC2出厂价 = marketPrice3.CM[2].J,
-                    RC2指导零售价 = priceControl3.B.RC2J,
+                    RC2指导零售价 = priceControl3.B.RcJ[1],
                     RC3出厂价 = marketPrice3.CM[3].J,
-                    RC3指导零售价 = priceControl3.B.RC3J,
+                    RC3指导零售价 = priceControl3.B.RcJ[2],
                     品牌广告 = inverstment3.L,
-                    外观创新 = inverstment3.S.SurfaceRC1,
-                    功能创新 = inverstment3.T.FunctionRC1,
-                    材料创新 = inverstment3.U.materialRC1,
-                    RC2外观创新 = inverstment3.S.SurfaceRC2,
-                    RC2功能创新 = inverstment3.T.FunctionRC2,
-                    RC2材料创新 = inverstment3.U.materialRC2,
-                    RC3外观创新 = inverstment3.S.SurfaceRC3,
-                    RC3功能创新 = inverstment3.T.FunctionRC3,
-                    RC3材料创新 = inverstment3.U.materialRC3,
+                    外观创新 = inverstment3.S.Surfacerc[0],
+                    功能创新 = inverstment3.T.Functionrc[0],
+                    材料创新 = inverstment3.U.Material[0],
+                    RC2外观创新 = inverstment3.S.Surfacerc[1],
+                    RC2功能创新 = inverstment3.T.Functionrc[1],
+                    RC2材料创新 = inverstment3.U.Material[1],
+                    RC3外观创新 = inverstment3.S.Surfacerc[2],
+                    RC3功能创新 = inverstment3.T.Functionrc[2],
+                    RC3材料创新 = inverstment3.U.Material[2],
                 });
 
             }
@@ -179,10 +177,10 @@ namespace WebMVC.BLL
             SetBrandProfit(new ThirdBrandProfit
             {
                 M = summary.AD,
-                S1 = summary.AE,
-                S2 = summary.AF,
-                S3 = summary.AG,
-                S4 = summary.AH,
+                S1 = summary.AEAgent[0],
+                S2 = summary.AEAgent[1],
+                S3 = summary.AEAgent[2],
+                S4 = summary.AEAgent[3],
                 J = summary.AK,
                 SM = getLastBrand(Brand.M品牌.ToString()).F,
                 SS = getLastBrand(Brand.S品牌.ToString()).F,
@@ -220,69 +218,16 @@ namespace WebMVC.BLL
                 {
                     代理方 = item.AgentName,
                 };
-                switch (sAgentInfo.代理方)
-                {
-                    case "代1":
-                        sAgentInfo.供货价 = priceControl3.K[1].Agent1;
-                        sAgentInfo.零售价 = priceControl3.D[1].Agent1;
-                        sAgentInfo.RC2供货价 = priceControl3.K[2].Agent1;
-                        sAgentInfo.RC2零售价 = priceControl3.D[2].Agent1;
-                        sAgentInfo.RC3供货价 = priceControl3.K[3].Agent1;
-                        sAgentInfo.RC3零售价 = priceControl3.D[3].Agent1;
-                        setBrandInput(sAgentInfo, investment3.CL);
-                        sAgentInfo.S品牌费用补贴支持 = investment3.AJ.InputSum;
-                        break;
-                    case "代2":
-                        sAgentInfo.供货价 = priceControl3.K[1].Agent2;
-                        sAgentInfo.零售价 = priceControl3.D[1].Agent2;
-                        sAgentInfo.RC2供货价 = priceControl3.K[2].Agent2;
-                        sAgentInfo.RC2零售价 = priceControl3.D[2].Agent2;
-                        sAgentInfo.RC3供货价 = priceControl3.K[3].Agent2;
-                        sAgentInfo.RC3零售价 = priceControl3.D[3].Agent2;
-                        setBrandInput(sAgentInfo, investment3.CT);
-                        sAgentInfo.S品牌费用补贴支持 = investment3.AS.InputSum;
-                        break;
-                    case "代3":
-                        sAgentInfo.供货价 = priceControl3.K[1].Agent3;
-                        sAgentInfo.零售价 = priceControl3.D[1].Agent3;
-                        sAgentInfo.RC2供货价 = priceControl3.K[2].Agent3;
-                        sAgentInfo.RC2零售价 = priceControl3.D[2].Agent3;
-                        sAgentInfo.RC3供货价 = priceControl3.K[3].Agent3;
-                        sAgentInfo.RC3零售价 = priceControl3.D[3].Agent3;
-                        setBrandInput(sAgentInfo, investment3.DB);
-                        sAgentInfo.S品牌费用补贴支持 = investment3.BB.InputSum;
-                        break;
-                    case "代4":
-                        sAgentInfo.供货价 = priceControl3.K[1].Agent4;
-                        sAgentInfo.零售价 = priceControl3.D[1].Agent4;
-                        sAgentInfo.RC2供货价 = priceControl3.K[2].Agent4;
-                        sAgentInfo.RC2零售价 = priceControl3.D[2].Agent4;
-                        sAgentInfo.RC3供货价 = priceControl3.K[3].Agent4;
-                        sAgentInfo.RC3零售价 = priceControl3.D[3].Agent4;
-                        setBrandInput(sAgentInfo, investment3.DJ);
-                        sAgentInfo.S品牌费用补贴支持 = investment3.BK.InputSum;
-                        break;
-                    case "代5":
-                        sAgentInfo.供货价 = priceControl3.K[1].Agent5;
-                        sAgentInfo.零售价 = priceControl3.D[1].Agent5;
-                        sAgentInfo.RC2供货价 = priceControl3.K[2].Agent5;
-                        sAgentInfo.RC2零售价 = priceControl3.D[2].Agent5;
-                        sAgentInfo.RC3供货价 = priceControl3.K[3].Agent5;
-                        sAgentInfo.RC3零售价 = priceControl3.D[3].Agent5;
-                        setBrandInput(sAgentInfo, investment3.DR);
-                        sAgentInfo.S品牌费用补贴支持 = investment3.BT.InputSum;
-                        break;
-                    case "代6":
-                        sAgentInfo.供货价 = priceControl3.K[1].Agent6;
-                        sAgentInfo.零售价 = priceControl3.D[1].Agent6;
-                        sAgentInfo.RC2供货价 = priceControl3.K[2].Agent6;
-                        sAgentInfo.RC2零售价 = priceControl3.D[2].Agent6;
-                        sAgentInfo.RC3供货价 = priceControl3.K[3].Agent6;
-                        sAgentInfo.RC3零售价 = priceControl3.D[3].Agent6;
-                        setBrandInput(sAgentInfo, investment3.DZ);
-                        sAgentInfo.S品牌费用补贴支持 = investment3.CC.InputSum;
-                        break;
-                }
+                var indexAgent = agentStages.agents.IndexOf(item.AgentName);
+                sAgentInfo.供货价 = priceControl3.K[1].Agent[indexAgent];
+                sAgentInfo.零售价 = priceControl3.D[1].Agent[indexAgent];
+                sAgentInfo.RC2供货价 = priceControl3.K[2].Agent[indexAgent];
+                sAgentInfo.RC2零售价 = priceControl3.D[2].Agent[indexAgent];
+                sAgentInfo.RC3供货价 = priceControl3.K[3].Agent[indexAgent];
+                sAgentInfo.RC3零售价 = priceControl3.D[3].Agent[indexAgent];
+                setBrandInput(sAgentInfo, investment3.CLAgent[indexAgent]);
+                sAgentInfo.S品牌费用补贴支持 = investment3.AJAgent[indexAgent].InputSum;
+
                 AddsAgentInfos(sAgentInfo);
             }
 
@@ -324,96 +269,29 @@ namespace WebMVC.BLL
                 sAgentResult.RC3期末 = item.AM;
                 sAgentResult.RC3销售量 = item.AG;
                 sAgentResult.RC3销售金额 = item.AH;
-                switch (sAgentResult.代理方)
-                {
-                    case "代1":
-                        sAgentResult.数量 = SumRcNumber(sAgentResult.期初 , sAgentResult.销售量, currentShare3.CT[1].Agent1);
-                        sAgentResult.金额 = sAgentResult.数量 * priceControl3.K[1].Agent1;
-                        sAgentResult.RC2数量 = SumRcNumber(sAgentResult.RC2期初, sAgentResult.RC2销售量, currentShare3.CT[2].Agent1);
-                        sAgentResult.RC2金额 = sAgentResult.RC2数量 *decimal.Round( priceControl3.K[2].Agent1,0);
-                        sAgentResult.RC3数量 = SumRcNumber(sAgentResult.RC3期初 , sAgentResult.RC3销售量, currentShare3.CT[3].Agent1);
-                        sAgentResult.RC3金额 = sAgentResult.RC3数量 *decimal.Round( priceControl3.K[3].Agent1,0);
-                        sAgentResult.销售利润 = summary16.AL;
-                        sAgentResult.借款利息 = summary17.AL;
-                        sAgentResult.库存跌价损失计提 = summary18.AL;
-                        sAgentResult.最终经营利润 = summary19.AL;
-                        sAgentResult.现金流 = summary15.AL;
-                        break;
-                    case "代2":
-                        sAgentResult.数量 = SumRcNumber( sAgentResult.期初 , sAgentResult.销售量, currentShare3.CT[1].Agent2);
-                        sAgentResult.金额 = sAgentResult.数量 * decimal.Round(priceControl3.K[1].Agent2,0);
-                        sAgentResult.RC2数量 = SumRcNumber(sAgentResult.RC2期初, sAgentResult.RC2销售量, currentShare3.CT[2].Agent2);
-                        sAgentResult.RC2金额 = sAgentResult.RC2数量 * decimal.Round(priceControl3.K[2].Agent2,0);
-                        sAgentResult.RC3数量 = SumRcNumber(sAgentResult.RC3期初 , sAgentResult.RC3销售量 ,currentShare3.CT[3].Agent2)  ;
-                        sAgentResult.RC3金额 = sAgentResult.RC3数量 * decimal.Round(priceControl3.K[3].Agent2,0);
-                        sAgentResult.销售利润 = summary16.AM;
-                        sAgentResult.借款利息 = summary17.AM;
-                        sAgentResult.库存跌价损失计提 = summary18.AM;
-                        sAgentResult.最终经营利润 = summary19.AM;
-                        sAgentResult.现金流 = summary15.AM;
-                        break;
-                    case "代3":
-                        sAgentResult.数量 = SumRcNumber (sAgentResult.期初 ,sAgentResult.销售量 , currentShare3.CT[1].Agent3);
-                        sAgentResult.金额 = sAgentResult.数量 * decimal.Round(priceControl3.K[1].Agent3, 0);
-                        sAgentResult.RC2数量 = SumRcNumber(sAgentResult.RC2期初 , sAgentResult.RC2销售量 , currentShare3.CT[2].Agent3) ;
-                        sAgentResult.RC2金额 = sAgentResult.RC2数量 * decimal.Round(priceControl3.K[2].Agent3,0);
-                        sAgentResult.RC3数量 = SumRcNumber(sAgentResult.RC3期初 , sAgentResult.RC3销售量 , currentShare3.CT[3].Agent3) ;
-                        sAgentResult.RC3金额 = sAgentResult.RC3数量 * decimal.Round(priceControl3.K[3].Agent3, 0);
-                        sAgentResult.销售利润 = summary16.AN;
-                        sAgentResult.借款利息 = summary17.AN;
-                        sAgentResult.库存跌价损失计提 = summary18.AN;
-                        sAgentResult.最终经营利润 = summary19.AN;
-                        sAgentResult.现金流 = summary15.AN;
-                        break;
-                    case "代4":
-                        sAgentResult.数量 = SumRcNumber(sAgentResult.期初 , sAgentResult.销售量 , currentShare3.CT[1].Agent4) ;
-                        sAgentResult.金额 = sAgentResult.数量 * decimal.Round(priceControl3.K[1].Agent4, 0);
-                        sAgentResult.RC2数量 = SumRcNumber(sAgentResult.RC2期初 , sAgentResult.RC2销售量 , currentShare3.CT[2].Agent4)  ;
-                        sAgentResult.RC2金额 = sAgentResult.RC2数量 * decimal.Round(priceControl3.K[2].Agent4, 0);
-                        sAgentResult.RC3数量 = SumRcNumber(sAgentResult.RC3期初 , sAgentResult.RC3销售量 , currentShare3.CT[3].Agent4)  ;
-                        sAgentResult.RC3金额 = sAgentResult.RC3数量 * decimal.Round(priceControl3.K[3].Agent4, 0);
-                        sAgentResult.销售利润 = summary16.AO;
-                        sAgentResult.借款利息 = summary17.AO;
-                        sAgentResult.库存跌价损失计提 = summary18.AO;
-                        sAgentResult.最终经营利润 = summary19.AO;
-                        sAgentResult.现金流 = summary15.AO;
-                        break;
-                    case "代5":
-                        sAgentResult.数量 = SumRcNumber(sAgentResult.期初, sAgentResult.销售量 , currentShare3.CT[1].Agent5) ;
-                        sAgentResult.金额 = sAgentResult.数量 * decimal.Round(priceControl3.K[1].Agent5, 0);
-                        sAgentResult.RC2数量 = SumRcNumber(sAgentResult.RC2期初 , sAgentResult.RC2销售量 , currentShare3.CT[2].Agent5) ;
-                        sAgentResult.RC2金额 = sAgentResult.RC2数量 * decimal.Round(priceControl3.K[2].Agent5, 0);
-                        sAgentResult.RC3数量 = SumRcNumber(sAgentResult.RC3期初 , sAgentResult.RC3销售量 , currentShare3.CT[3].Agent5)  ;
-                        sAgentResult.RC3金额 = sAgentResult.RC3数量 * decimal.Round(priceControl3.K[3].Agent5, 0);
-                        sAgentResult.销售利润 = summary16.AP;
-                        sAgentResult.借款利息 = summary17.AP;
-                        sAgentResult.库存跌价损失计提 = summary18.AP;
-                        sAgentResult.最终经营利润 = summary19.AP;
-                        sAgentResult.现金流 = summary15.AP;
-                        break;
-                    case "代6":
-                        sAgentResult.数量 = SumRcNumber(sAgentResult.期初 , sAgentResult.销售量 , currentShare3.CT[1].Agent6)  ;
-                        sAgentResult.金额 = sAgentResult.数量 * decimal.Round(priceControl3.K[1].Agent6, 0);
-                        sAgentResult.RC2数量 = SumRcNumber(sAgentResult.RC2期初 , sAgentResult.RC2销售量 , currentShare3.CT[2].Agent6)  ;
-                        sAgentResult.RC2金额 = sAgentResult.RC2数量 * decimal.Round(priceControl3.K[2].Agent6, 0);
-                        sAgentResult.RC3数量 = SumRcNumber(sAgentResult.RC3期初 , sAgentResult.RC3销售量 ,currentShare3.CT[3].Agent6);
-                        sAgentResult.RC3金额 = sAgentResult.RC3数量 * decimal.Round(priceControl3.K[3].Agent6, 0);
-                        sAgentResult.销售利润 = summary16.AQ;
-                        sAgentResult.借款利息 = summary17.AQ;
-                        sAgentResult.库存跌价损失计提 = summary18.AQ;
-                        sAgentResult.最终经营利润 = summary19.AQ;
-                        sAgentResult.现金流 = summary15.AQ;
-                        break;
-                }
+
+                var indexAgent = agentStages.agents.IndexOf(item.AgentName);
+                sAgentResult.数量 = SumRcNumber(sAgentResult.期初, sAgentResult.销售量, currentShare3.CT[1].Agent[indexAgent]);
+                sAgentResult.金额 = sAgentResult.数量 * decimal.Round(priceControl3.K[1].Agent[indexAgent], 0);
+                sAgentResult.RC2数量 = SumRcNumber(sAgentResult.RC2期初, sAgentResult.RC2销售量, currentShare3.CT[2].Agent[indexAgent]);
+                sAgentResult.RC2金额 = sAgentResult.RC2数量 * decimal.Round(priceControl3.K[2].Agent[indexAgent], 0);
+                sAgentResult.RC3数量 = SumRcNumber(sAgentResult.RC3期初, sAgentResult.RC3销售量, currentShare3.CT[3].Agent[indexAgent]);
+                sAgentResult.RC3金额 = sAgentResult.RC3数量 * decimal.Round(priceControl3.K[3].Agent[indexAgent], 0);
+                sAgentResult.销售利润 = summary16.ALAgent[indexAgent];
+                sAgentResult.借款利息 = summary17.ALAgent[indexAgent];
+                sAgentResult.库存跌价损失计提 = summary18.ALAgent[indexAgent];
+                sAgentResult.最终经营利润 = summary19.ALAgent[indexAgent];
+                sAgentResult.现金流 = summary15.ALAgent[indexAgent];
+
                 AddsAgentResult(sAgentResult);
 
 
             }
         }
-        private decimal SumRcNumber(decimal a,decimal b ,decimal c)
+        private decimal SumRcNumber(decimal a, decimal b, decimal c)
         {
             var result = decimal.Round(a, 0) + decimal.Round(b, 0) - decimal.Round(c, 0);
-          return result > 0 ? 0 : result;
+            return result > 0 ? 0 : result;
         }
         #endregion
         #region 累计总利润
@@ -434,30 +312,8 @@ namespace WebMVC.BLL
                     库存 = sAgentResult3.期末 + sAgentResult3.RC2期末 + sAgentResult3.RC3期末,
                     现金流 = sAgentResult3.现金流
                 };
-                AgentName agentName = (AgentName)Enum.Parse(typeof(AgentName), item.代理方);
-                switch (agentName)
-                {
-                    case AgentName.代1:
-                        thirdSummary.销售额 = summary.AL;
-                        break;
-                    case AgentName.代2:
-                        thirdSummary.销售额 = summary.AM;
-                        break;
-                    case AgentName.代3:
-                        thirdSummary.销售额 = summary.AN;
-                        break;
-                    case AgentName.代4:
-                        thirdSummary.销售额 = summary.AO;
-                        break;
-                    case AgentName.代5:
-                        thirdSummary.销售额 = summary.AP;
-                        break;
-                    case AgentName.代6:
-                        thirdSummary.销售额 = summary.AQ;
-                        break;
-                    default:
-                        break;
-                }
+                var indexAgent = agentStages.agents.IndexOf(item.代理方);
+                thirdSummary.销售额 = summary.ALAgent[indexAgent];
                 AddThirdSummary(thirdSummary);
             }
         }
@@ -467,8 +323,8 @@ namespace WebMVC.BLL
     {
         public List<ThirdBrandInfo> brandInfos { get; set; } = new List<ThirdBrandInfo>();
         public List<ThirdSAgentInfo> sAgentInfos { get; set; } = new List<ThirdSAgentInfo>();
-        public List<ThirdSAgentResult> sAgentResults { get; set; } = new List<ThirdSAgentResult>(); 
-        public List<ThirdSummary> thirdSummarys { get; set; } = new List<ThirdSummary>(); 
+        public List<ThirdSAgentResult> sAgentResults { get; set; } = new List<ThirdSAgentResult>();
+        public List<ThirdSummary> thirdSummarys { get; set; } = new List<ThirdSummary>();
         public ThirdBrandProfit BrandProfit { get; set; }
     }
     public class ThirdBrandInfo : SecondBrandInfo
@@ -512,7 +368,7 @@ namespace WebMVC.BLL
     }
     public class ThirdBrandProfit : SecondBrandProfit
     {
-        [DisplayFormat(DataFormatString ="{0:P0}")]
+        [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal RC3SM { get; set; }
         [DisplayFormat(DataFormatString = "{0:P0}")]
         public decimal RC3SS { get; set; }

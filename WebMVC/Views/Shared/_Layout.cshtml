@@ -22,23 +22,32 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*<li class="active">@Html.ActionLink("主页", "Index", "Home")</li>*@
-                    @* <li>@Html.ActionLink("品牌力", "BrandStrength", "Home")</li>
-                        <li>@Html.ActionLink("产品创新力", "ProductInnovation", "Home")</li>
-                        <li>@Html.ActionLink("市场推广", "MarketPromotion", "Home")</li>
-
-                        <li>@Html.ActionLink("渠道服务", "ChannelService", "Home")</li>
-
-                        <li>@Html.ActionLink("市场价格", "MarketPrice", "Home")</li>
-                        <li>@Html.ActionLink("意愿指数", "IntentionIndex", "Home")</li>
-
-                        <li>@Html.ActionLink("价格管控表", "PriceControl", "Home")</li>
-                        <li>@Html.ActionLink("当年占有率", "CurrentShare", "Home")</li>
-                        <li>@Html.ActionLink("进货报表", "StockReport", "Home")</li>
-                        <li>@Html.ActionLink("投资表", "InvertmentTable", "Home")</li>
-                        <li>@Html.ActionLink("进销存报表", "InvoicingReport", "Home")</li>
-                        <li>@Html.ActionLink("资产汇总表", "SummaryAssent", "Home")</li>*@
+                    
                     <li>@Html.ActionLink("代理商组", "Index", "AgentInput")</li>
                     <li>@Html.ActionLink("品牌商组", "Index", "BrandsInput")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            中间表
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("品牌力", "BrandStrength", "Home")</li>
+                            <li>@Html.ActionLink("产品创新力", "ProductInnovation", "Home")</li>
+                            <li>@Html.ActionLink("市场推广", "MarketPromotion", "Home")</li>
+
+                            <li>@Html.ActionLink("渠道服务", "ChannelService", "Home")</li>
+
+                            <li>@Html.ActionLink("市场价格", "MarketPrice", "Home")</li>
+                            <li>@Html.ActionLink("意愿指数", "IntentionIndex", "Home")</li>
+
+                            <li>@Html.ActionLink("价格管控表", "PriceControl", "Home")</li>
+                            <li>@Html.ActionLink("当年占有率", "CurrentShare", "Home")</li>
+                            <li>@Html.ActionLink("进货报表", "StockReport", "Home")</li>
+                            <li>@Html.ActionLink("投资表", "InvertmentTable", "Home")</li>
+                            <li>@Html.ActionLink("进销存报表", "InvoicingReport", "Home")</li>
+                            <li>@Html.ActionLink("资产汇总表", "SummaryAssent", "Home")</li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             PPT列表

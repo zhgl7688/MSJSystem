@@ -42,7 +42,7 @@ namespace WebMVC.Controllers
         {
             ViewBag.G = new SelectList(db.CodeInit.Where(s => s.Code == "Stage"), "Text", "Text", "");
             // ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
-            return View(new CurrentShareInit {  D=0, E=0,F=0, H=0, J=0,Z=0});
+            return View(new CurrentShareInit {  D=0, E=0,F=0, H=0, AR=0,Z=0});
         }
 
         // POST: CurrentShareInits/Create

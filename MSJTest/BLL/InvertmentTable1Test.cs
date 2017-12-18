@@ -14,7 +14,7 @@ namespace MSJTest.BLL
         public InvertmentTable1Test()
         {
             AppIdentityDbContext db = new AppIdentityDbContext();
-            var agentInputs =new ExampleData().agentInputs.Where(s => s.UserId == "11").ToList();
+            var agentInputs =new ExampleData().agentInputs.ToList();
             var brandsInputs = new ExampleData().brands.ToList();
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
         }
@@ -31,7 +31,7 @@ namespace MSJTest.BLL
         public void TestgetAgents()
         {
             var result = invertmentTable1.getAgents();
-            Assert.AreEqual(80, result[0].J.servet);
+            Assert.AreEqual(80, result[0].Bagent[1].servet);
         }
         [TestMethod]
         public void TestAgentCount()

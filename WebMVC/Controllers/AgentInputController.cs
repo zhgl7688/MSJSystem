@@ -45,14 +45,31 @@ namespace WebMVC.Controllers
         }
 
         // GET: AgentInput/Create
-        public ActionResult Create()
+        public ActionResult Create1()
         {
             ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value!=0), "Text", "Text", "");
             ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
             AgentInput agentInput = new AgentInput();
             return View(new AgentInput());
         }
+        public ActionResult Create()
+        {
+            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
 
+            //ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
+            ViewBag.Stage = new SelectList(db.StageAdd.Where(s => s.Stage != null), "Stage", "Stage", "");
+
+            //ViewBag.retailPriceRC = db.StageAdd.Where(s => s.Stage != null); 
+            var stageAddList = db.StageAdd.Where(s => s.Stage != null).ToList();
+            //stageAddList.Add(temp);
+            //stageAddList.Add(temp1);
+            var model = new AgentInput()
+            {
+                StageAdds = stageAddList
+            };
+
+            return View(model);
+        }
         // POST: AgentInput/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

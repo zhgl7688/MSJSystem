@@ -51,23 +51,34 @@ namespace WebMVC.BLL
                 Stage = agentStages.stages[0],
                 ID = 0,
             };
-            initT.K.IIXRC.Add(initRC);
-
-            initT.T.AIRC.Add(new RC
+      
+            for (int i = 0; i < agentStages.stages.Count-1; i++)
             {
-                M = (1000 - brandStrength0.H) * piinit.ProductInnovation_T,// 0.3m;
-                S = (1000 - brandStrength0.I) * piinit.ProductInnovation_T,// 0.3m;
-                J = (1000 - brandStrength0.J) * piinit.ProductInnovation_T// 0.3m;
-            });
-            initT.AC.FIRC.Add(new RC());
-            initT.AC.FIRC[0].M = (1000 - brandStrength0.H) * piinit.ProductInnovation_AC;// 0.5m;
-            initT.AC.FIRC[0].S = (1000 - brandStrength0.I) * piinit.ProductInnovation_AC;//
-            initT.AC.FIRC[0].J = (1000 - brandStrength0.J) * piinit.ProductInnovation_AC;//
-            initT.AL.MIRC.Add(new RC());
-            initT.AL.MIRC[0].M = (1000 - brandStrength0.H) * piinit.ProductInnovation_AL;//0.2m;
-            initT.AL.MIRC[0].S = (1000 - brandStrength0.I) * piinit.ProductInnovation_AL;//0.2m;
-            initT.AL.MIRC[0].J = (1000 - brandStrength0.J) * piinit.ProductInnovation_AL;//0.2m;
-
+                if (i == 0)
+                {   initT.K.IIXRC.Add(initRC);
+                    initT.T.AIRC.Add(new RC
+                    {
+                        M = (1000 - brandStrength0.H) * piinit.ProductInnovation_T,// 0.3m;
+                        S = (1000 - brandStrength0.I) * piinit.ProductInnovation_T,// 0.3m;
+                        J = (1000 - brandStrength0.J) * piinit.ProductInnovation_T// 0.3m;
+                    });
+                    initT.AC.FIRC.Add(new RC());
+                    initT.AC.FIRC[0].M = (1000 - brandStrength0.H) * piinit.ProductInnovation_AC;// 0.5m;
+                    initT.AC.FIRC[0].S = (1000 - brandStrength0.I) * piinit.ProductInnovation_AC;//
+                    initT.AC.FIRC[0].J = (1000 - brandStrength0.J) * piinit.ProductInnovation_AC;//
+                    initT.AL.MIRC.Add(new RC());
+                    initT.AL.MIRC[0].M = (1000 - brandStrength0.H) * piinit.ProductInnovation_AL;//0.2m;
+                    initT.AL.MIRC[0].S = (1000 - brandStrength0.I) * piinit.ProductInnovation_AL;//0.2m;
+                    initT.AL.MIRC[0].J = (1000 - brandStrength0.J) * piinit.ProductInnovation_AL;//0.2m;
+                }
+                else
+                {
+                    initT.K.IIXRC.Add(new RC() { J = 0, M = 0, S = 0 });
+                    initT.T.AIRC.Add(new RC() { J = 0, M = 0, S = 0 });
+                    initT.AC.FIRC.Add(new RC() { J = 0, M = 0, S = 0 });
+                    initT.AL.MIRC.Add(new RC() { J = 0, M = 0, S = 0 });
+                }
+            }
 
             initT.PTCal();
             productInnvoations.Add(initT);
@@ -85,15 +96,15 @@ namespace WebMVC.BLL
                     };
                     productInnvoations.Add(productInnvoation);
                 }
-                var indexStage = agentStages.stages.IndexOf(item.Stage);
+                var indexStage = agentStages.stages.Count;// (item.Stage);
                 Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
-                for (int i = productInnvoation.T.AIRC.Count; i < indexStage; i++)
+                for (int i = productInnvoation.T.AIRC.Count; i < indexStage-1; i++)
                 {
                     productInnvoation.T.AIRC.Add(new RC());
                     productInnvoation.AC.FIRC.Add(new RC());
                     productInnvoation.AL.MIRC.Add(new RC());
                 }
-                for (int i = 0; i < indexStage; i++)
+                for (int i = 0; i < indexStage-1; i++)
                 {
                     switch (brand)
                     {
@@ -125,7 +136,7 @@ namespace WebMVC.BLL
             var last = products.FirstOrDefault(j => j.Stage == agentStages.stages[index - 1]);
             SetInvovation(products, last);
 
-            for (int i = 0; i < index; i++)
+            for (int i = 0; i < last.InnovationIndexM.Count; i++)
             {
                 if (product.K.IIXRC.Count <= i) product.K.IIXRC.Add(new RC());
                 product.K.IIXRC[i].M = last.InnovationIndexM[i];
@@ -137,7 +148,7 @@ namespace WebMVC.BLL
 
             if (index > 1)
             {
-                product.K.IIXRC.Add(new RC());
+                //product.K.IIXRC.Add(new RC());
                 product.K.IIXRC[index - 1] = initRC;
             }
             //if (index == 3)
@@ -322,7 +333,7 @@ namespace WebMVC.BLL
                 {
                     if (i == 0) result.FORC.Add(GetCK(AC.FIRC[i]));
                     else
-                        result.FORC.Add(GetCK(AC.FIRC[i-1],AC.FIRC[i]));
+                        result.FORC.Add(GetCK(AC.FIRC[i - 1], AC.FIRC[i]));
                 }
                 //result.FORC[0] = GetCK(AC.FIRC[0]);
                 //result.FORC[1] = GetCK(AC.FIRC[0], AC.FIRC[1]);

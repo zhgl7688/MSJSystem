@@ -58,16 +58,20 @@ namespace WebMVC.BLL
                 //{
                 for (int i = 0; i < agentStages.agents.Count; i++)
                 {
+                    
                     var indexState = agentStages.stages.IndexOf(item.Stage);
-                    for (int j = 0; j <indexState; j++)
+                    for (int j = 0; j < indexState; j++)
                     {
-                        var ss = j + 1;
+                        if (intentionIndex.B.Count<=j) intentionIndex.B.Add(j, new MJA());
+                        if (intentionIndex.T.Count<=j) intentionIndex.T.Add(j, new MJA());
+                        if (intentionIndex.AL.Count<=j) intentionIndex.AL.Add(j, new MJA());
+                        var ss = j;
                         var m = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.IIRC[j].M + item.BP.M[i] + channelService.AB.M[i] + marketPrice.AB[ss].M[i], brandStrength.P + productInnovation.DDStage[i] + item.CIAgent[i] + channelService.AUSum[i] + marketPrice.EY[ss].M[i]);
                         intentionIndex.B[ss].M.Add(m);
                         var n = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.IIRC[j].J + item.BP.J[i] + channelService.AB.J[i] + marketPrice.AT[ss].J[i], brandStrength.P + productInnovation.DDStage[i] + item.CIAgent[i] + channelService.AUSum[i] + marketPrice.EY[ss].M[i]);
                         intentionIndex.T[ss].J.Add(n);
                         var agent = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.IIRC[j].J + item.BP.Agent[i] + channelService.AB.Agent[i] + marketPrice.BL[ss].Agent[i], brandStrength.P + productInnovation.DDStage[i] + item.CIAgent[i] + channelService.AUSum[i] + marketPrice.EY[ss].M[i]);
-                        intentionIndex.T[ss].Agent.Add(agent);
+                        intentionIndex.AL[ss].Agent.Add(agent);
                     }
                 }
 
@@ -82,21 +86,7 @@ namespace WebMVC.BLL
     }
     public class IntentionIndexTable
     {
-        public IntentionIndexTable()
-        {
-            B = new Dictionary<int, MJA>();
-            B.Add(1, new MJA());
-            B.Add(2, new MJA());
-            B.Add(3, new MJA());
-            T = new Dictionary<int, MJA>();
-            T.Add(1, new MJA());
-            T.Add(2, new MJA());
-            T.Add(3, new MJA());
-            AL = new Dictionary<int, MJA>();
-            AL.Add(1, new MJA());
-            AL.Add(2, new MJA());
-            AL.Add(3, new MJA());
-        }
+
         /// <summary>
         /// 阶段
         /// </summary>
@@ -104,7 +94,7 @@ namespace WebMVC.BLL
         /// <summary>
         /// RC1
         /// </summary>
-        public Dictionary<int, MJA> B { get; set; }
+        public Dictionary<int, MJA> B { get; set; } = new Dictionary<int, MJA>();
 
         /// <summary>
         /// RC1
@@ -181,49 +171,7 @@ namespace WebMVC.BLL
 
     }
 
-    public class MarketPriceTemp
-    {
-        List<PriceControlTable> priceControlTables;
-        AgentStages agentStages;
-        public MarketPriceTemp(PriceControl PriceControl)
-        {
-            priceControlTables = PriceControl.Get();
-            agentStages = new AgentStages();
-            Init();
-        }
-        List<MarketTable> markets = new List<MarketTable>();
-        public void Init()
-        {
-            foreach (var item in priceControlTables)
-            {
-                var market = new MarketTable() { Stage = item.Stage, };
-                var indexStage = agentStages.stages.IndexOf(item.Stage);
-                for (int i = 0; i < indexStage; i++)
-                {
-                    market.DE[i] = new RC { M = item.B.RcM[i], J = item.B.RcJ[i] };
-                    market.DK[i] = new MJA { Agent = item.D[i].Agent };
-                    market.EF[i] = new MJA();
-                    for (int j = 0; j < item.K[1].Agent.Count; j++)
-                    {
-                        market.EF[i].Agent.Add(GetEF(item.K[i].Agent[j], item.D[i].Agent[j]));
-                    }
-                }
 
-
-                markets.Add(market);
-            }
-
-
-        }
-        private decimal GetEF(decimal a, decimal b)
-        {
-            return a < (b * 0.89m) ? a : b * 0.89m;
-        }
-        public List<MarketTable> Get()
-        {
-            return markets;
-        }
-    }
 
 
 }

@@ -1,0 +1,192 @@
+﻿@model WebMVC.Models.StageAdd
+
+@{
+    ViewBag.Title = "StageAdd";
+}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #fff;
+        font: 12px/1.5 Microsoft YaHei, tahoma, arial, Hiragino Sans GB, \\5b8b\4f53, sans-serif;
+        color: #666;
+    }
+</style>
+<h2>代理商数据维护</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <table class="table table-hover table-bordered table-striped" id="para_table">
+        <thead>
+            <tr class="bg-primary"> 
+                <th style="text-align:center" width="200">阶段</th>
+                <th style="text-align:center" width="200">价格管控名称</th>
+                <th style="text-align:center" width="200">价格管控数据</th>
+                <th style="text-align:center" width="200">操作</th>
+            </tr>
+        </thead>
+        <tbody id="para_tbody">
+            <tr>
+           
+                <td style="text-align:center; ">
+                    <input type='text' name='Stage' class='form-control' placeholder='请输入阶段'>
+                </td>
+                <td style="text-align:center; ">
+                    <input type='text' name='retail' class='form-control' placeholder='请输入价格管控名称'>
+                </td>
+                <td style="text-align:center; ">
+                    <input type='text' name='retailPrice' class='form-control' placeholder='请输入价格管控数据'>
+                </td>
+                <td style="text-align:center; ">
+                    <button type="button" class="btn" onclick="deletetr(this)">
+                        删除
+                        <sapn class="glyphicon glyphicon-trash"></sapn>
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="save_para_table(this)">
+                        保存
+                        <sapn class="glyphicon glyphicon-floppy-disk"></sapn>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary" onclick="addtr()" style=" position:relative;  ">
+        添加<sapn class="glyphicon glyphicon-plus-sign"></sapn>
+    </button> 
+}
+ 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        //首次加载数据
+        $(function () {
+            ajax({
+                url: "/CodeInit/StageShow",
+                dataType: 'json',
+                success: function (data) {
+                    var tbody = $("#para_tbody");
+                    var tr = ""; 
+                    var numbers = []; 
+                    for (var i = 0; i < data.length; i++) {
+                     numbers.push(parseInt(data[i].Id));
+                    tr += ("<tr id='" + data[i].Id + "'> \
+                    <td style='text-align: center;' > \
+                    <input type='text' class='form-control' name='Stage' value='" + data[i].Stage + "'  placeholder='请输入阶段'> \ </td> \
+                    <td style='text-align: center;' > \
+                    <input type='text' class='form-control' name='retail' value='" + data[i].retail + "' placeholder='价格管控名称'> \ </td>\
+                    <td style='text-align: center;' > \
+                    <input type='text' class='form-control'  name='retailPrice'  value='" + data[i].retailPrice + "' placeholder='价格管控数据'> \ </td> \
+                    <td align='center'> \
+                    <button type='button' class='btn '  onclick='deletetr(this)'> \
+                    删除<sapn class='glyphicon glyphicon-minus-sign'> \ </sapn> \
+                    </button> \
+                    <button type='button' class='btn btn-primary' onclick='save_para_table(this)'> \
+                    保存<sapn class='glyphicon glyphicon-floppy-disk'> \ </sapn> \
+                    </button> \
+                    </td></tr>")
+                    }
+                    rows = isNaN(Math.max.apply(Math, numbers)) == true ? 0 : Math.max.apply(Math, numbers);
+                    //alert(isNaN(Math.max.apply(Math, numbers)));
+                    tbody.html(tr);
+                },
+                error: function (data) {
+                    console.log("error:" + JSON.stringify(data));
+                }
+
+            })
+        });
+        //点击保存、修改
+        function save_para_table(tagger) {
+            console.log(JSON.stringify(gettableinfo(tagger)));
+            ajax({
+                url: "/CodeInit/StageHandle",
+                data: JSON.stringify(gettableinfo(tagger)),
+                success: function (data) {
+                    console.log(data);
+                    window.location.reload();
+                }
+            })
+
+        } 
+        //删除节点
+        function deletetr(tdobject) {
+            
+            var td = $(tdobject);
+            var trsId=$(td).parents("tr").attr("id");
+            ajax({
+                url: "/CodeInit/StageDelete?trsId=" + trsId, 
+                success: function (data) {
+                    td.parents("tr").remove();
+                    alert("删除成功！");
+                }
+            })
+             
+        } 
+        //封装添加节点
+        function addtr() {
+            rows++;
+            var table = $("#para_table");
+            var tr = $("<tr id='" + rows + "'> \
+                            <td style='text-align: center;' > \
+                            <input type='text' class='form-control' name='Stage' placeholder='请输入阶段'> \ </td> \
+                            <td style='text-align: center;' > \
+                            <input type='text' class='form-control'name='retail' placeholder='价格管控名称'> \ </td>\
+                            <td style='text-align: center;' > \
+                            <input type='text' class='form-control'  name='retailPrice' placeholder='价格管控数据'> \ </td> \
+                            <td align='center'> \
+                            <button type='button' class='btn '  onclick='deletetr(this)'> \
+                            删除<sapn class='glyphicon glyphicon-minus-sign'> \ </sapn> \
+                            </button> \
+                            <button type='button' class='btn btn-primary' onclick='save_para_table(this)'> \
+                            保存<sapn class='glyphicon glyphicon-floppy-disk'> \ </sapn> \
+                           </button> \
+                            </td></tr>");
+            table.append(tr);
+
+        }
+        //封装获取行节点数据
+        function gettableinfo(tagger) {
+            var __goal = [];
+            var __source = {};
+            var __sourceIf = '';
+           var tbody = $("#para_tbody");  
+            var trs = parseInt($(tagger).parents("tr").attr("id")); 
+            var tds = $("#" + trs).children();  
+            for (var j = 0; j < tds.length - 1; j++) {   
+                var inputs = $(tds.eq(j)).find("input").val();
+                __sourceIf += inputs;
+                if (__sourceIf == null || __sourceIf == "") {
+                    return null;
+                } else {
+                    var __sourceName = $(tds.eq(j)).find("input").attr('name');
+                    __source.id= trs;
+                    __source[__sourceName] = inputs;
+                    
+                }
+            }
+            __goal.push(__source);
+            return __goal;
+        }
+        // 封装发送ajax请求方法
+        ajax = function (options) {
+            options = $.extend({}, options);
+            var ajaxDefaults = {
+                type: 'post',
+               
+                async: false,
+               
+                cache: false
+            };
+            $.ajax($.extend(ajaxDefaults, options));
+        }
+
+
+    </script>
+}

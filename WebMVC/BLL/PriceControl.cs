@@ -76,22 +76,7 @@ namespace WebMVC.BLL
                     SetAgents(agentName, priceControl.D[i], priceControl.K[i], agentItem.retailPriceRC[i], agentItem.SystemPriceRC[i]);
 
                 }
-                //if (agentItem.Stage == Stage.第一阶段.ToString())
-                //{
-                //}
-                //else
-                //if (agentItem.Stage == Stage.第二阶段.ToString())
-                //{
-                //    SetAgents(agentName, priceControl.D[1], priceControl.K[1], agentItem.retailPriceRC1, agentItem.SystemPriceRC1);
-                //    SetAgents(agentName, priceControl.D[2], priceControl.K[2], agentItem.retailPriceRC2, agentItem.SystemPriceRC2);
-
-                //}
-                //if (agentItem.Stage == Stage.第三阶段.ToString())
-                //{
-                //    SetAgents(agentName, priceControl.D[1], priceControl.K[1], agentItem.retailPriceRC1, agentItem.SystemPriceRC1);
-                //    SetAgents(agentName, priceControl.D[2], priceControl.K[2], agentItem.retailPriceRC2, agentItem.SystemPriceRC2);
-                //    SetAgents(agentName, priceControl.D[3], priceControl.K[3], agentItem.retailPriceRC3, agentItem.SystemPriceRC3);
-                //}
+               
             }
 
 
@@ -101,14 +86,12 @@ namespace WebMVC.BLL
         {
             var agentStages = new AgentStages();
             var index = agentStages.agents.FindIndex(s => s == agentName);
-            for (int i = D.Agent.Count; i < index + 1; i++)
+            for (int i = D.Agent.Count; i <agentStages.agents.Count; i++)
             {
                 D.Agent.Add(0);
-            }
-            for (int i = K.Agent.Count; i < index + 1; i++)
-            {
                 K.Agent.Add(0);
             }
+
             D.Agent[index] = retailPrice;
             K.Agent[index] = SystemPrice;
 
@@ -123,7 +106,7 @@ namespace WebMVC.BLL
         public PriceControlTable()
         {
             var countStage = new AgentStages().stages.Count;
-            for (int i = 0; i < countStage; i++)
+            for (int i = 0; i < countStage-1; i++)
             {
                 D.Add(i, new AgentRC());
                 K.Add(i, new AgentRC());

@@ -172,7 +172,7 @@ namespace WebMVC.BLL
         public MarketTable()
         {
             var agentStages = new AgentStages();
-            for (int i = 0; i < agentStages.stages.Count; i++)
+            for (int i = 0; i < agentStages.stages.Count - 1; i++)
             {
                 CD.Add(i, new RC());
                 CM.Add(i, new RC());
@@ -201,18 +201,18 @@ namespace WebMVC.BLL
                 var countAgent = agentStages.agents.Count;
                 var indexStage = agentStages.stages.IndexOf(this.Stage);
                 var result = new Dictionary<int, MJA>();
-                for (int i = 0; i < agentStages.stages.Count; i++)
+                for (int i = 0; i < agentStages.stages.Count-1; i++)
                 {
                     result.Add(i, new MJA());
                 }
                 for (int i = 0; i < countAgent; i++)
                 {
-                    for (int j = 1; j < indexStage+1; j++)
+                    for (int j = 0; j < indexStage; j++)
                     {
                         var m = GetAB(DK[j].Agent[i], DE[j].M, DE[j].J);
                         result[j].M.Add(m);
                     }
-                 }
+                }
 
                 return result;
             }
@@ -240,18 +240,20 @@ namespace WebMVC.BLL
                 var countAgent = agentStages.agents.Count;
                 var indexStage = agentStages.stages.IndexOf(this.Stage);
                 var result = new Dictionary<int, MJA>();
-                for (int i = 0; i < agentStages.stages.Count; i++)
+                for (int i = 0; i < agentStages.stages.Count-1; i++)
                 {
                     result.Add(i, new MJA());
                 }
-                for (int i = 0; i < countAgent; i++)
+
+                for (int j = 0; j < indexStage; j++)
                 {
-                    for (int j = 1; j < indexStage + 1; j++)
+                    for (int i = 0; i < countAgent; i++)
                     {
                         var m = GetAT(DK[j].Agent[i], DE[j].M, DE[j].J);
-                        result[j].M.Add(m);
+                        result[j].J.Add(m);
                     }
                 }
+
                 return result;
             }
         }
@@ -275,19 +277,19 @@ namespace WebMVC.BLL
                 var countAgent = agentStages.agents.Count;
                 var indexStage = agentStages.stages.IndexOf(this.Stage);
                 var result = new Dictionary<int, MJA>();
-                for (int i = 0; i < agentStages.stages.Count; i++)
+                for (int i = 0; i < agentStages.stages.Count-1; i++)
                 {
                     result.Add(i, new MJA());
                 }
                 for (int i = 0; i < countAgent; i++)
                 {
-                    for (int j = 1; j < indexStage + 1; j++)
+                    for (int j = 0; j < indexStage; j++)
                     {
                         var m = GetBL(DK[j].Agent[i], DE[j].M, DE[j].J);
-                        result[j].M.Add(m);
+                        result[j].Agent.Add(m);
                     }
                 }
-               
+
                 return result;
             }
         }
@@ -319,11 +321,16 @@ namespace WebMVC.BLL
             get
             {
                 var result = new Dictionary<int, RC>();
-                result.Add(1, GetVC(CM[1], CD[1]));
-                if (Stage == Common.Stage.第二阶段.ToString() || Stage == Common.Stage.第三阶段.ToString())
-                    result.Add(2, GetVC(CM[2], CD[2]));
-                if (Stage == Common.Stage.第三阶段.ToString())
-                    result.Add(3, GetVC(CM[3], CD[3]));
+                var index = new AgentStages().stages.IndexOf(this.Stage);
+                for (int i = 0; i < index; i++)
+                {
+                    result.Add(i, GetVC(CM[i], CD[i]));
+                }
+                //result.Add(1, GetVC(CM[1], CD[1]));
+                //if (Stage == Common.Stage.第二阶段.ToString() || Stage == Common.Stage.第三阶段.ToString())
+                //    result.Add(2, GetVC(CM[2], CD[2]));
+                //if (Stage == Common.Stage.第三阶段.ToString())
+                //    result.Add(3, GetVC(CM[3], CD[3]));
 
                 return result;
             }
@@ -359,19 +366,19 @@ namespace WebMVC.BLL
                 var countAgent = agentStages.agents.Count;
                 var indexStage = agentStages.stages.IndexOf(this.Stage);
                 var result = new Dictionary<int, MJA>();
-                for (int i = 0; i < agentStages.stages.Count; i++)
+                for (int i = 0; i < agentStages.stages.Count - 1; i++)
                 {
                     result.Add(i, new MJA());
                 }
                 for (int i = 0; i < countAgent; i++)
                 {
-                    for (int j = 1; j < indexStage + 1; j++)
+                    for (int j = 0; j < indexStage; j++)
                     {
                         var m = AB[j].M[i] + AT[j].J[i] + BL[j].Agent[i];
                         result[j].M.Add(m);
                     }
                 }
-             
+
                 return result;
             }
         }

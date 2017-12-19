@@ -157,6 +157,7 @@ namespace WebMVC.Models
         public string UserId { get; set; }
         public virtual ICollection< PriceMange> PriceMange { get; set; }
         public virtual ICollection< PurchaseTable> PurchaseTable { get; set; }
+        public virtual ICollection<StageAdd> StageAdds { get; set; }
         public decimal InputSum
         {
             get

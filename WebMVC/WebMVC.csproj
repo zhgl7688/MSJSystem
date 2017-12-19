@@ -191,6 +191,7 @@
     <Compile Include="BLL\InvoicingReport.cs" />
     <Compile Include="BLL\LastBrand.cs" />
     <Compile Include="BLL\MarketPrice.cs" />
+    <Compile Include="BLL\MarketPriceTemp.cs" />
     <Compile Include="BLL\MarketPromotion.cs" />
     <Compile Include="BLL\PriceControl.cs" />
     <Compile Include="BLL\ProductInnovation.cs" />
@@ -383,10 +384,10 @@
     <Content Include="Views\CurrentShareInits\Details.cshtml" />
     <Content Include="Views\CurrentShareInits\Edit.cshtml" />
     <Content Include="Views\CurrentShareInits\Index.cshtml" />
+    <Content Include="Views\CodeInit\StageAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\CodeInit\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

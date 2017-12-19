@@ -32,10 +32,11 @@ namespace WebMVC.BLL
                 AgentName = AgentName.代1.ToString(),
                 actualSale = 30,
                 Inventory = 1,
-                retailPriceRC = new List<decimal> { 709.8M },
-                SystemPriceRC = new List<decimal> { 845 },
-                Purchase = new List<decimal> { 30 },
                 BasePurchase = 31,
+                retailPriceRC = new List<decimal> { 709.8M, },
+                SystemPriceRC = new List<decimal> { 845, },
+                Purchase = new List<decimal> { 30,  },
+
 
             });
             //第2代1
@@ -49,11 +50,30 @@ namespace WebMVC.BLL
                 outdoorActivity = 115,
                 promotionTeam = 70,
                 servet = 50,
-                retailPriceRC = new List<decimal> { 699, 845, },
-                SystemPriceRC = new List<decimal> { 587.16m, 709.8m, },
+                retailPriceRC = new List<decimal> { 699, 845,   },
+                SystemPriceRC = new List<decimal> { 587.16m, 709.8m,  },
                 AgentName = AgentName.代1.ToString(),
-                Purchase = new List<decimal> { 18 },
-                BasePurchase = 10,
+                Purchase = new List<decimal> {10, 18, },
+          
+            });
+            //第3代1
+            agentInputs.Add(new AgentInput
+            {
+                Stage = Common.Stage.第三阶段.ToString(),
+                EndImage = 800,
+                Salesperson = 1400,
+                HousePromote = 800,
+                demonstrator = 200,
+                outdoorActivity = 120,
+                promotionTeam = 80,
+                servet = 200,
+
+
+                AgentName = AgentName.代1.ToString(),
+
+                retailPriceRC = new List<decimal> { 599, 799, 999, },
+                SystemPriceRC = new List<decimal> { 503.16m, 671.16m, 839.16m, },
+                Purchase = new List<decimal> { 20, 20, 11 }
             });
             //第1代2
             agentInputs.Add(new AgentInput
@@ -66,13 +86,12 @@ namespace WebMVC.BLL
                 outdoorActivity = 196,
                 promotionTeam = 98,
                 servet = 80,
-                retailPriceRC = new List<decimal> { 839 },
-                SystemPriceRC = new List<decimal> { 746 },
+                retailPriceRC = new List<decimal> { 839},
+                SystemPriceRC = new List<decimal> { 746},
                 AgentName = AgentName.代2.ToString(),
                 Purchase = new List<decimal> { 29 },
                 actualSale = 30,
                 Inventory = 1,
-
                 BasePurchase = 31,
 
             });
@@ -113,9 +132,9 @@ namespace WebMVC.BLL
                 BasePurchase = 31,
                 actualSale = 30,
                 Inventory = 1,
-                retailPriceRC = new List<decimal> { 799, },
-                SystemPriceRC = new List<decimal> { 623, },
-                Purchase = new List<decimal> { 26, },
+                retailPriceRC = new List<decimal> { 799 },
+                SystemPriceRC = new List<decimal> { 623},
+                Purchase = new List<decimal> { 26 },
             });
 
             //第2代2
@@ -177,25 +196,7 @@ namespace WebMVC.BLL
 
 
             });
-            //第3代1
-            agentInputs.Add(new AgentInput
-            {
-                Stage = Common.Stage.第三阶段.ToString(),
-                EndImage = 800,
-                Salesperson = 1400,
-                HousePromote = 800,
-                demonstrator = 200,
-                outdoorActivity = 120,
-                promotionTeam = 80,
-                servet = 200,
-
-
-                AgentName = AgentName.代1.ToString(),
-
-                retailPriceRC = new List<decimal> { 599, 799, 999, },
-                SystemPriceRC = new List<decimal> { 503.16m, 671.16m, 839.16m, },
-                Purchase = new List<decimal> { 20, 20, 11 }
-            });
+           
 
             //第3代2
             agentInputs.Add(new AgentInput
@@ -265,9 +266,9 @@ namespace WebMVC.BLL
                 Stage = Common.Stage.第一阶段.ToString(),
                 Brand = Brand.S品牌.ToString(),
                 advertise = 600,
-                SurfaceRC = new List<decimal> { 120 },
-                FunctionRC = new List<decimal> { 200 },
-                MaterialRC = new List<decimal> { 100 },
+                SurfaceRC = new List<decimal> { 120,0,0 },
+                FunctionRC = new List<decimal> { 200, 0, 0 },
+                MaterialRC = new List<decimal> { 100, 0, 0 },
                 retailPrice = 799
             });
             //第2S
@@ -282,9 +283,9 @@ namespace WebMVC.BLL
                 NewCostPrice = 315,
                 NewFactoryPrice = 450,
                 NewRetailPriceR2 = 845,
-                SurfaceRC = new List<decimal> {0, 100 },
-                FunctionRC = new List<decimal> {0, 200 },
-                MaterialRC = new List<decimal> {0, 100 },
+                SurfaceRC = new List<decimal> {0, 100,  0 },
+                FunctionRC = new List<decimal> {0, 200, 0 },
+                MaterialRC = new List<decimal> {0, 100, 0 },
             });
             //第3S
             brands.Add(new BrandTable
@@ -311,9 +312,9 @@ namespace WebMVC.BLL
                 Brand = Brand.M品牌.ToString(),
                 advertise = 640,
                 
-                SurfaceRC = new List<decimal> { 48},
-                FunctionRC = new List<decimal> { 80 },
-                MaterialRC = new List<decimal> { 32 },
+                SurfaceRC = new List<decimal> { 48, 0, 0 },
+                FunctionRC = new List<decimal> { 80, 0, 0 },
+                MaterialRC = new List<decimal> { 32, 0, 0 },
                 EndImage = 240,
                 Salesperson = 240,
                 HousePromote = 192,
@@ -332,9 +333,9 @@ namespace WebMVC.BLL
                 Brand = Brand.M品牌.ToString(),
                 advertise = 553,
  
-                SurfaceRC = new List<decimal> {0, 71 },
-                FunctionRC = new List<decimal> {0, 118 },
-                MaterialRC = new List<decimal> { 0, 47 },
+                SurfaceRC = new List<decimal> {0, 71, 0 },
+                FunctionRC = new List<decimal> {0, 118, 0 },
+                MaterialRC = new List<decimal> { 0, 47, 0 },
                 EndImage = 369,
                 Salesperson = 369,
                 HousePromote = 295,
@@ -391,9 +392,9 @@ namespace WebMVC.BLL
                 advertise = 200,
                
 
-                SurfaceRC = new List<decimal> { 180},
-                FunctionRC = new List<decimal> {300 },
-                MaterialRC = new List<decimal> { 120 },
+                SurfaceRC = new List<decimal> { 180, 0, 0 },
+                FunctionRC = new List<decimal> {300, 0, 0 },
+                MaterialRC = new List<decimal> { 120, 0, 0 },
                 EndImage = 250,
                 Salesperson = 250,
                 HousePromote = 200,
@@ -412,9 +413,9 @@ namespace WebMVC.BLL
                 Brand = Brand.J品牌.ToString(),
                 advertise = 600,
             
-                SurfaceRC = new List<decimal>  { 0,156 },
-                FunctionRC = new List<decimal> { 0,520 },
-                MaterialRC = new List<decimal> { 0, 104 },
+                SurfaceRC = new List<decimal>  { 0,156, 0 },
+                FunctionRC = new List<decimal> { 0,520, 0 },
+                MaterialRC = new List<decimal> { 0, 104, 0 },
 
                 EndImage = 235,
                 Salesperson = 235,
@@ -453,10 +454,10 @@ namespace WebMVC.BLL
 
                 retailPrice = 759,
                 SystemPrice = 609,
-                NewCostPrice = 999,
-                NewFactoryPrice = 769,
-                NewRetailPriceR2 = 269,
-                NewSystemPriceR2 = 359,
+                NewCostPrice = 269,
+                NewFactoryPrice = 359,
+                NewRetailPriceR2 = 999,
+                NewSystemPriceR2 =769 ,
                 NewRetailPriceR3 = 599,
                 NewSystemPriceR3 = 461
             });

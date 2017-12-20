@@ -252,15 +252,12 @@ namespace WebMVC.Controllers
 
                         return View(collection);
                     }
-
-
+                    var pm = db.PriceMange.Where(s=>s.AgentId==collection.AgentId);
+                    var pt = db.PurchaseTable.Where(s => s.AgentId == collection.AgentId);
+                    db.PriceMange.RemoveRange(pm);
+                    db.PurchaseTable.RemoveRange(pt);
                     db.Entry(collection).State = System.Data.Entity.EntityState.Modified;
                     collection.UserId = User.Identity.Name;
-                    var ss = collection.PriceMange;
-                    var ssa = collection.PurchaseTable;
-                    db.PriceMange.RemoveRange(ss);
-                    db.PurchaseTable.RemoveRange(ssa);
-                    // collection.UserId = ((User)Session["user"]).UserId;
                     GetList(collection);
                     db.SaveChanges();
 

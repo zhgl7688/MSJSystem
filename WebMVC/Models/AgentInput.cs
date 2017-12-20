@@ -192,7 +192,7 @@ namespace WebMVC.Models
     {
         [Key]
         public virtual int PurchaseId { get; set; }
-        public virtual int AgentInputId { get; set; }
+        public virtual int AgentId { get; set; }
         public virtual string Name { get; set; }
         public virtual decimal Value { get; set; }
     }

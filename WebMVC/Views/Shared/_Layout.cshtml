@@ -22,7 +22,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*<li class="active">@Html.ActionLink("主页", "Index", "Home")</li>*@
-                    
+
                     <li>@Html.ActionLink("代理商组", "Index", "AgentInput")</li>
                     <li>@Html.ActionLink("品牌商组", "Index", "BrandsInput")</li>
                     <li class="dropdown">
@@ -78,6 +78,7 @@
                                     <li><a href="/CurrentShareInits/">市场容量</a></li>
                                     <li><a href="/CodeInit/StageAdd">阶段增加</a></li>
                                     <li><a href="/CodeInit/AgentNameAdd">代理商增加</a></li>
+                                    <li><a href="/StageAdds/">阶段内容管理</a></li>
                                 </ul>
                             </li>
                             <li>@Html.ActionLink("用户管理", "Index", "Admin")</li>
@@ -86,12 +87,12 @@
                         }
 
                     }
-       
+
                 </ul>
                 <ul class="navbar-right">
-                    <li >@Html.Partial("_LoginPartial")</li> 
-                </ul >
-       
+                    <li>@Html.Partial("_LoginPartial")</li>
+                </ul>
+
             </div>
         </div>
     </div>

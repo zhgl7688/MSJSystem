@@ -7,6 +7,13 @@
         }
 
     });
+    $('#jhb').find('label[data-show]').each(function () {
+        $(this).parent().hide();
+        if ($(this).data('show') == stage) {
+            $(this).parent().show();
+        }
+
+    });
     //$('.rc0').hide();
     //$('.rc1').hide();
     //$('.rc2').hide();

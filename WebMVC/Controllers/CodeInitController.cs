@@ -18,20 +18,25 @@ namespace WebMVC.Controllers
             return View();
         }
         //增加阶段
-        public ActionResult StageAdd()
+        public ActionResult StageAdd(string url)
         {
-          //  int value = db.CodeInit.Where(s => s.Code == "Stage").Max(s => s.Value) + 1;
+            int value = db.CodeInit.Where(s => s.Code == "Stage").Max(s => s.Value) + 1;
 
-          //  db.CodeInit.Add(new Models.CodeInit
-          //  {
-          //      Code = "Stage",
-          //       Value=value,
-          //        Text=$"第{value}阶段",
-          //      CreateDate = DateTime.Now
-          //  });
-          //  db.SaveChanges();
-          //return  RedirectToAction("Index", "Home");
-            return View(); 
+            db.CodeInit.Add(new Models.CodeInit
+            {
+                Code = "Stage",
+                Value = value,
+                Text = $"第{value}阶段",
+                CreateDate = DateTime.Now
+            });
+            db.SaveChanges();
+            if (string.IsNullOrEmpty(url)||Url.IsLocalUrl(url))
+            return RedirectToAction("Index", "Home");
+            else
+            {
+                return RedirectToAction(url);
+            }
+            // return View(); 
         }
         //增加代理商
        public ActionResult AgentNameAdd()

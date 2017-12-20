@@ -1,0 +1,56 @@
+﻿@model WebMVC.Models.StageAdd
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>StageAdd</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StageType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StageType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.retail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.retail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.retailPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.retailPrice)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

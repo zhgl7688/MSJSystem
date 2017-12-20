@@ -1,0 +1,62 @@
+﻿@model WebMVC.Models.StageAdd
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2> </h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>阶段增加</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("Stage", string.Empty)
+            @Html.ValidationMessageFor(model => model.Stage, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+            @Html.LabelFor(model => model.StageType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("StageType", string.Empty)
+            @Html.ValidationMessageFor(model => model.StageType, "", new { @class = "text-danger" })
+        </div>
+        </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.retail, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.retail, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.retail, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.retailPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.retailPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.retailPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    <div class="form-group col-md-12">
+        <div class="col-md-offset-6 col-md-4">
+            <input type="submit" value="更新" class="btn btn-warning btn-block" />
+        </div>
+    </div>
+</div>
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

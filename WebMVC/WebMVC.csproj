@@ -214,6 +214,7 @@
     <Compile Include="Controllers\MarketPromotionInitsController.cs" />
     <Compile Include="Controllers\ProductInnovationInitsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\StageAddsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,7 +226,6 @@
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Infrastructure\IdentityHelper.cs" />
     <Compile Include="Infrastructure\LocationClaimsProvider.cs" />
-    <Compile Include="Models\AgentInputModel.cs" />
     <Compile Include="Models\AgentInput.cs" />
     <Compile Include="Models\AppRole.cs" />
     <Compile Include="Models\BrandInfo.cs" />
@@ -384,7 +384,12 @@
     <Content Include="Views\CurrentShareInits\Details.cshtml" />
     <Content Include="Views\CurrentShareInits\Edit.cshtml" />
     <Content Include="Views\CurrentShareInits\Index.cshtml" />
-    <Content Include="Views\CodeInit\StageAdd.cshtml" />
+    <Content Include="Views\CodeInit\StageAdd1.cshtml" />
+    <Content Include="Views\StageAdds\Create.cshtml" />
+    <Content Include="Views\StageAdds\Delete.cshtml" />
+    <Content Include="Views\StageAdds\Details.cshtml" />
+    <Content Include="Views\StageAdds\Edit.cshtml" />
+    <Content Include="Views\StageAdds\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

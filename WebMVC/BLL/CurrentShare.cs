@@ -41,15 +41,15 @@ namespace WebMVC.BLL
             // current0.Z[1] = new MJA { J1 = 0.25m, J2 = 0.25m, J3 = 0.25m, J4 = 0.25m, J5 = 0.25m, J6 = 0.25m, };
             // current0.AR[1] = new MJA { Agent1 = 0.3m, Agent2 = 0.3m, Agent3 = 0.3m, Agent4 = 0.3m, Agent5 = 0.3m, Agent6 = 0.3m, };
 
-            current0.H[1] = new MJA();
-            current0.Z[1] = new MJA();
-            current0.AR[1] = new MJA();
+            current0.H.Add(0,new MJA());
+            current0.Z.Add(0, new MJA());
+            current0.AR.Add(0, new MJA());
 
             for (int i = 0; i < agentStage.agents.Count; i++)
             {
-                current0.H[1].M.Add(firstInit.H);
-                current0.Z[1].M.Add(firstInit.Z);
-                current0.AR[1].M.Add(firstInit.AR);
+                current0.H[0].M.Add(firstInit.H);
+                current0.Z[0].M.Add(firstInit.Z);
+                current0.AR[0].M.Add(firstInit.AR);
             }
 
             currentShares.Add(current0);
@@ -132,21 +132,7 @@ namespace WebMVC.BLL
     }
     public class CurrentShareTable
     {
-        public CurrentShareTable()
-        {
-            H = new Dictionary<int, MJA>();
-            H.Add(1, new MJA());
-            H.Add(2, new MJA());
-            H.Add(3, new MJA());
-            Z = new Dictionary<int, MJA>();
-            Z.Add(1, new MJA());
-            Z.Add(2, new MJA());
-            Z.Add(3, new MJA());
-            AR = new Dictionary<int, MJA>();
-            AR.Add(1, new MJA());
-            AR.Add(2, new MJA());
-            AR.Add(3, new MJA());
-        }
+  
         decimal[] Static_D = { 100, 100, 80, 50 };
         decimal[] Static_E = { 100, 90, 105, 98 };
         decimal[] Static_F = { 1, 0.9m, 1.05m, 0.98m };
@@ -164,9 +150,10 @@ namespace WebMVC.BLL
         }
 
         public string Stage { get; set; }
-        public Dictionary<int, MJA> H { get; set; }
-        public Dictionary<int, MJA> Z { get; set; }
-        public Dictionary<int, MJA> AR { get; set; }
+        public Dictionary<int, MJA> H { get; set; }=new Dictionary<int, MJA>();
+  
+        public Dictionary<int, MJA> Z { get; set; }= new Dictionary<int, MJA>();
+        public Dictionary<int, MJA> AR { get; set; }= new Dictionary<int, MJA>();
         public Dictionary<int, MJA> BJ
         {
             get

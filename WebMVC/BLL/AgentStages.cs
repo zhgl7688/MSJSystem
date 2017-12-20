@@ -8,7 +8,7 @@ namespace WebMVC.BLL
     public class AgentStages
     {
         public List<string> agents { get; set; }
-        public List<string> stages { get; set; }   
+        public List<string> stages { get; set; }
         public AgentStages()
         {
             //代理数
@@ -21,20 +21,23 @@ namespace WebMVC.BLL
             //}
 
             var stageadds = new List<Models.StageAdd>();
-            stageadds.Add(new Models.StageAdd { Stage =  "起始阶段" });
-            stageadds.Add(new Models.StageAdd { Stage = "第一阶段"});
+            stageadds.Add(new Models.StageAdd { Stage = "起始阶段" });
+            stageadds.Add(new Models.StageAdd { Stage = "第一阶段" });
             stageadds.Add(new Models.StageAdd { Stage = "第二阶段" });
             stageadds.Add(new Models.StageAdd { Stage = "第三阶段" });
-            stageadds.Add(new Models.StageAdd { AgentName= "代1"  });
-            stageadds.Add(new Models.StageAdd { AgentName= "代2"  });
-            stageadds.Add(new Models.StageAdd { AgentName= "代3"  });
-            stageadds.Add(new Models.StageAdd { AgentName= "代4"  });
-            stageadds.Add(new Models.StageAdd { AgentName= "代5"  });
-            stageadds.Add(new Models.StageAdd { AgentName = "代6" });
-       
-            agents = stageadds.Where(s=>s.AgentName!=null).Select(s => s.AgentName).Distinct().ToList();
-          stages = stageadds.Where(s=>s.Stage!=null).Select(s => s.Stage).Distinct().ToList();
-           }
+
+            agents = new List<string> {
+
+ "代1" ,
+ "代2" ,
+ "代3" ,
+ "代4" ,
+ "代5" ,
+ "代6" ,
+       };
+
+            stages = stageadds.Where(s => s.Stage != null).Select(s => s.Stage).Distinct().ToList();
+        }
 
     }
 }

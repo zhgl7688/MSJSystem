@@ -91,57 +91,24 @@
                 @Html.DisplayFor(model => model.bankLoan)
             </dd>
 
+            @{ foreach (var item in Model.PriceMange)
+        {
             <dt>
-                @Html.DisplayNameFor(model => model.retailPriceRC1)
+                @item.Name
             </dt>
-
+           
             <dd>
-                @Html.DisplayFor(model => model.retailPriceRC1)
+                @item.Value
             </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.SystemPriceRC1)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.SystemPriceRC1)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.retailPriceRC2)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.retailPriceRC2)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.SystemPriceRC2)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.SystemPriceRC2)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.retailPriceRC3)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.retailPriceRC3)
-            </dd>
-
+            
+}
+            }
 
         </dl>
     </div>
     <div class="col-md-6">
         <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.SystemPriceRC3)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.SystemPriceRC3)
-            </dd>
+            
 
             <dt>
                 @Html.DisplayNameFor(model => model.brandAgent)
@@ -152,11 +119,11 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.purchase)
+                @Html.DisplayNameFor(model => model.BasePurchase)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.purchase)
+                @Html.DisplayFor(model => model.BasePurchase)
             </dd>
 
             <dt>
@@ -200,20 +167,20 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.UserId)
+              用户名称
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.UserId)
             </dd>
 
-            <dt>
+            @*<dt>
                 @Html.DisplayNameFor(model => model.InputSum)
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.InputSum)
-            </dd>
+            </dd>*@
 
         </dl>
     </div>

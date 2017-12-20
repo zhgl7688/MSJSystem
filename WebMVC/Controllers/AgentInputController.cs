@@ -24,7 +24,7 @@ namespace WebMVC.Controllers
             // ClaimsIdentity claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
 
             var models = db.AgentInputs.Where(s => s.UserId == User.Identity.Name).ToList();
-            
+
             return View(models);
         }
 
@@ -45,30 +45,17 @@ namespace WebMVC.Controllers
         }
 
         // GET: AgentInput/Create
-        public ActionResult Create1()
-        {
-            ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value!=0), "Text", "Text", "");
-            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
-            AgentInput agentInput = new AgentInput();
-            return View(new AgentInput());
-        }
+
         public ActionResult Create()
         {
             ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+            ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
+            var stageAddList = db.StageAdd.Where(s => s.StageType == Common.agentInputStageType.价格管控表.ToString()).ToList();
+            ViewBag.StageAdd = stageAddList;
+            var stageAddList1 = db.StageAdd.Where(s => s.StageType == Common.agentInputStageType.进货表.ToString()).ToList();
+            ViewBag.StageAdd1 = stageAddList1;
 
-            //ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
-            ViewBag.Stage = new SelectList(db.StageAdd.Where(s => s.Stage != null), "Stage", "Stage", "");
-
-            //ViewBag.retailPriceRC = db.StageAdd.Where(s => s.Stage != null); 
-            var stageAddList = db.StageAdd.Where(s => s.Stage != null).ToList();
-            //stageAddList.Add(temp);
-            //stageAddList.Add(temp1);
-            var model = new AgentInput()
-            {
-                StageAdds = stageAddList
-            };
-
-            return View(model);
+            return View(new AgentInput() { });
         }
         // POST: AgentInput/Create
         [HttpPost]
@@ -96,9 +83,16 @@ namespace WebMVC.Controllers
                         ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
                         ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
                         ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+
+                        ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.价格管控表.ToString());
+                        ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
+
                         return View(collection);
                     }
                     collection.UserId = User.Identity.Name;
+
+                    GetList(collection);
+
                     db.AgentInputs.Add(collection);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -107,6 +101,8 @@ namespace WebMVC.Controllers
                 {
                     ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
                     ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+                    ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.价格管控表.ToString());
+                    ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
 
                     return View();
                 }
@@ -115,72 +111,177 @@ namespace WebMVC.Controllers
             {
                 ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
                 ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+                ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.价格管控表.ToString());
+                ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
 
                 return View();
             }
         }
 
+        private void GetList(AgentInput collection)
+        {
+
+            collection.PriceMange = new List<PriceMange>();
+            //查找子表的键值
+            var ss = db.StageAdd.Where(s => s.Stage == collection.Stage && s.StageType == Common.agentInputStageType.价格管控表.ToString());
+
+            foreach (var item in ss)
+            {
+                var value = Request.Form[item.retail] == null ? 0 : Convert.ToDecimal(Request.Form[item.retail]);
+
+                collection.PriceMange.Add(new PriceMange { Name = item.retail, Value = value });
+
+            }
+            collection.PurchaseTable = new List<PurchaseTable>();
+
+            //查找子表的键值
+            var ss1 = db.StageAdd.Where(s => s.Stage == collection.Stage && s.StageType == Common.agentInputStageType.进货表.ToString());
+
+            foreach (var item in ss1)
+            {
+                var value = Request.Form[item.retail] == null ? 0 : Convert.ToDecimal(Request.Form[item.retail]);
+
+                collection.PurchaseTable.Add(new PurchaseTable { Name = item.retail, Value = value });
+
+            }
+        }
+        private List<StageAdd> SetList(string stage, string type)
+        {
+            var result = db.StageAdd.Where(s => s.Stage == stage && s.StageType == type).ToList();
+            //查找子表的键值
+            foreach (var item in result)
+            {
+                item.retailPrice = Request.Form[item.retail];
+
+            }
+            return result;
+
+        }
+        private List<StageAdd> SetList(AgentInput agent, string type)
+        {
+            var result = db.StageAdd.Where(s => s.StageType == type.ToString()).ToList();
+
+            if (type == agentInputStageType.价格管控表.ToString())
+            {
+                //查找子表的键值
+                foreach (var item in result)
+                {
+                    foreach (var pmitem in agent.PriceMange)
+                    {
+                        if (item.retail == pmitem.Name)
+                            item.retailPrice = pmitem.Value.ToString();
+                    }
+
+                }
+            }
+            else
+            {
+                foreach (var item in result)
+                {
+                    foreach (var pmitem in agent.PurchaseTable)
+                    {
+                        if (item.retail == pmitem.Name)
+                            item.retailPrice = pmitem.Value.ToString();
+                    }
+
+                }
+            }
+
+            return result;
+
+        }
+        private List<PurchaseTable> GetPurchaseTableList(string stage)
+        {
+            //查找子表的键值
+            var ss = db.StageAdd.Where(s => s.Stage == stage & s.StageType == Common.agentInputStageType.进货表.ToString());
+            var mar = new List<PurchaseTable>();
+            foreach (var item in ss)
+            {
+                var value = Request.Form[item.retail] == null ? 0 : Convert.ToDecimal(Request.Form[item.retail]);
+                mar.Add(new PurchaseTable { Name = item.retail, Value = value });
+            }
+
+            return mar;
+        }
         // GET: AgentInput/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var model = db.AgentInputs.Find(id);
-            if (model == null) return HttpNotFound();
-            ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text",model.Stage);
-            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", model.AgentName);
+            var collection = db.AgentInputs.Find(id);
+            if (collection == null) return HttpNotFound();
+            ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", collection.Stage);
+            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", collection.AgentName);
+            ViewBag.StageAdd = SetList(collection, Common.agentInputStageType.价格管控表.ToString());
+            ViewBag.StageAdd1 = SetList(collection, Common.agentInputStageType.进货表.ToString());
 
-            return View(model);
+
+            return View(collection);
         }
 
         // POST: AgentInput/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Exclude ="UserId")]AgentInput collection)
+        public ActionResult Edit([Bind(Exclude = "UserId")]AgentInput collection)
         {
 
             try
             {
                 if (ModelState.IsValid)
                 {
-                    AgentInput repeatbrand;
+                    AgentInput agentInput;
                     var userName = User.Identity.GetUserName();
                     if (string.IsNullOrEmpty(userName))
                     {
                         userName = "";
 
                     }
-                    repeatbrand = db.AgentInputs.FirstOrDefault(
+                    agentInput = db.AgentInputs.FirstOrDefault(
                         s => s.AgentName == collection.AgentName &&
                         s.Stage == collection.Stage &&
                         s.UserId == userName &&
                         s.AgentId != collection.AgentId);
 
 
-                    if (repeatbrand != null)
+                    if (agentInput != null)
                     {
                         ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
                         ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
                         ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+                        ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.价格管控表.ToString());
+                        ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
+
                         return View(collection);
                     }
-                    collection.UserId = User.Identity.Name;
+
+
                     db.Entry(collection).State = System.Data.Entity.EntityState.Modified;
+                    collection.UserId = User.Identity.Name;
+                    var ss = collection.PriceMange;
+                    var ssa = collection.PurchaseTable;
+                    db.PriceMange.RemoveRange(ss);
+                    db.PurchaseTable.RemoveRange(ssa);
                     // collection.UserId = ((User)Session["user"]).UserId;
+                    GetList(collection);
                     db.SaveChanges();
+
+
                     return RedirectToAction("Index");
                 }
                 else
                 {
                     ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", collection.Stage);
                     ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", collection.AgentName);
+                    ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.价格管控表.ToString());
+                    ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
 
                     return View(collection);
                 }
 
 
             }
-            catch
+            catch (Exception ex)
             {
+                return Content(ex.Message.ToString());
                 return View();
             }
         }
@@ -244,7 +345,7 @@ namespace WebMVC.Controllers
             List<SelectListItem> brandList = new List<SelectListItem>();
             foreach (var item in Enum.GetNames(typeof(AgentName)))
             {
-                brandList.Add(new SelectListItem {  Text = item, Value = item });
+                brandList.Add(new SelectListItem { Text = item, Value = item });
             }
             return brandList;
         }

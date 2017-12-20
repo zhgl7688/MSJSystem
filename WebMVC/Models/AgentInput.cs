@@ -69,37 +69,37 @@ namespace WebMVC.Models
         [DisplayName("银行贷款")]
         public decimal bankLoan { get; set; }
   
-        /// <summary>
-        /// 零售价
-        /// </summary>
-        [DisplayName("零售价1")]
-        public decimal retailPriceRC1 { get; set; }
+        ///// <summary>
+        ///// 零售价
+        ///// </summary>
+        //[DisplayName("零售价1")]
+        //public decimal retailPriceRC1 { get; set; }
        
-        /// <summary>
-        /// 零售系统供价
-        /// </summary>
-        [DisplayName("零售系统供价1")]
-        public decimal SystemPriceRC1 { get; set; }
-        /// <summary>
-        /// 零售价
-        /// </summary>
-        [DisplayName("零售价2")]
-        public decimal retailPriceRC2 { get; set; }
-        /// <summary>
-        /// 零售系统供价
-        /// </summary>
-        [DisplayName("零售系统供价2")]
-        public decimal SystemPriceRC2 { get; set; }
-        /// <summary>
-        /// 零售价
-        /// </summary>
-        [DisplayName("零售价3")]
-        public decimal retailPriceRC3 { get; set; }
-        /// <summary>
-        /// 零售系统供价
-        /// </summary>
-        [DisplayName("零售系统供价3")]
-        public decimal SystemPriceRC3 { get; set; }
+        ///// <summary>
+        ///// 零售系统供价
+        ///// </summary>
+        //[DisplayName("零售系统供价1")]
+        //public decimal SystemPriceRC1 { get; set; }
+        ///// <summary>
+        ///// 零售价
+        ///// </summary>
+        //[DisplayName("零售价2")]
+        //public decimal retailPriceRC2 { get; set; }
+        ///// <summary>
+        ///// 零售系统供价
+        ///// </summary>
+        //[DisplayName("零售系统供价2")]
+        //public decimal SystemPriceRC2 { get; set; }
+        ///// <summary>
+        ///// 零售价
+        ///// </summary>
+        //[DisplayName("零售价3")]
+        //public decimal retailPriceRC3 { get; set; }
+        ///// <summary>
+        ///// 零售系统供价
+        ///// </summary>
+        //[DisplayName("零售系统供价3")]
+        //public decimal SystemPriceRC3 { get; set; }
         /// <summary>
         /// 品牌代理商
         /// </summary>
@@ -109,7 +109,7 @@ namespace WebMVC.Models
         /// 起始进货
         /// </summary>
         [DisplayName("进货")]
-        public decimal purchase { get; set; }
+        public decimal BasePurchase { get; set; }
         /// <summary>
         /// 起始实际销售
         /// </summary>
@@ -141,23 +141,23 @@ namespace WebMVC.Models
         /// 零售价
         /// </summary>
         [DisplayName("零售价")]
-        public List<decimal> retailPriceRC { get; set; } = new List<decimal>();
+        public List<decimal> retailPriceRC { get; set; } //= new List<decimal>();
         /// <summary>
         /// 零售系统供价
         /// </summary>
         [DisplayName("零售系统供价")]
-        public List<decimal> SystemPriceRC { get; set; } = new List<decimal>();
+        public List<decimal> SystemPriceRC { get; set; }// = new List<decimal>();
 
         /// <summary>
         /// RC1进货
         /// </summary>
         [DisplayName("进货")]
         public List<decimal> Purchase { get; set; }
-        public decimal BasePurchase { get; set; }
+
         public string UserId { get; set; }
         public virtual ICollection< PriceMange> PriceMange { get; set; }
         public virtual ICollection< PurchaseTable> PurchaseTable { get; set; }
-        public virtual ICollection<StageAdd> StageAdds { get; set; }
+
         public decimal InputSum
         {
             get

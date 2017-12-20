@@ -45,4 +45,9 @@ namespace WebMVC.Common
     {
        Default, Primary,Succes,Info,Warning, Dangers,Link
     }
+    public enum agentInputStageType
+    {
+           价格管控表 ,进货表 
+
+    }
 }

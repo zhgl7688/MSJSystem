@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using WebMVC.Common;
 using WebMVC.Models;
@@ -38,9 +39,10 @@ namespace WebMVC.BLL
         }
         public void Init()
         {
-
-            foreach (var item in marketPromotions)
-            {
+           // Parallel.ForEach(marketPromotions, item =>
+            //{
+                 foreach (var item in marketPromotions)
+                 {
                 var intentionIndex = intentionIndexs.FirstOrDefault(s => s.Stage == item.Stage);
                 if (intentionIndex == null)
                 {
@@ -56,27 +58,47 @@ namespace WebMVC.BLL
                 //(厂家主导的品牌力!$P4+厂家主导的产品创新力!$DD6+'市场推广（包含促销投入）'!CI3+渠道服务!AU4+市场价格!EY5)<0,0,(厂家主导的品牌力!$B4+厂家主导的产品创新力!$B6+'市场推广（包含促销投入）'!BP3+渠道服务!AB4+市场价格!AB5)/(厂家主导的品牌力!$P4+厂家主导的产品创新力!$DD6+'市场推广（包含促销投入）'!CI3+渠道服务!AU4+市场价格!EY5))
                 //for (int j = 1; j < agentStages.stages.Count + 1; j++)
                 //{
+
+                var IIRC = productInnovation.B.IIRC;
+
+                var csAB = channelService.AB;
+
+
+                var mpAB = marketPrice.AB;
+                var mpAT = marketPrice.AT;
+                var mpBL = marketPrice.BL;
+
+                var DDStage = productInnovation.DDStage;
+                var AUSum = channelService.AUSum;
+                var EY = marketPrice.EY;
+
                 for (int i = 0; i < agentStages.agents.Count; i++)
                 {
-                    
+
                     var indexState = agentStages.stages.IndexOf(item.Stage);
                     for (int j = 0; j < indexState; j++)
                     {
-                        if (intentionIndex.B.Count<=j) intentionIndex.B.Add(j, new MJA());
-                        if (intentionIndex.T.Count<=j) intentionIndex.T.Add(j, new MJA());
-                        if (intentionIndex.AL.Count<=j) intentionIndex.AL.Add(j, new MJA());
+                        if (intentionIndex.B.Count <= j) intentionIndex.B.Add(j, new MJA());
+                        if (intentionIndex.T.Count <= j) intentionIndex.T.Add(j, new MJA());
+                        if (intentionIndex.AL.Count <= j) intentionIndex.AL.Add(j, new MJA());
                         var ss = j;
-                        var m = Common.Cal.GetPositive(brandStrength.B + productInnovation.B.IIRC[j].M + item.BP.M[i] + channelService.AB.M[i] + marketPrice.AB[ss].M[i], brandStrength.P + productInnovation.DDStage[i] + item.CIAgent[i] + channelService.AUSum[i] + marketPrice.EY[ss].M[i]);
+                        var m1 = brandStrength.B + IIRC[j].M + item.BP.M[i] + csAB.M[i] + mpAB[ss].M[i];
+                        var m2 = brandStrength.P + DDStage[j] + item.CIAgent[i] + AUSum[i] + EY[ss].M[i];
+                        var m = Common.Cal.GetPositive(m1, m2);
                         intentionIndex.B[ss].M.Add(m);
-                        var n = Common.Cal.GetPositive(brandStrength.D + productInnovation.B.IIRC[j].J + item.BP.J[i] + channelService.AB.J[i] + marketPrice.AT[ss].J[i], brandStrength.P + productInnovation.DDStage[i] + item.CIAgent[i] + channelService.AUSum[i] + marketPrice.EY[ss].M[i]);
-                        intentionIndex.T[ss].J.Add(n);
-                        var agent = Common.Cal.GetPositive(brandStrength.C + productInnovation.B.IIRC[j].J + item.BP.Agent[i] + channelService.AB.Agent[i] + marketPrice.BL[ss].Agent[i], brandStrength.P + productInnovation.DDStage[i] + item.CIAgent[i] + channelService.AUSum[i] + marketPrice.EY[ss].M[i]);
+                        var nj1 = brandStrength.D + IIRC[j].J + item.BP.J[i] + csAB.J[i] + mpAT[ss].J[i];
+                        var nj2 = brandStrength.P + DDStage[j] + item.CIAgent[i] + AUSum[i] + EY[ss].M[i];
+                        var nj = Common.Cal.GetPositive(nj1, nj2);
+                        intentionIndex.T[ss].J.Add(nj);
+                        var agent1 = brandStrength.C + IIRC[j].J + item.BP.Agent[i] + csAB.Agent[i] + mpBL[ss].Agent[i];
+                        var agent2 = brandStrength.P + DDStage[j] + item.CIAgent[i] + AUSum[i] + EY[ss].M[i];
+                        var agent = Common.Cal.GetPositive(agent1, agent2);
                         intentionIndex.AL[ss].Agent.Add(agent);
                     }
                 }
 
 
-            }
+            };
         }
         public List<IntentionIndexTable> Get()
         {
@@ -105,38 +127,23 @@ namespace WebMVC.BLL
         /// RC1
         /// </summary>
         public Dictionary<int, MJA> AL { get; set; } = new Dictionary<int, MJA>();
-
-        /// <summary>
+ /// <summary>
         /// 取平均值 
         /// </summary>
-        public MJA BD
+        public List<MJA > BDAvg
         {
             get
             {
-
-                return SetAvg(B[1], T[1], AL[1]);
+                var result = new List<MJA>();
+                for (int i = 0; i < B.Count; i++)
+                {
+                    result.Add(SetAvg(B[i], T[i], AL[i]));
+                }
+                return result;
             }
         }
-        /// <summary>
-        ///  取平均值
-        /// </summary>
-        public MJA BJ
-        {
-            get
-            {
-                return Stage == Common.Stage.第二阶段.ToString() ? SetAvg(B[2], T[2], AL[2]) : new MJA();
-            }
-        }
-        /// <summary>
-        /// 取平均值
-        /// </summary>
-        public MJA BP
-        {
-            get
-            {
-                return Stage == Common.Stage.第三阶段.ToString() ? SetAvg(B[3], T[3], AL[3]) : new MJA();
-            }
-        }
+       
+         
         public MJA SetAvg(MJA m, MJA j, MJA a)
         {
             return new MJA

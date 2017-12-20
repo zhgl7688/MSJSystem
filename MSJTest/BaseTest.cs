@@ -39,12 +39,13 @@ namespace MSJTest
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             priceControl = new PriceControl(invertmentTable1);
             brandStrength = new BrandStrength(invertmentTable1);
-           channelService = new ChannelService(invertmentTable1);
-             marketPromotion = new MarketPromotion(invertmentTable1);
+            channelService = new ChannelService(invertmentTable1);
+            marketPromotion = new MarketPromotion(invertmentTable1);
             productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
-          marketPriceTemp = new MarketPriceTemp(priceControl);
+            marketPriceTemp = new MarketPriceTemp(priceControl);
             intentionIndex = new IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
-            //currentShare = new CurrentShare(intentionIndex, priceControl);
+
+            currentShare = new CurrentShare(intentionIndex, priceControl);
             //marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
 
             //stockReport = new StockReport(invertmentTable1, marketPrice);

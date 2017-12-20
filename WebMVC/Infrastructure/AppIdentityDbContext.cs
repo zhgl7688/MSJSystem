@@ -32,9 +32,10 @@ namespace WebMVC.Infrastructure
         public DbSet<MarketPriceInit> MarketPriceInit { get; set; }
         public DbSet<CurrentShareInit> CurrentShareInit { get; set; }
         public DbSet<CodeInit> CodeInit { get; set; }
-        public DbSet<PriceMange> PriceMange { get;set;}
-        public DbSet<StageAdd> StageAdd { get;set;}
-        
+        public DbSet<PriceMange> PriceMange { get; set; }
+        public DbSet<PurchaseTable> PurchaseTable { get; set; }
+        public DbSet<StageAdd> StageAdd { get; set; }
+
     }
     public class IdentityDbInit : DropCreateDatabaseIfModelChanges<AppIdentityDbContext>
     {
@@ -62,12 +63,80 @@ namespace WebMVC.Infrastructure
                 Text = "代1",
                 CreateDate = DateTime.Now
             });
+            context.CodeInit.Add(new CodeInit
+            {
+                Code = "Stage",
+                Value = 2,
+                Text = "第2阶段",
+                CreateDate = DateTime.Now
+            });
+            context.CodeInit.Add(new Models.CodeInit
+            {
+                Code = "Agent",
+                Value = 2,
+                Text = "代2",
+                CreateDate = DateTime.Now
+            });
             context.BrandStrengthInit.Add(new BrandStrengthInit());
             context.ChannelServiceInit.Add(new ChannelServiceInit());
             context.CurrentShareInit.Add(new CurrentShareInit());
             context.MarketPriceInit.Add(new MarketPriceInit());
             context.MarketPromotionInit.Add(new MarketPromotionInit());
             context.ProductInnovationInit.Add(new ProductInnovationInit());
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第1阶段",
+                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                retail = "零售价",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第1阶段",
+                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                retail = "零售系统供价",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                retail = "零售价1",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                retail = "零售系统供价1",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                retail = "零售价2",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                retail = "零售系统供价2",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第1阶段",
+                StageType = Common.agentInputStageType.进货表.ToString(),
+                retail = "进货",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.进货表.ToString(),
+                retail = "进货1",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.进货表.ToString(),
+                retail = "进货2",
+            });
             base.Seed(context);
         }
 
@@ -99,8 +168,8 @@ namespace WebMVC.Infrastructure
             {
                 userMgr.AddToRole(user.Id, roleName);
             }
-          
-             
+
+
         }
     }
     public class MsjDbContext : DbContext

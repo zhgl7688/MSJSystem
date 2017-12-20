@@ -71,6 +71,8 @@ namespace MSJTest.BLL
             Assert.AreEqual(38,decimal.Round( r2.E,0));
             Assert.AreEqual(600, result[1].I);
             Assert.AreEqual(0.454m,decimal.Round( result[3].L,3));
+            //intentionIndex
+            Assert.AreEqual(0.33, result[0].B);
         }
     }
 }

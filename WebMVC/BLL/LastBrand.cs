@@ -37,33 +37,33 @@ namespace WebMVC.BLL
                 switch (stage)
                 {
                     case Stage.起始阶段:
-                        lastBrandTableM.B = item.H[1].M.Average();
-                        lastBrandTableS.B = item.AR[1].Agent.Average();
-                        lastBrandTableJ.B = item.Z[1].J.Average();
+                        lastBrandTableM.B = item.H[0].M.Average();
+                        lastBrandTableS.B = item.AR[0].Agent.Average();
+                        lastBrandTableJ.B = item.Z[0].J.Average();
                         break;
                     case Stage.第1阶段:
-                        lastBrandTableM.C = Common.Cal.GetMJAAverage(item.H[1], count, MJAType.M);
-                        lastBrandTableS.C = Common.Cal.GetMJAAverage(item.AR[1], count, MJAType.Agent);
-                        lastBrandTableJ.C = Common.Cal.GetMJAAverage(item.Z[1], count, MJAType.J);
+                        lastBrandTableM.C = Common.Cal.GetMJAAverage(item.H[0], count, MJAType.M);
+                        lastBrandTableS.C = Common.Cal.GetMJAAverage(item.AR[0], count, MJAType.Agent);
+                        lastBrandTableJ.C = Common.Cal.GetMJAAverage(item.Z[0], count, MJAType.J);
                         break;
                     case Stage.第2阶段:
-                        lastBrandTableM.D = Common.Cal.GetMJAAverage(item.H[1], count, MJAType.M);
-                        lastBrandTableS.D = Common.Cal.GetMJAAverage(item.AR[1], count, MJAType.Agent);
-                        lastBrandTableJ.D = Common.Cal.GetMJAAverage(item.Z[1], count, MJAType.J);
-                        lastBrandTableM.E = Common.Cal.GetMJAAverage(item.H[2], count, MJAType.M);
-                        lastBrandTableS.E = Common.Cal.GetMJAAverage(item.AR[2], count, MJAType.Agent);
-                        lastBrandTableJ.E = Common.Cal.GetMJAAverage(item.Z[2], count, MJAType.J);
+                        lastBrandTableM.D = Common.Cal.GetMJAAverage(item.H[0], count, MJAType.M);
+                        lastBrandTableS.D = Common.Cal.GetMJAAverage(item.AR[0], count, MJAType.Agent);
+                        lastBrandTableJ.D = Common.Cal.GetMJAAverage(item.Z[0], count, MJAType.J);
+                        lastBrandTableM.E = Common.Cal.GetMJAAverage(item.H[1], count, MJAType.M);
+                        lastBrandTableS.E = Common.Cal.GetMJAAverage(item.AR[1], count, MJAType.Agent);
+                        lastBrandTableJ.E = Common.Cal.GetMJAAverage(item.Z[1], count, MJAType.J);
                         break;
                     case Stage.第3阶段:
-                        lastBrandTableM.F = Common.Cal.GetMJAAverage(item.H[1], count, MJAType.M);
-                        lastBrandTableS.F = Common.Cal.GetMJAAverage(item.AR[1], count, MJAType.Agent);
-                        lastBrandTableJ.F = Common.Cal.GetMJAAverage(item.Z[1], count, MJAType.J);
-                        lastBrandTableM.G = Common.Cal.GetMJAAverage(item.H[2], count, MJAType.M);
-                        lastBrandTableS.G = Common.Cal.GetMJAAverage(item.AR[2], count, MJAType.Agent);
-                        lastBrandTableJ.G = Common.Cal.GetMJAAverage(item.Z[2], count, MJAType.J);
-                        lastBrandTableM.H = Common.Cal.GetMJAAverage(item.H[3], count, MJAType.M);
-                        lastBrandTableS.H = Common.Cal.GetMJAAverage(item.AR[3], count, MJAType.Agent);
-                        lastBrandTableJ.H = Common.Cal.GetMJAAverage(item.Z[3], count, MJAType.J);
+                        lastBrandTableM.F = Common.Cal.GetMJAAverage(item.H[0], count, MJAType.M);
+                        lastBrandTableS.F = Common.Cal.GetMJAAverage(item.AR[0], count, MJAType.Agent);
+                        lastBrandTableJ.F = Common.Cal.GetMJAAverage(item.Z[0], count, MJAType.J);
+                        lastBrandTableM.G = Common.Cal.GetMJAAverage(item.H[1], count, MJAType.M);
+                        lastBrandTableS.G = Common.Cal.GetMJAAverage(item.AR[1], count, MJAType.Agent);
+                        lastBrandTableJ.G = Common.Cal.GetMJAAverage(item.Z[1], count, MJAType.J);
+                        lastBrandTableM.H = Common.Cal.GetMJAAverage(item.H[2], count, MJAType.M);
+                        lastBrandTableS.H = Common.Cal.GetMJAAverage(item.AR[2], count, MJAType.Agent);
+                        lastBrandTableJ.H = Common.Cal.GetMJAAverage(item.Z[2], count, MJAType.J);
                          break;
                     default:
                         break;

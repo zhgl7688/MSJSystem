@@ -269,6 +269,7 @@ namespace WebMVC.BLL
                 SurfaceRC = new List<decimal> { 120,0,0 },
                 FunctionRC = new List<decimal> { 200, 0, 0 },
                 MaterialRC = new List<decimal> { 100, 0, 0 },
+                retailPriceRC=new List<decimal> { 799},
                 retailPrice = 799
             });
             //第2S
@@ -283,6 +284,7 @@ namespace WebMVC.BLL
                 NewCostPrice = 315,
                 NewFactoryPrice = 450,
                 NewRetailPriceR2 = 845,
+                retailPriceRC=new List<decimal> { 699,845},
                 SurfaceRC = new List<decimal> {0, 100,  0 },
                 FunctionRC = new List<decimal> {0, 200, 0 },
                 MaterialRC = new List<decimal> {0, 100, 0 },
@@ -303,7 +305,7 @@ namespace WebMVC.BLL
                 NewFactoryPrice = 490,
                 NewRetailPriceR3 = 999,
 
-
+                retailPriceRC=new List<decimal> { 599,799,999},
             });
             //第1M
             brands.Add(new BrandTable
@@ -323,7 +325,9 @@ namespace WebMVC.BLL
                 promotionTeam = 48,
                 servet = 240,
                 retailPrice = 799,
-                SystemPrice = 630
+                SystemPrice = 630,
+                retailPriceRC=new List<decimal> { 799},
+                SystemPriceRC = new List<decimal> { 630 }
 
             });
             //第2M
@@ -350,7 +354,10 @@ namespace WebMVC.BLL
                 NewCostPrice = 350,
                 NewFactoryPrice = 507,
                 NewRetailPriceR2 = 949,
-                NewSystemPriceR2 = 725
+                NewSystemPriceR2 = 725,
+                retailPriceRC=new List<decimal> { 759,949},
+                SystemPriceRC = new List<decimal> { 609, 725 }
+
             });
             //第3M
             brands.Add(new BrandTable
@@ -381,7 +388,9 @@ namespace WebMVC.BLL
                 NewRetailPriceR2 = 869,
                 NewSystemPriceR2 = 680,
                 NewRetailPriceR3 = 999,
-                NewSystemPriceR3 = 775
+                NewSystemPriceR3 = 775,
+                retailPriceRC=new List<decimal> { 659,869,999},
+                SystemPriceRC = new List<decimal> { 516, 680, 775 }
 
             });
             //第1J
@@ -404,7 +413,10 @@ namespace WebMVC.BLL
                 servet = 200,
 
                 retailPrice = 699,
-                SystemPrice = 538
+                SystemPrice = 538,
+                retailPriceRC=new List<decimal> { 699},
+                SystemPriceRC = new List<decimal> { 538 }
+
             });
             //第2J
             brands.Add(new BrandTable
@@ -430,7 +442,9 @@ namespace WebMVC.BLL
                 NewCostPrice = 382,
                 NewFactoryPrice = 545,
                 NewRetailPriceR2 = 999,
-                NewSystemPriceR2 = 769
+                NewSystemPriceR2 = 769,
+                retailPriceRC=new List<decimal> { 599,999},
+                SystemPriceRC=new List<decimal> { 461.23m, 769 }
             });
             //第3J
             brands.Add(new BrandTable
@@ -459,7 +473,10 @@ namespace WebMVC.BLL
                 NewRetailPriceR2 = 999,
                 NewSystemPriceR2 =769 ,
                 NewRetailPriceR3 = 599,
-                NewSystemPriceR3 = 461
+                NewSystemPriceR3 = 461,
+                retailPriceRC=new List<decimal> { 759,999,599},
+                 SystemPriceRC=new List<decimal> { 609,769,461},
+                  
             });
             #endregion
         }

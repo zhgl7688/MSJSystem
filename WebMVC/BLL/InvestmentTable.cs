@@ -279,25 +279,11 @@ namespace WebMVC.BLL
         }
         public void ItCAL()
         {
-            AJAgent.ForEach(s =>
+            for (int i = 0; i < CLAgent.Count; i++)
             {
-                var index = AJAgent.IndexOf(s);
-                s = getBrandInput(AJ_SummaryAsserts[index], CLAgent[index]);
-            });
-
-            //AJ = getBrandInput(AJ_SummaryAssert, CL);
-
-            //AS = getBrandInput(AS_SummaryAssert, CT);
-
-            //BB = getBrandInput(BB_SummaryAssert, DB);
-
-            //BK = getBrandInput(BK_SummaryAssert, DJ);
-
-            //BT = getBrandInput(BT_SummaryAssert, DR);
-
-            //CC = getBrandInput(CC_SummaryAssert, DZ);
-
-
+                AJAgent.Add(getBrandInput(AJ_SummaryAsserts[i], CLAgent[i]));
+            }
+    
         }
         public List<decimal> AJ_SummaryAsserts { get; set; } = new List<decimal>();
         //public decimal AJ_SummaryAssert { get; set; }

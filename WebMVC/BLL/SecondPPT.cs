@@ -192,10 +192,10 @@ namespace WebMVC.BLL
                     代理方 = item.AgentName,
                 };
                 var indexAgent = agentStages.agents.IndexOf(item.AgentName);
-                sAgentInfo.供货价 = priceControl2.K[1].Agent[indexAgent];
-                sAgentInfo.零售价 = priceControl2.D[1].Agent[indexAgent];
-                sAgentInfo.RC2供货价 = priceControl2.K[2].Agent[indexAgent];
-                sAgentInfo.RC2零售价 = priceControl2.D[2].Agent[indexAgent];
+                sAgentInfo.供货价 = priceControl2.K[0].Agent[indexAgent];
+                sAgentInfo.零售价 = priceControl2.D[0].Agent[indexAgent];
+                sAgentInfo.RC2供货价 = priceControl2.K[1].Agent[indexAgent];
+                sAgentInfo.RC2零售价 = priceControl2.D[1].Agent[indexAgent];
                 setBrandInput(sAgentInfo, investment2.CLAgent[indexAgent]);
                 sAgentInfo.S品牌费用补贴支持 = investment2.AJAgent[indexAgent].InputSum;
 
@@ -246,12 +246,12 @@ namespace WebMVC.BLL
                 sAgentResult.RC2销售量 = item.CStage[2][1];
                 sAgentResult.RC2销售金额 = item.HStage[2][1];
                 var indexAgent = agentStages.agents.IndexOf(sAgentResult.代理方);
-                sAgentResult.数量 = ((sAgentResult.期初 + sAgentResult.销售量 - currentShare2.CT[1].Agent[indexAgent]) > 0 ?
-                    0 : (sAgentResult.期初 + sAgentResult.销售量 - currentShare2.CT[1].Agent[indexAgent]));
+                sAgentResult.数量 = ((sAgentResult.期初 + sAgentResult.销售量 - currentShare2.CT[0].Agent[indexAgent]) > 0 ?
+                    0 : (sAgentResult.期初 + sAgentResult.销售量 - currentShare2.CT[0].Agent[indexAgent]));
                 sAgentResult.金额 = sAgentResult.数量 * marketPrice2.EF[1].Agent[indexAgent];
-                sAgentResult.RC2数量 = ((sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent[indexAgent]) > 0 ?
-                    0 : (sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[2].Agent[indexAgent])); ;
-                sAgentResult.RC2金额 = sAgentResult.RC2数量 * marketPrice2.EF[2].Agent[indexAgent];
+                sAgentResult.RC2数量 = ((sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[1].Agent[indexAgent]) > 0 ?
+                    0 : (sAgentResult.RC2期初 + sAgentResult.RC2销售量 - currentShare2.CT[1].Agent[indexAgent])); ;
+                sAgentResult.RC2金额 = sAgentResult.RC2数量 * marketPrice2.EF[1].Agent[indexAgent];
                 sAgentResult.销售利润 = summary16.XAgent[indexAgent];
                 sAgentResult.借款利息 = summary17.XAgent[indexAgent];
                 sAgentResult.库存跌价损失计提 = summary18.XAgent[indexAgent];
@@ -284,6 +284,7 @@ namespace WebMVC.BLL
         public decimal RC2出厂价 { get; set; }
         [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2指导零售价 { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal RC2外观创新 { get; set; }
         [DisplayFormat(DataFormatString = "{0:F0}")]

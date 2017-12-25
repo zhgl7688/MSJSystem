@@ -499,11 +499,16 @@ namespace WebMVC.BLL
             {
                 var indexAgent = agentStages.agents.IndexOf(item.AgentName);
                 summaryAssent2.ALAgent[indexAgent] = summaryAssent12.XAgent[indexAgent] = summaryAssent2.XAgent[indexAgent] + summaryAssent3.XAgent[indexAgent] + summaryAssent4.XAgent[indexAgent] - summaryAssent5.XAgent[indexAgent] - summaryAssent6.XAgent[indexAgent] - summaryAssent7.XAgent[indexAgent] - summaryAssent8.XAgent[indexAgent] - ((item.DStage[2][0] - item.DStage[1][0]) * market2.CM[1].S + item.DStage[2][1] * market2.CM[2].S) + summaryAssent10.XAgent[indexAgent];
+                //=ROUND(ROUND(IF(X12=0,((进销存报表!$I4+进销存报表!$K4-市场容量及各品牌当年占有率!CT6)+(进销存报表!$M4-市场容量及各品牌当年占有率!CZ6)),0),0),0)
+                summaryAssent17.QAgent[indexAgent] = summaryAssent17.XAgent[indexAgent] = 
+                    decimal.Round(decimal.Round((summaryAssent9.XAgent[indexAgent] == 0 ? 
+                    ((item.DStage[1][0] + item.EStage[2][0] - currentShare2.CT[0].Agent[indexAgent]) + (item.EStage[2][1] - currentShare2.CT[1].Agent[indexAgent])) : 0), 0), 0);
+                //=X5+X6+X7-X8-X9-X10-X11-((进销存报表!S4-进销存报表!I4)*市场价格!$CN$6+进销存报表!U4*市场价格!$CQ$6)+X13
+                summaryAssent12.ALAgent[indexAgent] = summaryAssent2.ALAgent[indexAgent] + summaryAssent4.ALAgent[indexAgent] - summaryAssent5.ALAgent[indexAgent] - summaryAssent6.ALAgent[indexAgent] - summaryAssent7.ALAgent[indexAgent] - ((item.DStage[3][0] - item.DStage[2][0]) * market3.CM[0].S + (item.DStage[3][1] - item.DStage[2][1]) * market3.CM[1].S + item.DStage[3][2] * market3.CM[2].S) + summaryAssent10.ALAgent[indexAgent];
 
-                summaryAssent17.QAgent[indexAgent] = summaryAssent17.XAgent[indexAgent] = decimal.Round(decimal.Round((summaryAssent9.XAgent[indexAgent] == 0 ? ((item.DStage[1][0] + item.EStage[2][0] - currentShare2.CT[1].Agent[indexAgent]) + (item.EStage[2][1] - currentShare2.CT[2].Agent[indexAgent])) : 0), 0), 0);
-                summaryAssent12.ALAgent[indexAgent] = summaryAssent2.ALAgent[indexAgent] + summaryAssent4.ALAgent[indexAgent] - summaryAssent5.ALAgent[indexAgent] - summaryAssent6.ALAgent[indexAgent] - summaryAssent7.ALAgent[indexAgent] - ((item.DStage[3][0] - item.DStage[2][0]) * market3.CM[1].S + (item.DStage[3][1] - item.DStage[2][1]) * market3.CM[2].S + item.DStage[3][2] * market3.CM[3].S) + summaryAssent10.ALAgent[indexAgent];
-                summaryAssent17.AEAgent[indexAgent] = summaryAssent17.ALAgent[indexAgent] = decimal.Round((summaryAssent9.ALAgent[indexAgent] == 0 ? ((item.DStage[2][0] + item.EStage[3][0] - currentShare3.CT[1].Agent[indexAgent]) + (item.DStage[2][1] + item.EStage[3][1] - currentShare3.CT[2].Agent[indexAgent]) + (item.EStage[3][2] - currentShare3.CT[3].Agent[indexAgent])) : 0), 0);
-                summaryAssent17.CAgent[indexAgent] = summaryAssent17.JAgent[indexAgent] = decimal.Round((summaryAssent9.JAgent[indexAgent] == 0 ? (item.DStage[0][0] + item.EStage[1][0] - currentShare1.CT[1].Agent[indexAgent]) : 0), 0);
+                summaryAssent17.AEAgent[indexAgent] = summaryAssent17.ALAgent[indexAgent] = decimal.Round((summaryAssent9.ALAgent[indexAgent] == 0 ? ((item.DStage[2][0] + item.EStage[3][0] - currentShare3.CT[0].Agent[indexAgent]) + (item.DStage[2][1] + item.EStage[3][1] - currentShare3.CT[1].Agent[indexAgent]) + (item.EStage[3][2] - currentShare3.CT[2].Agent[indexAgent])) : 0), 0);
+
+                summaryAssent17.CAgent[indexAgent] = summaryAssent17.JAgent[indexAgent] = decimal.Round((summaryAssent9.JAgent[indexAgent] == 0 ? (item.DStage[0][0] + item.EStage[1][0] - currentShare1.CT[0].Agent[indexAgent]) : 0), 0);
 
 
             }
@@ -546,8 +551,10 @@ namespace WebMVC.BLL
             {
                 summaryAssent16.XAgent[i] = summaryAssent13.XAgent[i] - summaryAssent15.XAgent[i] - summaryAssent14.XAgent[i];
                 summaryAssent16.ALAgent[i] = summaryAssent13.ALAgent[i] - summaryAssent15.ALAgent[i] - summaryAssent14.ALAgent[i];
-                summaryAssent18.CAgent[i] = summaryAssent17.CAgent[i] * market1.CM[1].S;//经营中损失的金额  summaryAssent18
-                summaryAssent18.JAgent[i] = summaryAssent17.JAgent[i] * market1.EF[1].Agent[i];
+                //=C20*市场价格!$CN$5
+                summaryAssent18.CAgent[i] = summaryAssent17.CAgent[i] * market1.CM[0].S;//经营中损失的金额  summaryAssent18
+                //=J20*市场价格!EF5
+                summaryAssent18.JAgent[i] = summaryAssent17.JAgent[i] * market1.EF[0].Agent[i];
 
             }
 
@@ -564,21 +571,21 @@ namespace WebMVC.BLL
                 //=IF(X20=0,0,(进销存报表!$I4+进销存报表!$K4-市场容量及各品牌当年占有率!CT6)*市场价格!EF6+(进销存报表!$M4-市场容量及各品牌当年占有率!CZ6)*市场价格!EL6)
                 summaryAssent18.XAgent[indexAgent] = (summaryAssent17.XAgent[indexAgent] == 0 ? 0 :
                                     (item.DStage[1][0] + item.EStage[2][0] - currentShare2.CT[1].Agent[indexAgent]) * market2.EF[0].Agent[indexAgent] +
-                                    (item.EStage[2][1] - currentShare2.CT[2].Agent[indexAgent]) * market2.EF[1].Agent[indexAgent]);
+                                    (item.EStage[2][1] - currentShare2.CT[1].Agent[indexAgent]) * market2.EF[1].Agent[indexAgent]);
                 summaryAssent18.ALAgent[indexAgent] = (summaryAssent17.ALAgent[indexAgent] == 0 ? 0 :
-                                    (item.DStage[2][0] + item.EStage[3][0] - currentShare3.CT[1].Agent[indexAgent]) *
-                                    market3.EF[0].Agent[indexAgent] + (item.DStage[2][1] + item.EStage[3][1] - currentShare3.CT[2].Agent[indexAgent]) *
-                                    market3.EF[1].Agent[indexAgent] + (item.EStage[3][2] - currentShare3.CT[3].Agent[indexAgent]) *
+                                    (item.DStage[2][0] + item.EStage[3][0] - currentShare3.CT[0].Agent[indexAgent]) *
+                                    market3.EF[0].Agent[indexAgent] + (item.DStage[2][1] + item.EStage[3][1] - currentShare3.CT[1].Agent[indexAgent]) *
+                                    market3.EF[1].Agent[indexAgent] + (item.EStage[3][2] - currentShare3.CT[2].Agent[indexAgent]) *
                                     market3.EF[2].Agent[indexAgent]);
                 //=IF(Q20=0,0,(进销存报表!$I4+进销存报表!$K4-市场容量及各品牌当年占有率!CT6)*市场价格!$CN$6+(进销存报表!$M4-市场容量及各品牌当年占有率!CZ6)*市场价格!$CQ$6)
                 summaryAssent18.QAgent[indexAgent] = (summaryAssent17.QAgent[indexAgent] == 0 ? 0 :
-                                    (item.DStage[1][0] + item.EStage[2][0] - currentShare2.CT[1].Agent[indexAgent]) *
-                                    market2.CM[0].S + (item.EStage[2][1] - currentShare2.CT[2].Agent[indexAgent]) *
+                                    (item.DStage[1][0] + item.EStage[2][0] - currentShare2.CT[0].Agent[indexAgent]) *
+                                    market2.CM[0].S + (item.EStage[2][1] - currentShare2.CT[1].Agent[indexAgent]) *
                                     market2.CM[0].S);
                 summaryAssent18.AEAgent[indexAgent] = (summaryAssent17.AEAgent[indexAgent] == 0 ? 0 :
-                                    (item.DStage[2][0] + item.EStage[3][0] - currentShare3.CT[1].Agent[indexAgent]) *
-                                    market3.CM[0].S + (item.DStage[2][1] + item.EStage[3][1] - currentShare3.CT[2].Agent[indexAgent]) *
-                                    market3.CM[1].S + (item.EStage[3][2] - currentShare3.CT[3].Agent[indexAgent]) *
+                                    (item.DStage[2][0] + item.EStage[3][0] - currentShare3.CT[0].Agent[indexAgent]) *
+                                    market3.CM[0].S + (item.DStage[2][1] + item.EStage[3][1] - currentShare3.CT[1].Agent[indexAgent]) *
+                                    market3.CM[1].S + (item.EStage[3][2] - currentShare3.CT[2].Agent[indexAgent]) *
                                     market3.CM[2].S);
 
             }

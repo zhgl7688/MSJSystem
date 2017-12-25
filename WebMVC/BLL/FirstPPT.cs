@@ -165,8 +165,8 @@ namespace WebMVC.BLL
                     代理方 = item.AgentName,
                 };
                 var indexAgent = agentStages.agents.IndexOf(item.AgentName);
-                sAgentInfo.供货价 = priceControl1.K[1].Agent[indexAgent];
-                sAgentInfo.零售价 = priceControl1.D[1].Agent[indexAgent];
+                sAgentInfo.供货价 = priceControl1.K[0].Agent[indexAgent];
+                sAgentInfo.零售价 = priceControl1.D[0].Agent[indexAgent];
                 setBrandInput(sAgentInfo, investment1.CLAgent[indexAgent]);
                 sAgentInfo.S品牌费用补贴支持 = investment1.AJAgent[indexAgent].InputSum;
 

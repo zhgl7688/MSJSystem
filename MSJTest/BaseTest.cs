@@ -55,10 +55,10 @@ namespace MSJTest
 
 
        summaryAssent = new SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
-            //lastBrand = new LastBrand(currentShare,invertmentTable1.GetAgentCount);
-            //firstPPT = new FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport,priceControl);
-            //secondPPT = new SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);
-            //thirdPPT = new ThirdPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, secondPPT);
+            lastBrand = new LastBrand(currentShare,invertmentTable1.GetAgentCount);
+            firstPPT = new FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport,priceControl);
+            secondPPT = new SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);
+            thirdPPT = new ThirdPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, secondPPT);
         }
     }
 }

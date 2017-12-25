@@ -99,11 +99,11 @@ namespace WebMVC.BLL
                 AddBrandInfo(new ThirdBrandInfo()
                 {
                     品牌方 = Brand.M品牌,
-                    出厂价 = marketPrice3.CM[1].M,
+                    出厂价 = marketPrice3.CM[0].M,
                     指导零售价 = priceControl3.B.RcM[0],
-                    RC2出厂价 = marketPrice3.CM[2].M,
+                    RC2出厂价 = marketPrice3.CM[1].M,
                     RC2指导零售价 = priceControl3.B.RcM[1],
-                    RC3出厂价 = marketPrice3.CM[3].M,
+                    RC3出厂价 = marketPrice3.CM[2].M,
                     RC3指导零售价 = priceControl3.B.RcM[2],
                     品牌广告 = inverstment3.J,
                     外观创新 = inverstment3.M.Surfacerc[0],
@@ -119,11 +119,11 @@ namespace WebMVC.BLL
                 AddBrandInfo(new ThirdBrandInfo()
                 {
                     品牌方 = Brand.S品牌,
-                    出厂价 = marketPrice3.CM[1].S,
+                    出厂价 = marketPrice3.CM[0].S,
                     指导零售价 = brand3.retailPrice,
-                    RC2出厂价 = marketPrice3.CM[2].S,
+                    RC2出厂价 = marketPrice3.CM[1].S,
                     RC2指导零售价 = brand3.NewRetailPriceR2,
-                    RC3出厂价 = marketPrice3.CM[3].S,
+                    RC3出厂价 = marketPrice3.CM[2].S,
                     RC3指导零售价 = brand3.NewRetailPriceR3,
                     品牌广告 = inverstment3.K,
                     外观创新 = inverstment3.P.Surfacerc[0],
@@ -139,11 +139,11 @@ namespace WebMVC.BLL
                 AddBrandInfo(new ThirdBrandInfo
                 {
                     品牌方 = Brand.J品牌,
-                    出厂价 = marketPrice3.CM[1].J,
+                    出厂价 = marketPrice3.CM[0].J,
                     指导零售价 = priceControl3.B.RcJ[0],
-                    RC2出厂价 = marketPrice3.CM[2].J,
+                    RC2出厂价 = marketPrice3.CM[1].J,
                     RC2指导零售价 = priceControl3.B.RcJ[1],
-                    RC3出厂价 = marketPrice3.CM[3].J,
+                    RC3出厂价 = marketPrice3.CM[2].J,
                     RC3指导零售价 = priceControl3.B.RcJ[2],
                     品牌广告 = inverstment3.L,
                     外观创新 = inverstment3.S.Surfacerc[0],

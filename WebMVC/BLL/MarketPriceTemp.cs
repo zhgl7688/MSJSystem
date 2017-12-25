@@ -25,7 +25,11 @@ namespace WebMVC.BLL
                 var indexStage = agentStages.stages.IndexOf(item.Stage);
                 for (int i = 0; i < indexStage; i++)
                 {
-                    market.DE[i] = new RC { M = item.B.RcM[i], J = item.B.RcJ[i] };
+                    var m = item.B.RcM.Count > i ? item.B.RcM[i] : 0;
+                    var je = item.B.RcJ.Count > i ? item.B.RcJ[i] : 0;
+                    var d = item.D.Count > i ? item.D[i].Agent : new List<decimal>();
+
+                    market.DE[i] = new RC { M = m, J = je };
                     market.DK[i] = new MJA { Agent = item.D[i].Agent };
                     market.EF[i] = new MJA();
                     for (int j = 0; j < item.K[1].Agent.Count; j++)

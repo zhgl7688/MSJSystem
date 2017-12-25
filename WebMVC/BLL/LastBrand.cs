@@ -41,12 +41,12 @@ namespace WebMVC.BLL
                         lastBrandTableS.B = item.AR[1].Agent.Average();
                         lastBrandTableJ.B = item.Z[1].J.Average();
                         break;
-                    case Stage.第一阶段:
+                    case Stage.第1阶段:
                         lastBrandTableM.C = Common.Cal.GetMJAAverage(item.H[1], count, MJAType.M);
                         lastBrandTableS.C = Common.Cal.GetMJAAverage(item.AR[1], count, MJAType.Agent);
                         lastBrandTableJ.C = Common.Cal.GetMJAAverage(item.Z[1], count, MJAType.J);
                         break;
-                    case Stage.第二阶段:
+                    case Stage.第2阶段:
                         lastBrandTableM.D = Common.Cal.GetMJAAverage(item.H[1], count, MJAType.M);
                         lastBrandTableS.D = Common.Cal.GetMJAAverage(item.AR[1], count, MJAType.Agent);
                         lastBrandTableJ.D = Common.Cal.GetMJAAverage(item.Z[1], count, MJAType.J);
@@ -54,7 +54,7 @@ namespace WebMVC.BLL
                         lastBrandTableS.E = Common.Cal.GetMJAAverage(item.AR[2], count, MJAType.Agent);
                         lastBrandTableJ.E = Common.Cal.GetMJAAverage(item.Z[2], count, MJAType.J);
                         break;
-                    case Stage.第三阶段:
+                    case Stage.第3阶段:
                         lastBrandTableM.F = Common.Cal.GetMJAAverage(item.H[1], count, MJAType.M);
                         lastBrandTableS.F = Common.Cal.GetMJAAverage(item.AR[1], count, MJAType.Agent);
                         lastBrandTableJ.F = Common.Cal.GetMJAAverage(item.Z[1], count, MJAType.J);

@@ -11,7 +11,7 @@ namespace WebMVC.BLL
     {
         List<PriceControlTable> priceControlTables = new List<PriceControlTable>();
         InvertmentTable1 invertmenetTable1;
- 
+
         AgentStages agentStages;
         /// <summary>
         /// 价格管控表
@@ -21,7 +21,7 @@ namespace WebMVC.BLL
             agentStages = new AgentStages();
             invertmenetTable1 = invertmentTable1;
             init();
-         
+
         }
         public void init()
         {
@@ -38,18 +38,20 @@ namespace WebMVC.BLL
                 {
                     priceControl.AG.M = agentItem.NewCostPrice;
                     priceControl.AJ.M = agentItem.NewFactoryPrice;
-                    priceControl.B.RcM.Add(agentItem.retailPrice);
-                    priceControl.B.RcM.Add(agentItem.NewRetailPriceR2);
-                    priceControl.B.RcM.Add(agentItem.NewRetailPriceR3);
+                    for (int i = 0; i < agentItem.retailPriceRC.Count; i++)
+                    {
+                        priceControl.B.RcM.Add(agentItem.retailPriceRC[i]);
+                    }
                 }
                 else
                 if (agentItem.Brand == Common.Brand.J品牌.ToString())
                 {
                     priceControl.AG.J = agentItem.NewCostPrice;
                     priceControl.AJ.J = agentItem.NewFactoryPrice;
-                    priceControl.B.RcJ.Add(agentItem.retailPrice);
-                    priceControl.B.RcJ.Add(agentItem.NewRetailPriceR2);
-                    priceControl.B.RcJ.Add(agentItem.NewRetailPriceR3);
+                    for (int i = 0; i < agentItem.retailPriceRC.Count; i++)
+                    {
+                        priceControl.B.RcJ.Add(agentItem.retailPriceRC[i]);
+                    }
                 }
                 else
                 if (agentItem.Brand == Common.Brand.S品牌.ToString())
@@ -73,10 +75,15 @@ namespace WebMVC.BLL
                 var countStage = agentStages.stages.IndexOf(agentItem.Stage);
                 for (int i = 0; i < countStage; i++)
                 {
+                    if (priceControl.D.Count <= i) priceControl.D.Add(i, new AgentRC());
+                    if (priceControl.K.Count <= i) priceControl.K.Add(i, new AgentRC());
+                    if (agentItem.retailPriceRC.Count <= i) agentItem.retailPriceRC.Add(0);
+                    if (agentItem.SystemPriceRC.Count <= i) agentItem.SystemPriceRC.Add(0);
+
                     SetAgents(agentName, priceControl.D[i], priceControl.K[i], agentItem.retailPriceRC[i], agentItem.SystemPriceRC[i]);
 
                 }
-               
+
             }
 
 
@@ -86,7 +93,7 @@ namespace WebMVC.BLL
         {
             var agentStages = new AgentStages();
             var index = agentStages.agents.FindIndex(s => s == agentName);
-            for (int i = D.Agent.Count; i <agentStages.agents.Count; i++)
+            for (int i = D.Agent.Count; i < agentStages.agents.Count; i++)
             {
                 D.Agent.Add(0);
                 K.Agent.Add(0);
@@ -106,7 +113,7 @@ namespace WebMVC.BLL
         public PriceControlTable()
         {
             var countStage = new AgentStages().stages.Count;
-            for (int i = 0; i < countStage-1; i++)
+            for (int i = 0; i < countStage - 1; i++)
             {
                 D.Add(i, new AgentRC());
                 K.Add(i, new AgentRC());

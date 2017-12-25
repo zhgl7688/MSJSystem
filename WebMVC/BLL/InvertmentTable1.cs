@@ -20,7 +20,39 @@ namespace WebMVC.BLL
         public InvertmentTable1(List<AgentInput> agentInputs, List<BrandsInput> brandsInputs)
         {
             this.agentInputs = agentInputs;
+            this.agentInputs.ForEach(s =>
+            {
+                if (s.PriceMange != null && s.PriceMange.Count > 0)
+                {
+                    s.retailPriceRC = s.PriceMange.Where(j => j.Name.Contains("零售价")).Select(j => j.Value).ToList();
+                    s.SystemPriceRC = s.PriceMange.Where(j => j.Name.Contains("系统供价")).Select(j => j.Value).ToList();
+                }
+                if (s.PurchaseTable != null && s.PurchaseTable.Count > 0)
+                {
+                    s.Purchase = s.PurchaseTable.Select(j => j.Value).ToList();
+                }
+
+            });
             this.brandsInputs = brandsInputs;
+            this.brandsInputs.ForEach(s =>
+            {
+                if (s.PriceManageSub != null && s.PriceManageSub.Count > 0)
+                {
+                    s.retailPriceRC = s.PriceManageSub.Where(j => j.Name.Contains("零售价")).Select(j => j.Value).ToList();
+                    s.SystemPriceRC = s.PriceManageSub.Where(j => j.Name.Contains("系统供价")).Select(j => j.Value).ToList();
+                    var costPrice = s.PriceManageSub.FirstOrDefault(j => j.Name.Contains("成本价"));
+                    s.NewCostPrice = costPrice != null ? costPrice.Value : 0;
+                    var factoryPrice = s.PriceManageSub.FirstOrDefault(j => j.Name.Contains("出厂价"));
+                    s.NewFactoryPrice = factoryPrice != null ? factoryPrice.Value : 0;
+                }
+
+                if (s.InvestSub != null && s.InvestSub.Count > 0)
+                {
+                    s.SurfaceRC = s.InvestSub.Where(j => j.Name.Contains("外观")).Select(j => j.Value).ToList();
+                    s.FunctionRC = s.InvestSub.Where(j => j.Name.Contains("功能")).Select(j => j.Value).ToList();
+                    s.MaterialRC = s.InvestSub.Where(j => j.Name.Contains("材料")).Select(j => j.Value).ToList();
+                }
+            });
         }
 
         public List<AgentInput> getAgentInputs()

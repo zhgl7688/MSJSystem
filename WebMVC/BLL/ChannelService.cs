@@ -18,12 +18,24 @@ namespace WebMVC.BLL
         List<BrandTable> brands;
         List<AgentTable> agents;
         AgentStages agentStage;
+        decimal I1, I2;
         public ChannelService(InvertmentTable1 invertmentTable1)
         {
 
             brands = invertmentTable1.getBrandTable();
             agents = invertmentTable1.getAgents();
             agentStage = new AgentStages();
+            using (var db = new Infrastructure.AppIdentityDbContext())
+            {
+
+                var bs = db.ChannelServiceInit.FirstOrDefault(s => s.id == 1);
+                if (bs != null)
+                {
+                    I1 = bs.ChannelService_J1;
+                    I2 = bs.ChannelService_J2;
+                }
+
+            }
             Init();
         }
         private void Init()
@@ -31,7 +43,7 @@ namespace WebMVC.BLL
             #region 起始阶段
             ChannelServiceTable channl0 = new ChannelServiceTable()
             {
-                Stage = agentStage.stages[0],
+                Stage = agentStage.stages[0], I1=this.I1,I2=this.I2
             };
 
             channelServices.Add(channl0);
@@ -60,13 +72,6 @@ namespace WebMVC.BLL
                 {
                     channel.B.Agent.Add(itemAgent.Bagent[i].servet);
                 }
-
-                //channel.B.Agent1 = itemAgent.B.servet;
-                //channel.B.Agent2 = itemAgent.J.servet;
-                //channel.B.Agent3 = itemAgent.R.servet;
-                //channel.B.Agent4 = itemAgent.Z.servet;
-                //channel.B.Agent5 = itemAgent.AH.servet;
-                //channel.B.Agent6 = itemAgent.AP.servet;
             }
             #endregion
             for (int i = 1; i < channelServices.Count; i++)
@@ -88,6 +93,8 @@ namespace WebMVC.BLL
         /// 渠道服务投入							
         /// </summary>
         public MP B { get; set; } = new MP();
+        public   decimal I1 = 0;
+           public     decimal I2 = 0;
         /// <summary>
         /// 顾客满意度指数																	
         /// </summary>
@@ -95,19 +102,8 @@ namespace WebMVC.BLL
         {
             get
             {
-                decimal I1 = 0;
-                decimal I2 = 0;
-                using (var db = new Infrastructure.AppIdentityDbContext())
-                {
-
-                    var bs = db.ChannelServiceInit.FirstOrDefault(s => s.id == 1);
-                    if (bs != null)
-                    {
-                        I1 = bs.ChannelService_J1;
-                        I2 = bs.ChannelService_J2;
-                    }
-
-                }
+              
+                
 
                 var result = new MJA();
                 var count = new AgentStages().agents.Count;
@@ -122,9 +118,16 @@ namespace WebMVC.BLL
                     }
                     else
                     {
-                        result.M.Add(LastAB.M[i] * I1 + Cal.Percent(B.M, B.J, B.Agent[i]));
-                        result.J.Add(LastAB.J[i] * I1 + Cal.Percent(B.J, B.M, B.Agent[i]));
-                        result.Agent.Add(LastAB.Agent[i] * I1 + Cal.Percent(B.Agent[i], B.M, B.J));
+                        var m= LastAB.M.Count>i?LastAB.M[i]:0;
+                        var j= LastAB.J.Count>i?LastAB.J[i]:0;
+                        var agent= LastAB.Agent.Count>i?LastAB.Agent[i]:0;
+                        var b= B.Agent.Count>i?B.Agent[i]:0;
+                     
+
+
+                        result.M.Add(m * I1 + Cal.Percent(B.M, B.J, b));
+                        result.J.Add(j * I1 + Cal.Percent(B.J, B.M,b));
+                        result.Agent.Add(agent * I1 + Cal.Percent(b, B.M, B.J));
                     }
                 }
                 return result;

@@ -47,11 +47,13 @@ namespace MSJTest
             var ss = tables.brands;
             foreach (var item in ss)
             {
+                item.UserId = "";
                 dbCotext.BrandsInputs.Add(item);
             }
             var sss = tables.agentInputs;
             foreach (var item in sss)
             {
+                item.UserId = "";
               //  if (item.Stage==Stage.第三阶段.ToString())
                 dbCotext.AgentInputs.Add(item);
             }

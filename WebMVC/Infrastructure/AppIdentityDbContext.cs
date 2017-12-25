@@ -35,6 +35,8 @@ namespace WebMVC.Infrastructure
         public DbSet<PriceMange> PriceMange { get; set; }
         public DbSet<PurchaseTable> PurchaseTable { get; set; }
         public DbSet<StageAdd> StageAdd { get; set; }
+        public DbSet<InvestSub> InvestSub { get; set; }
+        public DbSet<PriceManageSub> PriceManageSub { get; set; }
 
     }
     public class IdentityDbInit : DropCreateDatabaseIfModelChanges<AppIdentityDbContext>
@@ -86,37 +88,37 @@ namespace WebMVC.Infrastructure
             context.StageAdd.Add(new StageAdd
             {
                 Stage = "第1阶段",
-                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                StageType = Common.agentInputStageType.代价格管控表.ToString(),
                 retail = "零售价",
             });
             context.StageAdd.Add(new StageAdd
             {
                 Stage = "第1阶段",
-                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                StageType = Common.agentInputStageType.代价格管控表.ToString(),
                 retail = "零售系统供价",
             });
             context.StageAdd.Add(new StageAdd
             {
                 Stage = "第2阶段",
-                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                StageType = Common.agentInputStageType.代价格管控表.ToString(),
                 retail = "零售价1",
             });
             context.StageAdd.Add(new StageAdd
             {
                 Stage = "第2阶段",
-                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                StageType = Common.agentInputStageType.代价格管控表.ToString(),
                 retail = "零售系统供价1",
             });
             context.StageAdd.Add(new StageAdd
             {
                 Stage = "第2阶段",
-                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                StageType = Common.agentInputStageType.代价格管控表.ToString(),
                 retail = "零售价2",
             });
             context.StageAdd.Add(new StageAdd
             {
                 Stage = "第2阶段",
-                StageType = Common.agentInputStageType.价格管控表.ToString(),
+                StageType = Common.agentInputStageType.代价格管控表.ToString(),
                 retail = "零售系统供价2",
             });
             context.StageAdd.Add(new StageAdd
@@ -136,6 +138,60 @@ namespace WebMVC.Infrastructure
                 Stage = "第2阶段",
                 StageType = Common.agentInputStageType.进货表.ToString(),
                 retail = "进货2",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第1阶段",
+                StageType = Common.agentInputStageType.投资表.ToString(),
+                retail = "外观常规",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第1阶段",
+                StageType = Common.agentInputStageType.投资表.ToString(),
+                retail = "功能新增",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第1阶段",
+                StageType = Common.agentInputStageType.投资表.ToString(),
+                retail = "材料新增",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.投资表.ToString(),
+                retail = "外观常规1",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.投资表.ToString(),
+                retail = "外观常规2",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.投资表.ToString(),
+                retail = "功能新增1",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.投资表.ToString(),
+                retail = "功能新增2",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.投资表.ToString(),
+                retail = "材料新增1",
+            });
+            context.StageAdd.Add(new StageAdd
+            {
+                Stage = "第2阶段",
+                StageType = Common.agentInputStageType.投资表.ToString(),
+                retail = "材料新增2",
             });
             base.Seed(context);
         }

@@ -4,6 +4,9 @@ using WebMVC.BLL;
 
 namespace MSJTest.BLL
 {
+    /// <summary>
+    /// 进销存报表
+    /// </summary>
     [TestClass]
     public class InvoicingReportTest:BaseTest
     {

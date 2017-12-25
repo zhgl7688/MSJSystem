@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMVC.Infrastructure;
 
 namespace WebMVC.Common
 {
@@ -18,9 +19,9 @@ namespace WebMVC.Common
     public enum Stage
     {
         起始阶段,
-        第一阶段,
-        第二阶段,
-        第三阶段
+        第1阶段,
+        第2阶段,
+        第3阶段
 
     }
     public enum AgentName
@@ -43,11 +44,25 @@ namespace WebMVC.Common
     }
     public enum ButtonStyle
     {
-       Default, Primary,Succes,Info,Warning, Dangers,Link
+        Default, Primary, Succes, Info, Warning, Dangers, Link
     }
     public enum agentInputStageType
     {
-           价格管控表 ,进货表 
+        代价格管控表, 进货表, 投资表, 品价格管控表
 
+    }
+    public static class subList
+    {
+        public static List<string> GetsubList
+        {
+            get
+            {
+                using (var db = new AppIdentityDbContext())
+                {
+                    return db.CodeInit.Where(s => s.Code == "Sub").Select(s => s.Text).ToList();
+                }
+            }
+
+        }
     }
 }

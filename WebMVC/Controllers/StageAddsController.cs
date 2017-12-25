@@ -131,9 +131,13 @@ namespace WebMVC.Controllers
             get
             {
                 var stageType = new List<CodeInit>();
- 
-                stageType.Add(new CodeInit { Text = agentInputStageType.价格管控表.ToString()});
-                stageType.Add(new CodeInit { Text = agentInputStageType.进货表.ToString()  });
+                var slist = Enum.GetNames(typeof(agentInputStageType));
+                foreach (var item in slist)
+                {
+                    stageType.Add(new CodeInit { Text = item });
+
+                }
+
                 return stageType;
             }
 

@@ -70,7 +70,7 @@ namespace WebMVC.BLL
             invoicingReports = InvoicingReport.Get();
             priceControls = priceControl.Get();
             currentShares = currentShare.Get();
-            stage = Stage.第二阶段.ToString();
+            stage = Stage.第2阶段.ToString();
             Init();
         }
         public void Init()
@@ -183,8 +183,8 @@ namespace WebMVC.BLL
         #region S品牌代理商信息表 sAgentInfos
         private void sAgentInfos()
         {
-            var investment2 = investment.Get().FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
-            var priceControl2 = priceControls.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
+            var investment2 = investment.Get().FirstOrDefault(s => s.Stage == Stage.第2阶段.ToString());
+            var priceControl2 = priceControls.FirstOrDefault(s => s.Stage == Stage.第2阶段.ToString());
             foreach (var item in invoicingReports)
             {
                 var sAgentInfo = new SecondSAgentInfo
@@ -227,8 +227,8 @@ namespace WebMVC.BLL
             var summary18 = summaryAsserts.FirstOrDefault(s => s.A == "库存需按照10%计提跌价损失");
             var summary19 = summaryAsserts.FirstOrDefault(s => s.A == "扣除计提跌价损失及银行利息后的利润");
             var summary15 = summaryAsserts.FirstOrDefault(s => s.A == "期末现金余额");
-            var currentShare2 = currentShares.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
-            var marketPrice2 = marketPrices.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
+            var currentShare2 = currentShares.FirstOrDefault(s => s.Stage == Stage.第2阶段.ToString());
+            var marketPrice2 = marketPrices.FirstOrDefault(s => s.Stage == Stage.第2阶段.ToString());
 
             foreach (var item in invoicingReports)
             {
@@ -237,14 +237,14 @@ namespace WebMVC.BLL
                     代理方 = item.AgentName,
 
                 };
-                sAgentResult.期初 = item.I;
-                sAgentResult.期末 = item.S;
-                sAgentResult.销售量 = item.O;
-                sAgentResult.销售金额 = item.P;
+                sAgentResult.期初 = item.DStage[1][0];
+                sAgentResult.期末 = item.DStage[2][0];
+                sAgentResult.销售量 = item.CStage[2][0];
+                sAgentResult.销售金额 = item.HStage[2][0];
                 sAgentResult.RC2期初 = 0;
-                sAgentResult.RC2期末 = item.U;
-                sAgentResult.RC2销售量 = item.Q;
-                sAgentResult.RC2销售金额 = item.R;
+                sAgentResult.RC2期末 = item.DStage[2][1];
+                sAgentResult.RC2销售量 = item.CStage[2][1];
+                sAgentResult.RC2销售金额 = item.HStage[2][1];
                 var indexAgent = agentStages.agents.IndexOf(sAgentResult.代理方);
                 sAgentResult.数量 = ((sAgentResult.期初 + sAgentResult.销售量 - currentShare2.CT[1].Agent[indexAgent]) > 0 ?
                     0 : (sAgentResult.期初 + sAgentResult.销售量 - currentShare2.CT[1].Agent[indexAgent]));

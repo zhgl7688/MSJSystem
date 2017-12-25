@@ -22,9 +22,9 @@ namespace WebMVC.BLL
 
             var stageadds = new List<Models.StageAdd>();
             stageadds.Add(new Models.StageAdd { Stage = "起始阶段" });
-            stageadds.Add(new Models.StageAdd { Stage = "第一阶段" });
-            stageadds.Add(new Models.StageAdd { Stage = "第二阶段" });
-            stageadds.Add(new Models.StageAdd { Stage = "第三阶段" });
+            stageadds.Add(new Models.StageAdd { Stage = "第1阶段" });
+            stageadds.Add(new Models.StageAdd { Stage = "第2阶段" });
+            stageadds.Add(new Models.StageAdd { Stage = "第3阶段" });
 
             agents = new List<string> {
 

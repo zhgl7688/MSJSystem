@@ -71,7 +71,7 @@ namespace WebMVC.BLL
             priceControls = priceControl.Get();
             currentShares = currentShare.Get();
             this.secondPPT = SecondPPT;
-            stage = Stage.第三阶段.ToString();
+            stage = Stage.第3阶段.ToString();
             Init();
         }
         public void Init()
@@ -257,18 +257,18 @@ namespace WebMVC.BLL
                     代理方 = item.AgentName,
 
                 };
-                sAgentResult.期初 = item.S;
-                sAgentResult.期末 = item.AI;
-                sAgentResult.销售量 = item.AC;
-                sAgentResult.销售金额 = item.AD;
-                sAgentResult.RC2期初 = item.U;
-                sAgentResult.RC2期末 = item.AK;
-                sAgentResult.RC2销售量 = item.AE;
-                sAgentResult.RC2销售金额 = item.AF;
+                sAgentResult.期初 = item.DStage[2][0];
+                sAgentResult.期末 = item.DStage[3][0];
+                sAgentResult.销售量 = item.CStage[3][0];
+                sAgentResult.销售金额 = item.HStage[3][0];
+                sAgentResult.RC2期初 = item.DStage[2][1];
+                sAgentResult.RC2期末 = item.DStage[3][1];
+                sAgentResult.RC2销售量 = item.CStage[3][1];
+                sAgentResult.RC2销售金额 = item.HStage[3][1];
                 sAgentResult.RC3期初 = 0;
-                sAgentResult.RC3期末 = item.AM;
-                sAgentResult.RC3销售量 = item.AG;
-                sAgentResult.RC3销售金额 = item.AH;
+                sAgentResult.RC3期末 = item.DStage[3][2];
+                sAgentResult.RC3销售量 = item.CStage[3][2];
+                sAgentResult.RC3销售金额 = item.HStage[3][2];
 
                 var indexAgent = agentStages.agents.IndexOf(item.AgentName);
                 sAgentResult.数量 = SumRcNumber(sAgentResult.期初, sAgentResult.销售量, currentShare3.CT[1].Agent[indexAgent]);

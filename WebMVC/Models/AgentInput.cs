@@ -141,12 +141,12 @@ namespace WebMVC.Models
         /// 零售价
         /// </summary>
         [DisplayName("零售价")]
-        public List<decimal> retailPriceRC { get; set; } //= new List<decimal>();
+        public List<decimal> retailPriceRC { get; set; } = new List<decimal>();
         /// <summary>
         /// 零售系统供价
         /// </summary>
         [DisplayName("零售系统供价")]
-        public List<decimal> SystemPriceRC { get; set; }// = new List<decimal>();
+        public List<decimal> SystemPriceRC { get; set; }= new List<decimal>();
 
         /// <summary>
         /// RC1进货

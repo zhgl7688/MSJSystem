@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMVC.Infrastructure;
 using WebMVC.Models;
 
 
@@ -12,14 +13,15 @@ namespace WebMVC.BLL
         List<StockReportTable> stockReports = new List<StockReportTable>();
         List<AgentInput> agents;//原表代表商进货表
         List<MarketTable> markets;//市场价格
-
+        AgentStages agentStages;
         /// <summary>
         /// 进货报表
         /// </summary>
         public StockReport(InvertmentTable1 InvertmentTable1, MarketPrice MarketPrice)
         {
-            agents =   InvertmentTable1.getAgentInputs();
-            markets =   MarketPrice.Get();
+            agents = InvertmentTable1.getAgentInputs();
+            markets = MarketPrice.Get();
+            agentStages = new AgentStages();
             Init();
         }
         public void Init()
@@ -40,26 +42,14 @@ namespace WebMVC.BLL
                     stockReports.Add(stock);
                 }
                 var prices = markets.FirstOrDefault(s => s.Stage == item.Stage).CM;
-                if (item.Stage == Common.Stage.第一阶段.ToString())
+                var indexStage = agentStages.stages.IndexOf(item.Stage);
+                if (indexStage == 1)
                 {
-
-                    stock.B = 31; stock.C = 30; stock.E.Add(1, new StockAmount { Stock = item.FirstPurchase, Price = prices[1].S });
-                    stock.E.Add(2, new StockAmount());
-                    stock.E.Add(3, new StockAmount());
-
+                    stock.B = item.BasePurchase; stock.C = item.actualSale;
                 }
-                else if (item.Stage == Common.Stage.第二阶段.ToString())
+                for (int j = 0; j < indexStage; j++)
                 {
-                    stock.E.Add(1, new StockAmount { Stock = item.FirstPurchase, Price = prices[1].S });
-                    stock.E.Add(2, new StockAmount { Stock = item.SecondPurchase, Price = prices[2].S });
-                    stock.E.Add(3, new StockAmount());
-
-                }
-                else
-                {
-                    stock.E.Add(1, new StockAmount { Stock = item.FirstPurchase, Price = prices[1].S });
-                    stock.E.Add(2, new StockAmount { Stock = item.SecondPurchase, Price = prices[2].S });
-                    stock.E.Add(3, new StockAmount { Stock = item.ThirdPurchase, Price = prices[3].S });
+                    stock.E.Add(j, new StockAmount { Stock = item.Purchase[j], Price = prices[j].S });
 
                 }
 
@@ -72,7 +62,7 @@ namespace WebMVC.BLL
     }
     public class StockReportTable
     {
-       public int Id { get; set; }
+        public int Id { get; set; }
         public string Stage { get; set; }
         public string AgentName { get; set; }
         public decimal B { get; set; }

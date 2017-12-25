@@ -72,6 +72,7 @@
     <Compile Include="BLL\InvoicingReportTest.cs" />
     <Compile Include="BLL\SummaryAssentTest.cs" />
     <Compile Include="BLL\ThirdPPTTest.cs" />
+    <Compile Include="BLL\UnitTest1.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -89,12 +89,7 @@ namespace WebMVC.BLL
                 if (agent != null)
                 {
                     investment.CLAgent = agent.Bagent;
-                    //investment.CL = agent.B;
-                    //investment.CT = agent.J;
-                    //investment.DB = agent.R;
-                    //investment.DJ = agent.Z;
-                    //investment.DR = agent.AH;
-                    //investment.DZ = agent.AP;
+ 
                 }
 
             }
@@ -120,33 +115,7 @@ namespace WebMVC.BLL
                 }
                 index = agentStage.agents.IndexOf(item.AgentName);
                 investment.AJ_SummaryAsserts[index] = item.Sum.Sum;
-                //var index = (int)Enum.Parse(typeof(Stage), item.Stage);
-                //var investment = investments.FirstOrDefault(s => s.Stage == Enum.GetName(typeof(Stage), index + 1));
-
-                //AgentName agentName = (AgentName)Enum.Parse(typeof(AgentName), item.AgentName);
-                //switch (agentName)
-                //{
-                //    case AgentName.代1:
-                //        investment.AJ_SummaryAssert = item.Sum.Sum;
-                //        break;
-                //    case AgentName.代2:
-                //        investment.AS_SummaryAssert = item.Sum.Sum;
-                //        break;
-                //    case AgentName.代3:
-                //        investment.BB_SummaryAssert = item.Sum.Sum;
-                //        break;
-                //    case AgentName.代4:
-                //        investment.BK_SummaryAssert = item.Sum.Sum;
-                //        break;
-                //    case AgentName.代5:
-                //        investment.BT_SummaryAssert = item.Sum.Sum;
-                //        break;
-                //    case AgentName.代6:
-                //        investment.CC_SummaryAssert = item.Sum.Sum;
-                //        break;
-                //    default:
-                //        break;
-                //}
+               
 
             }
             investments.ForEach(s => s.ItCAL());
@@ -167,14 +136,8 @@ namespace WebMVC.BLL
             var agentStages = new AgentStages();
             for (int i = 0; i < agentStages.agents.Count; i++)
             {
-                EI.Add(i + 1, 0);
+                EI.Add(i, 0);
             }
-            //EI.Add(1, 0);
-            //EI.Add(2, 0);
-            //EI.Add(3, 0);
-            //EI.Add(4, 0);
-            //EI.Add(5, 0);
-            //EI.Add(6, 0);
 
         }
         [DisplayName("阶段")]
@@ -293,7 +256,7 @@ namespace WebMVC.BLL
 
 
             decimal r;
-            if (Stage == Common.Stage.第一阶段.ToString()) d = 2000;
+            if (Stage == Common.Stage.第1阶段.ToString()) d = 2000;
             else d *= 0.2m;
             r = d - K - P.Surfacerc[0] - Q.Functionrc[0] - R.Material[0];
 

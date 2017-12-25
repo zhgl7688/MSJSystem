@@ -22,6 +22,7 @@ namespace WebMVC.BLL
         AgentStages agentStage;
         public BrandStrength(InvertmentTable1 invertmentTable1)
         {
+            agentStage = new AgentStages();
             using (var db = new Infrastructure.AppIdentityDbContext())
             {
                 BrandStrengthInit bs = db.BrandStrengthInit.FirstOrDefault(s => s.id == 1);
@@ -32,7 +33,7 @@ namespace WebMVC.BLL
                 }
             }
             investMents = invertmentTable1.getBrandTable();
-            agentStage = new AgentStages();
+  
             Init();
         }
         public void Init()

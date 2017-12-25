@@ -39,8 +39,7 @@ namespace WebMVC.BLL
         }
         public void Init()
         {
-           // Parallel.ForEach(marketPromotions, item =>
-            //{
+        
                  foreach (var item in marketPromotions)
                  {
                 var intentionIndex = intentionIndexs.FirstOrDefault(s => s.Stage == item.Stage);
@@ -152,27 +151,7 @@ namespace WebMVC.BLL
                 J = j.J,
                 Agent = a.Agent
             };
-            //return new MJA()
-            //{
-            //    M1 = m.M1,
-            //    M2 = m.M2,
-            //    M3 = m.M3,
-            //    M4 = m.M4,
-            //    M5 = m.M5,
-            //    M6 = m.M6,
-            //    J1 = j.J1,
-            //    J2 = j.J2,
-            //    J3 = j.J3,
-            //    J4 = j.J4,
-            //    J5 = j.J5,
-            //    J6 = j.J6,
-            //    Agent1 = a.Agent1,
-            //    Agent2 = a.Agent2,
-            //    Agent3 = a.Agent3,
-            //    Agent4 = a.Agent4,
-            //    Agent5 = a.Agent5,
-            //    Agent6 = a.Agent6,
-            //};
+
         }
 
 

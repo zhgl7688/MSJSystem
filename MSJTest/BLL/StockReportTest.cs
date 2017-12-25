@@ -13,9 +13,9 @@ namespace MSJTest.BLL
         {
 
             var result = stockReport.Get();
-            Assert.AreEqual(4, result.Count);
-            Assert.AreEqual(31, result[1].B);
-            Assert.AreEqual(12090m, decimal.Round(result[3].E[1].Amount, 2));
+            Assert.AreEqual(12, result.Count);
+            Assert.AreEqual(31, result[0].B);
+            Assert.AreEqual(12090m, decimal.Round(result[2].E[0].Amount, 2));
         }
     }
 }

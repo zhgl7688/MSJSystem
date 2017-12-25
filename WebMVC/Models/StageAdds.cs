@@ -19,6 +19,6 @@ namespace WebMVC.Models
         public string Stage { get; set; }
         [DisplayName("名称")]
         public string retail { get; set; }
-        public string retailPrice { get; set; }
+        public string retailPrice { get; set; } = "0.00";
     }
 }

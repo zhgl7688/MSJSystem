@@ -106,22 +106,25 @@ namespace WebMVC.BLL
                 }
                 for (int i = 0; i < indexStage-1; i++)
                 {
+                    var surfaceRC= item.SurfaceRC.Count > i ? item.SurfaceRC[i] : 0;
+                    var functionRC = item.FunctionRC.Count > i ? item.FunctionRC[i] : 0;
+                    var materialRC = item.MaterialRC.Count > i ? item.MaterialRC[i] : 0;
                     switch (brand)
                     {
                         case Brand.M品牌:
-                            productInnvoation.T.AIRC[i].M = item.SurfaceRC[i];
-                            productInnvoation.AC.FIRC[i].M = item.FunctionRC[i];
-                            productInnvoation.AL.MIRC[i].M = item.MaterialRC[i];
+                            productInnvoation.T.AIRC[i].M = surfaceRC;
+                            productInnvoation.AC.FIRC[i].M = functionRC;
+                            productInnvoation.AL.MIRC[i].M = materialRC;
                             break;
                         case Brand.S品牌:
-                            productInnvoation.T.AIRC[i].S = item.SurfaceRC[i];
-                            productInnvoation.AC.FIRC[i].S = item.FunctionRC[i];
-                            productInnvoation.AL.MIRC[i].S = item.MaterialRC[i];
+                            productInnvoation.T.AIRC[i].S = surfaceRC;
+                            productInnvoation.AC.FIRC[i].S = functionRC;
+                            productInnvoation.AL.MIRC[i].S = materialRC;
                             break;
                         case Brand.J品牌:
-                            productInnvoation.T.AIRC[i].J = item.SurfaceRC[i];
-                            productInnvoation.AC.FIRC[i].J = item.FunctionRC[i];
-                            productInnvoation.AL.MIRC[i].J = item.MaterialRC[i];
+                            productInnvoation.T.AIRC[i].J = surfaceRC;
+                            productInnvoation.AC.FIRC[i].J = functionRC;
+                            productInnvoation.AL.MIRC[i].J = materialRC;
                             break;
                     }
                 }

@@ -21,7 +21,7 @@ namespace WebMVC.BLL
 
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第一阶段.ToString(),
+                Stage = Common.Stage.第1阶段.ToString(),
                 EndImage = 247.5M,
                 Salesperson = 247.5M,
                 HousePromote = 196,
@@ -42,7 +42,7 @@ namespace WebMVC.BLL
             //第2代1
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第二阶段.ToString(),
+                Stage = Common.Stage.第2阶段.ToString(),
                 EndImage = 400,
                 Salesperson = 450,
                 HousePromote = 280,
@@ -59,7 +59,7 @@ namespace WebMVC.BLL
             //第3代1
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第三阶段.ToString(),
+                Stage = Common.Stage.第3阶段.ToString(),
                 EndImage = 800,
                 Salesperson = 1400,
                 HousePromote = 800,
@@ -78,7 +78,7 @@ namespace WebMVC.BLL
             //第1代2
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第一阶段.ToString(),
+                Stage = Common.Stage.第1阶段.ToString(),
                 EndImage = 450,
                 Salesperson = 450,
                 HousePromote = 392,
@@ -98,7 +98,7 @@ namespace WebMVC.BLL
             //第1代3
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第一阶段.ToString(),
+                Stage = Common.Stage.第1阶段.ToString(),
                 EndImage = 575,
                 Salesperson = 575,
                 HousePromote = 460,
@@ -119,7 +119,7 @@ namespace WebMVC.BLL
             //第1代4
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第一阶段.ToString(),
+                Stage = Common.Stage.第1阶段.ToString(),
                 EndImage = 230,
                 Salesperson = 280,
                 HousePromote = 200,
@@ -140,7 +140,7 @@ namespace WebMVC.BLL
             //第2代2
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第二阶段.ToString(),
+                Stage = Common.Stage.第2阶段.ToString(),
                 EndImage = 300,
                 Salesperson = 430,
                 HousePromote = 400,
@@ -160,7 +160,7 @@ namespace WebMVC.BLL
             //第2代3
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第二阶段.ToString(),
+                Stage = Common.Stage.第2阶段.ToString(),
                 EndImage = 450,
                 Salesperson = 450,
                 HousePromote = 360,
@@ -179,7 +179,7 @@ namespace WebMVC.BLL
             //第2代4
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第二阶段.ToString(),
+                Stage = Common.Stage.第2阶段.ToString(),
                 EndImage = 462,
                 Salesperson = 392,
                 HousePromote = 182,
@@ -201,7 +201,7 @@ namespace WebMVC.BLL
             //第3代2
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第三阶段.ToString(),
+                Stage = Common.Stage.第3阶段.ToString(),
                 EndImage = 500,
                 Salesperson = 900,
                 HousePromote = 860,
@@ -221,7 +221,7 @@ namespace WebMVC.BLL
             //第3代3
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第三阶段.ToString(),
+                Stage = Common.Stage.第3阶段.ToString(),
                 EndImage = 900,
                 Salesperson = 900,
                 HousePromote = 720,
@@ -241,7 +241,7 @@ namespace WebMVC.BLL
             //第3代4
             agentInputs.Add(new AgentInput
             {
-                Stage = Common.Stage.第三阶段.ToString(),
+                Stage = Common.Stage.第3阶段.ToString(),
                 EndImage = 800,
                 Salesperson = 950,
                 HousePromote = 770,
@@ -263,7 +263,7 @@ namespace WebMVC.BLL
             //第1S
             brands.Add(new BrandTable
             {
-                Stage = Common.Stage.第一阶段.ToString(),
+                Stage = Common.Stage.第1阶段.ToString(),
                 Brand = Brand.S品牌.ToString(),
                 advertise = 600,
                 SurfaceRC = new List<decimal> { 120,0,0 },
@@ -274,7 +274,7 @@ namespace WebMVC.BLL
             //第2S
             brands.Add(new BrandTable
             {
-                Stage = Common.Stage.第二阶段.ToString(),
+                Stage = Common.Stage.第2阶段.ToString(),
                 Brand = Brand.S品牌.ToString(),
                 advertise = 300,
   
@@ -290,7 +290,7 @@ namespace WebMVC.BLL
             //第3S
             brands.Add(new BrandTable
             {
-                Stage = Common.Stage.第三阶段.ToString(),
+                Stage = Common.Stage.第3阶段.ToString(),
                 Brand = Brand.S品牌.ToString(),
                 advertise = 600,
        
@@ -308,7 +308,7 @@ namespace WebMVC.BLL
             //第1M
             brands.Add(new BrandTable
             {
-                Stage = Common.Stage.第一阶段.ToString(),
+                Stage = Common.Stage.第1阶段.ToString(),
                 Brand = Brand.M品牌.ToString(),
                 advertise = 640,
                 
@@ -329,7 +329,7 @@ namespace WebMVC.BLL
             //第2M
             brands.Add(new BrandTable
             {
-                Stage = Common.Stage.第二阶段.ToString(),
+                Stage = Common.Stage.第2阶段.ToString(),
                 Brand = Brand.M品牌.ToString(),
                 advertise = 553,
  
@@ -355,7 +355,7 @@ namespace WebMVC.BLL
             //第3M
             brands.Add(new BrandTable
             {
-                Stage = Common.Stage.第三阶段.ToString(),
+                Stage = Common.Stage.第3阶段.ToString(),
                 Brand = Brand.M品牌.ToString(),
                 advertise = 722,
             
@@ -387,7 +387,7 @@ namespace WebMVC.BLL
             //第1J
             brands.Add(new BrandTable
             {
-                Stage = Common.Stage.第一阶段.ToString(),
+                Stage = Common.Stage.第1阶段.ToString(),
                 Brand = Brand.J品牌.ToString(),
                 advertise = 200,
                
@@ -409,7 +409,7 @@ namespace WebMVC.BLL
             //第2J
             brands.Add(new BrandTable
             {
-                Stage = Common.Stage.第二阶段.ToString(),
+                Stage = Common.Stage.第2阶段.ToString(),
                 Brand = Brand.J品牌.ToString(),
                 advertise = 600,
             
@@ -435,7 +435,7 @@ namespace WebMVC.BLL
             //第3J
             brands.Add(new BrandTable
             {
-                Stage = Common.Stage.第三阶段.ToString(),
+                Stage = Common.Stage.第3阶段.ToString(),
                 Brand = Brand.J品牌.ToString(),
 
  

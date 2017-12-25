@@ -162,12 +162,12 @@ namespace WebMVC.Common
         /// <returns></returns>
         public static decimal GetMJAAverage(MJA mja, int count, MJAType mjatype)
         {
-            Func<decimal[], int, decimal> av = (a, b) => (b==0?0:a.Take(count).Sum() / b);
+            Func<decimal[], int, decimal> av = (a, b) => (b == 0 ? 0 : a.Take(count).Sum() / b);
             switch (mjatype)
             {
-                case MJAType.M: return av(  mja.M.ToArray() , count);
-                case MJAType.J: return av(  mja.J.ToArray(), count);
-                case MJAType.Agent: return av(  mja.Agent.ToArray(), count);
+                case MJAType.M: return av(mja.M.ToArray(), count);
+                case MJAType.J: return av(mja.J.ToArray(), count);
+                case MJAType.Agent: return av(mja.Agent.ToArray(), count);
             }
             return 0;
         }
@@ -189,10 +189,56 @@ namespace WebMVC.Common
             }
             return child;
         }
-        public static decimal FunctionIndex(decimal m,decimal s,decimal j,decimal Averaget)
+        public static decimal FunctionIndex(decimal m, decimal s, decimal j, decimal Averaget)
         {
             return m > s && m > j ? 1.3m : m < s && m < j ? 0.7m : m > Averaget ? 1.15m : m == Averaget ? 1 : 0.85m;
-            
+
+        }
+
+        /// <summary>
+        ///    进销存报表中实际销售
+        /// </summary>
+        /// <param name="ct">市场容量及各品牌当年占有率!CT4</param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public static Dictionary<int, List<decimal>> ActualSale(int v, Dictionary<int, Dictionary<int, MJA>> cts, out Dictionary<int, List<decimal>> d, Dictionary<int, List<decimal>> b)
+        {
+
+            d = new Dictionary<int, List<decimal>>();
+            //v代理商次数
+            var result = new Dictionary<int, List<decimal>>();
+
+            result.Add(0, new List<decimal> { cts[0][0].Agent[v] });
+            d.Add(0, new List<decimal> { b[0][0] - cts[0][0].Agent[v] });
+            for (int i = 1; i < cts.Count; i++)//阶段次数 4次
+            {
+                result.Add(i, new List<decimal>());
+                d.Add(i, new List<decimal>());
+                for (int j = 0; j < i; j++)
+                {
+
+                    var ddt = i > 1 ? (i - 1 == j ? 0 : d[i - 1][j]) : d[i - 1][j];
+                    var val = cct(ddt, b[i][j], cts[i][j].Agent[v]);
+
+                    result[i].Add(val);
+
+                    var ddtt = (ddt + b[i][j] - val) > 0 ? (ddt + b[i][j] - val) : 0;
+                    d[i].Add(ddtt);
+                }
+            }
+
+
+
+
+            return result;
+
+        }
+
+
+        public static decimal cct(decimal d, decimal e, decimal ct)
+        {
+            return decimal.Round((d + e) < ct ? d + e : ct, 0);
         }
     }
 }

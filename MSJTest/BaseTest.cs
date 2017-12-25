@@ -46,12 +46,15 @@ namespace MSJTest
             intentionIndex = new IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
 
             currentShare = new CurrentShare(intentionIndex, priceControl);
-            //marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
+            marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
 
-            //stockReport = new StockReport(invertmentTable1, marketPrice);
-            //investment = new Investment(invertmentTable1, stockReport);
-            //invoicingReport = new InvoicingReport(currentShare, marketPrice, stockReport);
-            //summaryAssent = new SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
+            stockReport = new StockReport(invertmentTable1, marketPrice);
+            investment = new Investment(invertmentTable1, stockReport);
+            invoicingReport = new InvoicingReport(currentShare, marketPrice, stockReport);
+
+
+
+       summaryAssent = new SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
             //lastBrand = new LastBrand(currentShare,invertmentTable1.GetAgentCount);
             //firstPPT = new FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport,priceControl);
             //secondPPT = new SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);

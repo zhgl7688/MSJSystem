@@ -160,7 +160,20 @@ namespace WebMVC.Models
         /// </summary>
         [DisplayName("新增单品零售价RC3")]
         public decimal NewRetailPriceR3 { get; set; }
+        /// <summary>
+        /// 零售价
+        /// </summary>
+        [DisplayName("零售价")]
+        public List<decimal> retailPriceRC { get; set; } = new List<decimal>();
+        /// <summary>
+        /// 零售系统供价
+        /// </summary>
+        [DisplayName("零售系统供价")]
+        public List<decimal> SystemPriceRC { get; set; } = new List<decimal>();
+
         public string UserId { get; set; }
+        public virtual ICollection<InvestSub> InvestSub { get; set; }
+        public virtual ICollection<PriceManageSub> PriceManageSub { get; set; }
 
         public BrandInput brandInput
         {
@@ -179,6 +192,23 @@ namespace WebMVC.Models
                 };
             }
         }
+    }
+
+    public class InvestSub
+    {
+        [Key]
+        public virtual int PurchaseId { get; set; }
+        public virtual int BrandID { get; set; }
+        public virtual string Name { get; set; }
+        public virtual decimal Value { get; set; }
+    }
+    public class PriceManageSub
+    {
+        [Key]
+        public virtual int PriceManageId { get; set; }
+        public virtual int BrandID { get; set; }
+        public virtual string Name { get; set; }
+        public virtual decimal Value { get; set; }
     }
     public class BrandTable : BrandsInput
     {

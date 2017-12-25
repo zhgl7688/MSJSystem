@@ -32,130 +32,78 @@ namespace WebMVC.BLL
         public void Init()
         {
 
-            #region 第一阶段
-            var market1 = new MarketTable() { Stage = agentStages.stages[1], };
-
-            var priceControl1 = priceControlTables.FirstOrDefault(s => s.Stage == agentStages.stages[1]);
-            var currentShare1 = currentShares.FirstOrDefault(s => s.Stage == agentStages.stages[1]);
-            var productInnvoation1 = productInnvoations.FirstOrDefault(s => s.Stage == agentStages.stages[1]);
-            if (priceControl1 == null || currentShare1 == null || productInnvoation1 == null) return;
-            market1.B.M = currentShare1.BJ[1].M.Average();
-            market1.B.J = currentShare1.CB[1].J.Average();
-            market1.D = currentShare1.CT[1];
-
-            market1.CD[1] = new RC { M = 300, S = 315, J = 285 };
-
-
-            market1.CM[1] = new RC { M = RC1M, S = RC1S, J = RC1J };
-            market1.DE[1] = new RC { M = priceControl1.B.RcM[0], J = priceControl1.B.RcJ[0] };
-            market1.DK[1] = new MJA { Agent = priceControl1.D[1].Agent };
-            for (int i = 0; i < agentStages.agents.Count; i++)
+            for (int i = 0; i < currentShares.Count; i++)
             {
-                var agent = GetEF(priceControl1.K[1].Agent[i], priceControl1.D[1].Agent[i]);
-                market1.EF[1].Agent.Add(agent);
+                if (i == agentStages.stages.Count-1) return;
+                var stage = agentStages.stages[i + 1];
+                var market = new MarketTable { Id = i, Stage = stage };
+                var priceControl1 = priceControlTables.FirstOrDefault(s => s.Stage == stage);
+                var currentShare1 = currentShares.FirstOrDefault(s => s.Stage == stage);
+                var productInnvoation1 = productInnvoations.FirstOrDefault(s => s.Stage == stage);
+                if (priceControl1 == null || currentShare1 == null || productInnvoation1 == null) break;
+                market.B.M = currentShare1.BJ[i].M.Average();
+                market.B.J = currentShare1.CB[i].J.Average();
+                market.D = currentShare1.CT[i];
+                if (i == 0)
+                {
+                    market.CD[0] = new RC { M = 300, S = 315, J = 285 };
+                    market.CM[0] = new RC { M = RC1M, S = RC1S, J = RC1J };
+                    var m = priceControl1.B.RcM.Count > 0 ? priceControl1.B.RcM[0] : 0;
+                    var j = priceControl1.B.RcJ.Count > 0 ? priceControl1.B.RcJ[0] : 0;
+                    var agent = priceControl1.D.Count > 0 ? priceControl1.D[0].Agent : new List<decimal>();
+                    market.DE[0] = new RC { M =m , J = j };
+                    market.DK[0] = new MJA { Agent = agent };
+                }
+                else
+                {
+
+                    var lastMarket = markets.FirstOrDefault(s => s.Id == i - 1);
+                    var LastproductInnvoation = productInnvoations.FirstOrDefault(s => s.Stage == agentStages.stages[i - 1]);
+
+                    for (int s = 0; s < i+1; s++)
+                    {
+                        if (s == i)
+                        {
+                            market.CD[i ] = priceControl1.AG;
+                            market.CM[i ] = priceControl1.AJ;
+                        }
+                        else
+                        {
+                            market.CD[s] = new RC
+                            {
+                                M = lastMarket.CD[s].M - lastMarket.CD[s].M * LastproductInnvoation.AL.MIRC[s].M / 100 * 0.02m,
+                                S = lastMarket.CD[s].S - lastMarket.CD[s].S * LastproductInnvoation.AL.MIRC[s].S / 100 * 0.02m,
+                                J = lastMarket.CD[s].J - lastMarket.CD[s].J * LastproductInnvoation.AL.MIRC[s].J / 100 * 0.02m
+                            };
+                            market.CM[s] = new RC
+                            {
+                                M = lastMarket.CM[1].M - lastMarket.CM[1].M * LastproductInnvoation.AL.MIRC[0].M / 100 * 0.02m,
+                                S = lastMarket.CM[1].S - lastMarket.CM[1].S * LastproductInnvoation.AL.MIRC[0].S / 100 * 0.02m,
+                                J = lastMarket.CM[1].J - lastMarket.CM[1].J * LastproductInnvoation.AL.MIRC[0].J / 100 * 0.02m
+                            };
+                        }
+                        var m = priceControl1.B.RcM.Count > s ? priceControl1.B.RcM[s] : 0;
+                        var j = priceControl1.B.RcJ.Count > s ? priceControl1.B.RcJ[s] : 0;
+                        var agent = priceControl1.D.Count > s ? priceControl1.D[s].Agent : new List<decimal>();
+                        market.DE[s] = new RC { M = m, J =j };
+                        market.DK[s] = new MJA { Agent = agent };
+
+                    }
+
+                }
+                for (int l = 0; l < agentStages.agents.Count; l++)
+                {
+                    for (int s = 0; s < i + 1; s++)
+                    {
+                        var agent = GetEF(priceControl1.K[s].Agent[l], priceControl1.D[s].Agent[l]);
+                        market.EF[s].Agent.Add(agent);
+                    }
+
+                }
+                markets.Add(market);
             }
 
-
-            //market1.CompeteRC = priceControl1.B;
-            markets.Add(market1);
-            #endregion
-
-            #region 第二阶段
-            var market2 = new MarketTable() { Stage = Stage.第二阶段.ToString(), };
-            var priceControl2 = priceControlTables.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
-
-            var currentShare2 = currentShares.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
-            var productInnvoation2 = productInnvoations.FirstOrDefault(s => s.Stage == Stage.第二阶段.ToString());
-            if (priceControl2 == null || currentShare2 == null || productInnvoation2 == null) return;
-            market2.B.M = currentShare2.BJ[1].M.Sum();
-            market2.B.J = currentShare2.CB[1].J.Sum();
-            market2.D = currentShare2.CT[1];
-
-            market2.CD[1] = new RC
-            {
-                M = market1.CD[1].M - market1.CD[1].M * productInnvoation1.AL.MIRC[0].M / 100 * 0.02m,
-                S = market1.CD[1].S - market1.CD[1].S * productInnvoation1.AL.MIRC[0].S / 100 * 0.02m,
-                J = market1.CD[1].J - market1.CD[1].J * productInnvoation1.AL.MIRC[0].J / 100 * 0.02m
-            };
-            market2.CD[2] = priceControl2.AG;
-
-            market2.CM[1] = new RC
-            {
-                M = market1.CM[1].M - market1.CM[1].M * productInnvoation1.AL.MIRC[1].M / 100 * 0.02m,
-                S = market1.CM[1].S - market1.CM[1].S * productInnvoation1.AL.MIRC[1].S / 100 * 0.02m,
-                J = market1.CM[1].J - market1.CM[1].J * productInnvoation1.AL.MIRC[1].J / 100 * 0.02m
-            };
-            market2.CM[2] = priceControl2.AJ;
-            market2.DE[1] = new RC { M = priceControl2.B.RcM[0], J = priceControl2.B.RcJ[0] };
-            market2.DE[2] = new RC { M = priceControl2.B.RcM[1], J = priceControl2.B.RcJ[1] };
-
-            market2.DK[1] = new MJA { Agent = priceControl2.D[1].Agent };
-            market2.DK[2] = new MJA { Agent = priceControl2.D[2].Agent };
-            for (int i = 0; i < agentStages.agents.Count; i++)
-            {
-                var agent = GetEF(priceControl2.K[1].Agent[i], priceControl2.D[1].Agent[i]);
-                market2.EF[1].Agent.Add(agent);
-                agent = GetEF(priceControl2.K[2].Agent[i], priceControl2.D[2].Agent[i]);
-                market2.EF[2].Agent.Add(agent);
-            }
-            markets.Add(market2);
-            #endregion
-
-            #region 第三阶段
-            var market3 = new MarketTable() { Stage = Stage.第三阶段.ToString(), };
-            var priceControl3 = priceControlTables.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
-            var currentShare3 = currentShares.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
-            var productInnvoation3 = productInnvoations.FirstOrDefault(s => s.Stage == Stage.第三阶段.ToString());
-            if (priceControl3 == null || currentShare3 == null || productInnvoation3 == null) return;
-            market3.B.M = currentShare3.BJ[1].M.Sum();
-            market3.B.J = currentShare3.CB[1].J.Sum();
-            market3.D = currentShare3.CT[1];
-
-            market3.CD[1] = new RC
-            {
-                M = market2.CD[1].M - market2.CD[1].M * productInnvoation2.AL.MIRC[0].M / 100 * 0.02m,
-                S = market2.CD[1].S - market2.CD[1].S * productInnvoation2.AL.MIRC[0].S / 100 * 0.02m,
-                J = market2.CD[1].J - market2.CD[1].J * productInnvoation2.AL.MIRC[0].J / 100 * 0.02m
-            };
-            market3.CD[2] = new RC
-            {
-                M = market2.CD[2].M - market2.CD[2].M * productInnvoation2.AL.MIRC[1].M / 100 * 0.02m,
-                S = market2.CD[2].S - market2.CD[2].S * productInnvoation2.AL.MIRC[1].S / 100 * 0.02m,
-                J = market2.CD[2].J - market2.CD[2].J * productInnvoation2.AL.MIRC[1].J / 100 * 0.02m
-            };
-            market3.CD[3] = priceControl3.AG;
-
-            market3.CM[1] = new RC
-            {
-                M = market2.CM[1].M - market2.CM[1].M * productInnvoation2.AL.MIRC[0].M / 100 * 0.02m,
-                S = market2.CM[1].S - market2.CM[1].S * productInnvoation2.AL.MIRC[0].S / 100 * 0.02m,
-                J = market2.CM[1].J - market2.CM[1].J * productInnvoation2.AL.MIRC[0].J / 100 * 0.02m
-            };
-            market3.CM[2] = new RC
-            {
-                M = market2.CM[2].M - market2.CM[2].M * productInnvoation2.AL.MIRC[1].M / 100 * 0.02m,
-                S = market2.CM[2].S - market2.CM[2].S * productInnvoation2.AL.MIRC[1].S / 100 * 0.02m,
-                J = market2.CM[2].J - market2.CM[2].J * productInnvoation2.AL.MIRC[1].J / 100 * 0.02m
-            };
-            market3.CM[3] = priceControl3.AJ;
-
-            market3.DE[1] = new RC { M = priceControl3.B.RcM[0], J = priceControl3.B.RcJ[0] };
-            market3.DE[2] = new RC { M = priceControl3.B.RcM[1], J = priceControl3.B.RcJ[1] };
-            market3.DE[3] = new RC { M = priceControl3.B.RcM[2], J = priceControl3.B.RcJ[2] };
-            market3.DK[1] = new MJA { Agent = priceControl3.D[1].Agent };
-            market3.DK[2] = new MJA { Agent = priceControl3.D[2].Agent };
-            market3.DK[3] = new MJA { Agent = priceControl3.D[3].Agent };
-            for (int i = 0; i < agentStages.agents.Count; i++)
-            {
-                var agent = GetEF(priceControl3.K[1].Agent[i], priceControl3.D[1].Agent[i]);
-                market3.EF[1].Agent.Add(agent);
-                agent = GetEF(priceControl3.K[2].Agent[i], priceControl3.D[2].Agent[i]);
-                market3.EF[2].Agent.Add(agent);
-                agent = GetEF(priceControl3.K[3].Agent[i], priceControl3.D[3].Agent[i]);
-                market3.EF[3].Agent.Add(agent);
-            }
-            markets.Add(market3);
-            #endregion
+ 
 
         }
         private decimal GetEF(decimal a, decimal b)
@@ -181,6 +129,7 @@ namespace WebMVC.BLL
                 EF.Add(i, new MJA());
             }
         }
+        public int Id { get; set; }
         public string Stage { get; set; }
         /// <summary>
         /// 竞品出货RC1
@@ -201,7 +150,7 @@ namespace WebMVC.BLL
                 var countAgent = agentStages.agents.Count;
                 var indexStage = agentStages.stages.IndexOf(this.Stage);
                 var result = new Dictionary<int, MJA>();
-                for (int i = 0; i < agentStages.stages.Count-1; i++)
+                for (int i = 0; i < agentStages.stages.Count - 1; i++)
                 {
                     result.Add(i, new MJA());
                 }
@@ -240,7 +189,7 @@ namespace WebMVC.BLL
                 var countAgent = agentStages.agents.Count;
                 var indexStage = agentStages.stages.IndexOf(this.Stage);
                 var result = new Dictionary<int, MJA>();
-                for (int i = 0; i < agentStages.stages.Count-1; i++)
+                for (int i = 0; i < agentStages.stages.Count - 1; i++)
                 {
                     result.Add(i, new MJA());
                 }
@@ -277,7 +226,7 @@ namespace WebMVC.BLL
                 var countAgent = agentStages.agents.Count;
                 var indexStage = agentStages.stages.IndexOf(this.Stage);
                 var result = new Dictionary<int, MJA>();
-                for (int i = 0; i < agentStages.stages.Count-1; i++)
+                for (int i = 0; i < agentStages.stages.Count - 1; i++)
                 {
                     result.Add(i, new MJA());
                 }

@@ -77,19 +77,18 @@ namespace WebMVC.BLL
         /// </summary>
         private void BrandInfo()
         {
-            var stage = Stage.第一阶段.ToString();
+            var stage = Stage.第1阶段.ToString();
             var firstMarketPrice = marketPrice.Get().FirstOrDefault(s => s.Stage == stage);
             var firstInverstment = investment.Get().FirstOrDefault(s => s.Stage == stage);
             var firstinvertmentTable1 = invertmentTable1.getAgentInputs().FirstOrDefault(s => s.Stage == stage);
             var firstbrand1 = invertmentTable1.getBrandTable().FirstOrDefault(s => s.Stage == stage && s.Brand == Brand.S品牌.ToString());
             if (firstMarketPrice != null && firstInverstment != null)
             {
-
                 AddBrandInfo(new BrandInfo()
                 {
                     品牌方 = Brand.M品牌,
-                    出厂价 = firstMarketPrice.CM[1].M,
-                    指导零售价 = firstMarketPrice.DE[1].M,
+                    出厂价 = firstMarketPrice.CM[1].M, 
+                    指导零售价 = firstMarketPrice.DE[1].M, 
                     品牌广告 = firstInverstment.J,
                     外观创新 = firstInverstment.M.Surfacerc[0],
                     功能创新 = firstInverstment.N.Functionrc[0],
@@ -157,8 +156,8 @@ namespace WebMVC.BLL
         #region S品牌代理商信息表 sAgentInfos
         private void sAgentInfos()
         {
-            var investment1 = investment.Get().FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
-            var priceControl1 = priceControls.FirstOrDefault(s => s.Stage == Stage.第一阶段.ToString());
+            var investment1 = investment.Get().FirstOrDefault(s => s.Stage == Stage.第1阶段.ToString());
+            var priceControl1 = priceControls.FirstOrDefault(s => s.Stage == Stage.第1阶段.ToString());
             foreach (var item in invoicingReports)
             {
                 var sAgentInfo = new SAgentInfo
@@ -205,10 +204,10 @@ namespace WebMVC.BLL
                     代理方 = item.AgentName,
 
                 };
-                sAgentResult.期初 = item.D;
-                sAgentResult.期末 = item.I;
-                sAgentResult.销售量 = item.G;
-                sAgentResult.销售金额 = item.H;
+                sAgentResult.期初 = item.DStage[0][0];
+                sAgentResult.期末 = item.DStage[1][0];
+                sAgentResult.销售量 = item.CStage[1][0];
+                sAgentResult.销售金额 = item.HStage[1][0];
                 var indexAgent = agentStages.agents.IndexOf(item.AgentName);
                 sAgentResult.数量 = summary20.JAgent[indexAgent];
                 sAgentResult.金额 = summary21.JAgent[indexAgent];

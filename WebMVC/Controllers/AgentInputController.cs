@@ -73,13 +73,10 @@ namespace WebMVC.Controllers
                     var userName = User.Identity.GetUserName();
                     if (string.IsNullOrEmpty(userName))
                     {
-                        agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.UserId == "");
+                        userName = "";
+                    }
+                    agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.UserId == userName);
 
-                    }
-                    else
-                    {
-                        agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.UserId == userName);
-                    }
                     if (agentInput != null)
                     {
                         ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
@@ -286,8 +283,8 @@ namespace WebMVC.Controllers
             }
             catch (Exception ex)
             {
-             return Content(ex.Message.ToString());
-                 //  return View();
+                return Content(ex.Message.ToString());
+                //  return View();
             }
         }
 

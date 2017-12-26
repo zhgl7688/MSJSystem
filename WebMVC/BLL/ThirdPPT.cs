@@ -57,11 +57,11 @@ namespace WebMVC.BLL
         List<CurrentShareTable> currentShares;
         SecondPPT secondPPT;
         string stage;
-        AgentStages agentStages;
+   
         public ThirdPPT(MarketPrice MarketPrice, Investment Investment, InvertmentTable1 InvertmentTable1, SummaryAssent SummaryAssent,
             LastBrand LastBrand, InvoicingReport InvoicingReport, PriceControl priceControl, CurrentShare currentShare, SecondPPT SecondPPT)
         {
-            agentStages = new AgentStages();
+         
             marketPrices = MarketPrice.Get();
             this.investment = Investment;
             this.invertmentTable1 = InvertmentTable1;
@@ -174,13 +174,10 @@ namespace WebMVC.BLL
             {
                 return lastBrand.Get().FirstOrDefault(s => s.Brand == b);
             };
-            SetBrandProfit(new ThirdBrandProfit
+          var tbp= new ThirdBrandProfit
             {
                 M = summary.AD,
-                S1 = summary.AEAgent[0],
-                S2 = summary.AEAgent[1],
-                S3 = summary.AEAgent[2],
-                S4 = summary.AEAgent[3],
+ 
                 J = summary.AK,
                 SM = getLastBrand(Brand.M品牌.ToString()).F,
                 SS = getLastBrand(Brand.S品牌.ToString()).F,
@@ -191,8 +188,14 @@ namespace WebMVC.BLL
                 RC3SM = getLastBrand(Brand.M品牌.ToString()).H,
                 RC3SS = getLastBrand(Brand.S品牌.ToString()).H,
                 RC3SJ = getLastBrand(Brand.J品牌.ToString()).H,
-            });
-
+            };
+            for (int i = 0; i < summary.QAgent.Count; i++)
+            {
+                tbp.SAgent.Add(summary.QAgent[i]);
+        
+            }
+            SetBrandProfit(tbp);
+          
         }
 
         #endregion
@@ -218,13 +221,13 @@ namespace WebMVC.BLL
                 {
                     代理方 = item.AgentName,
                 };
-                var indexAgent = agentStages.agents.IndexOf(item.AgentName);
-                sAgentInfo.供货价 = priceControl3.K[1].Agent[indexAgent];
-                sAgentInfo.零售价 = priceControl3.D[1].Agent[indexAgent];
-                sAgentInfo.RC2供货价 = priceControl3.K[2].Agent[indexAgent];
-                sAgentInfo.RC2零售价 = priceControl3.D[2].Agent[indexAgent];
-                sAgentInfo.RC3供货价 = priceControl3.K[3].Agent[indexAgent];
-                sAgentInfo.RC3零售价 = priceControl3.D[3].Agent[indexAgent];
+                var indexAgent = AgentStages.agents.IndexOf(item.AgentName);
+                sAgentInfo.供货价 = priceControl3.K[0].Agent[indexAgent];
+                sAgentInfo.零售价 = priceControl3.D[0].Agent[indexAgent];
+                sAgentInfo.RC2供货价 = priceControl3.K[1].Agent[indexAgent];
+                sAgentInfo.RC2零售价 = priceControl3.D[1].Agent[indexAgent];
+                sAgentInfo.RC3供货价 = priceControl3.K[2].Agent[indexAgent];
+                sAgentInfo.RC3零售价 = priceControl3.D[2].Agent[indexAgent];
                 setBrandInput(sAgentInfo, investment3.CLAgent[indexAgent]);
                 sAgentInfo.S品牌费用补贴支持 = investment3.AJAgent[indexAgent].InputSum;
 
@@ -270,13 +273,13 @@ namespace WebMVC.BLL
                 sAgentResult.RC3销售量 = item.CStage[3][2];
                 sAgentResult.RC3销售金额 = item.HStage[3][2];
 
-                var indexAgent = agentStages.agents.IndexOf(item.AgentName);
-                sAgentResult.数量 = SumRcNumber(sAgentResult.期初, sAgentResult.销售量, currentShare3.CT[1].Agent[indexAgent]);
-                sAgentResult.金额 = sAgentResult.数量 * decimal.Round(priceControl3.K[1].Agent[indexAgent], 0);
-                sAgentResult.RC2数量 = SumRcNumber(sAgentResult.RC2期初, sAgentResult.RC2销售量, currentShare3.CT[2].Agent[indexAgent]);
-                sAgentResult.RC2金额 = sAgentResult.RC2数量 * decimal.Round(priceControl3.K[2].Agent[indexAgent], 0);
-                sAgentResult.RC3数量 = SumRcNumber(sAgentResult.RC3期初, sAgentResult.RC3销售量, currentShare3.CT[3].Agent[indexAgent]);
-                sAgentResult.RC3金额 = sAgentResult.RC3数量 * decimal.Round(priceControl3.K[3].Agent[indexAgent], 0);
+                var indexAgent = AgentStages.agents.IndexOf(item.AgentName);
+                sAgentResult.数量 = SumRcNumber(sAgentResult.期初, sAgentResult.销售量, currentShare3.CT[0].Agent[indexAgent]);
+                sAgentResult.金额 = sAgentResult.数量 * decimal.Round(priceControl3.K[0].Agent[indexAgent], 0);
+                sAgentResult.RC2数量 = SumRcNumber(sAgentResult.RC2期初, sAgentResult.RC2销售量, currentShare3.CT[1].Agent[indexAgent]);
+                sAgentResult.RC2金额 = sAgentResult.RC2数量 * decimal.Round(priceControl3.K[1].Agent[indexAgent], 0);
+                sAgentResult.RC3数量 = SumRcNumber(sAgentResult.RC3期初, sAgentResult.RC3销售量, currentShare3.CT[2].Agent[indexAgent]);
+                sAgentResult.RC3金额 = sAgentResult.RC3数量 * decimal.Round(priceControl3.K[2].Agent[indexAgent], 0);
                 sAgentResult.销售利润 = summary16.ALAgent[indexAgent];
                 sAgentResult.借款利息 = summary17.ALAgent[indexAgent];
                 sAgentResult.库存跌价损失计提 = summary18.ALAgent[indexAgent];
@@ -312,7 +315,7 @@ namespace WebMVC.BLL
                     库存 = sAgentResult3.期末 + sAgentResult3.RC2期末 + sAgentResult3.RC3期末,
                     现金流 = sAgentResult3.现金流
                 };
-                var indexAgent = agentStages.agents.IndexOf(item.代理方);
+                var indexAgent = AgentStages.agents.IndexOf(item.代理方);
                 thirdSummary.销售额 = summary.ALAgent[indexAgent];
                 AddThirdSummary(thirdSummary);
             }

@@ -20,6 +20,7 @@ namespace WebMVC.BLL
         public InvertmentTable1(List<AgentInput> agentInputs, List<BrandsInput> brandsInputs)
         {
             this.agentInputs = agentInputs;
+
             this.agentInputs.ForEach(s =>
             {
                 if (s.PriceMange != null && s.PriceMange.Count > 0)
@@ -76,15 +77,15 @@ namespace WebMVC.BLL
         public List<AgentTable> getAgents()
         {
             List<AgentTable> agents = new List<AgentTable>();
-            var agentStages = new AgentStages();
+       
             //初始化行列
-            for (int i = 1; i < agentStages.stages.Count; i++)
+            for (int i = 1; i < AgentStages.stages.Count; i++)
             {
-                agents.Add(new AgentTable() { Stage = agentStages.stages[i] });
+                agents.Add(new AgentTable() { Stage = AgentStages.stages[i] });
             }
             agents.ForEach(s =>
             {
-                for (int i = 0; i < agentStages.agents.Count; i++)
+                for (int i = 0; i < AgentStages.agents.Count; i++)
                 {
                     s.Bagent.Add(new BrandInput());
                 }
@@ -96,7 +97,7 @@ namespace WebMVC.BLL
                 {
                     if (s.Stage == item.Stage)
                     {
-                        var index = agentStages.agents.FindIndex(j => j == item.AgentName);
+                        var index = AgentStages.agents.FindIndex(j => j == item.AgentName);
                         s.Bagent[index] = item.brandInput;
                     }
 

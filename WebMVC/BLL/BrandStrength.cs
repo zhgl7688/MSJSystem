@@ -13,25 +13,18 @@ namespace WebMVC.BLL
     /// </summary>
     public class BrandStrength
     {
-        private int e;
-        private int h;
+        private int brand_e;
+        private int brand_h;
 
 
         List<BrandStrengthTable> brandStrengths = new List<BrandStrengthTable>();
         List<BrandTable> investMents;
-        AgentStages agentStage;
+        
         public BrandStrength(InvertmentTable1 invertmentTable1)
         {
-            agentStage = new AgentStages();
-            using (var db = new Infrastructure.AppIdentityDbContext())
-            {
-                BrandStrengthInit bs = db.BrandStrengthInit.FirstOrDefault(s => s.id == 1);
-                if (bs != null)
-                {
-                    this.e = bs.BrandStrength_E;
-                    this.h = bs.BrandStrength_M1;
-                }
-            }
+            brand_e = AgentStages.BrandStrength_E;
+            brand_h = AgentStages.BrandStrength_M1;
+           
             investMents = invertmentTable1.getBrandTable();
   
             Init();
@@ -42,13 +35,13 @@ namespace WebMVC.BLL
             {
 
                 ID = 0,
-                Stage =agentStage.stages[0],
-                E = e,
-                F = e,
-                G = e,
-                H = h,
-                I = h,
-                J = h
+                Stage = AgentStages.stages[0],
+                E = brand_e,
+                F = brand_e,
+                G = brand_e,
+                H = brand_h,
+                I = brand_h,
+                J = brand_h
             };
             brandStrengths.Add(initT);
             foreach (var item in investMents)
@@ -58,7 +51,7 @@ namespace WebMVC.BLL
                 {
                     brandStrength = new BrandStrengthTable
                     {
-                        ID = agentStage.stages.IndexOf(item.Stage),
+                        ID = AgentStages.stages.IndexOf(item.Stage),
                         Stage = item.Stage,
                     };
                     brandStrengths.Add(brandStrength);
@@ -84,9 +77,9 @@ namespace WebMVC.BLL
         }
         private void SetCBPI(List<BrandStrengthTable> brands, BrandStrengthTable s)
         {
-             int index =agentStage.stages.IndexOf( s.Stage);
+             int index =AgentStages.stages.IndexOf( s.Stage);
             if (index == 0) return;
-             var last = brands.FirstOrDefault(j => j.Stage == agentStage.stages[ index - 1]);
+             var last = brands.FirstOrDefault(j => j.Stage == AgentStages.stages[ index - 1]);
             SetCBPI(brands, last);
             s.E = Cal.CBPI(last.E, last.K, last.N, s.K, s.N);
             s.F = Cal.CBPI(last.F, last.L, last.N, s.L, s.N);

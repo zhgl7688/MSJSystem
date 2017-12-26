@@ -17,25 +17,16 @@ namespace WebMVC.BLL
         List<ChannelServiceTable> channelServices = new List<ChannelServiceTable>();
         List<BrandTable> brands;
         List<AgentTable> agents;
-        AgentStages agentStage;
+   
         decimal I1, I2;
         public ChannelService(InvertmentTable1 invertmentTable1)
         {
 
             brands = invertmentTable1.getBrandTable();
             agents = invertmentTable1.getAgents();
-            agentStage = new AgentStages();
-            using (var db = new Infrastructure.AppIdentityDbContext())
-            {
-
-                var bs = db.ChannelServiceInit.FirstOrDefault(s => s.id == 1);
-                if (bs != null)
-                {
-                    I1 = bs.ChannelService_J1;
-                    I2 = bs.ChannelService_J2;
-                }
-
-            }
+            I1 = AgentStages.C_J1;
+            I2 = AgentStages.C_J2;
+           
             Init();
         }
         private void Init()
@@ -43,7 +34,7 @@ namespace WebMVC.BLL
             #region 起始阶段
             ChannelServiceTable channl0 = new ChannelServiceTable()
             {
-                Stage = agentStage.stages[0], I1=this.I1,I2=this.I2
+                Stage = AgentStages.stages[0], I1=this.I1,I2=this.I2
             };
 
             channelServices.Add(channl0);
@@ -106,11 +97,11 @@ namespace WebMVC.BLL
                 
 
                 var result = new MJA();
-                var count = new AgentStages().agents.Count;
+                var count = AgentStages.agents.Count;
                 for (int i = 0; i <count; i++)
                 {
 
-                    if (Stage == new AgentStages().stages[0])
+                    if (Stage == AgentStages.stages[0])
                     {
                         result.M.Add(I2);
                         result.J.Add(I2);

@@ -34,7 +34,7 @@ namespace WebMVC.Controllers
         ThirdPPT thirdPPT;
         List<AgentInput> agentInputList;
         List<BrandsInput> brandsInputList;
-        
+
         List<Models.AgentInput> agentInputs
         {
             get { return agentInputList; }
@@ -80,14 +80,69 @@ namespace WebMVC.Controllers
             //  firstPPT = new BLL.FirstPPT(marketPrice, investment,invertmentTable1, summaryAssent, lastBrand, invoicingReport,priceControl);
             //  secondPPT = new BLL.SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);
             //  thirdPPT = new BLL.ThirdPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, secondPPT);
-         
-            var userName = User!=null? string.IsNullOrEmpty(User.Identity.Name) ? "" : "admin":"";
+
+
+        }
+        private void init()
+        {
+            var userName = User != null ? string.IsNullOrEmpty(User.Identity.Name) ? "" : User.Identity.Name : "";
             agentInputList = db.AgentInputs.Where(s => s.UserId == userName).ToList();
             brandsInputList = db.BrandsInputs.Where(s => s.UserId == userName).ToList();
+            //代理数
+
+            AgentStages.stages = db.BrandsInputs.Select(s => s.Stage).Distinct().OrderBy(s => s).ToList();
+            AgentStages.stages.Insert(0, "起始阶段");
+            AgentStages.agents = db.AgentInputs.Select(s => s.AgentName).Distinct().OrderBy(s => s).ToList();
+            //品牌力设置
+            var bs = db.BrandStrengthInit.FirstOrDefault(s => s.id == 1);
+            if (bs != null)
+            {
+                AgentStages.BrandStrength_E = bs.BrandStrength_E;
+                AgentStages.BrandStrength_M1 = bs.BrandStrength_M1;
+            }
+            //产品创新力部分设置
+            AgentStages.ProductInnovationInit = db.ProductInnovationInit.First();
+            var mpt = db.MarketPromotionInit.FirstOrDefault(s => s.id == 1);
+            if (mpt != null)
+            {
+                AgentStages.M_AY1 = mpt.MarketPromotionInit_AY1;
+                AgentStages.M_AY2 = mpt.MarketPromotionInit_AY2;
+                AgentStages.M_AX1 = mpt.MarketPromotionInit_AX1;
+                AgentStages.M_AX2 = mpt.MarketPromotionInit_AX2;
+                AgentStages.M_AX3 = mpt.MarketPromotionInit_AX3;
+                AgentStages.M_AX4 = mpt.MarketPromotionInit_AX4;
+                AgentStages.M_AX5 = mpt.MarketPromotionInit_AX5;
+                AgentStages.M_AX6 = mpt.MarketPromotionInit_AX6;
+            }
+
+            //渠道服务部分设置
+            var cf = db.ChannelServiceInit.FirstOrDefault(s => s.id == 1);
+            if (cf != null)
+            {
+                AgentStages.C_J1 = cf.ChannelService_J1;
+                AgentStages.C_J2 = cf.ChannelService_J2;
+            }
+            //市场价格部分设置
+            var mp = db.MarketPriceInit.FirstOrDefault(s => s.id == 1);
+            if (mp != null)
+            {
+                AgentStages.MP_CD = mp.CD;
+                AgentStages.MP_CE = mp.CE;
+                AgentStages.MP_CF = mp.CF;
+                AgentStages.MP_CM = mp.CM;
+                AgentStages.MP_CN = mp.CN;
+                AgentStages.MP_CO = mp.CO;
+            }
+            //市场容量设定
+
+            AgentStages.CurrentShareInits = db.CurrentShareInit.ToList();
+
         }
+
 
         public ActionResult Index()
         {
+
             //  ViewData["role"] = HttpContext.User.IsInRole("品牌商");
             return View();
         }
@@ -162,109 +217,123 @@ namespace WebMVC.Controllers
             return JsonConvert.SerializeObject(model);
         }
 
-
-
-
         public ActionResult FirstPPT()
         {
+            init();
+            if (agentInputs != null && agentInputs.Count > 0 && brandsInputs != null && brandsInputs.Count > 0)
+            {
+                invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
+                brandStrength = new BLL.BrandStrength(invertmentTable1);
+                channelService = new ChannelService(invertmentTable1);
+                marketPromotion = new MarketPromotion(invertmentTable1);
+                productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
+                priceControl = new PriceControl(invertmentTable1);
+                marketPriceTemp = new MarketPriceTemp(priceControl);
+                intentionIndex = new BLL.IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
+                currentShare = new BLL.CurrentShare(intentionIndex, priceControl);
+                marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
 
-            invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
-            brandStrength = new BLL.BrandStrength(invertmentTable1);
-            channelService = new ChannelService(invertmentTable1);
-            marketPromotion = new MarketPromotion(invertmentTable1);
-            productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
-            priceControl = new PriceControl(invertmentTable1);
-            marketPriceTemp = new MarketPriceTemp(priceControl);
-            intentionIndex = new BLL.IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
-            currentShare = new BLL.CurrentShare(intentionIndex, priceControl);
-            marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
+                stockReport = new StockReport(invertmentTable1, marketPrice);
+                investment = new Investment(invertmentTable1, stockReport);
+                invoicingReport = new BLL.InvoicingReport(currentShare, marketPrice, stockReport);
+                summaryAssent = new BLL.SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
+                lastBrand = new LastBrand(currentShare, invertmentTable1.GetAgentCount);
+                firstPPT = new BLL.FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl);
+                var model = firstPPT.GetFirstPPTList();
+                return View(model);
+            }
+            return Content("<script>alert('没有数据可用');location='" + Url.Action("index", "home") + "'</script>");
 
-            stockReport = new StockReport(invertmentTable1, marketPrice);
-            investment = new Investment(invertmentTable1, stockReport);
-            invoicingReport = new BLL.InvoicingReport(currentShare, marketPrice, stockReport);
-            summaryAssent = new BLL.SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
-            lastBrand = new LastBrand(currentShare, invertmentTable1.GetAgentCount);
-            firstPPT = new BLL.FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl);
-
-
-            var model = firstPPT.GetFirstPPTList();
-            return View(model);
         }
         public ActionResult LastBrand()
         {
+            init();
+            if (agentInputs != null && agentInputs.Count > 0 && brandsInputs != null && brandsInputs.Count > 0)
+            {
+                invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
+                brandStrength = new BLL.BrandStrength(invertmentTable1);
+                channelService = new ChannelService(invertmentTable1);
+                marketPromotion = new MarketPromotion(invertmentTable1);
+                productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
+                priceControl = new PriceControl(invertmentTable1);
+                marketPriceTemp = new MarketPriceTemp(priceControl);
+                intentionIndex = new BLL.IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
+                currentShare = new BLL.CurrentShare(intentionIndex, priceControl);
+                marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
 
-            invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
-            brandStrength = new BLL.BrandStrength(invertmentTable1);
-            channelService = new ChannelService(invertmentTable1);
-            marketPromotion = new MarketPromotion(invertmentTable1);
-            productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
-            priceControl = new PriceControl(invertmentTable1);
-            marketPriceTemp = new MarketPriceTemp(priceControl);
-            intentionIndex = new BLL.IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
-            currentShare = new BLL.CurrentShare(intentionIndex, priceControl);
-            marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
+                stockReport = new StockReport(invertmentTable1, marketPrice);
+                investment = new Investment(invertmentTable1, stockReport);
+                invoicingReport = new BLL.InvoicingReport(currentShare, marketPrice, stockReport);
+                summaryAssent = new BLL.SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
+                lastBrand = new LastBrand(currentShare, invertmentTable1.GetAgentCount);
+                var model = lastBrand.Get();
+                return View(model);
+            }
+            return Content("<script>alert('没有数据可用');location='" + Url.Action("index", "home") + "'</script>");
 
-            stockReport = new StockReport(invertmentTable1, marketPrice);
-            investment = new Investment(invertmentTable1, stockReport);
-            invoicingReport = new BLL.InvoicingReport(currentShare, marketPrice, stockReport);
-            summaryAssent = new BLL.SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
-            lastBrand = new LastBrand(currentShare, invertmentTable1.GetAgentCount);
-            var model = lastBrand.Get();
-            return View(model);
+
         }
         public ActionResult SecondPPT()
         {
+            init();
+            if (agentInputs != null && agentInputs.Count > 0 && brandsInputs != null && brandsInputs.Count > 0)
+            {
+                invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
+                brandStrength = new BLL.BrandStrength(invertmentTable1);
+                channelService = new ChannelService(invertmentTable1);
+                marketPromotion = new MarketPromotion(invertmentTable1);
+                productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
+                priceControl = new PriceControl(invertmentTable1);
+                marketPriceTemp = new MarketPriceTemp(priceControl);
+                intentionIndex = new BLL.IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
+                currentShare = new BLL.CurrentShare(intentionIndex, priceControl);
+                marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
 
+                stockReport = new StockReport(invertmentTable1, marketPrice);
+                investment = new Investment(invertmentTable1, stockReport);
+                invoicingReport = new BLL.InvoicingReport(currentShare, marketPrice, stockReport);
+                summaryAssent = new BLL.SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
+                lastBrand = new LastBrand(currentShare, invertmentTable1.GetAgentCount);
+                firstPPT = new BLL.FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl);
+                secondPPT = new BLL.SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);
 
-            invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
-            brandStrength = new BLL.BrandStrength(invertmentTable1);
-            channelService = new ChannelService(invertmentTable1);
-            marketPromotion = new MarketPromotion(invertmentTable1);
-            productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
-            priceControl = new PriceControl(invertmentTable1);
-            marketPriceTemp = new MarketPriceTemp(priceControl);
-            intentionIndex = new BLL.IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
-            currentShare = new BLL.CurrentShare(intentionIndex, priceControl);
-            marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
+                var model = secondPPT.GetFirstPPTList();
+                return View(model);
+            }
+            return Content("<script>alert('没有数据可用');location='" + Url.Action("index", "home") + "'</script>");
 
-            stockReport = new StockReport(invertmentTable1, marketPrice);
-            investment = new Investment(invertmentTable1, stockReport);
-            invoicingReport = new BLL.InvoicingReport(currentShare, marketPrice, stockReport);
-            summaryAssent = new BLL.SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
-            lastBrand = new LastBrand(currentShare, invertmentTable1.GetAgentCount);
-            firstPPT = new BLL.FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl);
-            secondPPT = new BLL.SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);
-
-            var model = secondPPT.GetFirstPPTList();
-            return View(model);
         }
         public ActionResult ThirdPPT()
         {
 
+            init();
 
-            invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
-            brandStrength = new BLL.BrandStrength(invertmentTable1);
-            channelService = new ChannelService(invertmentTable1);
-            marketPromotion = new MarketPromotion(invertmentTable1);
-            productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
-            priceControl = new PriceControl(invertmentTable1);
-            marketPriceTemp = new MarketPriceTemp(priceControl);
-            intentionIndex = new BLL.IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
-            currentShare = new BLL.CurrentShare(intentionIndex, priceControl);
-            marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
+            if (agentInputs != null && agentInputs.Count > 0 && brandsInputs != null && brandsInputs.Count > 0)
+            {
+                invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
+                brandStrength = new BLL.BrandStrength(invertmentTable1);
+                channelService = new ChannelService(invertmentTable1);
+                marketPromotion = new MarketPromotion(invertmentTable1);
+                productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
+                priceControl = new PriceControl(invertmentTable1);
+                marketPriceTemp = new MarketPriceTemp(priceControl);
+                intentionIndex = new BLL.IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
+                currentShare = new BLL.CurrentShare(intentionIndex, priceControl);
+                marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
 
-            stockReport = new StockReport(invertmentTable1, marketPrice);
-            investment = new Investment(invertmentTable1, stockReport);
-            invoicingReport = new BLL.InvoicingReport(currentShare, marketPrice, stockReport);
-            summaryAssent = new BLL.SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
-            lastBrand = new LastBrand(currentShare, invertmentTable1.GetAgentCount);
-            firstPPT = new BLL.FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl);
-            secondPPT = new BLL.SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);
-            thirdPPT = new BLL.ThirdPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, secondPPT);
+                stockReport = new StockReport(invertmentTable1, marketPrice);
+                investment = new Investment(invertmentTable1, stockReport);
+                invoicingReport = new BLL.InvoicingReport(currentShare, marketPrice, stockReport);
+                summaryAssent = new BLL.SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
+                lastBrand = new LastBrand(currentShare, invertmentTable1.GetAgentCount);
+                firstPPT = new BLL.FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl);
+                secondPPT = new BLL.SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);
+                thirdPPT = new BLL.ThirdPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, secondPPT);
+                var model = thirdPPT.GetPPTList();
+                return View(model);
+            }
+            return Content("<script>alert('没有数据可用');location='" + Url.Action("index", "home") + "'</script>");
 
-
-            var model = thirdPPT.GetPPTList();
-            return View(model);
         }
         //厂家主导的产品创新力
         public ActionResult ProductInnovation()

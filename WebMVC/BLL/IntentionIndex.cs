@@ -20,7 +20,7 @@ namespace WebMVC.BLL
         List<ChannelServiceTable> channelServices;//渠道服务!AB4+市场价格!AB5)
         List<MarketTable> marketPrices;//市场价格!EY5
 
-        AgentStages agentStages;
+     
 
         List<IntentionIndexTable> intentionIndexs = new List<IntentionIndexTable>();
         /// <summary>
@@ -34,7 +34,7 @@ namespace WebMVC.BLL
             marketPromotions = MarketPromotion.Get();
             channelServices = ChannelService.Get();
             marketPrices = MarketPriceTemp.Get();
-            agentStages = new AgentStages();
+       
             Init();
         }
         public void Init()
@@ -71,10 +71,10 @@ namespace WebMVC.BLL
                 var AUSum = channelService.AUSum;
                 var EY = marketPrice.EY;
 
-                for (int i = 0; i < agentStages.agents.Count; i++)
+                for (int i = 0; i < AgentStages.agents.Count; i++)
                 {
 
-                    var indexState = agentStages.stages.IndexOf(item.Stage);
+                    var indexState = AgentStages.stages.IndexOf(item.Stage);
                     for (int j = 0; j < indexState; j++)
                     {
                         if (intentionIndex.B.Count <= j) intentionIndex.B.Add(j, new MJA());

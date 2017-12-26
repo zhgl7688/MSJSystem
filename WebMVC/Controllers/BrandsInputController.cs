@@ -75,7 +75,14 @@ namespace WebMVC.Controllers
         {
             try
             {
-                var brand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage);
+                var userName = User.Identity.GetUserName();
+                if (string.IsNullOrEmpty(userName))
+                {
+                    userName = "";
+                }
+                
+                var brand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage &&
+                    s.UserId == userName);
                 if (brand != null)
                 {
                     ModelState.AddModelError("", "已有" + collection.Brand + collection.Stage + "信息，请重新选择");
@@ -86,15 +93,7 @@ namespace WebMVC.Controllers
 
                     return View(collection);
                 }
-                var userName = User.Identity.GetUserName();
-                if (string.IsNullOrEmpty(userName))
-                {
-                    userName = "";
-                }
-                else
-                {
-                    userName = "admin";
-                }
+               
                 GetList(collection);
                 collection.UserId = userName;// User.Identity.Name;
                 db.BrandsInputs.Add(collection);
@@ -140,11 +139,6 @@ namespace WebMVC.Controllers
                     if (string.IsNullOrEmpty(userName))
                     {
                         userName = "";
-                    }
-                    else
-                    {
-                        userName = "admin";
-
                     }
                     repeatbrand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand &&
                     s.Stage == collection.Stage &&

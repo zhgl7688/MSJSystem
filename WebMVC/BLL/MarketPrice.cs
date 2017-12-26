@@ -13,17 +13,27 @@ namespace WebMVC.BLL
     /// </summary>
     public class MarketPrice
     {
-        decimal RC1M = Convert.ToDecimal(ConfigurationManager.AppSettings["RC1M"]);
-        decimal RC1S = Convert.ToDecimal(ConfigurationManager.AppSettings["RC1S"]);
-        decimal RC1J = Convert.ToDecimal(ConfigurationManager.AppSettings["RC1J"]);
+        decimal RC1M;//= Convert.ToDecimal(ConfigurationManager.AppSettings["RC1M"]);
+        decimal RC1S; //= Convert.ToDecimal(ConfigurationManager.AppSettings["RC1S"]);
+        decimal RC1J;// Convert.ToDecimal(ConfigurationManager.AppSettings["RC1J
+
+        decimal cd;
+        decimal ce;
+        decimal cf;
+
         List<PriceControlTable> priceControlTables;
         List<ProductInnvoationTable> productInnvoations;
         List<CurrentShareTable> currentShares;
-        AgentStages agentStages;
+   
         public MarketPrice(PriceControl priceControl, ProductInnovation productInnovation, CurrentShare currentShare)
         {
-            agentStages = new AgentStages();
-            priceControlTables = priceControl.Get();
+            cd = AgentStages.MP_CD;
+            ce = AgentStages.MP_CE;
+            cf = AgentStages.MP_CF;
+            RC1M = AgentStages.MP_CM;
+            RC1S = AgentStages.MP_CN;
+            RC1J = AgentStages.MP_CO;
+             priceControlTables = priceControl.Get();
             productInnvoations = productInnovation.Get();
             currentShares = currentShare.Get();
             Init();
@@ -34,8 +44,8 @@ namespace WebMVC.BLL
 
             for (int i = 0; i < currentShares.Count; i++)
             {
-                if (i == agentStages.stages.Count-1) return;
-                var stage = agentStages.stages[i + 1];
+                if (i == AgentStages.stages.Count-1) return;
+                var stage = AgentStages.stages[i + 1];
                 var market = new MarketTable { Id = i, Stage = stage };
                 var priceControl1 = priceControlTables.FirstOrDefault(s => s.Stage == stage);
                 var currentShare1 = currentShares.FirstOrDefault(s => s.Stage == stage);
@@ -46,7 +56,7 @@ namespace WebMVC.BLL
                 market.D = currentShare1.CT[i];
                 if (i == 0)
                 {
-                    market.CD[0] = new RC { M = 300, S = 315, J = 285 };
+                    market.CD[0] = new RC { M = cd, S = ce, J = cf };
                     market.CM[0] = new RC { M = RC1M, S = RC1S, J = RC1J };
                     var m = priceControl1.B.RcM.Count > 0 ? priceControl1.B.RcM[0] : 0;
                     var j = priceControl1.B.RcJ.Count > 0 ? priceControl1.B.RcJ[0] : 0;
@@ -58,7 +68,7 @@ namespace WebMVC.BLL
                 {
 
                     var lastMarket = markets.FirstOrDefault(s => s.Id == i - 1);
-                    var LastproductInnvoation = productInnvoations.FirstOrDefault(s => s.Stage == agentStages.stages[i - 1]);
+                    var LastproductInnvoation = productInnvoations.FirstOrDefault(s => s.Stage == AgentStages.stages[i - 1]);
 
                     for (int s = 0; s < i+1; s++)
                     {
@@ -91,7 +101,7 @@ namespace WebMVC.BLL
                     }
 
                 }
-                for (int l = 0; l < agentStages.agents.Count; l++)
+                for (int l = 0; l < AgentStages.agents.Count; l++)
                 {
                     for (int s = 0; s < i + 1; s++)
                     {
@@ -119,8 +129,8 @@ namespace WebMVC.BLL
     {
         public MarketTable()
         {
-            var agentStages = new AgentStages();
-            for (int i = 0; i < agentStages.stages.Count - 1; i++)
+          
+            for (int i = 0; i < AgentStages.stages.Count - 1; i++)
             {
                 CD.Add(i, new RC());
                 CM.Add(i, new RC());
@@ -146,11 +156,11 @@ namespace WebMVC.BLL
         {
             get
             {
-                var agentStages = new AgentStages();
-                var countAgent = agentStages.agents.Count;
-                var indexStage = agentStages.stages.IndexOf(this.Stage);
+           
+                var countAgent = AgentStages.agents.Count;
+                var indexStage = AgentStages.stages.IndexOf(this.Stage);
                 var result = new Dictionary<int, MJA>();
-                for (int i = 0; i < agentStages.stages.Count - 1; i++)
+                for (int i = 0; i < AgentStages.stages.Count - 1; i++)
                 {
                     result.Add(i, new MJA());
                 }
@@ -185,11 +195,11 @@ namespace WebMVC.BLL
         {
             get
             {
-                var agentStages = new AgentStages();
-                var countAgent = agentStages.agents.Count;
-                var indexStage = agentStages.stages.IndexOf(this.Stage);
+            
+                var countAgent = AgentStages.agents.Count;
+                var indexStage = AgentStages.stages.IndexOf(this.Stage);
                 var result = new Dictionary<int, MJA>();
-                for (int i = 0; i < agentStages.stages.Count - 1; i++)
+                for (int i = 0; i < AgentStages.stages.Count - 1; i++)
                 {
                     result.Add(i, new MJA());
                 }
@@ -222,11 +232,11 @@ namespace WebMVC.BLL
         {
             get
             {
-                var agentStages = new AgentStages();
-                var countAgent = agentStages.agents.Count;
-                var indexStage = agentStages.stages.IndexOf(this.Stage);
+        
+                var countAgent = AgentStages.agents.Count;
+                var indexStage = AgentStages.stages.IndexOf(this.Stage);
                 var result = new Dictionary<int, MJA>();
-                for (int i = 0; i < agentStages.stages.Count - 1; i++)
+                for (int i = 0; i < AgentStages.stages.Count - 1; i++)
                 {
                     result.Add(i, new MJA());
                 }
@@ -270,7 +280,7 @@ namespace WebMVC.BLL
             get
             {
                 var result = new Dictionary<int, RC>();
-                var index = new AgentStages().stages.IndexOf(this.Stage);
+                var index = AgentStages.stages.IndexOf(this.Stage);
                 for (int i = 0; i < index; i++)
                 {
                     result.Add(i, GetVC(CM[i], CD[i]));
@@ -311,11 +321,11 @@ namespace WebMVC.BLL
         {
             get
             {
-                var agentStages = new AgentStages();
-                var countAgent = agentStages.agents.Count;
-                var indexStage = agentStages.stages.IndexOf(this.Stage);
+              
+                var countAgent = AgentStages.agents.Count;
+                var indexStage = AgentStages.stages.IndexOf(this.Stage);
                 var result = new Dictionary<int, MJA>();
-                for (int i = 0; i < agentStages.stages.Count - 1; i++)
+                for (int i = 0; i < AgentStages.stages.Count - 1; i++)
                 {
                     result.Add(i, new MJA());
                 }

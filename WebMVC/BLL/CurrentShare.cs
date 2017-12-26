@@ -16,13 +16,13 @@ namespace WebMVC.BLL
         List<IntentionIndexTable> intentionIndexs;
 
         List<PriceControlTable> priceControlTables;
-        AgentStages agentStage;
+   
         /// <summary>
         /// 市场容量及各品牌当年占有率
         /// </summary>  
         public CurrentShare(IntentionIndex intentionIndex, PriceControl priceControl)
         {
-            agentStage = new AgentStages();
+        
             intentionIndexs = intentionIndex.Get();
             priceControlTables = priceControl.Get();
             Init();
@@ -30,18 +30,26 @@ namespace WebMVC.BLL
 
         public void Init()
         {
-            List<CurrentShareInit> currentShareInits;
-            using (var db = new AppIdentityDbContext())
+            List<CurrentShareInit> currentShareInits=AgentStages.CurrentShareInits;
+            var st_D = new decimal[currentShareInits.Count];
+            var st_E = new decimal[currentShareInits.Count];
+            var st_F = new decimal[currentShareInits.Count];
+            for (int i = 0; i < currentShareInits.Count; i++)
             {
-                currentShareInits = db.CurrentShareInit.ToList();
+                st_D[i] = currentShareInits[i].D;
+                st_E[i] = currentShareInits[i].E;
+                st_F[i] = currentShareInits[i].F;
+
+
             }
-            var firstInit = currentShareInits.FirstOrDefault(s => s.G == agentStage.stages[0]);
+
+            var firstInit = currentShareInits.FirstOrDefault(s => s.G == AgentStages.stages[0]);
             decimal d = 0;
             decimal e = 0;
             string stage = "";
             if (firstInit != null)
             {
-                d = firstInit.D; e = firstInit.E; stage = agentStage.stages[0];
+                d = firstInit.D; e = firstInit.E; stage = AgentStages.stages[0];
             }
             var current0 = new CurrentShareTable
             {
@@ -50,7 +58,10 @@ namespace WebMVC.BLL
                 C = "",
                 D = d,
                 E = e,
-                Stage = stage
+                Stage = stage,
+                Static_D=st_D,
+                 Static_E=st_E,
+                 Static_F=st_F,
             };
             //  current0.H[1] = new MJA { M1 = 0.45m, M2 = 0.45m, M3 = 0.45m, M4 = 0.45m, M5 = 0.45m, M6 = 0.45m, };
             // current0.Z[1] = new MJA { J1 = 0.25m, J2 = 0.25m, J3 = 0.25m, J4 = 0.25m, J5 = 0.25m, J6 = 0.25m, };
@@ -61,7 +72,7 @@ namespace WebMVC.BLL
             current0.Z.Add(0, new MJA());
             current0.AR.Add(0, new MJA() );
  
-            for (int i = 0; i < agentStage.agents.Count; i++)
+            for (int i = 0; i < AgentStages.agents.Count; i++)
             {
                 current0.H[0].M.Add(firstInit.H);
                 current0.Z[0].J.Add(firstInit.Z);
@@ -90,7 +101,10 @@ namespace WebMVC.BLL
                         C = "",
                         D = d,
                         E = e,
-                        Stage = item.Stage
+                        Stage = item.Stage,
+                        Static_D = st_D,
+                        Static_E = st_E,
+                        Static_F = st_F,
                     };
 
                     currentShares.Add(currentShare);
@@ -104,7 +118,7 @@ namespace WebMVC.BLL
 
                 var curretnpriceControl = priceControlTables.FirstOrDefault(s => s.Stage == item.Stage);
 
-                var index = agentStage.stages.IndexOf(item.Stage);
+                var index = AgentStages.stages.IndexOf(item.Stage);
                 for (int i = 0; i < index; i++)
                 {
                     var m = curretnpriceControl.B.RcM.Count > i ? curretnpriceControl.B.RcM[i] : 0;
@@ -128,10 +142,10 @@ namespace WebMVC.BLL
     }
     public class CurrentShareTable
     {
-
-        decimal[] Static_D = { 100, 100, 80, 50 };
-        decimal[] Static_E = { 100, 90, 105, 98 };
-        decimal[] Static_F = { 1, 0.9m, 1.05m, 0.98m };
+        
+        public decimal[] Static_D { get; set; }//
+        public decimal[] Static_E { get; set; }//= { 100, 90, 105, 98 };
+        public decimal[] Static_F { get; set; } //= { 1, 0.9m, 1.05m, 0.98m };
         public string A { get; set; }
         public string B { get; set; }
         public string C { get; set; }
@@ -155,7 +169,7 @@ namespace WebMVC.BLL
             get
             {
                 var result = new Dictionary<int, MJA>();
-                var index = new AgentStages().stages.IndexOf(this.Stage);
+                var index = AgentStages.stages.IndexOf(this.Stage);
                 if (index == 0)
                 {
                     var m = new List<decimal>();
@@ -192,7 +206,7 @@ namespace WebMVC.BLL
             {
                 var result = new Dictionary<int, MJA>();
 
-                var index = new AgentStages().stages.IndexOf(this.Stage);
+                var index = AgentStages.stages.IndexOf(this.Stage);
                 if (index == 0)//起始阶段
                 {
                     var j = new List<decimal>();
@@ -221,7 +235,7 @@ namespace WebMVC.BLL
             get
             {
                 var result = new Dictionary<int, MJA>();
-                var index = new AgentStages().stages.IndexOf(this.Stage);
+                var index = AgentStages.stages.IndexOf(this.Stage);
                 if (index == 0)//起始阶段
                 {
                     var agent = new List<decimal>();
@@ -259,12 +273,6 @@ namespace WebMVC.BLL
                 m.Add(mja.M[i] * t);
             }
             result.M = m;
-            //result.M1 = mja.M1 * t;
-            //result.M2 = mja.M2 * t;
-            //result.M3 = mja.M3 * t;
-            //result.M4 = mja.M4 * t;
-            //result.M5 = mja.M5 * t;
-            //result.M6 = mja.M6 * t;
             return result;
         }
         public MJA Cal_MJA_J(MJA mja, decimal[] ds, decimal f, decimal de)
@@ -279,12 +287,7 @@ namespace WebMVC.BLL
                 j.Add(mja.J[i] * t);
             }
             result.J = j;
-            //result.J1 = mja.J1 * t;
-            //result.J2 = mja.J2 * t;
-            //result.J3 = mja.J3 * t;
-            //result.J4 = mja.J4 * t;
-            //result.J5 = mja.J5 * t;
-            //result.J6 = mja.J6 * t;
+      
             return result;
         }
         public MJA Cal_MJA_Agent(MJA mja, decimal[] ds, decimal f, MJA de)
@@ -294,15 +297,7 @@ namespace WebMVC.BLL
             {
                 result.Agent.Add(mja.Agent[i] * f * (de.Agent[i] <= 699 ? ds[1] : de.Agent[i] <= 845 ? ds[2] : ds[3]));
             }
-            //return new MJA
-            //{
-            //    Agent1 = mja.Agent1 * f * (de.Agent1 <= 699 ? ds[1] : de.Agent1 <= 845 ? ds[2] : ds[3]),
-            //    Agent2 = mja.Agent2 * f * (de.Agent2 <= 699 ? ds[1] : de.Agent2 <= 845 ? ds[2] : ds[3]),
-            //    Agent3 = mja.Agent3 * f * (de.Agent3 <= 699 ? ds[1] : de.Agent3 <= 845 ? ds[2] : ds[3]),
-            //    Agent4 = mja.Agent4 * f * (de.Agent4 <= 699 ? ds[1] : de.Agent4 <= 845 ? ds[2] : ds[3]),
-            //    Agent5 = mja.Agent5 * f * (de.Agent5 <= 699 ? ds[1] : de.Agent5 <= 845 ? ds[2] : ds[3]),
-            //    Agent6 = mja.Agent6 * f * (de.Agent6 <= 699 ? ds[1] : de.Agent6 <= 845 ? ds[2] : ds[3]),
-            //};
+           
             return result;
 
         }

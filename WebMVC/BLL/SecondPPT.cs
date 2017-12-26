@@ -56,11 +56,11 @@ namespace WebMVC.BLL
         List<CurrentShareTable> currentShares;
         FirstPPT firstPPT;
         string stage;
-        AgentStages agentStages;
+       
         public SecondPPT(MarketPrice MarketPrice, Investment Investment, InvertmentTable1 InvertmentTable1, SummaryAssent SummaryAssent,
             LastBrand LastBrand, InvoicingReport InvoicingReport, PriceControl priceControl, CurrentShare currentShare, FirstPPT firstPPT)
         {
-            agentStages = new AgentStages();
+          
             this.firstPPT = firstPPT;
             marketPrices = MarketPrice.Get();
             this.investment = Investment;
@@ -97,9 +97,9 @@ namespace WebMVC.BLL
                 AddBrandInfo(new SecondBrandInfo()
                 {
                     品牌方 = Brand.M品牌,
-                    出厂价 = marketPrice2.CM[1].M,
+                    出厂价 = marketPrice2.CM[0].M,
                     指导零售价 = priceControl2.B.RcM[0],
-                    RC2出厂价 = marketPrice2.CM[2].M,
+                    RC2出厂价 = marketPrice2.CM[1].M,
                     RC2指导零售价 = priceControl2.B.RcM[1],
                     品牌广告 = inverstment2.J,
                     外观创新 = inverstment2.M.Surfacerc[0],
@@ -112,9 +112,9 @@ namespace WebMVC.BLL
                 AddBrandInfo(new SecondBrandInfo()
                 {
                     品牌方 = Brand.S品牌,
-                    出厂价 = marketPrice2.CM[1].S,
+                    出厂价 = marketPrice2.CM[0].S,
                     指导零售价 = brand2.retailPrice,
-                    RC2出厂价 = marketPrice2.CM[2].S,
+                    RC2出厂价 = marketPrice2.CM[1].S,
                     RC2指导零售价 = brand2.NewRetailPriceR2,
                     品牌广告 = inverstment2.K,
                     外观创新 = inverstment2.P.Surfacerc[0],
@@ -130,9 +130,9 @@ namespace WebMVC.BLL
                 AddBrandInfo(new SecondBrandInfo
                 {
                     品牌方 = Brand.J品牌,
-                    出厂价 = marketPrice2.CM[1].J,
+                    出厂价 = marketPrice2.CM[0].J,
                     指导零售价 = priceControl2.B.RcJ[0],
-                    RC2出厂价 = marketPrice2.CM[2].J,
+                    RC2出厂价 = marketPrice2.CM[1].J,
                     RC2指导零售价 = priceControl2.B.RcJ[1],
                     品牌广告 = inverstment2.L,
                     外观创新 = inverstment2.S.Surfacerc[0],
@@ -160,13 +160,10 @@ namespace WebMVC.BLL
             {
                 return lastBrand.Get().FirstOrDefault(s => s.Brand == b);
             };
-            SetBrandProfit(new SecondBrandProfit
+           var sbp=new SecondBrandProfit
             {
                 M = summary.P,
-                S1 = summary.QAgent[0],
-                S2 = summary.QAgent[1],
-                S3 = summary.QAgent[2],
-                S4 = summary.QAgent[3],
+             
                 J = summary.W,
                 SM = getLastBrand(Brand.M品牌.ToString()).D,
                 SS = getLastBrand(Brand.S品牌.ToString()).D,
@@ -174,7 +171,16 @@ namespace WebMVC.BLL
                 RC2SM = getLastBrand(Brand.M品牌.ToString()).E,
                 RC2SS = getLastBrand(Brand.S品牌.ToString()).E,
                 RC2SJ = getLastBrand(Brand.J品牌.ToString()).E,
-            });
+            };
+            for (int i = 0; i < summary.QAgent.Count; i++)
+            {
+                sbp.SAgent.Add(summary.QAgent[i]);
+                //S1 = summary.QAgent[0],
+                //S2 = summary.QAgent[1],
+                //S3 = summary.QAgent[2],
+               // S4 = summary.QAgent[3],
+            }
+            SetBrandProfit( sbp );
 
         }
 
@@ -191,7 +197,7 @@ namespace WebMVC.BLL
                 {
                     代理方 = item.AgentName,
                 };
-                var indexAgent = agentStages.agents.IndexOf(item.AgentName);
+                var indexAgent = AgentStages.agents.IndexOf(item.AgentName);
                 sAgentInfo.供货价 = priceControl2.K[0].Agent[indexAgent];
                 sAgentInfo.零售价 = priceControl2.D[0].Agent[indexAgent];
                 sAgentInfo.RC2供货价 = priceControl2.K[1].Agent[indexAgent];
@@ -245,7 +251,7 @@ namespace WebMVC.BLL
                 sAgentResult.RC2期末 = item.DStage[2][1];
                 sAgentResult.RC2销售量 = item.CStage[2][1];
                 sAgentResult.RC2销售金额 = item.HStage[2][1];
-                var indexAgent = agentStages.agents.IndexOf(sAgentResult.代理方);
+                var indexAgent = AgentStages.agents.IndexOf(sAgentResult.代理方);
                 sAgentResult.数量 = ((sAgentResult.期初 + sAgentResult.销售量 - currentShare2.CT[0].Agent[indexAgent]) > 0 ?
                     0 : (sAgentResult.期初 + sAgentResult.销售量 - currentShare2.CT[0].Agent[indexAgent]));
                 sAgentResult.金额 = sAgentResult.数量 * marketPrice2.EF[1].Agent[indexAgent];

@@ -21,7 +21,7 @@ namespace WebMVC.Models
         [DisplayName("社会人口数")]
         public int E { get; set; } = 100;
         [DisplayName("社会购买力")]
-        public int F { get; set; } = 1;
+        public decimal F { get; set; } = 1;
       
 
 

@@ -180,16 +180,22 @@
         function stageSet(stage) {
 
             $('#jggkb').find('label[data-show]').each(function () {
+
+                $(this).next().children().attr("disabled", "disabled");
                 $(this).parent().hide();
                 if ($(this).data('show') == stage) {
-                    $(this).parent().show();
+                    $(this).parent().show()
+                    $(this).next().children().removeAttr("disabled");
                 }
 
             });
             $('#jhb').find('label[data-show]').each(function () {
+
+                $(this).next().children().attr("disabled", "disabled");
                 $(this).parent().hide();
                 if ($(this).data('show') == stage) {
                     $(this).parent().show();
+                    $(this).next().children().removeAttr("disabled");
                 }
 
             });

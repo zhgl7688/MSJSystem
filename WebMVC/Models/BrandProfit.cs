@@ -14,6 +14,7 @@ namespace WebMVC.Models
         [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal M { get; set; }
         [DisplayFormat(DataFormatString = "{0:F0}")]
+        public List<decimal> SAgent { get; set; } = new List<decimal>();
         public decimal S1 { get; set; }
         [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal S2 { get; set; }

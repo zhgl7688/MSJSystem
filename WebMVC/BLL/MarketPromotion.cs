@@ -15,22 +15,27 @@ namespace WebMVC.BLL
         List<MarketPromotionTable> marketPromotions = new List<MarketPromotionTable>();
         List<BrandTable> brands;
         List<AgentTable> agents;
-        AgentStages agentStages;
+
         public MarketPromotion(InvertmentTable1 InvertmentTable1)
         {
-            agentStages = new AgentStages();
+
             brands = InvertmentTable1.getBrandTable();
             agents = InvertmentTable1.getAgents();
             init();
         }
         public void init()
         {
+
             foreach (var brand in brands)
             {
                 var promotion = marketPromotions.FirstOrDefault(s => s.Stage == brand.Stage);
                 if (promotion == null)
                 {
-                    promotion = new MarketPromotionTable { Stage = brand.Stage };
+                    promotion = new MarketPromotionTable
+                    {
+                        Stage = brand.Stage,
+                     
+                    };
                     marketPromotions.Add(promotion);
 
                 }
@@ -64,7 +69,7 @@ namespace WebMVC.BLL
                     marketPromotions.Add(promotion);
 
                 }
-                for (int i = 0; i < agentStages.agents.Count; i++)
+                for (int i = 0; i < AgentStages.agents.Count; i++)
                 {
                     promotion.B.Agent.Add(itemAgent.Bagent[i].EndImage);//终端形象投入	
                     promotion.J.Agent.Add(itemAgent.Bagent[i].Salesperson);//导购派驻投入
@@ -74,17 +79,17 @@ namespace WebMVC.BLL
                     promotion.AP.Agent.Add(itemAgent.Bagent[i].promotionTeam);//推广小分队投入
                 }
             }
-  
+
             marketPromotions.ForEach(s =>
               {
-                  var indexStage = agentStages.stages.IndexOf(s.Stage);
+                  var indexStage = AgentStages.stages.IndexOf(s.Stage);
                   if (indexStage > 1)
-                      s.SecondBP = marketPromotions.FirstOrDefault(ks => ks.Stage == agentStages.stages[indexStage - 1]).BP;
-                  if (indexStage>2)
-                      s.FirstBP = marketPromotions.FirstOrDefault(ks => ks.Stage == agentStages.stages[indexStage - 2]).BP;
-                   
+                      s.SecondBP = marketPromotions.FirstOrDefault(ks => ks.Stage == AgentStages.stages[indexStage - 1]).BP;
+                  if (indexStage > 2)
+                      s.FirstBP = marketPromotions.FirstOrDefault(ks => ks.Stage == AgentStages.stages[indexStage - 2]).BP;
+
               });
-           
+
 
         }
 
@@ -103,6 +108,7 @@ namespace WebMVC.BLL
         public MP Z { get; set; } = new MP();
         public MP AH { get; set; } = new MP();
         public MP AP { get; set; } = new MP();
+
         /// <summary>
         /// 市场推广指数
         /// </summary>
@@ -114,10 +120,10 @@ namespace WebMVC.BLL
                 //decimal t2 = Stage == Common.Stage.第三阶段.ToString() ? 0.6m : 0;
                 //if (Stage == Common.Stage.第二阶段.ToString()) t = 0.6m;
                 //else if (Stage == Common.Stage.第三阶段.ToString()) t = 0.25m;
-                decimal t = 0.25m; 
-                decimal t2 = 0.6m;
+                var t = AgentStages.M_AY2;
+                var t2 = AgentStages.M_AY1;
                 var result = new MJA();
-                var count = new AgentStages().agents.Count;
+                var count = AgentStages.agents.Count;
                 for (int i = 0; i < count; i++)
                 {
                     if (FirstBP.M.Count < i + 1)
@@ -151,7 +157,7 @@ namespace WebMVC.BLL
             get
             {
                 var result = new MJA();
-                var count = new AgentStages().agents.Count;
+                var count = AgentStages.agents.Count;
                 for (int i = 0; i < count; i++)
                 {
                     result.M.Add(AX.M[i] + AX.J[i] + AX.Agent[i] == 0 ? 0 : AX.M[i] / (AX.M[i] + AX.J[i] + AX.Agent[i]));
@@ -169,7 +175,7 @@ namespace WebMVC.BLL
 
             {
                 var result = new List<decimal>();
-                var count = new AgentStages().agents.Count;
+                var count = AgentStages.agents.Count;
                 for (int i = 0; i < count; i++)
                 {
                     result.Add(BP.M[i] + BP.J[i] + BP.Agent[i]);
@@ -177,7 +183,7 @@ namespace WebMVC.BLL
                 return result;
             }
         }
-        
+
         public decimal MarketingIndex(decimal b, decimal c, decimal d, decimal j, decimal k, decimal l, decimal r, decimal s,
            decimal t, decimal z, decimal aa, decimal ab, decimal ah, decimal ai, decimal aj, decimal ap, decimal aq, decimal ar)
         {
@@ -189,7 +195,12 @@ namespace WebMVC.BLL
             var t6 = ap + aq + ar;
             if (t1 == 0 || t2 == 0 || t3 == 0 || t4 == 0 || t5 == 0 || t6 == 0) return 0;
             //=25%*B3/(B3+C3+D3)+25%*J3/(J3+K3+L3)+20%*R3/(R3+S3+T3)+15%*Z3/(Z3+AA3+AB3)+10%*AH3/(AH3+AI3+AJ3)+5%*AP3/(AP3+AQ3+AR3)
-            return 0.25m * b / t1 + 0.25m * j / t2 + 0.20m * r / t3 + 0.15m * z / t4 + 0.10m * ah / t5 + 0.05m * ap / t6;
+            return AgentStages. M_AX1 * b / t1 +//0.25
+                AgentStages.M_AX2 * j / t2 +//0.25
+                AgentStages.M_AX3 * r / t3 + //0.2
+               AgentStages.M_AX4 * z / t4 +//0.15
+              AgentStages.M_AX5 * ah / t5 +//0.10
+             AgentStages.M_AX6 * ap / t6;//0.05
         }
     }
 

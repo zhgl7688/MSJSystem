@@ -17,10 +17,10 @@ namespace WebMVC.BLL
         List<AgentInput> agentInputs;
         List<AgentTable> agents;
         List<StockReportTable> stockReports;
-        AgentStages agentStage;
+ 
         public Investment(InvertmentTable1 InvertmentTable1, StockReport StockReport)
         {
-            agentStage = new AgentStages();
+         
             invertMentTable1 = InvertmentTable1.getBrandTable();
             agentInputs = InvertmentTable1.getAgentInputs();
             agents = InvertmentTable1.getAgents();
@@ -38,14 +38,14 @@ namespace WebMVC.BLL
                 if (investment == null)
                 {
                     investment = new InvestmentTable { Stage = item.Stage };
-                    agentStage.agents.ForEach(s =>
+                    AgentStages.agents.ForEach(s =>
                     {
                         investment.AJ_SummaryAsserts.Add(0);
                     });
                     investments.Add(investment);
 
                 }
-                var indexStage = agentStage.stages.IndexOf(item.Stage);
+                var indexStage = AgentStages.stages.IndexOf(item.Stage);
                 var surfaceRC = new SurfaceRC();
                 var functionRC = new FunctionRC();
                 var materialRC = new MaterialRC();
@@ -99,21 +99,21 @@ namespace WebMVC.BLL
                 var agentInputList = agentInputs.Where(s => s.Stage == item.Stage).ToList();
                 agentInputList.ForEach(s =>
                 {
-                    var ss = agentStage.agents.IndexOf(s.AgentName);
+                    var ss = AgentStages.agents.IndexOf(s.AgentName);
                     item.EI[ss] = s.bankLoan;
                 });
 
             }
             foreach (var item in stockReports)
             {
-                var index = agentStage.stages.FindIndex(s => s == item.Stage);//(int)Enum.Parse(typeof(Stage), item.Stage);
-                if (index == agentStage.stages.Count - 1) continue;
-                var investment = investments.FirstOrDefault(s => s.Stage == agentStage.stages[index + 1]);// Enum.GetName(typeof(Stage), index + 1));
+                var index = AgentStages.stages.FindIndex(s => s == item.Stage);//(int)Enum.Parse(typeof(Stage), item.Stage);
+                if (index == AgentStages.stages.Count - 1) continue;
+                var investment = investments.FirstOrDefault(s => s.Stage == AgentStages.stages[index + 1]);// Enum.GetName(typeof(Stage), index + 1));
                 if (investment == null)
                 {
                     continue;
                 }
-                index = agentStage.agents.IndexOf(item.AgentName);
+                index = AgentStages.agents.IndexOf(item.AgentName);
                 investment.AJ_SummaryAsserts[index] = item.Sum.Sum;
                
 
@@ -133,8 +133,8 @@ namespace WebMVC.BLL
         public InvestmentTable()
         {
             EI = new Dictionary<int, decimal>();
-            var agentStages = new AgentStages();
-            for (int i = 0; i < agentStages.agents.Count; i++)
+         
+            for (int i = 0; i < AgentStages.agents.Count; i++)
             {
                 EI.Add(i, 0);
             }

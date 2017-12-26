@@ -2,42 +2,56 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMVC.Models;
 
 namespace WebMVC.BLL
 {
-    public class AgentStages
+    public static class AgentStages
     {
-        public List<string> agents { get; set; }
-        public List<string> stages { get; set; }
-        public AgentStages()
-        {
-            //代理数
-            //using (var db = new Infrastructure.AppIdentityDbContext())
-            //{
-            //    agents = db.StageAdd.Select(s => s.AgentName).Distinct().ToList();
-            //    aCount = agents.Count();
-            //    stages = db.StageAdd.Select(s => s.Stage).Distinct().ToList();
-            //    bCount = stages.Count();
-            //}
+        internal static List<CurrentShareInit> CurrentShareInits;
 
-            var stageadds = new List<Models.StageAdd>();
-            stageadds.Add(new Models.StageAdd { Stage = "起始阶段" });
-            stageadds.Add(new Models.StageAdd { Stage = "第1阶段" });
-            stageadds.Add(new Models.StageAdd { Stage = "第2阶段" });
-            stageadds.Add(new Models.StageAdd { Stage = "第3阶段" });
+        public static List<string> agents { get; set; }
+        public static List<string> stages { get; set; }
+        public static int BrandStrength_E { get; internal set; }
+        public static int BrandStrength_M1 { get; internal set; }
+        public static ProductInnovationInit ProductInnovationInit { get; internal set; }
+        public static decimal M_AY1 { get; internal set; }
+        public static decimal M_AY2 { get; internal set; }
+        public static decimal M_AX1 { get; internal set; }
+        public static decimal M_AX2 { get; internal set; }
+        public static decimal M_AX3 { get; internal set; }
+        public static decimal M_AX4 { get; internal set; }
 
-            agents = new List<string> {
+        public static decimal M_AX5 { get; internal set; }
+        public static decimal M_AX6 { get; internal set; }
+        public static decimal C_J1 { get; internal set; }
+        public static decimal C_J2 { get; internal set; }
+        public static decimal MP_CD { get; internal set; }
+        public static decimal MP_CE { get; internal set; }
+        public static decimal MP_CF { get; internal set; }
+        public static decimal MP_CM { get; internal set; }
+        public static decimal MP_CN { get; internal set; }
+        public static decimal MP_CO { get; internal set; }
 
- "代1" ,
- "代2" ,
- "代3" ,
- "代4" ,
- "代5" ,
- "代6" ,
-       };
 
-            stages = stageadds.Where(s => s.Stage != null).Select(s => s.Stage).Distinct().ToList();
-        }
+        // var stageadds = new List<Models.StageAdd>();
+        // stageadds.Add(new Models.StageAdd { Stage = "起始阶段" });
+        //stageadds.Add(new Models.StageAdd { Stage = "第1阶段" });
+        //stageadds.Add(new Models.StageAdd { Stage = "第2阶段" });
+        //stageadds.Add(new Models.StageAdd { Stage = "第3阶段" });
+
+        //           agents = new List<string> {
+
+        //"代1" ,
+        //"代2" ,
+        //"代3" ,
+        //"代4" ,
+        //"代5" ,
+        //"代6" ,
+        //      };
+
+        //  stages = stageadds.Where(s => s.Stage != null).Select(s => s.Stage).Distinct().ToList();
+
 
     }
 }

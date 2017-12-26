@@ -50,11 +50,11 @@ namespace WebMVC.BLL
         LastBrand lastBrand;
         List<InvoicingTable> invoicingReports;
         List<PriceControlTable> priceControls;
-        AgentStages agentStages;
+
         public FirstPPT(MarketPrice MarketPrice, Investment Investment, InvertmentTable1 InvertmentTable1, SummaryAssent SummaryAssent,
             LastBrand LastBrand, InvoicingReport InvoicingReport, PriceControl priceControl)
         {
-            agentStages = new AgentStages();
+
             this.marketPrice = MarketPrice;
             this.investment = Investment;
             this.invertmentTable1 = InvertmentTable1;
@@ -87,8 +87,8 @@ namespace WebMVC.BLL
                 AddBrandInfo(new BrandInfo()
                 {
                     品牌方 = Brand.M品牌,
-                    出厂价 = firstMarketPrice.CM[1].M, 
-                    指导零售价 = firstMarketPrice.DE[1].M, 
+                    出厂价 = firstMarketPrice.CM[1].M,
+                    指导零售价 = firstMarketPrice.DE[1].M,
                     品牌广告 = firstInverstment.J,
                     外观创新 = firstInverstment.M.Surfacerc[0],
                     功能创新 = firstInverstment.N.Functionrc[0],
@@ -136,18 +136,23 @@ namespace WebMVC.BLL
                  var shareMark = lastBrand.Get().FirstOrDefault(s => s.Brand == b);
                  return shareMark != null ? shareMark.C : 0;
              };
-            SetBrandProfit(new BrandProfit
+            var bp = new BrandProfit()
             {
                 M = summary.B,
-                S1 = summary.CAgent[0],
-                S2 = summary.CAgent[1],
-                S3 = summary.CAgent[2],
-                S4 = summary.CAgent[3],
                 J = summary.I,
                 SM = getC(Brand.M品牌.ToString()),
                 SS = getC(Brand.S品牌.ToString()),
                 SJ = getC(Brand.J品牌.ToString())
-            });
+
+            };
+            for (int i = 0; i < summary.CAgent.Count; i++)
+            {
+                bp.SAgent.Add(summary.CAgent[i]);
+            }
+
+
+
+            SetBrandProfit(bp);
 
         }
 
@@ -164,7 +169,7 @@ namespace WebMVC.BLL
                 {
                     代理方 = item.AgentName,
                 };
-                var indexAgent = agentStages.agents.IndexOf(item.AgentName);
+                var indexAgent = AgentStages.agents.IndexOf(item.AgentName);
                 sAgentInfo.供货价 = priceControl1.K[0].Agent[indexAgent];
                 sAgentInfo.零售价 = priceControl1.D[0].Agent[indexAgent];
                 setBrandInput(sAgentInfo, investment1.CLAgent[indexAgent]);
@@ -208,7 +213,7 @@ namespace WebMVC.BLL
                 sAgentResult.期末 = item.DStage[1][0];
                 sAgentResult.销售量 = item.CStage[1][0];
                 sAgentResult.销售金额 = item.HStage[1][0];
-                var indexAgent = agentStages.agents.IndexOf(item.AgentName);
+                var indexAgent = AgentStages.agents.IndexOf(item.AgentName);
                 sAgentResult.数量 = summary20.JAgent[indexAgent];
                 sAgentResult.金额 = summary21.JAgent[indexAgent];
                 sAgentResult.销售利润 = summary16.JAgent[indexAgent];
@@ -216,7 +221,7 @@ namespace WebMVC.BLL
                 sAgentResult.库存跌价损失计提 = summary18.JAgent[indexAgent];
                 sAgentResult.最终经营利润 = summary19.JAgent[indexAgent];
                 sAgentResult.现金流 = summary15.JAgent[indexAgent];
- 
+
                 AddsAgentResult(sAgentResult);
 
 

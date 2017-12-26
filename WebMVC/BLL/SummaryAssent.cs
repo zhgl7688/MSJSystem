@@ -18,11 +18,11 @@ namespace WebMVC.BLL
         List<MarketTable> markets;   //市场价格!CE5
         List<InvestmentTable> investments;     //=投资表!B5
         List<CurrentShareTable> currentShares;    //市场容量及各品牌当年占有率
-        AgentStages agentStages;
+   
         public SummaryAssent(StockReport StockReport, InvoicingReport InvoicingReport, MarketPrice MarketPrice,
            Investment Investment, CurrentShare CurrentShare)
         {
-            agentStages = new AgentStages();
+          
             stockReports = StockReport.Get();
             invocicings = InvoicingReport.Get();
             markets = MarketPrice.Get();
@@ -72,18 +72,18 @@ namespace WebMVC.BLL
             summarys.Add(summaryAssent18);
             summarys.ForEach(s =>
             {
-                s.count = agentStages.agents.Count;
+                s.count = AgentStages.agents.Count;
                 s.AgentInit();
             });
             summaryAssent2.B = summaryAssent2.I = 2000;
-            for (int i = 0; i < agentStages.agents.Count; i++)
+            for (int i = 0; i < AgentStages.agents.Count; i++)
             {
 
                 summaryAssent2.CAgent[i]=(2000);
                 summaryAssent2.JAgent[i]=(15000);
              }
             #endregion
-            var count = agentStages.agents.Count;
+            var count = AgentStages.agents.Count;
             var currentShare1 = currentShares.FirstOrDefault(s => s.Stage == Stage.第1阶段.ToString());
             currentShare1 = currentShare1 ?? new CurrentShareTable();
             var currentShare2 = currentShares.FirstOrDefault(s => s.Stage == Stage.第2阶段.ToString());
@@ -140,9 +140,9 @@ namespace WebMVC.BLL
 
             for (int i = 0; i < invocicings.Count; i++)//代理循环
             {
-                var item = invocicings.FirstOrDefault(s => s.AgentName == agentStages.agents[i]);
+                var item = invocicings.FirstOrDefault(s => s.AgentName == AgentStages.agents[i]);
 
-                for (int j = 0; j < agentStages.stages.Count - 1; j++)
+                for (int j = 0; j < AgentStages.stages.Count - 1; j++)
                 {
                     summaryAssent4.JAgent[i]=item.CStage[1][0] * market1.EF[0].Agent[i];
                     summaryAssent4.XAgent[i]=(item.CStage[2][0] * market2.EF[0].Agent[i] + item.CStage[2][1] * market2.EF[1].Agent[i]);
@@ -273,7 +273,7 @@ namespace WebMVC.BLL
                     summaryAssent3.XAgent[item] = investment2.EI[item];
                 }
             }
-            for (int i = 0; i < agentStages.agents.Count; i++)
+            for (int i = 0; i < AgentStages.agents.Count; i++)
             {
                 summaryAssent14.JAgent[i]=(summaryAssent3.JAgent[i] * 0.08m);
                 summaryAssent14.XAgent[i]=(summaryAssent3.XAgent[i] * 0.08m);
@@ -288,7 +288,7 @@ namespace WebMVC.BLL
 
                 }
             }
-            for (int i = 0; i < agentStages.agents.Count; i++)
+            for (int i = 0; i < AgentStages.agents.Count; i++)
             {
                 summaryAssent14.ALAgent[i]=(summaryAssent3.ALAgent[i] * 0.08m);
             }
@@ -299,7 +299,7 @@ namespace WebMVC.BLL
 
             for (int i = 0; i < stockReport1.Count(); i++)
             {
-                var item = stockReport1.FirstOrDefault(s => s.AgentName == agentStages.agents[i]);
+                var item = stockReport1.FirstOrDefault(s => s.AgentName == AgentStages.agents[i]);
                 if (item != null)
                 {
                     summaryAssent4.CAgent[i] = (item.E[0].Amount);
@@ -322,7 +322,7 @@ namespace WebMVC.BLL
 
             foreach (var item in stockReport2)
             {
-                var indexAgent = agentStages.agents.IndexOf(item.AgentName);
+                var indexAgent = AgentStages.agents.IndexOf(item.AgentName);
                 //=进货报表!B13*市场价格!$CE$6+进货报表!D13*市场价格!$CH$6
 
 
@@ -350,7 +350,7 @@ namespace WebMVC.BLL
 
             foreach (var item in stockReport3)
             {
-                var indexAgent = agentStages.agents.IndexOf(item.AgentName);
+                var indexAgent = AgentStages.agents.IndexOf(item.AgentName);
                 summaryAssent4.AEAgent[indexAgent] = item.Sum.Sum;
             }
             for (int i = 0; i < summaryAssent4.AEAgent.Count; i++)
@@ -497,7 +497,7 @@ namespace WebMVC.BLL
             }
             foreach (var item in invocicings)
             {
-                var indexAgent = agentStages.agents.IndexOf(item.AgentName);
+                var indexAgent = AgentStages.agents.IndexOf(item.AgentName);
                 summaryAssent2.ALAgent[indexAgent] = summaryAssent12.XAgent[indexAgent] = summaryAssent2.XAgent[indexAgent] + summaryAssent3.XAgent[indexAgent] + summaryAssent4.XAgent[indexAgent] - summaryAssent5.XAgent[indexAgent] - summaryAssent6.XAgent[indexAgent] - summaryAssent7.XAgent[indexAgent] - summaryAssent8.XAgent[indexAgent] - ((item.DStage[2][0] - item.DStage[1][0]) * market2.CM[1].S + item.DStage[2][1] * market2.CM[2].S) + summaryAssent10.XAgent[indexAgent];
                 //=ROUND(ROUND(IF(X12=0,((进销存报表!$I4+进销存报表!$K4-市场容量及各品牌当年占有率!CT6)+(进销存报表!$M4-市场容量及各品牌当年占有率!CZ6)),0),0),0)
                 summaryAssent17.QAgent[indexAgent] = summaryAssent17.XAgent[indexAgent] = 
@@ -567,7 +567,7 @@ namespace WebMVC.BLL
 
             foreach (var item in invocicings)
             {
-                var indexAgent = agentStages.agents.IndexOf(item.AgentName);
+                var indexAgent = AgentStages.agents.IndexOf(item.AgentName);
                 //=IF(X20=0,0,(进销存报表!$I4+进销存报表!$K4-市场容量及各品牌当年占有率!CT6)*市场价格!EF6+(进销存报表!$M4-市场容量及各品牌当年占有率!CZ6)*市场价格!EL6)
                 summaryAssent18.XAgent[indexAgent] = (summaryAssent17.XAgent[indexAgent] == 0 ? 0 :
                                     (item.DStage[1][0] + item.EStage[2][0] - currentShare2.CT[1].Agent[indexAgent]) * market2.EF[0].Agent[indexAgent] +

@@ -12,13 +12,13 @@ namespace WebMVC.BLL
         List<PriceControlTable> priceControlTables = new List<PriceControlTable>();
         InvertmentTable1 invertmenetTable1;
 
-        AgentStages agentStages;
+    
         /// <summary>
         /// 价格管控表
         /// </summary>
         public PriceControl(InvertmentTable1 invertmentTable1)
         {
-            agentStages = new AgentStages();
+  
             invertmenetTable1 = invertmentTable1;
             init();
 
@@ -72,7 +72,7 @@ namespace WebMVC.BLL
                     continue;
                 }
                 string agentName = agentItem.AgentName;
-                var countStage = agentStages.stages.IndexOf(agentItem.Stage);
+                var countStage = AgentStages.stages.IndexOf(agentItem.Stage);
                 for (int i = 0; i < countStage; i++)
                 {
                     if (priceControl.D.Count <= i) priceControl.D.Add(i, new AgentRC());
@@ -91,9 +91,9 @@ namespace WebMVC.BLL
         }
         public void SetAgents(string agentName, AgentRC D, AgentRC K, decimal retailPrice, decimal SystemPrice)
         {
-            var agentStages = new AgentStages();
-            var index = agentStages.agents.FindIndex(s => s == agentName);
-            for (int i = D.Agent.Count; i < agentStages.agents.Count; i++)
+          
+            var index = AgentStages.agents.FindIndex(s => s == agentName);
+            for (int i = D.Agent.Count; i < AgentStages.agents.Count; i++)
             {
                 D.Agent.Add(0);
                 K.Agent.Add(0);
@@ -112,7 +112,7 @@ namespace WebMVC.BLL
     {
         public PriceControlTable()
         {
-            var countStage = new AgentStages().stages.Count;
+            var countStage = AgentStages.stages.Count;
             for (int i = 0; i < countStage - 1; i++)
             {
                 D.Add(i, new AgentRC());

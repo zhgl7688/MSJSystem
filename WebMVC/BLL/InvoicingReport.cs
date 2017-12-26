@@ -17,13 +17,13 @@ namespace WebMVC.BLL
         List<MarketTable> markets;    //市场价格
         List<StockReportTable> stockReports; //进货报表
 
-        AgentStages agentStages;
+     
         /// <summary>
         /// 进销存报表
         /// </summary>
         public InvoicingReport(CurrentShare CurrentShare, MarketPrice MarketPrice, StockReport StockReport)
         {
-            agentStages = new AgentStages();
+         
             currentShares = CurrentShare.Get();
             markets = MarketPrice.Get();
             stockReports = StockReport.Get();
@@ -47,7 +47,7 @@ namespace WebMVC.BLL
                     invoicing.BStage.Add(0, new List<decimal> { 31 });
                     invoicings.Add(invoicing);
                 }
-                var indexStage = agentStages.stages.IndexOf(stockReport.Stage);
+                var indexStage = AgentStages.stages.IndexOf(stockReport.Stage);
                 var es = new List<decimal>();
                 for (int i = 0; i < indexStage; i++)
                 {
@@ -59,7 +59,7 @@ namespace WebMVC.BLL
             }
             for (int i = 0; i < invoicings.Count; i++)
             {
-                var cts0 = currentShares.FirstOrDefault(s => s.Stage == agentStages.stages[0]);
+                var cts0 = currentShares.FirstOrDefault(s => s.Stage == AgentStages.stages[0]);
                 invoicings[i].CStage.Add(0, new List<decimal> { cts0.CT[0].Agent[i] });
             }
             var ctStage = new Dictionary<int, Dictionary<int, MJA>>();
@@ -71,7 +71,7 @@ namespace WebMVC.BLL
             }
             invoicings.ForEach(s =>
             {
-                var indexAgent = new AgentStages().agents.IndexOf(s.AgentName);
+                var indexAgent = AgentStages.agents.IndexOf(s.AgentName);
                 var dStage = new Dictionary<int, List<decimal>>();
                 s.CStage = Common.Cal.ActualSale(indexAgent, ctStage, out dStage, s.BStage);
                 s.DStage = dStage;

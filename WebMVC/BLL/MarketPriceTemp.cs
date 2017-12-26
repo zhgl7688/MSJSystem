@@ -9,11 +9,11 @@ namespace WebMVC.BLL
     public class MarketPriceTemp
     {
         List<PriceControlTable> priceControlTables;
-        AgentStages agentStages;
+   
         public MarketPriceTemp(PriceControl PriceControl)
         {
             priceControlTables = PriceControl.Get();
-            agentStages = new AgentStages();
+      
             Init();
         }
         List<MarketTable> markets = new List<MarketTable>();
@@ -22,7 +22,7 @@ namespace WebMVC.BLL
             foreach (var item in priceControlTables)
             {
                 var market = new MarketTable() { Stage = item.Stage, };
-                var indexStage = agentStages.stages.IndexOf(item.Stage);
+                var indexStage = AgentStages.stages.IndexOf(item.Stage);
                 for (int i = 0; i < indexStage; i++)
                 {
                     var m = item.B.RcM.Count > i ? item.B.RcM[i] : 0;
@@ -32,7 +32,7 @@ namespace WebMVC.BLL
                     market.DE[i] = new RC { M = m, J = je };
                     market.DK[i] = new MJA { Agent = item.D[i].Agent };
                     market.EF[i] = new MJA();
-                    for (int j = 0; j < item.K[1].Agent.Count; j++)
+                    for (int j = 0; j < item.K[i].Agent.Count; j++)
                     {
                         market.EF[i].Agent.Add(GetEF(item.K[i].Agent[j], item.D[i].Agent[j]));
                     }

@@ -13,7 +13,7 @@ namespace WebMVC.BLL
         List<ProductInnvoationTable> productInnvoations = new List<ProductInnvoationTable>();
         List<BrandStrengthTable> brandStrengths;
         List<BrandTable> brandTables;
-        AgentStages agentStages;
+    
         ProductInnovationInit piinit;
         RC initRC;
         /// <summary>
@@ -21,22 +21,16 @@ namespace WebMVC.BLL
         /// </summary>
         public ProductInnovation(BrandStrength brandStrength, InvertmentTable1 invertmentTable1)
         {
-            agentStages = new AgentStages();
-            brandStrengths = brandStrength.Get();
+         
+               brandStrengths = brandStrength.Get();
             brandTables = invertmentTable1.getBrandTable();
             Init();
         }
 
         private void Init()
         {
-
-            using (var db = new AppIdentityDbContext())
-            {
-                piinit = db.ProductInnovationInit.First();
-
-                if (piinit == null) return;
-
-            }
+            piinit = AgentStages.ProductInnovationInit;
+           
             initRC = new RC
             {
                 M = piinit.ProductInnovation_M,//  .0.35m,
@@ -44,15 +38,15 @@ namespace WebMVC.BLL
                 J = piinit.ProductInnovation_J,// 0.20m,
             };
             #region 起始阶段
-            var brandStrength0 = brandStrengths.FirstOrDefault(s => s.Stage == agentStages.stages[0]);
+            var brandStrength0 = brandStrengths.FirstOrDefault(s => s.Stage == AgentStages.stages[0]);
 
             ProductInnvoationTable initT = new ProductInnvoationTable()
             {
-                Stage = agentStages.stages[0],
+                Stage = AgentStages.stages[0],
                 ID = 0,
             };
       
-            for (int i = 0; i < agentStages.stages.Count-1; i++)
+            for (int i = 0; i < AgentStages.stages.Count-1; i++)
             {
                 if (i == 0)
                 {   initT.K.IIXRC.Add(initRC);
@@ -92,11 +86,11 @@ namespace WebMVC.BLL
                     productInnvoation = new ProductInnvoationTable()
                     {
                         Stage = item.Stage,
-                        ID = agentStages.stages.IndexOf(item.Stage)
+                        ID = AgentStages.stages.IndexOf(item.Stage)
                     };
                     productInnvoations.Add(productInnvoation);
                 }
-                var indexStage = agentStages.stages.Count;// (item.Stage);
+                var indexStage = AgentStages.stages.Count;// (item.Stage);
                 Brand brand = (Brand)Enum.Parse(typeof(Brand), item.Brand);
                 for (int i = productInnvoation.T.AIRC.Count; i < indexStage-1; i++)
                 {
@@ -134,9 +128,9 @@ namespace WebMVC.BLL
         }
         private void SetInvovation(List<ProductInnvoationTable> products, ProductInnvoationTable product)
         {
-            int index = agentStages.stages.IndexOf(product.Stage);
+            int index = AgentStages.stages.IndexOf(product.Stage);
             if (index == 0) return;
-            var last = products.FirstOrDefault(j => j.Stage == agentStages.stages[index - 1]);
+            var last = products.FirstOrDefault(j => j.Stage == AgentStages.stages[index - 1]);
             SetInvovation(products, last);
 
             for (int i = 0; i < last.InnovationIndexM.Count; i++)

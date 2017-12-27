@@ -229,7 +229,7 @@ namespace WebMVC.BLL
                     item.DStage[3][2] * market3.CM[2].S) * 0.10m);
                 summaryAssent1.JAgent[i]=(item.DStage[0][0]);
                 //=进销存报表!E4  10  *市场价格!CE5  00
-                summaryAssent5.CAgent[i]=(item.EStage[1][0] * market1.CD[0].S);
+                summaryAssent5.CAgent[i]=(item.BStage[1][0] * market1.CD[0].S);
                 //=进销存报表!G4   10 *市场价格!$CN$5 00
                 summaryAssent5.JAgent[i]=(item.CStage[1][0] * market1.CM[0].S);
                 /*=进销存报表!W4  --30
@@ -294,7 +294,7 @@ namespace WebMVC.BLL
             }
 
 
-            summaryAssent4.B = bj5_bm5 * market1.DE[1].M / (1 + 0.10m);
+            summaryAssent4.B =(Math.Round( bj5_bm5,2) * market1.DE[0].M) / (1.10m);
             summaryAssent11.B = summaryAssent4.B * 0.19m;
 
             for (int i = 0; i < stockReport1.Count(); i++)

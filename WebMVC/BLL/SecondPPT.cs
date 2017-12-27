@@ -113,9 +113,9 @@ namespace WebMVC.BLL
                 {
                     品牌方 = Brand.S品牌,
                     出厂价 = marketPrice2.CM[0].S,
-                    指导零售价 = brand2.retailPrice,
+                    指导零售价 = brand2.retailPriceRC[0],
                     RC2出厂价 = marketPrice2.CM[1].S,
-                    RC2指导零售价 = brand2.NewRetailPriceR2,
+                    RC2指导零售价 = brand2.retailPriceRC[1],
                     品牌广告 = inverstment2.K,
                     外观创新 = inverstment2.P.Surfacerc[0],
                     功能创新 = inverstment2.Q.Functionrc[0],

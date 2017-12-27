@@ -80,6 +80,8 @@ namespace WebMVC.BLL
             invoicings.ForEach(s =>
             {
                 var cmList = markets.Select(sz => sz.CM).ToList();
+                var efList = markets.Select(sz => sz.EF).ToList();
+                var indexAgent = invoicings.IndexOf(s);
                 for (int i = 1; i < s.BStage.Count; i++)
                 {
                     var cmt = cmList[i - 1];
@@ -89,7 +91,7 @@ namespace WebMVC.BLL
                     for (int j = 0; j < i; j++)
                     {
                         s.FStage[i].Add( s.BStage[i][j]*cmt[j].S); //市场价格
-                        s.HStage[i].Add( s.CStage[i][j]*cmt[j].S);
+                        s.HStage[i].Add( s.CStage[i][j]*efList[i-1][j].Agent[indexAgent]);
                         s.JStage[i].Add( s.DStage[i][j]*cmt[j].S);
                     }
 

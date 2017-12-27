@@ -90,9 +90,9 @@ namespace WebMVC.BLL
                     d = 0;
                     e = 0;
 
-                    if (firstInit != null)
+                    if (result != null)
                     {
-                        d = firstInit.D; e = firstInit.E;
+                        d = result.D; e = result.E;
                     }
                     currentShare = new CurrentShareTable
                     {
@@ -175,7 +175,7 @@ namespace WebMVC.BLL
                     var m = new List<decimal>();
                     for (int i = 0; i < H[1].M.Count; i++)
                     {
-                        m.Add(D * F * H[1].M[i]);
+                        m.Add(Math.Round( D * F * H[1].M[i],2));
                     }
                     result.Add(0, new MJA { M = m });
 
@@ -270,7 +270,7 @@ namespace WebMVC.BLL
             var m = new List<decimal>();
             for (int i = 0; i < mja.M.Count; i++)
             {
-                m.Add(mja.M[i] * t);
+                m.Add(Math.Round( mja.M[i] * t,2));
             }
             result.M = m;
             return result;

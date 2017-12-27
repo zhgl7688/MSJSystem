@@ -61,18 +61,18 @@
     <tbody>各品牌商盈利情况BrandProfit</tbody>
     <tr>
         <th>M</th>
-        <th>S1</th>
-        <th>S2</th>
-        <th>S3</th>
-        <th>S4</th>
+        @for (int i = 0; i < Model.BrandProfit.SAgent.Count(); i++)
+    {
+        <th>s @(i + 1)</th>
+}
         <th>J</th>
     </tr>
     <tr>
         <td>@Html.DisplayFor(modelItem => Model.BrandProfit.M)</td>
-        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S1)</td>
-        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S2)</td>
-        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S3)</td>
-        <td>@Html.DisplayFor(modelItem => Model.BrandProfit.S4)</td>
+        @for (int i = 0; i < Model.BrandProfit.SAgent.Count(); i++)
+    {
+        <td>@(Math.Round(Model.BrandProfit.SAgent[i], 0))</td>
+}
         <td>@Html.DisplayFor(modelItem => Model.BrandProfit.J)</td>
     </tr>
     <tr>

@@ -7,7 +7,7 @@
 <h4>当年占有率</h4>
 
 <p>
-    
+
 </p>
 <table class="table">
     <tr>
@@ -32,241 +32,74 @@
         <th>
             @Html.DisplayNameFor(model => model.Stage)
         </th>
-
-        <th>H</th>
-        <th>I</th>
-        <th>J</th>
-        <th>K</th>
-        <th>L</th>
-        <th>M</th>
-        <th>N</th>
-        <th>O</th>
-        <th>P</th>
-        <th>Q</th>
-        <th>R</th>
-        <th>S</th>
-        <th>T</th>
-        <th>U</th>
-        <th>V</th>
-        <th>W</th>
-        <th>X</th>
-        <th>Y</th>
-        <th>Z</th>
-        <th>AA</th>
-        <th>AB</th>
-        <th>AC</th>
-        <th>AD</th>
-        <th>AE</th>
-        <th>AF</th>
-        <th>AG</th>
-        <th>AH</th>
-        <th>AI</th>
-        <th>AJ</th>
-        <th>AK</th>
-        <th>AL</th>
-        <th>AM</th>
-        <th>AN</th>
-        <th>AO</th>
-        <th>AP</th>
-        <th>AQ</th>
-        @*   <th>AR</th>
-            <th>AS</th>
-            <th>AT</th>
-            <th>AU</th>
-            <th>AV</th>
-            <th>AW</th>
-            <th>AX</th>
-            <th>AY</th>
-            <th>AZ</th>
-            <th>BA</th>
-            <th>BB</th>
-            <th>BC</th>
-            <th>BD</th>
-            <th>BE</th>
-            <th>BF</th>
-            <th>BG</th>
-            <th>BH</th>
-            <th>BI</th>*@
-        <th>BJ</th>
-        <th>BK</th>
-        <th>BL</th>
-        <th>BM</th>
-        <th>BN</th>
-        <th>BO</th>
-        <th>BP</th>
-        <th>BQ</th>
-        <th>BR</th>
-        <th>BS</th>
-        <th>BT</th>
-        <th>BU</th>
-        <th>BV</th>
-        <th>BW</th>
-        <th>BX</th>
-        <th>BY</th>
-        <th>BZ</th>
-        <th>CA</th>
-        <th>CB</th>
-        <th>CC</th>
-        <th>CD</th>
-        <th>CE</th>
-        <th>CF</th>
-        <th>CG</th>
-        <th>CH</th>
-        <th>CI</th>
-        <th>CJ</th>
-        <th>CK</th>
-        <th>CL</th>
-        <th>CM</th>
-        <th>CN</th>
-        <th>CO</th>
-        <th>CP</th>
-        <th>CQ</th>
-        <th>CR</th>
-        <th>CS</th>
-        <th>CT</th>
-        <th>CU</th>
-        <th>CV</th>
-        <th>CW</th>
-        <th>CX</th>
-        <th>CY</th>
-        <th>CZ</th>
-        <th>DA</th>
-        <th>DB</th>
-        <th>DC</th>
-        <th>DD</th>
-        <th>DE</th>
-        <th>DF</th>
-        <th>DG</th>
-        <th>DH</th>
-        <th>DI</th>
-        <th>DJ</th>
-        <th>DK</th>
-
+        @for (int i = 0; i < Model.Last().AR.Count; i++)
+    {
+        for (int j = 0; j < Model.Last().AR[i].Agent.Count; j++)
+        {
+        <th>
+            AR@(i + "" + j)
+        </th>
+    }
+}
+        @for (int i = 0; i < Model.Last().CT.Count; i++)
+    {
+        for (int j = 0; j < Model.Last().CT[i].Agent.Count; j++)
+        {
+            <th>
+                ct@(i + "" + j)
+            </th>
+    }
+}
 
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.A)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.B)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.D)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.E)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.F)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stage)
+        </td>
+        @for (int i = 0; i < item.AR.Count; i++)
+    {
+        for (int j = 0; j < item.AR[i].Agent.Count; j++)
+        {
             <td>
-                @Html.DisplayFor(modelItem => item.A)
+                @Math.Round(item.AR[i].Agent[j], 3)
             </td>
+    }
+
+}
+
+        @for (int i = 0; i < item.CT.Count; i++)
+    {
+        for (int j = 0; j < item.CT[i].Agent.Count; j++)
+        {
             <td>
-                @Html.DisplayFor(modelItem => item.B)
+                @Math.Round(item.CT[i].Agent[j], 0)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.C)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.D)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.E)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.F)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stage)
-            </td>
-            <td>@Html.DisplayFor(modelItem => item.H[1].M1)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[1].M2)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[1].M3)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[1].M4)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[1].M5)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[1].M6)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[2].M1)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[2].M2)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[2].M3)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[2].M4)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[2].M5)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[2].M6)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[3].M1)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[3].M2)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[3].M3)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[3].M4)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[3].M5)</td>
-            <td>@Html.DisplayFor(modelItem => item.H[3].M6)</td>
+    }
 
-            <td>@Html.DisplayFor(modelItem => item.Z[1].J1)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[1].J2)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[1].J3)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[1].J4)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[1].J5)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[1].J6)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[2].J1)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[2].J2)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[2].J3)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[2].J4)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[2].J5)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[2].J6)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[3].J1)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[3].J2)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[3].J3)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[3].J4)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[3].J5)</td>
-            <td>@Html.DisplayFor(modelItem => item.Z[3].J6)</td>
+}
 
-
-
-            <td>@Html.DisplayFor(modelItem => item.BJ[1].M1)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[1].M2)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[1].M3)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[1].M4)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[1].M5)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[1].M6)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[2].M1)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[2].M2)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[2].M3)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[2].M4)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[2].M5)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[2].M6)</td>
-
-            <td>@Html.DisplayFor(modelItem => item.BJ[3].M1)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[3].M2)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[3].M3)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[3].M4)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[3].M5)</td>
-            <td>@Html.DisplayFor(modelItem => item.BJ[3].M6)</td>
-
-            <td>@Html.DisplayFor(modelItem => item.CB[1].J1)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[1].J2)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[1].J3)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[1].J4)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[1].J5)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[1].J6)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[2].J1)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[2].J2)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[2].J3)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[2].J4)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[2].J5)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[2].J6)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[3].J1)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[3].J2)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[3].J3)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[3].J4)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[3].J5)</td>
-            <td>@Html.DisplayFor(modelItem => item.CB[3].J6)</td>
-
-            <td>@Html.DisplayFor(modelItem => item.CT[1].Agent1)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[1].Agent2)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[1].Agent3)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[1].Agent4)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[1].Agent5)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[1].Agent6)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[2].Agent1)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[2].Agent2)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[2].Agent3)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[2].Agent4)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[2].Agent5)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[2].Agent6)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[3].Agent1)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[3].Agent2)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[3].Agent3)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[3].Agent4)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[3].Agent5)</td>
-            <td>@Html.DisplayFor(modelItem => item.CT[3].Agent6)</td>
-        </tr>
+    </tr>
     }
 
 </table>

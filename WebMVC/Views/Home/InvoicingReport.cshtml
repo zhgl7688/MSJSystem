@@ -14,143 +14,33 @@
         <th>
             @Html.DisplayNameFor(model => model.AgentName)
         </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.B)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.D)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.E)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.F)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.G)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.H)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.I)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.J)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.K)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.L)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.M)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.N)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.O)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.P)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Q)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.R)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.S)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.T)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.U)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.V)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.W)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.X)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Y)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Z)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AB)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AD)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AF)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AG)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AI)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AJ)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AM)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.F_MarketPrice_CN5)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.F_MarketPrice_CN6)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.F_MarketPrice_CQ6)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.F_MarketPrice_CN7)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.F_MarketPrice_CQ7)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.F_MarketPrice_CT7)
-        </th>
-       
+        @for (int i = 0; i < Model.First().DStage.Count; i++)
+    {
+        for (int j = 0; j < Model.First().DStage[i].Count; j++)
+        {
+            <th>
+                库存D@(i + "" + j)
+            </th>
+    }
+}
+        @for (int i = 0; i < Model.First().BStage.Count; i++)
+    {
+        for (int j = 0; j < Model.First().BStage[i].Count; j++)
+        {
+            <th>
+                进货B@(i + "" + j)
+            </th>
+    }
+}
+        @for (int i = 0; i < Model.First().CStage.Count; i++)
+    {
+        for (int j = 0; j < Model.First().CStage[i].Count; j++)
+        {
+            <th>
+               实际销售C@(i + "" + j)
+            </th>
+    }
+}
     </tr>
 
 @foreach (var item in Model) {
@@ -158,142 +48,39 @@
         <td>
             @Html.DisplayFor(modelItem => item.AgentName)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.B)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.D)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.E)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.F)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.G)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.H)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.I)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.J)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.K)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.L)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.M)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.N)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.O)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.P)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Q)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.R)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.S)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.T)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.U)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.V)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.W)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.X)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Y)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Z)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AB)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AG)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AI)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AJ)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AK)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AM)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.F_MarketPrice_CN5)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.F_MarketPrice_CN6)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.F_MarketPrice_CQ6)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.F_MarketPrice_CN7)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.F_MarketPrice_CQ7)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.F_MarketPrice_CT7)
-        </td>
-        
+        @for (int i = 0; i < item.DStage.Count; i++)
+    {
+        for (int j = 0; j < item.DStage[i].Count; j++)
+        {
+            <td>
+                @item.DStage[i][j]
+            </td>
+    }
+
+}
+        @for (int i = 0; i < item.BStage.Count; i++)
+    {
+        for (int j = 0; j < item.BStage[i].Count; j++)
+        {
+            <td>
+                @item.BStage[i][j]
+            </td>
+    }
+
+}
+        @for (int i = 0; i < item.CStage.Count; i++)
+    {
+        for (int j = 0; j < item.CStage[i].Count; j++)
+        {
+            <td>
+                @item.CStage[i][j]
+            </td>
+    }
+
+}
+
+
+
     </tr>
 }
 

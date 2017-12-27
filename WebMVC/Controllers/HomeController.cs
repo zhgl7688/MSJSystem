@@ -162,7 +162,7 @@ namespace WebMVC.Controllers
 
         public ActionResult BrandStrength()
         {
-
+            init();
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             var model = brandStrength.Get();
@@ -170,7 +170,7 @@ namespace WebMVC.Controllers
         }
         public ActionResult SummaryAssent()
         {
-
+            init();
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             channelService = new ChannelService(invertmentTable1);
@@ -339,7 +339,7 @@ namespace WebMVC.Controllers
         public ActionResult ProductInnovation()
         {
 
-
+            init();
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
@@ -349,6 +349,7 @@ namespace WebMVC.Controllers
         //渠道服务
         public ActionResult ChannelService()
         {
+            init();
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             channelService = new ChannelService(invertmentTable1);
             var model = channelService.Get();
@@ -358,7 +359,7 @@ namespace WebMVC.Controllers
         public ActionResult MarketPromotion()
         {
 
-
+            init();
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             marketPromotion = new MarketPromotion(invertmentTable1);
             var model = marketPromotion.Get();
@@ -368,7 +369,7 @@ namespace WebMVC.Controllers
         public ActionResult MarketPrice()
         {
 
-
+            init();
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             channelService = new ChannelService(invertmentTable1);
@@ -387,7 +388,7 @@ namespace WebMVC.Controllers
         public ActionResult IntentionIndex()
         {
 
-
+            init();
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             channelService = new ChannelService(invertmentTable1);
@@ -414,7 +415,7 @@ namespace WebMVC.Controllers
         // 市场容量及各品牌当年占有率
         public ActionResult CurrentShare()
         {
-
+            init();
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             channelService = new ChannelService(invertmentTable1);
@@ -432,7 +433,7 @@ namespace WebMVC.Controllers
         public ActionResult InvoicingReport()
         {
 
-
+            init();
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
             brandStrength = new BLL.BrandStrength(invertmentTable1);
             channelService = new ChannelService(invertmentTable1);

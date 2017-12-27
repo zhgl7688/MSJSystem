@@ -17,16 +17,16 @@ namespace WebMVC.BLL
         List<ChannelServiceTable> channelServices = new List<ChannelServiceTable>();
         List<BrandTable> brands;
         List<AgentTable> agents;
-   
-        decimal I1, I2;
+
+
         public ChannelService(InvertmentTable1 invertmentTable1)
         {
 
             brands = invertmentTable1.getBrandTable();
             agents = invertmentTable1.getAgents();
-            I1 = AgentStages.C_J1;
-            I2 = AgentStages.C_J2;
-           
+
+
+
             Init();
         }
         private void Init()
@@ -34,7 +34,7 @@ namespace WebMVC.BLL
             #region 起始阶段
             ChannelServiceTable channl0 = new ChannelServiceTable()
             {
-                Stage = AgentStages.stages[0], I1=this.I1,I2=this.I2
+                Stage = AgentStages.stages[0]
             };
 
             channelServices.Add(channl0);
@@ -84,8 +84,8 @@ namespace WebMVC.BLL
         /// 渠道服务投入							
         /// </summary>
         public MP B { get; set; } = new MP();
-        public   decimal I1 = 0;
-           public     decimal I2 = 0;
+        public decimal I1 =AgentStages.C_J1;
+        public decimal I2 = AgentStages.C_J2;
         /// <summary>
         /// 顾客满意度指数																	
         /// </summary>
@@ -93,12 +93,12 @@ namespace WebMVC.BLL
         {
             get
             {
-              
-                
+
+
 
                 var result = new MJA();
                 var count = AgentStages.agents.Count;
-                for (int i = 0; i <count; i++)
+                for (int i = 0; i < count; i++)
                 {
 
                     if (Stage == AgentStages.stages[0])
@@ -109,15 +109,15 @@ namespace WebMVC.BLL
                     }
                     else
                     {
-                        var m= LastAB.M.Count>i?LastAB.M[i]:0;
-                        var j= LastAB.J.Count>i?LastAB.J[i]:0;
-                        var agent= LastAB.Agent.Count>i?LastAB.Agent[i]:0;
-                        var b= B.Agent.Count>i?B.Agent[i]:0;
-                     
+                        var m = LastAB.M.Count > i ? LastAB.M[i] : 0;
+                        var j = LastAB.J.Count > i ? LastAB.J[i] : 0;
+                        var agent = LastAB.Agent.Count > i ? LastAB.Agent[i] : 0;
+                        var b = B.Agent.Count > i ? B.Agent[i] : 0;
+
 
 
                         result.M.Add(m * I1 + Cal.Percent(B.M, B.J, b));
-                        result.J.Add(j * I1 + Cal.Percent(B.J, B.M,b));
+                        result.J.Add(j * I1 + Cal.Percent(B.J, B.M, b));
                         result.Agent.Add(agent * I1 + Cal.Percent(b, B.M, B.J));
                     }
                 }
@@ -131,6 +131,7 @@ namespace WebMVC.BLL
         {
             get
             {
+                var ss = Stage;
                 return ABCal();
 
             }
@@ -161,7 +162,7 @@ namespace WebMVC.BLL
             }
 
         }
-       
-         
+
+
     }
 }

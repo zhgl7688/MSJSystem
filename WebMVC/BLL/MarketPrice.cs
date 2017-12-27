@@ -68,7 +68,7 @@ namespace WebMVC.BLL
                 {
 
                     var lastMarket = markets.FirstOrDefault(s => s.Id == i - 1);
-                    var LastproductInnvoation = productInnvoations.FirstOrDefault(s => s.Stage == AgentStages.stages[i - 1]);
+                    var LastproductInnvoation = productInnvoations.FirstOrDefault(s => s.Stage == AgentStages.stages[i]);
 
                     for (int s = 0; s < i+1; s++)
                     {
@@ -87,9 +87,9 @@ namespace WebMVC.BLL
                             };
                             market.CM[s] = new RC
                             {
-                                M = lastMarket.CM[1].M - lastMarket.CM[1].M * LastproductInnvoation.AL.MIRC[0].M / 100 * 0.02m,
-                                S = lastMarket.CM[1].S - lastMarket.CM[1].S * LastproductInnvoation.AL.MIRC[0].S / 100 * 0.02m,
-                                J = lastMarket.CM[1].J - lastMarket.CM[1].J * LastproductInnvoation.AL.MIRC[0].J / 100 * 0.02m
+                                M = lastMarket.CM[0].M - lastMarket.CM[0].M * LastproductInnvoation.AL.MIRC[0].M / 100 * 0.02m,
+                                S = lastMarket.CM[0].S - lastMarket.CM[0].S * LastproductInnvoation.AL.MIRC[0].S / 100 * 0.02m,
+                                J = lastMarket.CM[0].J - lastMarket.CM[0].J * LastproductInnvoation.AL.MIRC[0].J / 100 * 0.02m
                             };
                         }
                         var m = priceControl1.B.RcM.Count > s ? priceControl1.B.RcM[s] : 0;

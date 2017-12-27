@@ -14,100 +14,29 @@
         <th>
             @Html.DisplayNameFor(model => model.Stage)
         </th>
-        <th>AB</th>
-        <th>AC</th>
-        <th>AD</th>
-        <th>AE</th>
-        <th>AF</th>
-        <th>AG</th>
-        <th>AH</th>
-        <th>AI</th>
-        <th>AJ</th>
-        <th>AK</th>
-        <th>AL</th>
-        <th>AM</th>
-        <th>AN</th>
-        <th>AO</th>
-        <th>AP</th>
-        <th>AQ</th>
-        <th>AR</th>
-        <th>AS</th>
 
-        <th>CD</th>
-        <th>CE</th>
-        <th>CF</th>
-        <th>CG</th>
-        <th>CH</th>
-        <th>CI</th>
-        <th>CJ</th>
-        <th>CK</th>
-        <th>CL</th>
+        @for (int i = 0; i < Model.Last().EF.First().Value.Agent.Count; i++)
+    {
 
-        <th>DE</th>
-        <th>DF</th>
-        <th>DG</th>
-        <th>DH</th>
-        <th>DI</th>
-        <th>DJ</th>
-        <th>DK</th>
-        <th>DL</th>
-        <th>DM</th>
-        <th>DN</th>
-        <th>DO</th>
-        <th>DP</th>
-        <th>DQ</th>
-        <th>DR</th>
-        <th>DS</th>
-        <th>DT</th>
-        <th>DU</th>
-        <th>DV</th>
-        <th>DW</th>
-        <th>DX</th>
-        <th>DY</th>
-        <th>DZ</th>
-        <th>EA</th>
-        <th>EB</th>
-        <th>EC</th>
-        <th>ED</th>
-        <th>EE</th>
-        <th>EF</th>
-        <th>EG</th>
-        <th>EH</th>
-        <th>EI</th>
-        <th>EJ</th>
-        <th>EK</th>
-        <th>EL</th>
-        <th>EM</th>
-        <th>EN</th>
-        <th>EO</th>
-        <th>EP</th>
-        <th>EQ</th>
-        <th>ER</th>
-        <th>ES</th>
-        <th>ET</th>
-        <th>EU</th>
-        <th>EV</th>
-        <th>EW</th>
+        <th>
+            BL_Agent@(i )
+        </th>
+}
 
 
-        <th>EY</th>
-        <th>EZ</th>
-        <th>FA</th>
-        <th>FB</th>
-        <th>FC</th>
-        <th>FD</th>
-        <th>FE</th>
-        <th>FF</th>
-        <th>FG</th>
-        <th>FH</th>
-        <th>FI</th>
-        <th>FJ</th>
-        <th>FK</th>
-        <th>FL</th>
-        <th>FM</th>
-        <th>FN</th>
-        <th>FO</th>
-        <th>FP</th>
+
+        @for (int i = 0; i < Model.Last().BL.First().Value.Agent.Count; i++)
+    {
+
+        <th>
+            BL_Agent@(i )
+        </th>
+}
+
+
+
+
+
 
     </tr>
 
@@ -116,97 +45,23 @@
         <td>
             @Html.DisplayFor(modelItem => item.Stage)
         </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[1].M1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[1].M2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[1].M3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[1].M4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[1].M5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[1].M6)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[2].M1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[2].M2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[2].M3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[2].M4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[2].M5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[2].M6)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[3].M1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[3].M2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[3].M3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[3].M4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[3].M5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.AB[3].M6)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.CD[1].M)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.CD[1].S)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.CD[1].J)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.CD[2].M)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.CD[2].S)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.CD[2].J)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.CD[3].M)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.CD[3].S)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.CD[3].J)    </td>
+        @for (int i = 0; i < item.EF[0].Agent.Count; i++)
+    {
 
-        <td>   @Html.DisplayFor(modelItem => item.DE[1].M)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DE[1].J)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DE[2].M)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DE[2].J)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DE[3].M)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DE[3].J)    </td>
+        <td>
+            @Math.Round(item.EF[0].Agent[i], 3)
+        </td>
+}
 
-        <td>   @Html.DisplayFor(modelItem => item.DK[1].Agent1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[1].Agent2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[1].Agent3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[1].Agent4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[1].Agent5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[1].Agent6)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[2].Agent1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[2].Agent2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[2].Agent3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[2].Agent4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[2].Agent5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[2].Agent6)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[3].Agent1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[3].Agent2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[3].Agent3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[3].Agent4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[3].Agent5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.DK[3].Agent6)    </td>
+        @for (int i = 0; i < item.BL[0].Agent.Count; i++)
+    {
 
-        <td>   @Html.DisplayFor(modelItem => item.EF[1].Agent1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[1].Agent2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[1].Agent3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[1].Agent4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[1].Agent5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[1].Agent6)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[2].Agent1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[2].Agent2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[2].Agent3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[2].Agent4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[2].Agent5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[2].Agent6)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[3].Agent1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[3].Agent2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[3].Agent3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[3].Agent4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[3].Agent5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EF[3].Agent6)    </td>
+        <td>
+            @Math.Round(item.BL[0].Agent[i], 3)
+        </td>
+}
 
-        <td>   @Html.DisplayFor(modelItem => item.EY[1].M1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[1].M2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[1].M3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[1].M4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[1].M5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[1].M6)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[2].M1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[2].M2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[2].M3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[2].M4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[2].M5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[2].M6)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[3].M1)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[3].M2)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[3].M3)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[3].M4)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[3].M5)    </td>
-        <td>   @Html.DisplayFor(modelItem => item.EY[3].M6)    </td>
+
     </tr>
 }
 

@@ -89,7 +89,7 @@ namespace WebMVC.BLL
                         var nj2 = brandStrength.P + DDStage[j] + item.CIAgent[i] + AUSum[i] + EY[ss].M[i];
                         var nj = Common.Cal.GetPositive(nj1, nj2);
                         intentionIndex.T[ss].J.Add(nj);
-                        var agent1 = brandStrength.C + IIRC[j].J + item.BP.Agent[i] + csAB.Agent[i] + mpBL[ss].Agent[i];
+                        var agent1 = brandStrength.C + IIRC[j].S + item.BP.Agent[i] + csAB.Agent[i] + mpBL[ss].Agent[i];
                         var agent2 = brandStrength.P + DDStage[j] + item.CIAgent[i] + AUSum[i] + EY[ss].M[i];
                         var agent = Common.Cal.GetPositive(agent1, agent2);
                         intentionIndex.AL[ss].Agent.Add(agent);

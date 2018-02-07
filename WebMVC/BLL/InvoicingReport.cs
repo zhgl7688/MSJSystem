@@ -120,7 +120,7 @@ namespace WebMVC.BLL
         {
             get
             {
-                return CStage;
+                return BStage;
             }
         }
         public Dictionary<int, List<decimal>> FStage { get; set; } = new Dictionary<int, List<decimal>>();

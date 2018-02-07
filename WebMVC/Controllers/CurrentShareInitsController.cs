@@ -17,9 +17,9 @@ namespace WebMVC.Controllers
         private AppIdentityDbContext db = new AppIdentityDbContext();
 
         // GET: CurrentShareInits
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.CurrentShareInit.ToListAsync());
+            return View(db.CurrentShareInit.ToList());
         }
 
         // GET: CurrentShareInits/Details/5
@@ -64,7 +64,8 @@ namespace WebMVC.Controllers
                 }
                 db.CurrentShareInit.Add(currentShareInit);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "DataInits", new { id = 1 });
+               // return RedirectToAction("Index");
             }
             ViewBag.G = new SelectList(db.CodeInit.Where(s => s.Code == "Stage"), "Text", "Text", currentShareInit.G);
 
@@ -85,7 +86,6 @@ namespace WebMVC.Controllers
                 return HttpNotFound();
             }
             ViewBag.G = new SelectList(db.CodeInit.Where(s => s.Code == "Stage"), "Text", "Text", currentShareInit.G);
-
             return View(currentShareInit);
         }
 
@@ -100,11 +100,12 @@ namespace WebMVC.Controllers
             {
                 db.Entry(currentShareInit).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "DataInits", new { id = 1 });// return RedirectToAction("Index");
             }
-            ViewBag.G = new SelectList(db.CodeInit.Where(s => s.Code == "Stage"  ), "Text", "Text", currentShareInit.G);
+           // ViewBag.G = new SelectList(db.CodeInit.Where(s => s.Code == "Stage"  ), "Text", "Text", currentShareInit.G);
 
-            return View(currentShareInit);
+        
+             return View(currentShareInit);
         }
 
         // GET: CurrentShareInits/Delete/5

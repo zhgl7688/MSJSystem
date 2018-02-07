@@ -150,7 +150,7 @@ namespace WebMVC.BLL
 
                 }
 
-                summaryAssent5.XAgent[i]=(item.CStage[2][0] * market2.CM[1].S + item.CStage[2][1] * market2.CM[2].S);
+                summaryAssent5.XAgent[i]=(item.CStage[2][0] * market2.CM[0].S + item.CStage[2][1] * market2.CM[1].S);
                 summaryAssent8.XAgent[i]=(item.CStage[2][0] * (market2.EF[1].Agent[i] > market2.DK[1].Agent[i] ?
                     (market2.EF[1].Agent[i] - market2.DK[1].Agent[i]) : 0) +
                            item.CStage[2][0] * (market2.EF[1].Agent[i] > market2.DK[1].Agent[i] ? (market2.EF[1].Agent[i] - market2.DK[1].Agent[i]) : 0));
@@ -469,7 +469,7 @@ namespace WebMVC.BLL
                 var cat = summaryAssent2.CAgent[i] + summaryAssent4.CAgent[i] - summaryAssent5.CAgent[i] - summaryAssent6.CAgent[i] - summaryAssent11.CAgent[i];
                 summaryAssent2.QAgent[i]=(cat);
                 summaryAssent12.CAgent[i]=(cat);
-                var sumt = summaryAssent2.JAgent[i] + summaryAssent3.JAgent[i] + summaryAssent4.JAgent[i] - summaryAssent5.JAgent[i] - summaryAssent6.JAgent[i] - summaryAssent7.JAgent[i] - summaryAssent8.JAgent[i] - (summaryAssent9.JAgent[i] - summaryAssent1.JAgent[i]) * market1.CM[1].S + summaryAssent10.JAgent[i];
+                var sumt = summaryAssent2.JAgent[i] + summaryAssent3.JAgent[i] + summaryAssent4.JAgent[i] - summaryAssent5.JAgent[i] - summaryAssent6.JAgent[i] - summaryAssent7.JAgent[i] - summaryAssent8.JAgent[i] - (summaryAssent9.JAgent[i] - summaryAssent1.JAgent[i]) * market1.CM[0].S + summaryAssent10.JAgent[i];
 
                 summaryAssent2.XAgent[i]=(sumt);
                 summaryAssent12.JAgent[i]=(sumt);
@@ -508,7 +508,7 @@ namespace WebMVC.BLL
 
                 summaryAssent17.AEAgent[indexAgent] = summaryAssent17.ALAgent[indexAgent] = decimal.Round((summaryAssent9.ALAgent[indexAgent] == 0 ? ((item.DStage[2][0] + item.EStage[3][0] - currentShare3.CT[0].Agent[indexAgent]) + (item.DStage[2][1] + item.EStage[3][1] - currentShare3.CT[1].Agent[indexAgent]) + (item.EStage[3][2] - currentShare3.CT[2].Agent[indexAgent])) : 0), 0);
 
-                summaryAssent17.CAgent[indexAgent] = summaryAssent17.JAgent[indexAgent] = decimal.Round((summaryAssent9.JAgent[indexAgent] == 0 ? (item.DStage[0][0] + item.EStage[1][0] - currentShare1.CT[0].Agent[indexAgent]) : 0), 0);
+                summaryAssent17.CAgent[indexAgent] = summaryAssent17.JAgent[indexAgent] = decimal.Round((summaryAssent9.JAgent[indexAgent] == 0 ? (item.DStage[0][0] + item.BStage[1][0] - currentShare1.CT[0].Agent[indexAgent]) : 0), 0);
 
 
             }

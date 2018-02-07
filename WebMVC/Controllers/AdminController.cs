@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using WebMVC.Models;
 using WebMVC.Infrastructure;
+using System.Linq;
 
 namespace WebMVC.Controllers
 {
@@ -14,6 +15,7 @@ namespace WebMVC.Controllers
         // GET: Admin
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        AppIdentityDbContext db = new AppIdentityDbContext();
         public AdminController()
         {
 
@@ -55,6 +57,8 @@ namespace WebMVC.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+
             return View();
         }
 
@@ -63,7 +67,8 @@ namespace WebMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Models.ApplicationUser { UserName = model.UserName };
+
+                var user = new Models.ApplicationUser { UserName = model.UserName,AgentName=model.agentName};
                 //传入Password并转换成PasswordHash
                 IdentityResult result = await UserManager.CreateAsync(user,
                     model.Password);
@@ -73,6 +78,8 @@ namespace WebMVC.Controllers
                 }
                 AddErrorsFromResult(result);
             }
+            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+
             return View(model);
         }
 
@@ -99,9 +106,12 @@ namespace WebMVC.Controllers
 
         public async Task<ActionResult> Edit(string id)
         {
+          
             Models.ApplicationUser user = await UserManager.FindByIdAsync(id);
             if (user != null)
             {
+                ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+
                 return View(user);
             }
             return RedirectToAction("Index");
@@ -134,15 +144,16 @@ namespace WebMVC.Controllers
                         AddErrorsFromResult(validPass);
                     }
                 }
-                //验证Email是否满足要求
-                user.Email = email;
-                IdentityResult validEmail = await UserManager.UserValidator.ValidateAsync(user);
-                if (!validEmail.Succeeded)
-                {
-                    AddErrorsFromResult(validEmail);
-                }
+                ////验证Email是否满足要求
+                //user.Email = email;
+                //IdentityResult validEmail = await UserManager.UserValidator.ValidateAsync(user);
+                //if (!validEmail.Succeeded)
+                //{
+                //    AddErrorsFromResult(validEmail);
+                //}
+               // if ((validEmail.Succeeded && validPass == null) || (validEmail.Succeeded && validPass.Succeeded))
 
-                if ((validEmail.Succeeded && validPass == null) || (validEmail.Succeeded && validPass.Succeeded))
+                    if ( validPass == null ||  validPass.Succeeded)
                 {
                     IdentityResult result = await UserManager.UpdateAsync(user);
 
@@ -157,6 +168,8 @@ namespace WebMVC.Controllers
             {
                 ModelState.AddModelError("", "无法找到改用户");
             }
+            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+
             return View(user);
         }
 

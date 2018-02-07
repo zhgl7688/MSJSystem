@@ -1,0 +1,363 @@
+﻿@model IEnumerable<WebMVC.Models.DataInit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandStrength_E)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandStrength_M1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandStrength_M2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandStrength_Agent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.currentM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChannelService_J1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChannelService_J2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.M_GrossMargin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.M_promotional)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.M_Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.M_FixedCharges)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.S_GrossMargin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.S_promotional)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.S_Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.S_FixedCharges)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.J_GrossMargin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.J_promotional)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.J_Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.J_FixedCharges)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price_M)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price_S)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price_J)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.priceIndex_M)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.priceIndex_S)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.priceIndex_J)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarketPromotionInit_AY1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarketPromotionInit_AY2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarketPromotionInit_AX1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarketPromotionInit_AX2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarketPromotionInit_AX3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarketPromotionInit_AX4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarketPromotionInit_AX5)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarketPromotionInit_AX6)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_M)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_S)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_J)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_T)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_AC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_AL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CB1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CB2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CB3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CB4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CB5)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CK1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CK2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CK3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CK4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductInnovation_CK5)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandStrength_E)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandStrength_M1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandStrength_M2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandStrength_Agent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.currentM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChannelService_J1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChannelService_J2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.M_GrossMargin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.M_promotional)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.M_Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.M_FixedCharges)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.S_GrossMargin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.S_promotional)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.S_Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.S_FixedCharges)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.J_GrossMargin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.J_promotional)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.J_Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.J_FixedCharges)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price_M)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price_S)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price_J)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.priceIndex_M)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.priceIndex_S)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.priceIndex_J)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketPromotionInit_AY1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketPromotionInit_AY2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketPromotionInit_AX1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketPromotionInit_AX2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketPromotionInit_AX3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketPromotionInit_AX4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketPromotionInit_AX5)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketPromotionInit_AX6)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_M)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_S)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_J)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_T)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_AC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_AL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CB1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CB2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CB3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CB4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CB5)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CK1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CK2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CK3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CK4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductInnovation_CK5)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -18,7 +18,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.G, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("G", string.Empty)
+                @Html.HiddenFor(model => model.G)
+                @Html.DisplayFor(model => model.G)
+                @*@Html.DropDownList("G", string.Empty, )*@
                 @* @Html.DropDownListFor(model => model.Stage,ViewBag.StageId, "请选择", new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.G, "", new { @class = "text-danger" })
             </div>
@@ -48,14 +50,14 @@
         </div>
 
         @*<div class="form-group">
-            @Html.LabelFor(model => model.G, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.G, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.G, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+                @Html.LabelFor(model => model.G, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.G, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.G, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
-       <div class="form-group First">
+        <div class="form-group First">
             @Html.LabelFor(model => model.H, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.H, new { htmlAttributes = new { @class = "form-control" } })
@@ -77,7 +79,7 @@
                 @Html.EditorFor(model => model.AR, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AR, "", new { @class = "text-danger" })
             </div>
-        </div> 
+        </div>
 
         <div class="form-group col-md-12">
             <div class="col-md-offset-6 col-md-4">
@@ -92,12 +94,14 @@
  市场容量： 	
 	1) 主销价格段、市场总容量、社会人口数、社会购买力等信息需要可以修改填写。
 	2) 起始阶段M品牌该单品销售了45万台，S品牌销售了30万台，J品牌销售了25万台，三大品牌共销售100万台
-
 </pre>
 
-
 </div>
+@section   scripts{
+
 <script>
+    var stage = '@Model.G'
+
     function stageSet(stage) {
 
         if (stage == "起始阶段") {
@@ -108,12 +112,12 @@
     }
 
     $(function () {
-        stageSet($("#G").val());
+      
+        stageSet(stage);
 
-        $("#G").change(function () {
-            stageSet($(this).val());
-        })
 
     })
 
 </script>
+
+    }

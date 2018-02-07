@@ -222,7 +222,7 @@ namespace WebMVC.Common
                     var val = cct(ddt, b[i][j], cts[i][j].Agent[v]);
 
                     result[i].Add(val);
-
+                    var t = b[i][j];
                     var ddtt = (ddt + b[i][j] - val) > 0 ? (ddt + b[i][j] - val) : 0;
                     d[i].Add(ddtt);
                 }

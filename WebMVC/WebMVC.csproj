@@ -193,6 +193,7 @@
     <Compile Include="BLL\MarketPrice.cs" />
     <Compile Include="BLL\MarketPriceTemp.cs" />
     <Compile Include="BLL\MarketPromotion.cs" />
+    <Compile Include="BLL\PPT.cs" />
     <Compile Include="BLL\PriceControl.cs" />
     <Compile Include="BLL\ProductInnovation.cs" />
     <Compile Include="BLL\SecondPPT.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Controllers\ChannelServiceInitsController.cs" />
     <Compile Include="Controllers\CodeInitController.cs" />
     <Compile Include="Controllers\CurrentShareInitsController.cs" />
+    <Compile Include="Controllers\DataInitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MarketPriceInitsController.cs" />
     <Compile Include="Controllers\MarketPromotionInitsController.cs" />
@@ -237,6 +239,7 @@
     <Compile Include="Models\ChannelServiceInit.cs" />
     <Compile Include="Models\CompeteRC.cs" />
     <Compile Include="Models\CurrentShareInit.cs" />
+    <Compile Include="Models\DataInit.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MarketPriceInit.cs" />
     <Compile Include="Models\MarketPromotionInit.cs" />
@@ -282,6 +285,7 @@
     <Content Include="App_Code\BootstrapHelpers.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -390,6 +394,11 @@
     <Content Include="Views\StageAdds\Details.cshtml" />
     <Content Include="Views\StageAdds\Edit.cshtml" />
     <Content Include="Views\StageAdds\Index.cshtml" />
+    <Content Include="Views\DataInits\Create.cshtml" />
+    <Content Include="Views\DataInits\Delete.cshtml" />
+    <Content Include="Views\DataInits\Details.cshtml" />
+    <Content Include="Views\DataInits\Edit.cshtml" />
+    <Content Include="Views\DataInits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

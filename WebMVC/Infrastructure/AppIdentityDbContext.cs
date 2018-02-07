@@ -38,6 +38,7 @@ namespace WebMVC.Infrastructure
         public DbSet<InvestSub> InvestSub { get; set; }
         public DbSet<PriceManageSub> PriceManageSub { get; set; }
 
+        public DbSet<DataInit> DataInits { get; set; }
     }
     public class IdentityDbInit : DropCreateDatabaseIfModelChanges<AppIdentityDbContext>
     {
@@ -72,15 +73,16 @@ namespace WebMVC.Infrastructure
             context.CodeInit.Add(new Models.CodeInit { Code = "Agent",  Value = 4, Text = "代4",  CreateDate = DateTime.Now   });
             context.CodeInit.Add(new Models.CodeInit { Code = "Agent",  Value = 5, Text = "代5",  CreateDate = DateTime.Now   });
             context.CodeInit.Add(new Models.CodeInit { Code = "Agent",  Value = 6, Text = "代6",  CreateDate = DateTime.Now   });
-            context.BrandStrengthInit.Add(new BrandStrengthInit());
-            context.ChannelServiceInit.Add(new ChannelServiceInit());
+            //context.BrandStrengthInit.Add(new BrandStrengthInit());
+            //context.ChannelServiceInit.Add(new ChannelServiceInit());
             context.CurrentShareInit.Add(new CurrentShareInit());
             context.CurrentShareInit.Add(new CurrentShareInit() { G="第1阶段",D=100, E=90,F=0.9m, AR = 0, H = 0, Z = 0 });
             context.CurrentShareInit.Add(new CurrentShareInit() { G = "第2阶段", D = 80, E = 105, F = 1.05m, AR=0, H=0,Z=0 });
             context.CurrentShareInit.Add(new CurrentShareInit() { G = "第3阶段", D = 50, E = 98, F = 0.98m, AR = 0, H = 0, Z = 0 });
-            context.MarketPriceInit.Add(new MarketPriceInit());
-            context.MarketPromotionInit.Add(new MarketPromotionInit());
-            context.ProductInnovationInit.Add(new ProductInnovationInit());
+            //context.MarketPriceInit.Add(new MarketPriceInit());
+            //context.MarketPromotionInit.Add(new MarketPromotionInit());
+            //context.ProductInnovationInit.Add(new ProductInnovationInit());
+            context.DataInits.Add(new DataInit());
             //代价格管控表
             context.StageAdd.Add(new StageAdd { Stage = "第1阶段", retail = "零售价", StageType = Common.agentInputStageType.代价格管控表.ToString() });
             context.StageAdd.Add(new StageAdd { Stage = "第1阶段", retail = "零售系统供价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });

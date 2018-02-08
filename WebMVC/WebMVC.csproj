@@ -225,6 +225,7 @@
     <Compile Include="Infrastructure\AppRoleManager.cs" />
     <Compile Include="Infrastructure\ClaimsAccessAttribute.cs" />
     <Compile Include="Infrastructure\ClaimsRoles.cs" />
+    <Compile Include="Infrastructure\CustomAgentNameValidator.cs" />
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Infrastructure\IdentityHelper.cs" />
     <Compile Include="Infrastructure\LocationClaimsProvider.cs" />
@@ -399,6 +400,7 @@
     <Content Include="Views\DataInits\Details.cshtml" />
     <Content Include="Views\DataInits\Edit.cshtml" />
     <Content Include="Views\DataInits\Index.cshtml" />
+    <Content Include="Views\CodeInit\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

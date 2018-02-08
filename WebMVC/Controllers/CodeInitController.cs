@@ -15,12 +15,72 @@ namespace WebMVC.Controllers
         // GET: CodeInit
         public ActionResult Index()
         {
+            var stage = db.CodeInit.ToList();
+            SelectList stageList = new SelectList(stage.Where(s => s.Code == "Stage").Select(s => new { s.Text, s.Value }), "Text", "Text", "");
+            SelectList agentList = new SelectList(stage.Where(s => s.Code == "Agent").Select(s => new { s.Text, s.Value }), "Text", "Text", "");
+            SelectList brandList = new SelectList(stage.Where(s => s.Code == "Brand").Select(s => new { s.Text, s.Value }), "Text", "Text", "");
+
+
+            ViewBag.stageList = stageList;
+            ViewBag.agentList = agentList;
+            ViewBag.brandList = brandList;
+
             return View();
         }
-        //增加阶段
-        public ActionResult StageAdd(string url)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult index(string stage, string brand, string agent, string text)
         {
-            int value = db.CodeInit.Where(s => s.Code == "Stage").Max(s => s.Value) + 1;
+            var create = "创建";
+            if (!string.IsNullOrWhiteSpace(stage))
+            {
+                if (stage == create) StageAdd();
+                else StageDel();
+            }
+            else if (!string.IsNullOrWhiteSpace(brand))
+            {
+                if (brand == create) brandAdd(text);
+                else brandDel(text);
+            }
+            else if (!string.IsNullOrWhiteSpace(agent))
+            {
+                if (agent == create) AgentNameAdd();
+                else AgentNameDel();
+            }
+
+            return RedirectToAction("index");
+        }
+        //品牌商增加
+        public void brandAdd(string text)
+        {
+            int value = db.CodeInit.Where(s => s.Code == "Brand").Max(s => s.Value) + 1;
+
+            db.CodeInit.Add(new Models.CodeInit
+            {
+                Code = "Brand",
+                Value = value,
+                Text = text,
+                CreateDate = DateTime.Now
+            });
+            db.SaveChanges();
+        }
+        public void brandDel(string text)
+        {
+            var brand = db.CodeInit.FirstOrDefault(s => s.Text == text);
+            db.CodeInit.Remove(brand);
+            db.SaveChanges();
+        }
+        //品牌商删除
+        //增加阶段
+        public void StageAdd()
+        {
+            var value = 0;
+            if (db.CodeInit.Any(s => s.Code == "Stage"))
+            {
+                value = db.CodeInit.Where(s => s.Code == "Stage").Max(s => s.Value) + 1;
+            }
+
+ 
 
             db.CodeInit.Add(new Models.CodeInit
             {
@@ -30,18 +90,32 @@ namespace WebMVC.Controllers
                 CreateDate = DateTime.Now
             });
             db.SaveChanges();
-            if (string.IsNullOrEmpty(url)||Url.IsLocalUrl(url))
-            return RedirectToAction("Index", "Home");
-            else
+
+        }
+        //删除阶段
+        public void StageDel()
+        {
+
+            var agentMax = db.CodeInit.Where(s => s.Code == "Stage").OrderByDescending(s => s.Value).Take(1);
+            foreach (var item in agentMax)
             {
-                return RedirectToAction(url);
+                db.CodeInit.Remove(item);
             }
-            // return View(); 
+            db.SaveChanges();
+
+
         }
         //增加代理商
-       public ActionResult AgentNameAdd()
+        public void AgentNameAdd()
         {
-            int value = db.CodeInit.Where(s=>s.Code== "Agent") .Max(s => s.Value) + 1;
+            var value = 1;
+            if (db.CodeInit.Any(s => s.Code == "Agent"))
+            {
+                value = db.CodeInit.Where(s => s.Code == "Agent").Max(s => s.Value) + 1;
+            }
+
+
+
 
             db.CodeInit.Add(new Models.CodeInit
             {
@@ -51,8 +125,19 @@ namespace WebMVC.Controllers
                 CreateDate = DateTime.Now
             });
             db.SaveChanges();
-         return   RedirectToAction("Index", "Home");
-           
+
+
+        }
+        //删除代理商
+        public void AgentNameDel()
+        {
+            var agentMax = db.CodeInit.Where(s => s.Code == "Agent").OrderByDescending(s => s.Value).Take(1);
+            foreach (var item in agentMax)
+            {
+                db.CodeInit.Remove(item);
+            }
+            db.SaveChanges();
+
         }
 
         //显示阶段
@@ -109,6 +194,6 @@ namespace WebMVC.Controllers
 
         }
 
-         
+
     }
 }

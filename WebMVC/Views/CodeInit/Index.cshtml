@@ -1,0 +1,67 @@
+﻿@model WebMVC.Models.CodeInit
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2> </h2>
+
+ 
+<div class="form-horizontal">
+    <h4> 代理、阶段、品牌商</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label class="control-label col-md-2">代理</label>
+            <div class="col-md-10">
+                @{ foreach (var item in ViewBag.agentList as SelectList)
+                    {
+                      
+                    }}
+                @Html.DropDownListFor(model => model.Text, ViewBag.agentList as SelectList, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4">
+                <input type="submit" value="创建" class="btn btn-default" name="agent" />
+                <input type="submit" value="删除" class="btn btn-default" name="agent" />
+            </div>
+        </div>
+    }
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <label class="control-label col-md-2">阶段</label>
+
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.Text, ViewBag.stageList as SelectList, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4">
+                <input type="submit" value="创建" class="btn btn-default" name="stage" />
+                <input type="submit" value="删除" class="btn btn-default" name="stage" />
+            </div>
+        </div>
+    }
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <label class="control-label col-md-2">品牌商</label>
+
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.Text, ViewBag.brandList as SelectList, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4">
+                <input type="submit" value="创建" class="btn btn-default" name="brand" />
+                <input type="submit" value="删除" class="btn btn-default" name="brand" />
+            </div>
+        </div>
+    }
+
+    </div>
+ 
+ 

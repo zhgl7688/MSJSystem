@@ -24,20 +24,23 @@
         </div>
         <div class="panel panel-primary">
             <div class="panel-heading">品牌商资源投入表创建</div>
-
+            @Html.HiddenFor(s => s.Brand)
             <div class="panel-body">
-                <div class="form-group col-md-4">
-                    @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-6">
-                        @Html.DropDownList("Stage" ,string.Empty)
-                        @Html.ValidationMessageFor(model => model.Stage, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+
                 <div class="form-group col-md-4">
                     @Html.LabelFor(model => model.Brand, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-6">
-                        @Html.DropDownListFor(model => model.Brand, ViewData["brands"] as List<SelectListItem>, "请选择", new { htmlAttributes = new { @class = "form-control" } })
+                        <div class="form-control"> @Html.DisplayFor(s => s.Brand)</div>
+                        @* @Html.DropDownListFor(model => model.Brand, ViewData["brands"] as List<SelectListItem>, "请选择", new { htmlAttributes = new { @class = "form-control" } })*@
                         @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.Stage, ViewBag.stageList as SelectList, "请选择", new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(model => model.Stage, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group col-md-4">
@@ -55,14 +58,14 @@
             <div class="panel-body" id="jggkb">
 
                 @{ foreach (var item in ViewBag.StageAdd)
-            {
-                <div class="form-group col-md-3" hidden>
-                    <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
-                    <div class="col-md-6">
-                        <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万元</span>
-                    </div>
-                </div>
-    }
+                    {
+                        <div class="form-group col-md-3" hidden>
+                            <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
+                            <div class="col-md-6">
+                                <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万元</span>
+                            </div>
+                        </div>
+                    }
                 }
 
             </div>
@@ -142,16 +145,16 @@
                 价格管控表
             </div>
             <div class="panel-body" id="jhb">
-             
+
                 @{ foreach (var item in ViewBag.StageAdd1)
-        {
-            <div class="form-group col-md-3" hidden>
-                <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
-                <div class="col-md-6">
-                    <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万元</span>
-                </div>
-            </div>
-}
+                    {
+                        <div class="form-group col-md-3" hidden>
+                            <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
+                            <div class="col-md-6">
+                                <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万元</span>
+                            </div>
+                        </div>
+                    }
                 }
 
 

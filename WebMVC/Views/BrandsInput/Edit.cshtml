@@ -24,23 +24,27 @@
             <div class="panel-heading">品牌商资源投入表创建</div>
 
             <div class="panel-body">
-                <div class="form-group col-md-4">
-                    @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-6">
-                        @Html.DropDownList("Stage", string.Empty)
-                        @Html.ValidationMessageFor(model => model.Stage, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group col-md-4">
+                @Html.HiddenFor(s => s.Brand)
+                @Html.HiddenFor(s=>s.Stage)
+                <div class="form-group col-md-3">
                     @Html.LabelFor(model => model.Brand, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-6">
-                        @Html.DropDownListFor(model => model.Brand, ViewData["brands"] as List<SelectListItem>, "请选择", new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+                    <div class="col-md-8">
+                        <div class="form-control "> @Html.DisplayFor(s => s.Brand)</div>
                     </div>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
+                    
+                    @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        <div class="form-control "> @Html.DisplayFor(s => s.Stage)</div>
+                        @*@Html.DropDownListFor(model => model.Stage, ViewBag.stageList as SelectList, "请选择", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Stage, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
                     @Html.LabelFor(model => model.advertise, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         @Html.EditorFor(model => model.advertise, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
                         @Html.ValidationMessageFor(model => model.advertise, "", new { @class = "text-danger" })
                     </div>

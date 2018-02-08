@@ -16,11 +16,12 @@
             @Html.DisplayNameFor(model => model.BrandID)
         </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Stage)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Brand)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stage)
+        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.advertise)
         </th>
@@ -110,11 +111,12 @@
             @Html.DisplayFor(modelItem => item.BrandID)
         </td>*@
         <td>
-            @Html.DisplayFor(modelItem => item.Stage)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Brand)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stage)
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.advertise)
         </td>
@@ -194,14 +196,12 @@
             @Html.DisplayFor(modelItem => item.NewRetailPriceR3)
         </td>*@
         <td>
-          @BootstrapHelpers.PrimaryButton(Url.Action("Edit/" + item.BrandID), "编辑")
+            @BootstrapHelpers.PrimaryButton(Url.Action("Edit/" + item.BrandID), "编辑")
             @BootstrapHelpers.PrimaryButton(Url.Action("Details/" + item.BrandID), "详细信息")
-           @{if (User.IsInRole("Administrators"))
-               {
-                   @BootstrapHelpers.PrimaryButton(Url.Action("Delete/" + item.BrandID), "删除")
-                   }
-               }
-           </td>
+
+                @BootstrapHelpers.PrimaryButton(Url.Action("Delete/" + item.BrandID), "删除")
+ 
+        </td>
     </tr>
 }
 

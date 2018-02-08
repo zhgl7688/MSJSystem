@@ -2,30 +2,36 @@
 @{
     ViewBag.Title = "编辑用户";
 }
+
 @Html.ValidationSummary(false)
-<h2>编辑用户</h2>
-<div class="form-group">
-    <label>用户名</label>
-    <p class="form-control-static">@Model.UserName</p>
-</div>
-@using (Html.BeginForm())
-{
-    @Html.HiddenFor(x => x.Id)
-    @*<div class="form-group">
-        <label>Email</label>
-        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
-    </div>*@
-    <div class="form-group col-md-4">
-        @Html.LabelFor(model => model.AgentName, htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.DropDownList("AgentName", "")
-            @Html.ValidationMessageFor(model => model.AgentName, "", new { @class = "text-danger" })
-        </div>
-    </div>
+<div class="form-horizontal">
+    <h2>编辑用户</h2>
     <div class="form-group">
-        <label>密码</label>
-        <input name="password" type="password" class="form-control" />
+        <div class="col-md-4  text-right">用户名</div><div class="col-md-8"> @Model.UserName </div>
     </div>
-    <button type="submit" class="btn btn-primary">保存</button>
-    @Html.ActionLink("取消", "Index", null, new { @class = "btn btn-Warning" })
-}
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(x => x.Id)
+        @*<div class="form-group">
+                <label>Email</label>
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+            </div>*@
+        <div class="form-group ">
+            <div class="col-md-4 text-right">代理或品牌商</div>
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.AgentName, ViewBag.Agent as SelectList,"请选择", new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4 text-right">密码</div>
+            <div class="col-md-8"> <input name="password" type="password" class="form-control" /></div>
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">保存</button>
+            @Html.ActionLink("取消", "Index", null, new { @class = "btn btn-Warning" })
+        </div>
+
+    }
+    </div>

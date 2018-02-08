@@ -2,3 +2,6 @@
 B
 E
 K
+insert  CodeInits( Code, ParentCode, Text, Value, Remark, IsEnable,CreateDate)values('Brand',	NULL	,'M品牌'	,0	,NULL	,0,GETDATE())
+insert  CodeInits( Code, ParentCode, Text, Value, Remark, IsEnable,CreateDate)values('Brand',	NULL	,'S品牌'	,1	,NULL	,0,getdate())
+insert  CodeInits( Code, ParentCode, Text, Value, Remark, IsEnable,CreateDate)values('Brand',	NULL	,'J品牌'	,2	,NULL	,0,getdate())

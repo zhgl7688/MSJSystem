@@ -10,6 +10,8 @@ using System.Net;
 using WebMVC.Infrastructure;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Data.Entity;
 
 namespace WebMVC.Controllers
 {
@@ -18,20 +20,21 @@ namespace WebMVC.Controllers
     {
         // GET: BrandsInput
         AppIdentityDbContext db = new AppIdentityDbContext();
-
-        public ActionResult Index()
+        private ApplicationSignInManager _signInManager;
+        public async Task<ActionResult> Index()
         {
-            List<BrandsInput> models;
-            if (string.IsNullOrEmpty(User.Identity.GetUserName()))
-            {
-                models = db.BrandsInputs.Where(s => s.UserId == "").ToList();
+            if (CurrentUser == null)
+                return Content($"<script>alert('没有权限！');location='" + Url.Action("Login", "Account") + "'</script>");
+            if (string.IsNullOrWhiteSpace(CurrentUser.AgentName))
+                return Content($"<script>alert('不是品牌商');location='" + Url.Action("index","home") + "'</script>");
+            if (db.CodeInit.FirstOrDefault(s => s.Text == CurrentUser.AgentName).Code != "Brand")
+                return Content($"<script>alert('不是品牌商');location='" + Url.Action("index", "Home") + "'</script>");
 
-                return View(models);
-            }
-            if (User.IsInRole("品牌商")||User.IsInRole("Administrators"))
+            List<BrandsInput> models;
+            var userName = User.Identity.GetUserName();
+            if (!string.IsNullOrEmpty(userName) && User.IsInRole("品牌商"))
             {
-                models = db.BrandsInputs.Where(s => s.UserId == "admin").ToList();
-                //  var  models= db.BrandsInputs.ToList();
+                models = await db.BrandsInputs.Where(s => s.UserId == userName).ToListAsync();
                 return View(models);
             }
             return Content("<script>alert('没有权限');location='" + Url.Action("index", "home") + "'</script>");
@@ -56,8 +59,7 @@ namespace WebMVC.Controllers
         // GET: BrandsInput/Create
         public ActionResult Create()
         {
-            ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
-            ViewData["brands"] = GetBrandList();
+            ViewBag.stageList = GetStage("");
             var stageAddList = db.StageAdd.Where(s => s.StageType == Common.agentInputStageType.投资表.ToString()).ToList();
             stageAddList.ForEach(s => s.retailPrice = "0.00");
             ViewBag.StageAdd = stageAddList;
@@ -65,7 +67,7 @@ namespace WebMVC.Controllers
             stageAddList1.ForEach(s => s.retailPrice = "0.00");
             ViewBag.StageAdd1 = stageAddList1;
 
-            var model = new BrandsInput();
+            var model = new BrandsInput() { Brand = CurrentUser.AgentName };
             return View(model);
         }
 
@@ -75,33 +77,39 @@ namespace WebMVC.Controllers
         {
             try
             {
-                var userName = User.Identity.GetUserName();
-                if (string.IsNullOrEmpty(userName))
+                if (ModelState.IsValid)
                 {
-                    userName = "";
-                }
-                
-                var brand = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage &&
-                    s.UserId == userName);
-                if (brand != null)
-                {
-                    ModelState.AddModelError("", "已有" + collection.Brand + collection.Stage + "信息，请重新选择");
-                    ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
-                    ViewData["brands"] = GetBrandList();
-                    ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.投资表.ToString());
-                    ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.品价格管控表.ToString());
+                    var userName = User.Identity.GetUserName();
+                    if (string.IsNullOrEmpty(userName))
+                    {
+                        userName = "";
+                    }
+                    var brandsInput = db.BrandsInputs.FirstOrDefault(s => s.Brand == collection.Brand && s.Stage == collection.Stage &&
+                                       s.UserId == userName);
+                    if (brandsInput == null)
+                    {
+                        GetList(collection);
+                        collection.UserId = userName;// User.Identity.Name;
+                        db.BrandsInputs.Add(collection);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Stage", $"已有{collection.Stage }信息，请重新选择");
+                    }
 
-                    return View(collection);
                 }
-               
-                GetList(collection);
-                collection.UserId = userName;// User.Identity.Name;
-                db.BrandsInputs.Add(collection);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                ViewBag.stageList = GetStage(collection.Stage);
+                ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.投资表.ToString());
+                ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.品价格管控表.ToString());
+
+                return View(collection);
             }
             catch
             {
+
                 ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.投资表.ToString());
                 ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.品价格管控表.ToString());
 
@@ -115,8 +123,7 @@ namespace WebMVC.Controllers
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var collection = db.BrandsInputs.Find(id);
             if (collection == null) return HttpNotFound();
-            ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", collection.Stage);
-            ViewData["brands"] = GetBrandList();
+            ViewBag.stageList = GetStage(collection.Stage);
             ViewBag.StageAdd = SetList(collection, Common.agentInputStageType.投资表.ToString());
             ViewBag.StageAdd1 = SetList(collection, Common.agentInputStageType.品价格管控表.ToString());
 
@@ -147,9 +154,8 @@ namespace WebMVC.Controllers
 
                     if (repeatbrand != null)
                     {
-                        ModelState.AddModelError("", "已有" + collection.Brand + collection.Stage + "信息，请重新选择");
-                        ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
-                        ViewData["brands"] = GetBrandList();
+                        ModelState.AddModelError("Stage", $"已有{collection.Stage}信息，请重新选择");
+                        ViewBag.stageList = GetStage(collection.Stage);
                         return View(collection);
                     }
                     var pm = db.InvestSub.Where(s => s.BrandID == collection.BrandID);
@@ -164,8 +170,7 @@ namespace WebMVC.Controllers
                 }
                 else
                 {
-                    ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
-                    ViewData["brands"] = GetBrandList();
+                    ViewBag.stageList = GetStage(collection.Stage);
                     ViewBag.StageAdd = SetList(collection, Common.agentInputStageType.投资表.ToString());
                     ViewBag.StageAdd1 = SetList(collection, Common.agentInputStageType.品价格管控表.ToString());
 
@@ -175,8 +180,7 @@ namespace WebMVC.Controllers
             }
             catch
             {
-                ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
-                ViewData["brands"] = GetBrandList();
+                ViewBag.stageList = GetStage(collection.Stage);
                 ViewBag.StageAdd = SetList(collection, Common.agentInputStageType.投资表.ToString());
                 ViewBag.StageAdd1 = SetList(collection, Common.agentInputStageType.品价格管控表.ToString());
 
@@ -326,6 +330,57 @@ namespace WebMVC.Controllers
             return result;
 
 
+        }
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+        public ApplicationUser CurrentUser
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(User.Identity.Name)) return null;
+
+                return SignInManager.UserManager.FindById(User.Identity.GetUserId());
+            }
+
+        }
+        private SelectList GetStage(string stage)
+        {
+
+            return new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", stage);
+
+        }
+        public string getstageStatus(string stage, string brand, int brandId = 0)
+        {
+            BrandsInput agentInput;
+            if (brandId > 0)
+            {
+                agentInput = db.BrandsInputs.FirstOrDefault(
+                                    s => s.Brand == brand && s.Stage == stage &&
+                                     s.BrandID != brandId);
+            }
+            else
+            {
+                agentInput = db.BrandsInputs.FirstOrDefault(
+                                    s => s.Brand == brand && s.Stage == stage);
+            }
+
+            if (agentInput != null)
+            {
+                return "no";
+            }
+            else
+            {
+                return "ok";
+            }
         }
     }
 }

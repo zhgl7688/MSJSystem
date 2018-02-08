@@ -51,7 +51,7 @@ namespace WebMVC.Controllers
         }
         public ActionResult Index()
         {
-       
+
             return View(UserManager.Users);
         }
 
@@ -68,17 +68,16 @@ namespace WebMVC.Controllers
             if (ModelState.IsValid)
             {
 
-                var user = new Models.ApplicationUser { UserName = model.UserName,AgentName=model.agentName};
+                var user = new Models.ApplicationUser { UserName = model.UserName, AgentName = model.agentName };
                 //传入Password并转换成PasswordHash
-                IdentityResult result = await UserManager.CreateAsync(user,
-                    model.Password);
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
                 }
                 AddErrorsFromResult(result);
             }
-            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+            GetAgentName("");
 
             return View(model);
         }
@@ -106,19 +105,18 @@ namespace WebMVC.Controllers
 
         public async Task<ActionResult> Edit(string id)
         {
-          
+
             Models.ApplicationUser user = await UserManager.FindByIdAsync(id);
             if (user != null)
             {
-                ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
-
+                 ViewBag.AgentName = GetAgentName(user.AgentName);
                 return View(user);
             }
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(string id, string email, string password)
+        public async Task<ActionResult> Edit(string id, string AgentName, string password)
         {
             //根据Id找到AppUser对象
             Models.ApplicationUser user = await UserManager.FindByIdAsync(id);
@@ -144,6 +142,16 @@ namespace WebMVC.Controllers
                         AddErrorsFromResult(validPass);
                     }
                 }
+                //验证代理是否满足要求
+                user.AgentName = AgentName;
+                var validAgentName = UserManager.Users.Any(s => s.Id != id && s.AgentName == AgentName);
+                if (validAgentName)
+                {
+
+                    return Content($"<script>alert('已有{ AgentName}！');location='" + Url.Action("edit", "admin", new { id = id }) + "'</script>");
+
+                }
+
                 ////验证Email是否满足要求
                 //user.Email = email;
                 //IdentityResult validEmail = await UserManager.UserValidator.ValidateAsync(user);
@@ -151,9 +159,9 @@ namespace WebMVC.Controllers
                 //{
                 //    AddErrorsFromResult(validEmail);
                 //}
-               // if ((validEmail.Succeeded && validPass == null) || (validEmail.Succeeded && validPass.Succeeded))
+                // if ((validEmail.Succeeded && validPass == null) || (validEmail.Succeeded && validPass.Succeeded))
 
-                    if ( validPass == null ||  validPass.Succeeded)
+                if (validPass == null || validPass.Succeeded)
                 {
                     IdentityResult result = await UserManager.UpdateAsync(user);
 
@@ -168,9 +176,8 @@ namespace WebMVC.Controllers
             {
                 ModelState.AddModelError("", "无法找到改用户");
             }
-            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
-
-            return View(user);
+            ViewBag.AgentName = GetAgentName(AgentName);
+                return View(user);
         }
 
         private void AddErrorsFromResult(IdentityResult result)
@@ -180,7 +187,12 @@ namespace WebMVC.Controllers
                 ModelState.AddModelError("", error);
             }
         }
-    
- 
+        private SelectList GetAgentName(string agentName)
+        {
+            return new SelectList(db.CodeInit.Where(s => s.Code == "Agent" || s.Code == "Brand"), "Text", "Text", agentName);
+
+
+        }
+
     }
 }

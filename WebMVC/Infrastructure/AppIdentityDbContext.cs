@@ -73,6 +73,10 @@ namespace WebMVC.Infrastructure
             context.CodeInit.Add(new Models.CodeInit { Code = "Agent",  Value = 4, Text = "代4",  CreateDate = DateTime.Now   });
             context.CodeInit.Add(new Models.CodeInit { Code = "Agent",  Value = 5, Text = "代5",  CreateDate = DateTime.Now   });
             context.CodeInit.Add(new Models.CodeInit { Code = "Agent",  Value = 6, Text = "代6",  CreateDate = DateTime.Now   });
+            context.CodeInit.Add(new Models.CodeInit { Code = "Brand", Value = 0, Text = "M品牌", CreateDate = DateTime.Now });
+            context.CodeInit.Add(new Models.CodeInit { Code = "Brand", Value = 1, Text = "S品牌", CreateDate = DateTime.Now });
+            context.CodeInit.Add(new Models.CodeInit { Code = "Brand", Value = 2, Text = "J品牌", CreateDate = DateTime.Now });
+
             //context.BrandStrengthInit.Add(new BrandStrengthInit());
             //context.ChannelServiceInit.Add(new ChannelServiceInit());
             context.CurrentShareInit.Add(new CurrentShareInit());

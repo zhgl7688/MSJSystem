@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using WebMVC.Common;
 using WebMVC.Infrastructure;
 using WebMVC.Models;
+using Microsoft.AspNet.Identity.Owin;
+
 
 
 namespace WebMVC.Controllers
 {
     public class AgentInputController : Controller
     {
+        private ApplicationSignInManager _signInManager;
         AppIdentityDbContext db = new AppIdentityDbContext();
 
         // GET: AgentInput
@@ -21,6 +25,13 @@ namespace WebMVC.Controllers
         //[Authorize]
         public ActionResult Index()
         {
+            if (CurrentUser == null)
+                return Content($"<script>alert('没有权限！');location='" + Url.Action("Login", "Account") + "'</script>");
+            if (string.IsNullOrWhiteSpace(CurrentUser.AgentName))
+                return Content($"<script>alert('不是代理商');location='" + Url.Action("index") + "'</script>");
+            if (db.CodeInit.FirstOrDefault(s => s.Text == CurrentUser.AgentName).Code != "Agent")
+                return Content($"<script>alert('不是代理商');location='" + Url.Action("index", "Home") + "'</script>");
+
             // ClaimsIdentity claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
 
             var models = db.AgentInputs.Where(s => s.UserId == User.Identity.Name).ToList();
@@ -48,7 +59,10 @@ namespace WebMVC.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+            if (CurrentUser == null || string.IsNullOrWhiteSpace(CurrentUser.AgentName))
+                return Content($"<script>alert('没有设定代理商或品牌商');location='" + Url.Action("index") + "'</script>");
+
+            // ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
             ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
             var stageAddList = db.StageAdd.Where(s => s.StageType == Common.agentInputStageType.代价格管控表.ToString()).ToList();
             stageAddList.ForEach(s => s.retailPrice = "0.00");
@@ -57,15 +71,17 @@ namespace WebMVC.Controllers
             stageAddList1.ForEach(s => s.retailPrice = "0.00");
             ViewBag.StageAdd1 = stageAddList1;
 
-            return View(new AgentInput() { });
+            return View(new AgentInput() { AgentName = CurrentUser.AgentName });
         }
         // POST: AgentInput/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AgentInput collection)
         {
+
             try
             {
+
                 if (ModelState.IsValid)
                 {
                     // TODO: Add insert logic here
@@ -75,11 +91,12 @@ namespace WebMVC.Controllers
                     {
                         userName = "";
                     }
+
                     agentInput = db.AgentInputs.FirstOrDefault(s => s.AgentName == collection.AgentName && s.Stage == collection.Stage && s.UserId == userName);
 
                     if (agentInput != null)
                     {
-                        ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
+                        ModelState.AddModelError("Stage", $"已有{collection.Stage}，请重新选择");
                         ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
                         ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
 
@@ -99,7 +116,7 @@ namespace WebMVC.Controllers
                 else
                 {
                     ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
-                    ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+                    //ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
                     ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.代价格管控表.ToString());
                     ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
 
@@ -109,7 +126,7 @@ namespace WebMVC.Controllers
             catch
             {
                 ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
-                ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
+                //ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
                 ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.代价格管控表.ToString());
                 ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
 
@@ -243,13 +260,13 @@ namespace WebMVC.Controllers
                     agentInput = db.AgentInputs.FirstOrDefault(
                         s => s.AgentName == collection.AgentName &&
                         s.Stage == collection.Stage &&
-                        s.UserId == userName &&
                         s.AgentId != collection.AgentId);
 
 
                     if (agentInput != null)
                     {
-                        ModelState.AddModelError("", "已有" + collection.AgentName + collection.Stage + "信息，请重新选择");
+                        ModelState.AddModelError("Stage", $"已有{collection.Stage}信息，请重新选择");
+
                         ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
                         ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
                         ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.代价格管控表.ToString());
@@ -350,6 +367,51 @@ namespace WebMVC.Controllers
                 brandList.Add(new SelectListItem { Text = item, Value = item });
             }
             return brandList;
+        }
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+        public ApplicationUser CurrentUser
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(User.Identity.Name)) return null;
+
+                return SignInManager.UserManager.FindById(User.Identity.GetUserId());
+            }
+
+        }
+        public string getagentStatus(string stage, string agent, int agentId=0)
+        {
+            AgentInput agentInput;
+            if (agentId > 0)
+            {
+                agentInput = db.AgentInputs.FirstOrDefault(
+                                    s => s.AgentName == agent && s.Stage == stage &&
+                                     s.AgentId != agentId);
+            }
+            else
+            {
+                agentInput = db.AgentInputs.FirstOrDefault(
+                    s => s.AgentName == agent && s.Stage == stage  );
+            }
+
+            if (agentInput != null)
+            {
+                return "no";
+            }
+            else
+            {
+                return "ok";
+            }
         }
     }
 }

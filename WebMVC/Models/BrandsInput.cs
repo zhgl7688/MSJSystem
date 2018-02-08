@@ -18,6 +18,7 @@ namespace WebMVC.Models
         /// <summary>
         /// 阶段
         /// </summary>
+        [Required(ErrorMessage ="请选择阶段")]
         [DisplayName("阶段")]
         public string Stage { get; set; }
         /// <summary>

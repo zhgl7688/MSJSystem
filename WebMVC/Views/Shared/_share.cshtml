@@ -1,0 +1,73 @@
+﻿
+@model IEnumerable<WebMVC.Models.CurrentShareInit>
+
+<h2>市场容量</h2>
+
+<p class="col-md-2 col-lg-offset-8">
+    @Html.ActionLink("创建", "Create", null, new { @class = "btn btn-warning btn-block" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.D)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.E)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.F)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.G)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.H)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Z)
+        </th>
+        <th width="300px"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.G)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.D)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.E)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.H)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Z)
+            </td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", new { id = item.id }, new { @class = "btn  btn-warning" })
+                @*@Html.ActionLink("详细信息", "Details", new { id = item.id }, new { @class = "btn btn-warning" }) |*@
+                @{if (item.id != 1)
+                    {
+                        @Html.ActionLink("删除", "Delete", new { id = item.id }, new { @class = "btn btn-warning" })
+                    }
+
+                }
+            </td>
+        </tr>
+    }
+
+</table>

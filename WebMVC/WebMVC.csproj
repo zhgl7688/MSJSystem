@@ -252,6 +252,7 @@
     <Compile Include="Models\SAgentInfo.cs" />
     <Compile Include="Models\SAgentResult.cs" />
     <Compile Include="Models\CodeInit.cs" />
+    <Compile Include="Models\StageAddModel.cs" />
     <Compile Include="Models\StageAdds.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -282,6 +283,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Scripts\agentinput.js" />
+    <Content Include="Scripts\brandsinput.js" />
     <Content Include="说明.txt" />
     <Content Include="App_Code\BootstrapHelpers.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
@@ -401,6 +403,7 @@
     <Content Include="Views\DataInits\Edit.cshtml" />
     <Content Include="Views\DataInits\Index.cshtml" />
     <Content Include="Views\CodeInit\Index.cshtml" />
+    <Content Include="Views\Shared\_share.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

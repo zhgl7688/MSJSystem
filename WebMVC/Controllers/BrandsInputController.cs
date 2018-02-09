@@ -32,12 +32,10 @@ namespace WebMVC.Controllers
 
             List<BrandsInput> models;
             var userName = User.Identity.GetUserName();
-            if (!string.IsNullOrEmpty(userName) && User.IsInRole("品牌商"))
-            {
                 models = await db.BrandsInputs.Where(s => s.UserId == userName).ToListAsync();
                 return View(models);
-            }
-            return Content("<script>alert('没有权限');location='" + Url.Action("index", "home") + "'</script>");
+         
+         
 
         }
 

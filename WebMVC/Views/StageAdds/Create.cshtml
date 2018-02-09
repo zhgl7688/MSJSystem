@@ -1,4 +1,4 @@
-﻿@model WebMVC.Models.StageAdd
+﻿@model WebMVC.Models.StageAddModel
 
 @{
     ViewBag.Title = "Create";
@@ -15,21 +15,31 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
     <div class="form-group">
-        @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label class="control-label col-md-2">供应商</label>
         <div class="col-md-10">
-            @Html.DropDownList("Stage", string.Empty)
-            @Html.ValidationMessageFor(model => model.Stage, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.AgentBrandName, new SelectList(Model.AgentBrandNamelist, "Value", "Text", ""), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.AgentBrandName, "", new { @class = "text-danger" })
         </div>
-    </div>
+    </div> 
     <div class="form-group">
         @Html.LabelFor(model => model.StageType, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("StageType", string.Empty)
-            @Html.ValidationMessageFor(model => model.StageType, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.StageType, new SelectList(Model.StageTypeList, "Text", "Text", ""), new { @class = "form-control" })
+
+           
+            @Html.ValidationMessageFor(model => model.StageTypeList, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Stage, new SelectList(Model.StageList, "Text", "Text", ""), new { @class = "form-control" })
+
+            @Html.ValidationMessageFor(model => model.Stage, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
     <div class="form-group">
         @Html.LabelFor(model => model.retail, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -55,4 +65,30 @@
         </div>
     </div>
 </div>
+}
+<hr />
+@section Scripts{
+    <script>
+
+        $(function () {
+            $("#AgentBrandName").change(function () {
+                //从后台获取阶段进行判断
+                var AgentBrandNameNew = $(this).val();
+                $('#StageType').empty();
+                $.getJSON("/StageAdds/GetStageType?AgentBrandName=" + AgentBrandNameNew, function (data) {
+                    $.each(data, function (i, city) {
+                        $("#StageType").append('<option value="'
+                            + city.Value + '">'
+                            + city.Text + '</option>');
+                    });  
+                });
+
+
+            })
+
+       
+        })
+    </script>
+  
+
 }

@@ -28,7 +28,7 @@ namespace WebMVC.Controllers
             if (CurrentUser == null)
                 return Content($"<script>alert('没有权限！');location='" + Url.Action("Login", "Account") + "'</script>");
             if (string.IsNullOrWhiteSpace(CurrentUser.AgentName))
-                return Content($"<script>alert('不是代理商');location='" + Url.Action("index") + "'</script>");
+                return Content($"<script>alert('不是代理商');location='" + Url.Action("index","Home") + "'</script>");
             if (db.CodeInit.FirstOrDefault(s => s.Text == CurrentUser.AgentName).Code != "Agent")
                 return Content($"<script>alert('不是代理商');location='" + Url.Action("index", "Home") + "'</script>");
 

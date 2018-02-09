@@ -29,7 +29,7 @@ namespace WebMVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult index(string stage, string brand, string agent, string text)
+        public ActionResult index(string stage, string brand, string agent, string text,string Value)
         {
             var create = "创建";
             if (!string.IsNullOrWhiteSpace(stage))
@@ -39,7 +39,7 @@ namespace WebMVC.Controllers
             }
             else if (!string.IsNullOrWhiteSpace(brand))
             {
-                if (brand == create) brandAdd(text);
+                if (brand == create) brandAdd(Value);
                 else brandDel(text);
             }
             else if (!string.IsNullOrWhiteSpace(agent))
@@ -51,7 +51,7 @@ namespace WebMVC.Controllers
             return RedirectToAction("index");
         }
         //品牌商增加
-        public void brandAdd(string text)
+        public void brandAdd(string Value)
         {
             int value = db.CodeInit.Where(s => s.Code == "Brand").Max(s => s.Value) + 1;
 
@@ -59,14 +59,14 @@ namespace WebMVC.Controllers
             {
                 Code = "Brand",
                 Value = value,
-                Text = text,
+                Text = Value,
                 CreateDate = DateTime.Now
             });
             db.SaveChanges();
         }
-        public void brandDel(string text)
+        public void brandDel(string Text)
         {
-            var brand = db.CodeInit.FirstOrDefault(s => s.Text == text);
+            var brand = db.CodeInit.FirstOrDefault(s => s.Text == Text);
             db.CodeInit.Remove(brand);
             db.SaveChanges();
         }

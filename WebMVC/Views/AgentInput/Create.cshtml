@@ -121,29 +121,31 @@
             <div class="panel-heading">价格管控表</div>
 
             <div class="panel-body" id="jggkb">
-
                 @{ var ss = (ViewBag.StageAdd as List<WebMVC.Models.StageAdd>).Select(s => s.Stage).Distinct();
 
-                    foreach (var item in ss)
-                    {
-                        <div class="col-md-1" hidden>
-                            <label class="control-label" data-show='@item' for="brandAgent" style="color:#ff6a00">@item :</label>
-                        </div>
-                    }
+        foreach (var item in ss)
+        {
+
+            <div class="col-md-1" hidden>
+                <label class="control-label" data-show='@item' for="brandAgent" style="color:#ff6a00">@item :</label>
+            </div>
+}
                 }
+                <div class="col-md-11">
 
-
-                @{ foreach (var item in ViewBag.StageAdd)
-                    {
-                        <div class="form-group col-md-3" hidden>
-                            <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
-                            <div class="col-md-6">
-                                <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">元</span>
-                            </div>
-                        </div>
+                    @{ int i = 0;
+            foreach (var item in ViewBag.StageAdd)
+            {
+                <div class="form-group col-md-3" hidden>
+                    <label class="control-label col-md-6" style="text-align:@(i==0?"right":"center")" data-show='@item.Stage' for="brandAgent">@item.retail</label>
+                    <div class="col-md-4">
+                        <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">元</span>
+                    </div>
+                </div>
+    i++;
+}
                     }
-                }
-
+                </div>
             </div>
         </div>
 
@@ -152,61 +154,62 @@
             <div class="panel-heading">进货表</div>
 
             <div class="panel-body" id="jhb">
+
                 @{foreach (var item in ss)
-                    {
-                        <div class="col-md-1" hidden>
-                            <label class="control-label" data-show='@item' for="brandAgent" style="color:#ff6a00">@item :</label>
-                        </div>
-                    }
+            {
+                <div class="col-md-1" hidden>
+                    <label class="control-label" data-show='@item' for="brandAgent" style="color:#ff6a00">@item :</label>
+                </div>
+    }
                 }
-                <div class="form-group col-md-4 hidden">
-                    @Html.LabelFor(model => model.brandAgent, htmlAttributes: new { @class = "control-label col-md-5" })
-                    <div class="col-md-5">
-                        @Html.EditorFor(model => model.brandAgent, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
-                        @Html.ValidationMessageFor(model => model.brandAgent, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group col-md-3 rc0">
-                    @Html.LabelFor(model => model.BasePurchase, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
-                    <div class="col-md-5">
-                        @Html.EditorFor(model => model.BasePurchase, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
-                        @Html.ValidationMessageFor(model => model.BasePurchase, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group col-md-3 rc0">
-                    @Html.LabelFor(model => model.actualSale, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
-                    <div class="col-md-5">
-                        @Html.EditorFor(model => model.actualSale, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
-                        @Html.ValidationMessageFor(model => model.actualSale, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group col-md-3 rc0">
-                    @Html.LabelFor(model => model.Inventory, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
-                    <div class="col-md-5">
-                        @Html.EditorFor(model => model.Inventory, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
-                        @Html.ValidationMessageFor(model => model.Inventory, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-                @{ foreach (var item in ViewBag.StageAdd1)
-                    {
-                        <div class="form-group col-md-3" hidden>
-                            <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
-                            <div class="col-md-5">
-                                <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span  class="up">万台</span>
-                            </div>
-
+                <div class="col-md-11">
+                    <div class="form-group col-md-4 hidden">
+                        @Html.LabelFor(model => model.brandAgent, htmlAttributes: new { @class = "control-label col-md-5" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.brandAgent, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.brandAgent, "", new { @class = "text-danger" })
                         </div>
+                    </div>
 
+                    <div class="form-group col-md-3 rc0">
+                        @Html.LabelFor(model => model.BasePurchase, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.BasePurchase, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
+                            @Html.ValidationMessageFor(model => model.BasePurchase, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 rc0">
+                        @Html.LabelFor(model => model.actualSale, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.actualSale, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
+                            @Html.ValidationMessageFor(model => model.actualSale, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 rc0">
+                        @Html.LabelFor(model => model.Inventory, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.Inventory, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
+                            @Html.ValidationMessageFor(model => model.Inventory, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    @{ foreach (var item in ViewBag.StageAdd1)
+                {
+                    <div class="form-group col-md-4" hidden>
+                        <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
+                        <div class="col-md-4">
+                            <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万台</span>
+                        </div>
+                    </div>
+        }
                     }
-                }
 
-
+                </div>
             </div>
+
         </div>
         <div class="form-group col-md-12">
             <div class="col-md-4">

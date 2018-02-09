@@ -9,6 +9,10 @@
 <p class="col-lg-offset-9">
     @Html.ActionLink("创建", "Create", null, new { @class = "btn btn-warning btn-block" })
 </p>
+<ul class="nav nav-tabs">
+    <li class="@(ViewBag.typeid==1?"active":"")"><a href="/StageAdds/index/1"   >代理商</a></li>
+    <li  class="@(ViewBag.typeid==1?"":"active")"><a href="/StageAdds/index/0"  >品牌商</a></li>
+</ul>
 <table class="table">
     <tr>
 

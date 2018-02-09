@@ -7,7 +7,7 @@
 
 @using (Html.BeginForm())
 {
-    @*@Html.AntiForgeryToken()*@
+    @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
     <h4> </h4>
@@ -500,7 +500,7 @@
         <div class="panel-heading">市场容设定</div>
 
         <div class="panel-body">
-            @Html.Action("Index", "CurrentShareInits")
+           @Html.Action("Index", "CurrentShareInits")
         </div>
     </div>
 

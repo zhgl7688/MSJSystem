@@ -77,6 +77,15 @@ namespace WebMVC.Infrastructure
             context.CodeInit.Add(new Models.CodeInit { Code = "Brand", Value = 1, Text = "S品牌", CreateDate = DateTime.Now });
             context.CodeInit.Add(new Models.CodeInit { Code = "Brand", Value = 2, Text = "J品牌", CreateDate = DateTime.Now });
 
+            context.CodeInit.Add(new Models.CodeInit { Code = "AgentName", Value = 1, Text = "代理商", ParentCode = "0", CreateDate = DateTime.Now });
+            context.CodeInit.Add(new Models.CodeInit { Code = "BrandName", Value = 2, Text = "品牌商", ParentCode = "0", CreateDate = DateTime.Now });
+
+            context.CodeInit.Add(new Models.CodeInit { Code = "APriceControl", Value = 1, ParentCode= "AgentName", Text = "代价格管控表", CreateDate = DateTime.Now });
+            context.CodeInit.Add(new Models.CodeInit { Code = "Stocklist", Value = 2, ParentCode = "AgentName", Text = "进货表", CreateDate = DateTime.Now });
+            context.CodeInit.Add(new Models.CodeInit { Code = "InvestmentSchedule", ParentCode = "BrandName", Value = 3, Text = "投资表", CreateDate = DateTime.Now });
+            context.CodeInit.Add(new Models.CodeInit { Code = "PPriceControl", ParentCode = "BrandName", Value = 4, Text = "品价格管控表", CreateDate = DateTime.Now });
+
+
             //context.BrandStrengthInit.Add(new BrandStrengthInit());
             //context.ChannelServiceInit.Add(new ChannelServiceInit());
             context.CurrentShareInit.Add(new CurrentShareInit());

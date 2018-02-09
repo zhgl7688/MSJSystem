@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="panel panel-primary">
-            <div class="panel-heading">品牌商资源投入表创建</div>
+            <div class="panel-heading">品牌商资源投入表</div>
             @Html.HiddenFor(s => s.Brand)
             <div class="panel-body">
 
@@ -58,22 +58,22 @@
             <div class="panel-body" id="jggkb">
 
                 @{ foreach (var item in ViewBag.StageAdd)
-                    {
-                        <div class="form-group col-md-3" hidden>
-                            <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
-                            <div class="col-md-6">
-                                <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万元</span>
-                            </div>
-                        </div>
-                    }
+        {
+            <div class="form-group col-md-3" hidden>
+                <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
+                <div class="col-md-6">
+                    <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万元</span>
+                </div>
+            </div>
+}
                 }
-
+                <div class="col-md-12 col-md-offset-10"><span style="font-weight:700;margin:10px 10px">合计金额：</span><span id="investSum">0</span>万元</div>
             </div>
         </div>
 
         <div class="panel panel-primary">
             <div class="panel-heading">市场推广</div>
-            <div class="panel-body">
+            <div class="panel-body" id="jggkb1">
 
                 <div class="form-group col-md-4">
                     @Html.LabelFor(model => model.EndImage, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -138,6 +138,7 @@
                         @Html.ValidationMessageFor(model => model.NewDevelopmentCost, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                <div class="col-md-12 col-md-offset-10"><span style="font-weight:700;margin:10px 10px">合计金额：</span><span id="investSum1">0</span>万元</div>
             </div>
         </div>
         <div class="panel panel-primary">
@@ -151,7 +152,7 @@
                         <div class="form-group col-md-3" hidden>
                             <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
                             <div class="col-md-6">
-                                <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万元</span>
+                                <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">元</span>
                             </div>
                         </div>
                     }
@@ -178,55 +179,8 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script>
-        function stageSet(stage) {
 
-            $('#jggkb').find('label[data-show]').each(function () {
 
-                $(this).next().children().attr("disabled", "disabled");
-                $(this).parent().hide();
-                if ($(this).data('show') == stage) {
-                    $(this).parent().show()
-                    $(this).next().children().removeAttr("disabled");
-                }
-
-            });
-            $('#jhb').find('label[data-show]').each(function () {
-
-                $(this).next().children().attr("disabled", "disabled");
-                $(this).parent().hide();
-                if ($(this).data('show') == stage) {
-                    $(this).parent().show();
-                    $(this).next().children().removeAttr("disabled");
-                }
-
-            });
-        }
-        function sum(inputs) {
-            var sum = 0;
-            $(inputs).each(function () {
-                var v = $(this).val();
-                sum += parseFloat(v);
-            });
-            return sum;
-        }
-
-        $(function () {
-            stageSet($("#Stage").val());
-            $("#investSum").html(sum($("#invest input")));
-            $("#Stage").change(function () {
-                stageSet($(this).val());
-            })
-
-            $("#invest input").bind("input property change", function () {
-                var inputs = $("#invest input");
-
-                $("#investSum").html(sum(inputs));
-
-            })
-        })
-
-    </script>
+    <script src="~/Scripts/brandsinput.js"></script>
 
 }

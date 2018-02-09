@@ -11,203 +11,210 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>代理商数据表编辑</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group col-md-4 hidden">
-        @Html.LabelFor(model => model.AgentId, htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-6">
-            @Html.EditorFor(model => model.AgentId, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.AgentId, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>代理商数据表编辑</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group col-md-4 hidden">
+            @Html.LabelFor(model => model.AgentId, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.AgentId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AgentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">代理商投入表创建</div>
+            @Html.HiddenFor(model => model.AgentName)
+            @Html.HiddenFor(model => model.Stage)
+
+            <div class="panel-body">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.AgentName, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-6">
+
+                        <div class="form-control"> @Html.DisplayFor(model => model.AgentName)</div>
+
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-6">
+                        <div class="form-control"> @Html.DisplayFor(model => model.Stage)</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">投资表</div>
+
+            <div class="panel-body" id="invest">
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.EndImage, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.EndImage, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
+                        @Html.ValidationMessageFor(model => model.EndImage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.Salesperson, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Salesperson, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
+                        @Html.ValidationMessageFor(model => model.Salesperson, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.HousePromote, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.HousePromote, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
+                        @Html.ValidationMessageFor(model => model.HousePromote, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.demonstrator, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.demonstrator, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
+                        @Html.ValidationMessageFor(model => model.demonstrator, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.outdoorActivity, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.outdoorActivity, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
+                        @Html.ValidationMessageFor(model => model.outdoorActivity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.promotionTeam, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.promotionTeam, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
+                        @Html.ValidationMessageFor(model => model.promotionTeam, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.servet, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.servet, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
+                        @Html.ValidationMessageFor(model => model.servet, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.bankLoan, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.bankLoan, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
+                        @Html.ValidationMessageFor(model => model.bankLoan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-12 col-md-offset-10"><span style="font-weight:700;margin:10px 10px">合计金额：</span><span id="investSum">0</span>万元</div>
+
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">价格管控表</div>
+
+            <div class="panel-body" id="jggkb">
+                @{ var ss = (ViewBag.StageAdd as List<WebMVC.Models.StageAdd>).Select(s => s.Stage).Distinct();
+
+                    foreach (var item in ss)
+                    {
+
+                        <div class="col-md-1" hidden>
+                            <label class="control-label" data-show='@item' for="brandAgent" style="color:#ff6a00">@item :</label>
+                        </div>
+                    }
+                }
+                <div class="col-md-11">
+
+                    @{ int i = 0;
+                            foreach (var item in ViewBag.StageAdd)
+                            {
+                            <div class="form-group col-md-3" hidden>
+                                <label class="control-label col-md-6" style="text-align:@(i==0?"right":"center")" data-show='@item.Stage' for="brandAgent">@item.retail</label>
+                                <div class="col-md-4">
+                                    <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">元</span>
+                                </div>
+                            </div>
+                            i++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">进货表</div>
+
+            <div class="panel-body" id="jhb">
+
+                @{foreach (var item in ss)
+                    {
+                        <div class="col-md-1" hidden>
+                            <label class="control-label" data-show='@item' for="brandAgent" style="color:#ff6a00">@item :</label>
+                        </div>
+                    }
+                }
+                <div class="col-md-11">
+                    <div class="form-group col-md-4 hidden">
+                        @Html.LabelFor(model => model.brandAgent, htmlAttributes: new { @class = "control-label col-md-5" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.brandAgent, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.brandAgent, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 rc0">
+                        @Html.LabelFor(model => model.BasePurchase, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.BasePurchase, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
+                            @Html.ValidationMessageFor(model => model.BasePurchase, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 rc0">
+                        @Html.LabelFor(model => model.actualSale, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.actualSale, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
+                            @Html.ValidationMessageFor(model => model.actualSale, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 rc0">
+                        @Html.LabelFor(model => model.Inventory, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.Inventory, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
+                            @Html.ValidationMessageFor(model => model.Inventory, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    @{ foreach (var item in ViewBag.StageAdd1)
+                        {
+                            <div class="form-group col-md-4" hidden>
+                                <label class="control-label col-md-6"  data-show='@item.Stage' for="brandAgent">@item.retail</label>
+                                <div class="col-md-4">
+                                    <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万台</span>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-12">
+            <div class="col-md-offset-6 col-md-4">
+                <input type="submit" value="更新" class="btn btn-warning btn-block" />
+            </div>
         </div>
     </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">代理商投入表创建</div>
-        @Html.HiddenFor(model => model.AgentName)
-        @Html.HiddenFor(model => model.Stage)
-
-        <div class="panel-body">
-            <div class="form-group col-md-4">
-                @Html.LabelFor(model => model.AgentName, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-6">
-             
-                    <div class="form-control"> @Html.DisplayFor(model => model.AgentName)</div>
-              
-                </div>
-            </div>
-
-            <div class="form-group col-md-4">
-                @Html.LabelFor(model => model.Stage, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-6">
-                    <div class="form-control"> @Html.DisplayFor(model => model.Stage)</div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">投资表</div>
-
-        <div class="panel-body" id="invest">
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.EndImage, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.EndImage, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
-                    @Html.ValidationMessageFor(model => model.EndImage, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.Salesperson, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.Salesperson, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
-                    @Html.ValidationMessageFor(model => model.Salesperson, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.HousePromote, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.HousePromote, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
-                    @Html.ValidationMessageFor(model => model.HousePromote, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.demonstrator, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.demonstrator, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
-                    @Html.ValidationMessageFor(model => model.demonstrator, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.outdoorActivity, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.outdoorActivity, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
-                    @Html.ValidationMessageFor(model => model.outdoorActivity, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.promotionTeam, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.promotionTeam, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
-                    @Html.ValidationMessageFor(model => model.promotionTeam, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.servet, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.servet, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
-                    @Html.ValidationMessageFor(model => model.servet, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.bankLoan, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.bankLoan, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万元</span>
-                    @Html.ValidationMessageFor(model => model.bankLoan, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="col-md-12 col-md-offset-10"><span style="font-weight:700;margin:10px 10px">合计金额：</span><span id="investSum">0</span>万元</div>
-
-        </div>
-    </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">价格管控表</div>
-
-        <div class="panel-body" id="jggkb">
-            @{ var ss = (ViewBag.StageAdd as List<WebMVC.Models.StageAdd>).Select(s => s.Stage).Distinct();
-
-        foreach (var item in ss)
-        {
-            <div class="col-md-1" hidden>
-                <label class="control-label" data-show='@item' for="brandAgent" style="color:#ff6a00">@item :</label>
-            </div>
-}
-            }
-            @{ foreach (var item in ViewBag.StageAdd)
-        {
-            <div class="form-group col-md-3" hidden>
-                <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
-                <div class="col-md-6">
-                    <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">元</span>
-                </div>
-            </div>
-}
-            }
-        </div>
-    </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">进货表</div>
-
-        <div class="panel-body" id="jhb">
-
-            @{foreach (var item in ss)
-        {
-            <div class="col-md-1" hidden>
-                <label class="control-label" data-show='@item' for="brandAgent" style="color:#ff6a00">@item :</label>
-            </div>
-}
-            }
-            <div class="form-group col-md-4 hidden">
-                @Html.LabelFor(model => model.brandAgent, htmlAttributes: new { @class = "control-label col-md-5" })
-                <div class="col-md-5">
-                    @Html.EditorFor(model => model.brandAgent, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.brandAgent, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-md-3 rc0">
-                @Html.LabelFor(model => model.BasePurchase, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
-                <div class="col-md-5">
-                    @Html.EditorFor(model => model.BasePurchase, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
-                    @Html.ValidationMessageFor(model => model.BasePurchase, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-md-3 rc0">
-                @Html.LabelFor(model => model.actualSale, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
-                <div class="col-md-5">
-                    @Html.EditorFor(model => model.actualSale, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
-                    @Html.ValidationMessageFor(model => model.actualSale, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-md-3 rc0">
-                @Html.LabelFor(model => model.Inventory, htmlAttributes: new { @class = "control-label col-md-5", data_show = "第1阶段" })
-                <div class="col-md-5">
-                    @Html.EditorFor(model => model.Inventory, new { htmlAttributes = new { @class = "form-control" } })<span class="up">万台</span>
-                    @Html.ValidationMessageFor(model => model.Inventory, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            @{ foreach (var item in ViewBag.StageAdd1)
-        {
-            <div class="form-group col-md-3" hidden>
-                <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
-                <div class="col-md-6">
-                    <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万台</span>
-                </div>
-            </div>
-}
-            }
-
-
-        </div>
-    </div>
-
-    <div class="form-group col-md-12">
-        <div class="col-md-offset-6 col-md-4">
-            <input type="submit" value="更新" class="btn btn-warning btn-block" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
@@ -215,6 +222,6 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-<script src="~/Scripts/agentinput.js"></script>
+
+    <script src="~/Scripts/agentinput.js"></script>
 }

@@ -17,9 +17,11 @@ namespace WebMVC.Controllers
         private AppIdentityDbContext db = new AppIdentityDbContext();
 
         // GET: CurrentShareInits
+        [ChildActionOnly]
         public ActionResult Index()
         {
-            return View(db.CurrentShareInit.ToList());
+
+            return PartialView("_share",db.CurrentShareInit.ToList());
         }
 
         // GET: CurrentShareInits/Details/5

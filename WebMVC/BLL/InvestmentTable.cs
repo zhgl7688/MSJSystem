@@ -255,12 +255,16 @@ namespace WebMVC.BLL
         {
 
 
-            decimal r;
+            decimal result;
             if (Stage == Common.Stage.第1阶段.ToString()) d = 2000;
             else d *= 0.2m;
-            r = d - K - P.Surfacerc[0] - Q.Functionrc[0] - R.Material[0];
+            var p = P.Surfacerc.Count > 0 ? P.Surfacerc[0] : 0;
+            var q = Q.Functionrc.Count > 0 ? Q.Functionrc[0] : 0;
+            var r = R.Material.Count > 0 ? R.Material[0] : 0;
 
-            return r < 0 ? 0 : r;
+            result = d - K - p - q - r;
+
+            return result < 0 ? 0 : result;
 
         }
         private BrandInput getBrandInput(decimal aj, BrandInput agentInput1)

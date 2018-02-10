@@ -85,54 +85,65 @@ namespace WebMVC.Controllers
         }
         private void init()
         {
-            var userName = User != null ? string.IsNullOrEmpty(User.Identity.Name) ? "" : User.Identity.Name : "";
-            agentInputList = db.AgentInputs.Where(s => s.UserId == userName).ToList();
-            brandsInputList = db.BrandsInputs.Where(s => s.UserId == userName).ToList();
+           
+            agentInputList = db.AgentInputs.ToList();
+            brandsInputList = db.BrandsInputs.OrderBy(s=>s.Stage).ToList();
             //代理数
 
             AgentStages.stages = db.BrandsInputs.Select(s => s.Stage).Distinct().OrderBy(s => s).ToList();
             AgentStages.stages.Insert(0, "起始阶段");
             AgentStages.agents = db.AgentInputs.Select(s => s.AgentName).Distinct().OrderBy(s => s).ToList();
+            var datainit = db.DataInits.First();
             //品牌力设置
-            var bs = db.BrandStrengthInit.FirstOrDefault(s => s.id == 1);
-            if (bs != null)
+
+            AgentStages.BrandStrength_E = datainit.BrandStrength_E;
+            AgentStages.BrandStrength_M1 = datainit.BrandStrength_M1;
+
+            AgentStages.ProductInnovationInit = new ProductInnovationInit
             {
-                AgentStages.BrandStrength_E = bs.BrandStrength_E;
-                AgentStages.BrandStrength_M1 = bs.BrandStrength_M1;
-            }
+                ProductInnovation_AC = datainit.ProductInnovation_AC,
+                ProductInnovation_AL = datainit.ProductInnovation_AL,
+                ProductInnovation_CB1 = datainit.ProductInnovation_CB1,
+                ProductInnovation_CB2 = datainit.ProductInnovation_CB2,
+                ProductInnovation_CB3 = datainit.ProductInnovation_CB3,
+                ProductInnovation_CB4 = datainit.ProductInnovation_CB4,
+                ProductInnovation_CB5 = datainit.ProductInnovation_CB5,
+                ProductInnovation_CK1 = datainit.ProductInnovation_CK1,
+                ProductInnovation_CK2 = datainit.ProductInnovation_CK2,
+                ProductInnovation_CK3 = datainit.ProductInnovation_CK3,
+                ProductInnovation_CK4 = datainit.ProductInnovation_CK4,
+                ProductInnovation_CK5 = datainit.ProductInnovation_CK5,
+                ProductInnovation_J = datainit.ProductInnovation_J,
+                ProductInnovation_M = datainit.ProductInnovation_M,
+                ProductInnovation_S = datainit.ProductInnovation_S,
+                ProductInnovation_T = datainit.ProductInnovation_T
+            };
             //产品创新力部分设置
-            AgentStages.ProductInnovationInit = db.ProductInnovationInit.First();
-            var mpt = db.MarketPromotionInit.FirstOrDefault(s => s.id == 1);
-            if (mpt != null)
-            {
-                AgentStages.M_AY1 = mpt.MarketPromotionInit_AY1;
-                AgentStages.M_AY2 = mpt.MarketPromotionInit_AY2;
-                AgentStages.M_AX1 = mpt.MarketPromotionInit_AX1;
-                AgentStages.M_AX2 = mpt.MarketPromotionInit_AX2;
-                AgentStages.M_AX3 = mpt.MarketPromotionInit_AX3;
-                AgentStages.M_AX4 = mpt.MarketPromotionInit_AX4;
-                AgentStages.M_AX5 = mpt.MarketPromotionInit_AX5;
-                AgentStages.M_AX6 = mpt.MarketPromotionInit_AX6;
-            }
+
+            AgentStages.M_AY1 = datainit.MarketPromotionInit_AY1;
+            AgentStages.M_AY2 = datainit.MarketPromotionInit_AY2;
+            AgentStages.M_AX1 = datainit.MarketPromotionInit_AX1;
+            AgentStages.M_AX2 = datainit.MarketPromotionInit_AX2;
+            AgentStages.M_AX3 = datainit.MarketPromotionInit_AX3;
+            AgentStages.M_AX4 = datainit.MarketPromotionInit_AX4;
+            AgentStages.M_AX5 = datainit.MarketPromotionInit_AX5;
+            AgentStages.M_AX6 = datainit.MarketPromotionInit_AX6;
+
 
             //渠道服务部分设置
-            var cf = db.ChannelServiceInit.FirstOrDefault(s => s.id == 1);
-            if (cf != null)
-            {
-                AgentStages.C_J1 = cf.ChannelService_J1;
-                AgentStages.C_J2 = cf.ChannelService_J2;
-            }
+
+            AgentStages.C_J1 = datainit.ChannelService_J1;
+            AgentStages.C_J2 = datainit.ChannelService_J2;
+
             //市场价格部分设置
-            var mp = db.MarketPriceInit.FirstOrDefault(s => s.id == 1);
-            if (mp != null)
-            {
-                AgentStages.MP_CD = mp.CD;
-                AgentStages.MP_CE = mp.CE;
-                AgentStages.MP_CF = mp.CF;
-                AgentStages.MP_CM = mp.CM;
-                AgentStages.MP_CN = mp.CN;
-                AgentStages.MP_CO = mp.CO;
-            }
+
+            AgentStages.MP_CD = datainit.CD;
+            AgentStages.MP_CE = datainit.CE;
+            AgentStages.MP_CF = datainit.CF;
+            AgentStages.MP_CM = datainit.CM;
+            AgentStages.MP_CN = datainit.CN;
+            AgentStages.MP_CO = datainit.CO;
+
             //市场容量设定
 
             AgentStages.CurrentShareInits = db.CurrentShareInit.ToList();

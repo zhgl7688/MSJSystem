@@ -1,17 +1,17 @@
-﻿@model WebMVC.Models.CurrentShareInit
+﻿@model  CurrentShareInit
 
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>创建</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>CurrentShareInit</h4>
+        <h4></h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group ">
@@ -71,7 +71,8 @@
 
         <div class="form-group col-md-12">
             <div class="col-md-4">
-                @BootstrapHelpers.PrimaryButton(Url.Action("Index"), "返回列表")
+              
+                @BootstrapHelpers.PrimaryButton(Url.Action("Edit", "DataInits", new { id = 1 }), "返回列表")
 
             </div>   <div class="col-md-offset-4 col-md-4">
                 <input type="submit" value="保存" class="btn btn-warning btn-block" />

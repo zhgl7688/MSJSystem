@@ -95,6 +95,8 @@ namespace WebMVC.Controllers
                     else
                     {
                         ModelState.AddModelError("Stage", $"已有{collection.Stage }信息，请重新选择");
+
+
                     }
 
                 }

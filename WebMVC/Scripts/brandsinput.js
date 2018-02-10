@@ -1,5 +1,5 @@
 ﻿function stageSet(stage) {
-
+ 
     $('#jggkb').find('label[data-show]').each(function () {
 
         $(this).next().children().attr("disabled", "disabled");
@@ -38,6 +38,7 @@ $(function () {
     $("#Stage").change(function () {
         //从后台获取阶段进行判断
         var stagenew = $(this).val();
+      
         $.get("/BrandsInput/getstageStatus?stage=" + stagenew + "&brand=" + $('#Brand').val() + "&brandId=" + $('#BrandID').val(), function (data) {
             if (data == "ok") {
                 stageSet(stagenew);

@@ -52,7 +52,7 @@ namespace WebMVC.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,D,E,F,G,H,Z,J")] CurrentShareInit currentShareInit)//
+        public async Task<ActionResult> Create([Bind(Include = "id,D,E,F,G,H,Z,AR")] CurrentShareInit currentShareInit)//
         {
             if (ModelState.IsValid)
             {
@@ -133,7 +133,7 @@ namespace WebMVC.Controllers
             CurrentShareInit currentShareInit = await db.CurrentShareInit.FindAsync(id);
             db.CurrentShareInit.Remove(currentShareInit);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "DataInits", new { id = 1 }); ;
         }
 
         protected override void Dispose(bool disposing)

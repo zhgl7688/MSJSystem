@@ -48,7 +48,7 @@ namespace WebMVC.Common
     }
     public enum agentInputStageType
     {
-        代价格管控表, 进货表, 投资表, 品价格管控表
+        价格管控表, 进货表, 投资表, 品价格管控表
 
     }
     public static class subList

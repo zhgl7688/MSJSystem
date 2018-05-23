@@ -51,6 +51,9 @@ namespace WebMVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.StageAdd = SetList(model.Stage, Common.agentInputStageType.价格管控表.ToString());
+            ViewBag.StageAdd1 = SetList(model.Stage, Common.agentInputStageType.进货表.ToString());
+
             return View(model);
 
         }
@@ -64,7 +67,7 @@ namespace WebMVC.Controllers
 
             // ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
             ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
-            var stageAddList = db.StageAdd.Where(s => s.StageType == Common.agentInputStageType.代价格管控表.ToString()).ToList();
+            var stageAddList = db.StageAdd.Where(s => s.StageType == Common.agentInputStageType.价格管控表.ToString()).ToList();
             stageAddList.ForEach(s => s.retailPrice = "0.00");
             ViewBag.StageAdd = stageAddList;
             var stageAddList1 = db.StageAdd.Where(s => s.StageType == Common.agentInputStageType.进货表.ToString()).ToList();
@@ -100,7 +103,7 @@ namespace WebMVC.Controllers
                         ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
                         ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
 
-                        ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.代价格管控表.ToString());
+                        ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.价格管控表.ToString());
                         ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
 
                         return View(collection);
@@ -117,7 +120,7 @@ namespace WebMVC.Controllers
                 {
                     ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
                     //ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
-                    ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.代价格管控表.ToString());
+                    ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.价格管控表.ToString());
                     ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
 
                     return View();
@@ -127,7 +130,7 @@ namespace WebMVC.Controllers
             {
                 ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
                 //ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
-                ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.代价格管控表.ToString());
+                ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.价格管控表.ToString());
                 ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
 
                 return View();
@@ -139,7 +142,7 @@ namespace WebMVC.Controllers
 
             collection.PriceMange = new List<PriceMange>();
             //查找子表的键值
-            var ss = db.StageAdd.Where(s => s.Stage == collection.Stage && s.StageType == Common.agentInputStageType.代价格管控表.ToString());
+            var ss = db.StageAdd.Where(s => s.Stage == collection.Stage && s.StageType == Common.agentInputStageType.价格管控表.ToString());
 
             foreach (var item in ss)
             {
@@ -176,7 +179,7 @@ namespace WebMVC.Controllers
         {
             var result = db.StageAdd.Where(s => s.StageType == type.ToString()).ToList();
 
-            if (type == agentInputStageType.代价格管控表.ToString())
+            if (type == agentInputStageType.价格管控表.ToString())
             {
                 //查找子表的键值
                 foreach (var item in result)
@@ -233,7 +236,7 @@ namespace WebMVC.Controllers
             if (collection == null) return HttpNotFound();
             ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", collection.Stage);
             ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", collection.AgentName);
-            ViewBag.StageAdd = SetList(collection, Common.agentInputStageType.代价格管控表.ToString());
+            ViewBag.StageAdd = SetList(collection, Common.agentInputStageType.价格管控表.ToString());
             ViewBag.StageAdd1 = SetList(collection, Common.agentInputStageType.进货表.ToString());
 
 
@@ -269,7 +272,7 @@ namespace WebMVC.Controllers
 
                         ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", "");
                         ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", "");
-                        ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.代价格管控表.ToString());
+                        ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.价格管控表.ToString());
                         ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
 
                         return View(collection);
@@ -290,7 +293,7 @@ namespace WebMVC.Controllers
                 {
                     ViewBag.Stage = new SelectList(db.CodeInit.Where(s => s.Code == "Stage" && s.Value != 0), "Text", "Text", collection.Stage);
                     ViewBag.AgentName = new SelectList(db.CodeInit.Where(s => s.Code == "Agent"), "Text", "Text", collection.AgentName);
-                    ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.代价格管控表.ToString());
+                    ViewBag.StageAdd = SetList(collection.Stage, Common.agentInputStageType.价格管控表.ToString());
                     ViewBag.StageAdd1 = SetList(collection.Stage, Common.agentInputStageType.进货表.ToString());
 
                     return View(collection);
@@ -318,6 +321,9 @@ namespace WebMVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.StageAdd = SetList(brand.Stage, Common.agentInputStageType.价格管控表.ToString());
+            ViewBag.StageAdd1 = SetList(brand.Stage, Common.agentInputStageType.进货表.ToString());
+
             return View(brand);
         }
 

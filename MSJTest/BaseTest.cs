@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebMVC.BLL;
+using WebMVC.Common;
 using WebMVC.Infrastructure;
 
 namespace MSJTest
@@ -30,6 +31,13 @@ namespace MSJTest
         public ThirdPPT thirdPPT;
         public BaseTest()
         {
+
+            AgentStages.stages = new List<string>();
+            AgentStages.stages.AddRange(Enum.GetNames(typeof(Stage)).ToList());
+            AgentStages.agents = new List<string>();
+            AgentStages.agents.AddRange(Enum.GetNames(typeof(AgentName)));
+            AgentStages.BrandStrength_E=33;
+           AgentStages.BrandStrength_M1=800;
             // AppIdentityDbContext db = new AppIdentityDbContext();
             // var agentInputs = db.AgentInputs.Where(s=>s.UserId=="11").ToList();
             // var brandsInputs = db.BrandsInputs.ToList();
@@ -37,28 +45,28 @@ namespace MSJTest
             var agentInputs = new ExampleData().agentInputs.ToList();
             var brandsInputs = new ExampleData().brands.ToList();
             invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
-            priceControl = new PriceControl(invertmentTable1);
+           priceControl = new PriceControl(invertmentTable1);
             brandStrength = new BrandStrength(invertmentTable1);
-            channelService = new ChannelService(invertmentTable1);
-            marketPromotion = new MarketPromotion(invertmentTable1);
-            productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
-            marketPriceTemp = new MarketPriceTemp(priceControl);
-            intentionIndex = new IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
+       //     channelService = new ChannelService(invertmentTable1);
+       //     marketPromotion = new MarketPromotion(invertmentTable1);
+       //     productInnovation = new ProductInnovation(brandStrength, invertmentTable1);
+       //     marketPriceTemp = new MarketPriceTemp(priceControl);
+       //     intentionIndex = new IntentionIndex(brandStrength, productInnovation, marketPromotion, channelService, marketPriceTemp);
 
-            currentShare = new CurrentShare(intentionIndex, priceControl);
-            marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
+       //     currentShare = new CurrentShare(intentionIndex, priceControl);
+       //     marketPrice = new MarketPrice(priceControl, productInnovation, currentShare);
 
-            stockReport = new StockReport(invertmentTable1, marketPrice);
-            investment = new Investment(invertmentTable1, stockReport);
-            invoicingReport = new InvoicingReport(currentShare, marketPrice, stockReport);
+       //     stockReport = new StockReport(invertmentTable1, marketPrice);
+       //     investment = new Investment(invertmentTable1, stockReport);
+       //     invoicingReport = new InvoicingReport(currentShare, marketPrice, stockReport);
 
 
 
-       summaryAssent = new SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
-            lastBrand = new LastBrand(currentShare,invertmentTable1.GetAgentCount);
-            firstPPT = new FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport,priceControl);
-            secondPPT = new SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);
-            thirdPPT = new ThirdPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, secondPPT);
+       //summaryAssent = new SummaryAssent(stockReport, invoicingReport, marketPrice, investment, currentShare);
+       //     lastBrand = new LastBrand(currentShare,invertmentTable1.GetAgentCount);
+       //     firstPPT = new FirstPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport,priceControl);
+       //     secondPPT = new SecondPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, firstPPT);
+       //     thirdPPT = new ThirdPPT(marketPrice, investment, invertmentTable1, summaryAssent, lastBrand, invoicingReport, priceControl, currentShare, secondPPT);
         }
     }
 }

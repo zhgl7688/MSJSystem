@@ -19,15 +19,15 @@ namespace WebMVC.BLL
 
         List<BrandStrengthTable> brandStrengths = new List<BrandStrengthTable>();
         List<BrandTable> investMents;
-        
+
         public BrandStrength(InvertmentTable1 invertmentTable1)
         {
             brand_e = AgentStages.BrandStrength_E;
             brand_h = AgentStages.BrandStrength_M1;
-           
+
             investMents = invertmentTable1.getBrandTable();
-  
-            Init();
+        
+           Init();
         }
         public void Init()
         {
@@ -46,6 +46,7 @@ namespace WebMVC.BLL
             brandStrengths.Add(initT);
             foreach (var item in investMents)
             {
+
                 var brandStrength = brandStrengths.FirstOrDefault(s => s.Stage == item.Stage);
                 if (brandStrength == null)
                 {
@@ -75,18 +76,70 @@ namespace WebMVC.BLL
             SetCBPI(brandStrengths, brandStrengths.OrderByDescending(s => s.ID).Take(1).ToList()[0]);
 
         }
+        //根据阶段
+        public BrandStrengthTable GetBrandSTrengthByStage(Stage stageItem)
+        {
+            BrandStrengthTable brandStrength = new BrandStrengthTable
+            {
+                ID = (int)stageItem,
+                Stage = stageItem.ToString(),
+            };
+            if (stageItem == Stage.起始阶段)
+            {
+                   brandStrength. E = brand_e;
+                   brandStrength. F = brand_e;
+                   brandStrength. G = brand_e;
+                   brandStrength. H = brand_h;
+                   brandStrength. I = brand_h;
+                brandStrength.J = brand_h;
+            }
+            else
+            {
+                investMents.ForEach(s =>
+                {
+                    if (s.Stage == stageItem.ToString())
+                    {
+                        Brand brand = (Brand)Enum.Parse(typeof(Brand), s.Brand);
+                        switch (brand)
+                        {
+                            case Brand.M品牌:
+                                brandStrength.H = s.advertise;
+                                break;
+                            case Brand.S品牌:
+                                brandStrength.I = s.advertise;
+                                break;
+                            case Brand.J品牌:
+                                brandStrength.J = s.advertise;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                });
+                
+                     SetCBPI(brandStrength, GetBrandSTrengthByStage(stageItem - 1));
+            }
+            return brandStrength;
+        }
+
         private void SetCBPI(List<BrandStrengthTable> brands, BrandStrengthTable s)
         {
-             int index =AgentStages.stages.IndexOf( s.Stage);
+            int index = AgentStages.stages.IndexOf(s.Stage);
             if (index == 0) return;
-             var last = brands.FirstOrDefault(j => j.Stage == AgentStages.stages[ index - 1]);
+            var last = brands.FirstOrDefault(j => j.Stage == AgentStages.stages[index - 1]);
             SetCBPI(brands, last);
             s.E = Cal.CBPI(last.E, last.K, last.N, s.K, s.N);
             s.F = Cal.CBPI(last.F, last.L, last.N, s.L, s.N);
             s.G = Cal.CBPI(last.G, last.M, last.N, s.M, s.N);
         }
 
-
+        private void SetCBPI(BrandStrengthTable s, BrandStrengthTable last)
+        {
+            s.E = Cal.CBPI(last.E, last.K, last.N, s.K, s.N);
+            s.F = Cal.CBPI(last.F, last.L, last.N, s.L, s.N);
+            s.G = Cal.CBPI(last.G, last.M, last.N, s.M, s.N);
+        }
         public List<BrandStrengthTable> Get()
         {
             return brandStrengths;
@@ -94,6 +147,7 @@ namespace WebMVC.BLL
     }
     public class BrandStrengthTable
     {
+        public BrandStrengthTable last { get; set; }
         public int ID { get; set; }
         public string Stage { get; set; }
         [DisplayFormat(DataFormatString = "{0:P0}")]
@@ -124,7 +178,11 @@ namespace WebMVC.BLL
         /// 品牌力指数 M
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:F0}")]
-        public decimal E { get; set; }
+      
+        public decimal E {  get;set;    }
+
+         
+
         /// <summary>
         /// 品牌力指数 S
         /// </summary>
@@ -202,5 +260,8 @@ namespace WebMVC.BLL
                 return B + C + D;
             }
         }
+        
+    
+
     }
 }

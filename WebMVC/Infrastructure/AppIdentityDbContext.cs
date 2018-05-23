@@ -97,19 +97,19 @@ namespace WebMVC.Infrastructure
             //context.ProductInnovationInit.Add(new ProductInnovationInit());
             context.DataInits.Add(new DataInit());
             //代价格管控表
-            context.StageAdd.Add(new StageAdd { Stage = "第1阶段", retail = "零售价", StageType = Common.agentInputStageType.代价格管控表.ToString() });
-            context.StageAdd.Add(new StageAdd { Stage = "第1阶段", retail = "零售系统供价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });
-            context.StageAdd.Add(new StageAdd { Stage = "第2阶段", retail = "常规单品（RC1）指导零售价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });
-            context.StageAdd.Add(new StageAdd { Stage = "第2阶段", retail = "常规单品（RC1）零售系统供价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });
-            context.StageAdd.Add(new StageAdd { Stage = "第2阶段", retail = "新增单品（RC2）零售价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });
-            context.StageAdd.Add(new StageAdd { Stage = "第2阶段", retail = "新增单品（RC2）零售系统供价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });
+            context.StageAdd.Add(new StageAdd { Stage = "第1阶段", retail = "零售价", StageType = Common.agentInputStageType.价格管控表.ToString() });
+            context.StageAdd.Add(new StageAdd { Stage = "第1阶段", retail = "零售系统供价", StageType = Common.agentInputStageType.价格管控表.ToString(), });
+            context.StageAdd.Add(new StageAdd { Stage = "第2阶段", retail = "常规单品（RC1）指导零售价", StageType = Common.agentInputStageType.价格管控表.ToString(), });
+            context.StageAdd.Add(new StageAdd { Stage = "第2阶段", retail = "常规单品（RC1）零售系统供价", StageType = Common.agentInputStageType.价格管控表.ToString(), });
+            context.StageAdd.Add(new StageAdd { Stage = "第2阶段", retail = "新增单品（RC2）零售价", StageType = Common.agentInputStageType.价格管控表.ToString(), });
+            context.StageAdd.Add(new StageAdd { Stage = "第2阶段", retail = "新增单品（RC2）零售系统供价", StageType = Common.agentInputStageType.价格管控表.ToString(), });
 
-            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "常规单品（RC1）零售价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });
-            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "常规单品（RC1）零售系统供价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });
-            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "新增单品（RC2）零售价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });
-            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "新增单品（RC2）零售系统供价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });
-            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "新增单品（RC3）零售价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });
-            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "新增单品（RC3）零售系统供价", StageType = Common.agentInputStageType.代价格管控表.ToString(), });
+            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "常规单品（RC1）零售价", StageType = Common.agentInputStageType.价格管控表.ToString(), });
+            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "常规单品（RC1）零售系统供价", StageType = Common.agentInputStageType.价格管控表.ToString(), });
+            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "新增单品（RC2）零售价", StageType = Common.agentInputStageType.价格管控表.ToString(), });
+            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "新增单品（RC2）零售系统供价", StageType = Common.agentInputStageType.价格管控表.ToString(), });
+            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "新增单品（RC3）零售价", StageType = Common.agentInputStageType.价格管控表.ToString(), });
+            context.StageAdd.Add(new StageAdd { Stage = "第3阶段", retail = "新增单品（RC3）零售系统供价", StageType = Common.agentInputStageType.价格管控表.ToString(), });
 
             //进货表
             context.StageAdd.Add(new StageAdd { Stage = "第1阶段", retail = "进货", StageType = Common.agentInputStageType.进货表.ToString(), });

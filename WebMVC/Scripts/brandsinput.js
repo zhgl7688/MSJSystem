@@ -25,7 +25,9 @@ function sum(inputs) {
     var sum = 0;
     $(inputs).each(function () {
         var v = $(this).val();
-        sum += parseFloat(v);
+        if (v != "" && !isNaN(v)) {
+            sum += parseFloat(v);
+        }  
     });
     return sum;
 }
@@ -34,7 +36,11 @@ $(function () {
 
     stageold = $("#Stage").val();
     stageSet($("#Stage").val());
-    $("#investSum").html(sum($("#invest input")));
+
+    var inputs = $("#jggkb1 input");
+
+    $("#investSum1").html(sum(inputs));
+
     $("#Stage").change(function () {
         //从后台获取阶段进行判断
         var stagenew = $(this).val();

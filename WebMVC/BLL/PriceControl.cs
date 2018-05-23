@@ -89,6 +89,60 @@ namespace WebMVC.BLL
 
 
         }
+        public PriceControlTable GetPriceBy(Stage stageItem)
+        {
+            PriceControlTable priceControl = new PriceControlTable
+            {
+                Stage = stageItem.ToString(),
+            };
+           var brandsInputs = invertmenetTable1.getBrandTable().Where(s=>s.Stage==stageItem.ToString());
+            foreach (var agentItem in brandsInputs)
+            {
+                 if (agentItem.Brand == Common.Brand.M品牌.ToString())
+                {
+                    priceControl.AG.M = agentItem.NewCostPrice;
+                    priceControl.AJ.M = agentItem.NewFactoryPrice;
+                    for (int i = 0; i < agentItem.retailPriceRC.Count; i++)
+                    {
+                        priceControl.B.RcM.Add(agentItem.retailPriceRC[i]);
+                    }
+                }
+                else
+                if (agentItem.Brand == Common.Brand.J品牌.ToString())
+                {
+                    priceControl.AG.J = agentItem.NewCostPrice;
+                    priceControl.AJ.J = agentItem.NewFactoryPrice;
+                    for (int i = 0; i < agentItem.retailPriceRC.Count; i++)
+                    {
+                        priceControl.B.RcJ.Add(agentItem.retailPriceRC[i]);
+                    }
+                }
+                else
+                if (agentItem.Brand == Common.Brand.S品牌.ToString())
+                {
+                    priceControl.AG.S = agentItem.NewCostPrice;
+                    priceControl.AJ.S = agentItem.NewFactoryPrice;
+                }
+
+            }
+            var agents = invertmenetTable1.getAgentInputs().Where(s=>s.Stage==stageItem.ToString());
+            foreach (var agentItem in agents )
+            {
+                var countStage = AgentStages.stages.IndexOf(agentItem.Stage);
+                for (int i = 0; i < countStage; i++)
+                {
+                    if (priceControl.D.Count <= i) priceControl.D.Add(i, new AgentRC());
+                    if (priceControl.K.Count <= i) priceControl.K.Add(i, new AgentRC());
+                    if (agentItem.retailPriceRC.Count <= i) agentItem.retailPriceRC.Add(0);
+                    if (agentItem.SystemPriceRC.Count <= i) agentItem.SystemPriceRC.Add(0);
+
+                    SetAgents(agentItem.AgentName, priceControl.D[i], priceControl.K[i], agentItem.retailPriceRC[i], agentItem.SystemPriceRC[i]);
+
+                }
+
+            }
+            return priceControl;
+        }
         public void SetAgents(string agentName, AgentRC D, AgentRC K, decimal retailPrice, decimal SystemPrice)
         {
           
@@ -139,12 +193,7 @@ namespace WebMVC.BLL
     public class AgentRC
     {
         public List<decimal> Agent { get; set; } = new List<decimal>();
-        //public decimal Agent1 { get; set; }
-        //public decimal Agent2 { get; set; }
-        //public decimal Agent3 { get; set; }
-        //public decimal Agent4 { get; set; }
-        //public decimal Agent5 { get; set; }
-        //public decimal Agent6 { get; set; }
+ 
         public decimal Average
         {
             get { return (this.Agent.Average(s => s)); }

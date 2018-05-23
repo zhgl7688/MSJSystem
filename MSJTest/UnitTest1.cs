@@ -47,6 +47,7 @@ namespace MSJTest
             var ss = tables.brands;
             foreach (var item in ss)
             {
+              
                 item.UserId = "";
                 dbCotext.BrandsInputs.Add(item);
             }

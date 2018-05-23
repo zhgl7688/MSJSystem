@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -29,5 +30,24 @@ namespace WebMVC
         //    ClaimsPrincipal principal = new ClaimsPrincipal(identity);
         //    HttpContext.Current.User = principal;
         //}
-	}
+        //保证同一次会话的SessionID不变
+        protected void Session_Start(object sender, EventArgs e)
+        { }
+
+        protected void Session_End(object sender, EventArgs e)
+        {
+            Hashtable hOnline = (Hashtable)Application["Online"];
+            if (hOnline != null)
+            {
+                if (hOnline[User.Identity.Name.ToLower()] != null)
+                {
+                    hOnline.Remove(User.Identity.Name.ToLower());
+                    Application.Lock();
+                    Application["Online"] = hOnline;
+                    Application.UnLock();
+                }
+            }
+        }
+
+    }
 }

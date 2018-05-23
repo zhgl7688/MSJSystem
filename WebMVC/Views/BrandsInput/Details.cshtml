@@ -3,9 +3,9 @@
 @{
     ViewBag.Title = "品牌商组";
 }
- 
 
-<div class="col-md-12" >
+
+<div class="col-md-12">
     <h4> 品牌商详细信息</h4>
     <hr />
     <div class="col-md-6">
@@ -41,216 +41,165 @@
             <dd>
                 @Html.DisplayFor(model => model.advertise)
             </dd>
+            @foreach (var item in ViewBag.StageAdd)
+    {
+        <dt>
+            @item.retail
+        </dt>
 
+        <dd>
+            @item.retailPrice
+        </dd>
+}
+            @foreach (var item in ViewBag.StageAdd1)
+    {
+        <dt>
+            @item.retail
+        </dt>
+
+        <dd>
+            @item.retailPrice
+        </dd>
+}
+
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.SurfaceRC1)
+                @Html.DisplayNameFor(model => model.EndImage)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.SurfaceRC1)
+                @Html.DisplayFor(model => model.EndImage)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.SurfaceRC2)
+                @Html.DisplayNameFor(model => model.Salesperson)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.SurfaceRC2)
+                @Html.DisplayFor(model => model.Salesperson)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.SurfaceRC3)
+                @Html.DisplayNameFor(model => model.HousePromote)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.SurfaceRC3)
+                @Html.DisplayFor(model => model.HousePromote)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.FunctionRC1)
+                @Html.DisplayNameFor(model => model.demonstrator)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.FunctionRC1)
+                @Html.DisplayFor(model => model.demonstrator)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.FunctionRC2)
+                @Html.DisplayNameFor(model => model.outdoorActivity)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.FunctionRC2)
+                @Html.DisplayFor(model => model.outdoorActivity)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.FunctionRC3)
+                @Html.DisplayNameFor(model => model.promotionTeam)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.FunctionRC3)
+                @Html.DisplayFor(model => model.promotionTeam)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.MaterialRC1)
+                @Html.DisplayNameFor(model => model.servet)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.MaterialRC1)
+                @Html.DisplayFor(model => model.servet)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.MaterialRC2)
+                @Html.DisplayNameFor(model => model.NewDevelopmentCost)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.MaterialRC2)
+                @Html.DisplayFor(model => model.NewDevelopmentCost)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.MaterialRC3)
+                @Html.DisplayNameFor(model => model.retailPrice)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.MaterialRC3)
+                @Html.DisplayFor(model => model.retailPrice)
             </dd>
-            </dl>
-</div>
-  <div class="col-md-6">
-      <dl class="dl-horizontal">
-          <dt>
-              @Html.DisplayNameFor(model => model.EndImage)
-          </dt>
 
-          <dd>
-              @Html.DisplayFor(model => model.EndImage)
-          </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SystemPrice)
+            </dt>
 
-          <dt>
-              @Html.DisplayNameFor(model => model.Salesperson)
-          </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SystemPrice)
+            </dd>
 
-          <dd>
-              @Html.DisplayFor(model => model.Salesperson)
-          </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NewCostPrice)
+            </dt>
 
-          <dt>
-              @Html.DisplayNameFor(model => model.HousePromote)
-          </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NewCostPrice)
+            </dd>
 
-          <dd>
-              @Html.DisplayFor(model => model.HousePromote)
-          </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NewFactoryPrice)
+            </dt>
 
-          <dt>
-              @Html.DisplayNameFor(model => model.demonstrator)
-          </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NewFactoryPrice)
+            </dd>
 
-          <dd>
-              @Html.DisplayFor(model => model.demonstrator)
-          </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NewRetailPriceR2)
+            </dt>
 
-          <dt>
-              @Html.DisplayNameFor(model => model.outdoorActivity)
-          </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NewRetailPriceR2)
+            </dd>
 
-          <dd>
-              @Html.DisplayFor(model => model.outdoorActivity)
-          </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NewSystemPriceR2)
+            </dt>
 
-          <dt>
-              @Html.DisplayNameFor(model => model.promotionTeam)
-          </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NewSystemPriceR2)
+            </dd>
 
-          <dd>
-              @Html.DisplayFor(model => model.promotionTeam)
-          </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NewSystemPriceR3)
+            </dt>
 
-          <dt>
-              @Html.DisplayNameFor(model => model.servet)
-          </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NewSystemPriceR3)
+            </dd>
 
-          <dd>
-              @Html.DisplayFor(model => model.servet)
-          </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NewRetailPriceR3)
+            </dt>
 
-          <dt>
-              @Html.DisplayNameFor(model => model.NewDevelopmentCost)
-          </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NewRetailPriceR3)
+            </dd>
 
-          <dd>
-              @Html.DisplayFor(model => model.NewDevelopmentCost)
-          </dd>
+        </dl>
+    </div>
 
-          <dt>
-              @Html.DisplayNameFor(model => model.retailPrice)
-          </dt>
-
-          <dd>
-              @Html.DisplayFor(model => model.retailPrice)
-          </dd>
-
-          <dt>
-              @Html.DisplayNameFor(model => model.SystemPrice)
-          </dt>
-
-          <dd>
-              @Html.DisplayFor(model => model.SystemPrice)
-          </dd>
-
-          <dt>
-              @Html.DisplayNameFor(model => model.NewCostPrice)
-          </dt>
-
-          <dd>
-              @Html.DisplayFor(model => model.NewCostPrice)
-          </dd>
-
-          <dt>
-              @Html.DisplayNameFor(model => model.NewFactoryPrice)
-          </dt>
-
-          <dd>
-              @Html.DisplayFor(model => model.NewFactoryPrice)
-          </dd>
-
-          <dt>
-              @Html.DisplayNameFor(model => model.NewRetailPriceR2)
-          </dt>
-
-          <dd>
-              @Html.DisplayFor(model => model.NewRetailPriceR2)
-          </dd>
-
-          <dt>
-              @Html.DisplayNameFor(model => model.NewSystemPriceR2)
-          </dt>
-
-          <dd>
-              @Html.DisplayFor(model => model.NewSystemPriceR2)
-          </dd>
-
-          <dt>
-              @Html.DisplayNameFor(model => model.NewSystemPriceR3)
-          </dt>
-
-          <dd>
-              @Html.DisplayFor(model => model.NewSystemPriceR3)
-          </dd>
-
-          <dt>
-              @Html.DisplayNameFor(model => model.NewRetailPriceR3)
-          </dt>
-
-          <dd>
-              @Html.DisplayFor(model => model.NewRetailPriceR3)
-          </dd>
-
-      </dl> 
-</div>
-     
 </div>
 <p class="col-md-offset-9">
     @Html.ActionLink("编辑", "Edit", new { id = Model.BrandID }, new { @class = "btn btn-warning " })
     @BootstrapHelpers.PrimaryButton(Url.Action("Index"), "返回列表")
-   
+
 </p>

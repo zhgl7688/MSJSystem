@@ -219,11 +219,16 @@ namespace WebMVC.Common
                 {
 
                     var ddt = i > 1 ? (i - 1 == j ? 0 : d[i - 1][j]) : d[i - 1][j];
-                    var val = cct(ddt, b[i][j], cts[i][j].Agent[v]);
+                    decimal rr = 0;
+                    if (b.Count>i&&b[i]!=null&&b[i].Count>j&&
+                        cts[i]!=null&& cts[i].Count>j&&
+                        cts[i][j]!=null&& cts[i][j].Agent.Count>v)
+                  rr = cct(ddt, b[i][j], cts[i][j].Agent[v]);
 
-                    result[i].Add(val);
-                    var t = b[i][j];
-                    var ddtt = (ddt + b[i][j] - val) > 0 ? (ddt + b[i][j] - val) : 0;
+                    result[i].Add(rr);
+                     var tt =    (b.Count > i && b[i] != null && b[i].Count > j)?
+                 b[i][j]:0;
+                    var ddtt = (ddt + tt - rr) > 0 ? (ddt +tt - rr) : 0;
                     d[i].Add(ddtt);
                 }
             }

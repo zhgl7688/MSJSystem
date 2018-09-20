@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using System;
 using WebMVC.Infrastructure;
 
 namespace WebMVC
@@ -63,5 +62,6 @@ namespace WebMVC
             //    ClientSecret = ""
             //});
         }
+   
     }
 }

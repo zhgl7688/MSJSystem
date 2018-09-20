@@ -12,8 +12,8 @@ namespace WebMVC.BLL
 
         public static List<string> agents { get; set; }
         public static List<string> stages { get; set; }
-        public static int BrandStrength_E { get; internal set; }
-        public static int BrandStrength_M1 { get; internal set; }
+        public static int BrandStrength_E { get;  set; }
+        public static int BrandStrength_M1 { get;  set; }
         public static ProductInnovationInit ProductInnovationInit { get; internal set; }
         public static decimal M_AY1 { get; internal set; }
         public static decimal M_AY2 { get; internal set; }

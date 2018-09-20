@@ -129,7 +129,7 @@ namespace WebMVC.Models
         [DisplayName("新增单品零售价RC3")]
         public decimal NewRetailPriceR3 { get; set; }
         public string UserId { get; set; }
-
+     public   List<StageAdd> stageAdds { get; set; }
         public BrandInput brandInput
         {
             get

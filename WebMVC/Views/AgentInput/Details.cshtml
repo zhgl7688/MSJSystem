@@ -90,17 +90,37 @@
             <dd>
                 @Html.DisplayFor(model => model.bankLoan)
             </dd>
+            @foreach (var item in ViewBag.StageAdd)
+    {
+        <dt>
+            @item.retail
+        </dt>
+
+        <dd>
+            @item.retailPrice
+        </dd>
+}
+            @foreach (var item in ViewBag.StageAdd1)
+    {
+        <dt>
+            @item.retail
+        </dt>
+
+        <dd>
+            @item.retailPrice
+        </dd>
+}
 
             @{ foreach (var item in Model.PriceMange)
         {
             <dt>
                 @item.Name
             </dt>
-           
+
             <dd>
                 @item.Value
             </dd>
-            
+
 }
             }
 
@@ -174,13 +194,7 @@
                 @Html.DisplayFor(model => model.UserId)
             </dd>
 
-            @*<dt>
-                @Html.DisplayNameFor(model => model.InputSum)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.InputSum)
-            </dd>*@
+ 
 
         </dl>
     </div>

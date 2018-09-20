@@ -51,6 +51,9 @@ namespace WebMVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.StageAdd = SetList(brand, Common.agentInputStageType.投资表.ToString()).Where(s => s.Stage == brand.Stage);
+            ViewBag.StageAdd1 = SetList(brand, Common.agentInputStageType.品价格管控表.ToString()).Where(s => s.Stage == brand.Stage);
+            
             return View(brand);
         }
 
@@ -123,9 +126,9 @@ namespace WebMVC.Controllers
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var collection = db.BrandsInputs.Find(id);
             if (collection == null) return HttpNotFound();
-            ViewBag.stageList = GetStage(collection.Stage);
-            ViewBag.StageAdd = SetList(collection, Common.agentInputStageType.投资表.ToString());
-            ViewBag.StageAdd1 = SetList(collection, Common.agentInputStageType.品价格管控表.ToString());
+
+            ViewBag.StageAdd = SetList(collection, Common.agentInputStageType.投资表.ToString()).Where(s=>s.Stage==collection.Stage);
+            ViewBag.StageAdd1 = SetList(collection, Common.agentInputStageType.品价格管控表.ToString()).Where(s=>s.Stage==collection.Stage);
 
             return View(collection);
         }
@@ -201,6 +204,9 @@ namespace WebMVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.StageAdd = SetList(brand, Common.agentInputStageType.投资表.ToString()).Where(s => s.Stage == brand.Stage);
+            ViewBag.StageAdd1 = SetList(brand, Common.agentInputStageType.品价格管控表.ToString()).Where(s => s.Stage == brand.Stage);
+
             return View(brand);
 
 

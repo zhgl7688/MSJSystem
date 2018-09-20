@@ -42,7 +42,10 @@ function sum(inputs) {
     var sum = 0;
     $(inputs).each(function () {
         var v = $(this).val();
-        sum += parseFloat(v);
+        
+        if (v!=""&&!isNaN(v)) {
+            sum += parseFloat(v);
+        }  
     });
     return sum;
 }
@@ -69,7 +72,7 @@ $(function () {
     $("#invest input").bind("input property change", function () {
         var inputs = $("#invest input");
 
-        $("#investSum").html(sum(inputs));
+        $("#investSum").html(sum(inputs).toFixed(2));
 
     })
 })

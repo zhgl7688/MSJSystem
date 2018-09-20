@@ -65,6 +65,7 @@ namespace WebMVC.BLL
                 var promotion = marketPromotions.FirstOrDefault(s => s.Stage == itemAgent.Stage);
                 if (promotion == null)
                 {
+                    continue;
                     promotion = new MarketPromotionTable { Stage = itemAgent.Stage };
                     marketPromotions.Add(promotion);
 

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -59,13 +61,26 @@ namespace WebMVC.Controllers
 
         public ActionResult LogOut()
         {
+            HttpContext httpContext = System.Web.HttpContext.Current;
             AuthManager.SignOut();
+            Hashtable hOnline = (Hashtable)httpContext.Application["Online"];
+            if (hOnline != null)
+            {
+                if (hOnline[User.Identity.Name.ToLower()] != null)
+                {
+                    hOnline.Remove(User.Identity.Name.ToLower());
+                    httpContext.Application.Lock();
+                    httpContext.Application["Online"] = hOnline;
+                    httpContext.Application.UnLock();
+                }
+            }
             return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [LoginActionFilter]
         public async Task<ActionResult> Login(LoginModel model, string returnUrl)
         {
 
@@ -75,6 +90,7 @@ namespace WebMVC.Controllers
                 switch (result)
                 {
                     case SignInStatus.Success:
+                        GetOnline(model.UserName);
                         return RedirectToLocal(returnUrl);
                     case SignInStatus.LockedOut:
                         return View("Lockout");
@@ -184,6 +200,36 @@ namespace WebMVC.Controllers
             {
                 ModelState.AddModelError("", error);
             }
+        }
+        /// <summary>
+        /// 限制一个用户只能登陆一次
+        /// </summary>
+        /// <returns></returns>
+        private void GetOnline(string userID)
+        {
+            HttpContext httpContext = System.Web.HttpContext.Current;
+            var userOnline =(Hashtable)httpContext.Application["Online"];
+            if (userOnline != null)
+            {
+                IDictionaryEnumerator enumerator = userOnline.GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    if (enumerator.Value != null && enumerator.Value.ToString().Equals(userID.ToString()))
+                    {
+                        userOnline[enumerator.Key.ToString()] = "_offline_";
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                userOnline = new Hashtable();
+            }
+            userOnline[userID.ToLower()] =Session.SessionID;
+            httpContext.Application.Lock();
+            httpContext.Application["Online"] = userOnline;
+            httpContext.Application.UnLock();
+
         }
     }
 }

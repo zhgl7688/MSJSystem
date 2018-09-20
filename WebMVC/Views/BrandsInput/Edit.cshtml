@@ -56,18 +56,20 @@
 
             <div class="panel-body" id="jggkb">
 
-                @{ foreach (var item in ViewBag.StageAdd)
-        {
-            <div class="form-group col-md-3" hidden>
-                <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
-                <div class="col-md-6">
-                    <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万元</span>
-                </div>
-            </div>
-}
+                @{ decimal sum = 0;
+                    foreach (var item in  ViewBag.StageAdd)
+                    {
+                        sum +=Convert.ToDecimal( item.retailPrice);
+                        <div class="form-group col-md-3" hidden>
+                            <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
+                            <div class="col-md-6">
+                                <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万元</span>
+                            </div>
+                        </div>
+                    }
                 }
 
-                <div class="col-md-12 col-md-offset-10"><span style="font-weight:700;margin:10px 10px">合计金额：</span><span id="investSum">0</span>万元</div>
+                <div class="col-md-12 col-md-offset-10"><span style="font-weight:700;margin:10px 10px">合计金额：</span><span id="investSum">@sum</span>万元</div>
 
             </div>
         </div>
@@ -138,7 +140,8 @@
                         @Html.ValidationMessageFor(model => model.NewDevelopmentCost, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="col-md-12 col-md-offset-10"><span style="font-weight:700;margin:10px 10px">合计金额：</span><span id="investSum1">0</span>万元</div>
+                <div class="col-md-12 col-md-offset-10"><span style="font-weight:700;margin:10px 10px">合计金额：</span>
+                <span id="investSum1"></span>万元</div>
             </div>
         </div>
         <div class="panel panel-primary">
@@ -178,5 +181,7 @@
 
 @section Scripts {
 
+    @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/brandsinput.js"></script>
+
 }

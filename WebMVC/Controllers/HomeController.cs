@@ -231,9 +231,20 @@ namespace WebMVC.Controllers
         public ActionResult FirstPPT()
         {
             init();
-            if (agentInputs != null && agentInputs.Count > 0 && brandsInputs != null && brandsInputs.Count > 0)
+      
+            var agentInputsFrist = agentInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+                  || s.Stage == Common.Stage.第1阶段.ToString()).OrderBy(s => s.AgentName).ToList();
+                var brandsInputsFrist = brandsInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+                || s.Stage == Common.Stage.第1阶段.ToString()).OrderBy(s => s.Stage).ToList();
+            if(agentInputsFrist == null||agentInputsFrist.Count == 0   )
+                return Content($"<script>alert('代理数据不全：只有{agentInputsFrist.Count}个');location='" + Url.Action("index", "home") + "'</script>");
+            if(brandsInputsFrist.Count!=3)
+                return Content("<script>alert('品牌商不全，只有"+
+                    string.Join(",",brandsInputsFrist.Select(s=>s.UserId).ToArray())+"');location='" + Url.Action("index", "home") + "'</script>");
+                AgentStages.stages = AgentStages.stages.Take(2).ToList();
+            if (agentInputsFrist != null && agentInputsFrist.Count > 0 && brandsInputsFrist != null && brandsInputsFrist.Count == 3)
             {
-                invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
+                invertmentTable1 = new InvertmentTable1(agentInputsFrist, brandsInputsFrist);
                 brandStrength = new BLL.BrandStrength(invertmentTable1);
                 channelService = new ChannelService(invertmentTable1);
                 marketPromotion = new MarketPromotion(invertmentTable1);
@@ -259,9 +270,44 @@ namespace WebMVC.Controllers
         public ActionResult LastBrand()
         {
             init();
-            if (agentInputs != null && agentInputs.Count > 0 && brandsInputs != null && brandsInputs.Count > 0)
+         
+            var agentInputsFrist = agentInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+                  || s.Stage == Common.Stage.第1阶段.ToString() || s.Stage == Common.Stage.第2阶段.ToString()
+                   || s.Stage == Common.Stage.第3阶段.ToString()).OrderBy(s => s.AgentName).ToList();
+            var brandsInputsFrist = brandsInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+            || s.Stage == Common.Stage.第1阶段.ToString() || s.Stage == Common.Stage.第2阶段.ToString()
+            || s.Stage == Common.Stage.第3阶段.ToString()).OrderBy(s => s.Stage).ToList();
+
+          
+
+            if (agentInputsFrist == null || agentInputsFrist.Count == 0 || agentInputsFrist.Count != (AgentStages.agents.IndexOf(agentInputsFrist.Select(s => s.AgentName).OrderByDescending(s => s).First()) + 1) * 2||brandsInputsFrist.Count != 9)
             {
-                invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
+                AgentStages.stages = AgentStages.stages.Take(3).ToList();
+                  agentInputsFrist = agentInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+                      || s.Stage == Common.Stage.第1阶段.ToString() || s.Stage == Common.Stage.第2阶段.ToString()).OrderBy(s => s.AgentName).ToList();
+                  brandsInputsFrist = brandsInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+                || s.Stage == Common.Stage.第1阶段.ToString() || s.Stage == Common.Stage.第2阶段.ToString()).OrderBy(s => s.Stage).ToList();
+         
+
+                if (agentInputsFrist == null || agentInputsFrist.Count == 0 || agentInputsFrist.Count != (AgentStages.agents.IndexOf(agentInputsFrist.Select(s => s.AgentName).OrderByDescending(s => s).First()) + 1) * 2||brandsInputsFrist.Count != 6)
+                {
+                    AgentStages.stages = AgentStages.stages.Take(2).ToList();
+                      agentInputsFrist = agentInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+                          || s.Stage == Common.Stage.第1阶段.ToString()).OrderBy(s => s.AgentName).ToList();
+                      brandsInputsFrist = brandsInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+                    || s.Stage == Common.Stage.第1阶段.ToString()).OrderBy(s => s.Stage).ToList();
+                    if (agentInputsFrist == null)
+                        return Content($"<script>alert('代理数据不全：只有{agentInputsFrist.Count}个');location='" + Url.Action("index", "home") + "'</script>");
+                    if (brandsInputsFrist.Count != 3)
+                        return Content("<script>alert('品牌商不全，只有" +
+                            string.Join(",", brandsInputsFrist.Select(s => s.UserId).ToArray()) + "');location='" + Url.Action("index", "home") + "'</script>");
+
+                }
+            }
+            AgentStages.stages = AgentStages.stages.Take(4).ToList();
+            if (agentInputsFrist != null && agentInputsFrist.Count > 0 && brandsInputsFrist != null && brandsInputsFrist.Count > 0)
+            {
+                invertmentTable1 = new InvertmentTable1(agentInputsFrist, brandsInputsFrist);
                 brandStrength = new BLL.BrandStrength(invertmentTable1);
                 channelService = new ChannelService(invertmentTable1);
                 marketPromotion = new MarketPromotion(invertmentTable1);
@@ -287,9 +333,21 @@ namespace WebMVC.Controllers
         public ActionResult SecondPPT()
         {
             init();
-            if (agentInputs != null && agentInputs.Count > 0 && brandsInputs != null && brandsInputs.Count > 0)
+        
+            var agentInputsFrist = agentInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+                  || s.Stage == Common.Stage.第1阶段.ToString() || s.Stage == Common.Stage.第2阶段.ToString()).OrderBy(s => s.AgentName).ToList();
+            var brandsInputsFrist = brandsInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+            || s.Stage == Common.Stage.第1阶段.ToString() || s.Stage == Common.Stage.第2阶段.ToString()).OrderBy(s => s.Stage).ToList();
+         
+            if (agentInputsFrist == null||agentInputsFrist.Count==0|| agentInputsFrist.Count!= (AgentStages.agents.IndexOf(agentInputsFrist.Select(s => s.AgentName).OrderByDescending(s => s).First()) + 1)*2)
+                return Content($"<script>alert('代理数据不全：只有{agentInputsFrist.Count}个');location='" + Url.Action("index", "home") + "'</script>");
+            if (brandsInputsFrist.Count != 6)
+                return Content("<script>alert('品牌商不全，只有" +
+                    string.Join(",", brandsInputsFrist.Select(s => s.UserId).ToArray()) + "');location='" + Url.Action("index", "home") + "'</script>");
+            AgentStages.stages = AgentStages.stages.Take(3).ToList();
+            if (agentInputs != null && agentInputs.Count > 0 && brandsInputs != null && brandsInputsFrist.Count > 0)
             {
-                invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);
+                invertmentTable1 = new InvertmentTable1(agentInputsFrist, brandsInputsFrist);
                 brandStrength = new BLL.BrandStrength(invertmentTable1);
                 channelService = new ChannelService(invertmentTable1);
                 marketPromotion = new MarketPromotion(invertmentTable1);
@@ -318,7 +376,23 @@ namespace WebMVC.Controllers
         {
 
             init();
+           
+           
+            var agentInputsFrist = agentInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+                  || s.Stage == Common.Stage.第1阶段.ToString() || s.Stage == Common.Stage.第2阶段.ToString()
+                   || s.Stage == Common.Stage.第3阶段.ToString()).OrderBy(s => s.AgentName).ToList();
+            var brandsInputsFrist = brandsInputs.Where(s => s.Stage == Common.Stage.起始阶段.ToString()
+            || s.Stage == Common.Stage.第1阶段.ToString() || s.Stage == Common.Stage.第2阶段.ToString()
+            || s.Stage == Common.Stage.第3阶段.ToString()).OrderBy(s => s.Stage).ToList();
 
+       
+
+            if (agentInputsFrist == null ||agentInputsFrist.Count==0|| agentInputsFrist.Count != (AgentStages.agents.IndexOf(agentInputsFrist.Select(s => s.AgentName).OrderByDescending(s => s).First()) + 1) * 2)
+                return Content($"<script>alert('代理数据不全：只有{agentInputsFrist.Count}个');location='" + Url.Action("index", "home") + "'</script>");
+            if (brandsInputsFrist.Count != 6)
+                return Content("<script>alert('品牌商不全，只有" +
+                    string.Join(",", brandsInputsFrist.Select(s => s.UserId).ToArray()) + "');location='" + Url.Action("index", "home") + "'</script>");
+            AgentStages.stages = AgentStages.stages.Take(4).ToList();
             if (agentInputs != null && agentInputs.Count > 0 && brandsInputs != null && brandsInputs.Count > 0)
             {
                 invertmentTable1 = new InvertmentTable1(agentInputs, brandsInputs);

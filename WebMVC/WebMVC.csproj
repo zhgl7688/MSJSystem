@@ -229,6 +229,7 @@
     <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Infrastructure\IdentityHelper.cs" />
     <Compile Include="Infrastructure\LocationClaimsProvider.cs" />
+    <Compile Include="Infrastructure\LoginActionFilter.cs" />
     <Compile Include="Models\AgentInput.cs" />
     <Compile Include="Models\AppRole.cs" />
     <Compile Include="Models\BrandInfo.cs" />

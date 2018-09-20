@@ -125,7 +125,7 @@
 
         foreach (var item in ss)
         {
-
+ 
             <div class="col-md-1" hidden>
                 <label class="control-label" data-show='@item' for="brandAgent" style="color:#ff6a00">@item :</label>
             </div>
@@ -136,12 +136,13 @@
                     @{ int i = 0;
             foreach (var item in ViewBag.StageAdd)
             {
-                <div class="form-group col-md-3" hidden>
-                    <label class="control-label col-md-6" style="text-align:@(i==0?"right":"center")" data-show='@item.Stage' for="brandAgent">@item.retail</label>
-                    <div class="col-md-4">
-                        <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">元</span>
+                    <div class="form-group col-md-4" hidden>
+                        <label class="control-label col-md-6" style="text-align:@(i==0?"right":"center");padding:0px 20px;" data-show='@item.Stage' for="brandAgent">@item.retail</label>
+                        <div class="col-md-6">
+                            <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice">    <span class="smallup">元</span>
+
+                        </div>
                     </div>
-                </div>
     i++;
 }
                     }
@@ -156,11 +157,21 @@
             <div class="panel-body" id="jhb">
 
                 @{foreach (var item in ss)
+        {
+            if (item == "第一阶段")
             {
                 <div class="col-md-1" hidden>
                     <label class="control-label" data-show='@item' for="brandAgent" style="color:#ff6a00">@item :</label>
                 </div>
-    }
+}
+else
+{
+            <div class="col-md-1" hidden>
+                <label class="control-label" data-show='@item' for="brandAgent" style="color:#ff6a00">@item :</label>
+            </div>
+}
+
+}
                 }
                 <div class="col-md-11">
                     <div class="form-group col-md-4 hidden">
@@ -197,14 +208,14 @@
 
 
                     @{ foreach (var item in ViewBag.StageAdd1)
-                {
-                    <div class="form-group col-md-4" hidden>
-                        <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
-                        <div class="col-md-4">
-                            <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万台</span>
-                        </div>
+            {
+                <div class="form-group col-md-4" hidden>
+                    <label class="control-label col-md-6" data-show='@item.Stage' for="brandAgent">@item.retail</label>
+                    <div class="col-md-4">
+                        <input class="form-control text-box single-line" name="@item.retail" type="text" value="@item.retailPrice"><span class="up">万台</span>
                     </div>
-        }
+                </div>
+}
                     }
 
                 </div>

@@ -81,7 +81,7 @@ namespace WebMVC.Controllers
 
             return View(model);
         }
-
+        public string Error { get; set; }
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {
@@ -90,17 +90,24 @@ namespace WebMVC.Controllers
             {
                 if (user.UserName == "Admin")
                 {
-                    return View("Error", new[] { "请勿删除管理员！" });
+                    ViewBag.Error = "请勿删除管理员！";
+                    return View("Error");
                 }
 
                 IdentityResult result = await UserManager.DeleteAsync(user);
+                //删除其他数据
+                var agent = db.AgentInputs.Where(s => s.UserId == user.UserName);
+               if(agent.Count()>0) db.AgentInputs.RemoveRange(agent);
+                var brand = db.BrandsInputs.Where(s => s.UserId == user.UserName);
+               if (brand.Count()>0) db.BrandsInputs.RemoveRange(brand);
+                db.SaveChanges();
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
                 }
                 return View("Error", result.Errors);
             }
-            return View("Error", new[] { "User Not Found" });
+            return View("Error", new{ Error= "没有这个用户" });
         }
 
         public async Task<ActionResult> Edit(string id)

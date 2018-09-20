@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebMVC.BLL;
 using System.Linq;
+using WebMVC.Common;
 
 namespace MSJTest.BLL
 {
@@ -64,15 +65,20 @@ namespace MSJTest.BLL
         public void TestMethod1()
         {
             //
-            // TODO:  在此处添加测试逻辑
+            // TODO:  
             //
-          var result=  brandStrength.Get();
-            var r2 = result.FirstOrDefault(s => s.ID == 2);
-            Assert.AreEqual(38,decimal.Round( r2.E,0));
-            Assert.AreEqual(600, result[1].I);
-            Assert.AreEqual(0.454m,decimal.Round( result[3].L,3));
-            //intentionIndex
-            Assert.AreEqual(0.33, result[0].B);
+          var result=  brandStrength.  GetBrandSTrengthByStage(Stage.起始阶段);
+          
+            result=  brandStrength.  GetBrandSTrengthByStage(Stage.第1阶段);
+           var r2 =  brandStrength.  GetBrandSTrengthByStage(Stage.第2阶段);
+              r2 = brandStrength.GetBrandSTrengthByStage(Stage.第3阶段);
+
+            //var r2 = result.FirstOrDefault(s => s.ID == 2);
+            //Assert.AreEqual(38, decimal.Round(r2.E, 0));
+            //Assert.AreEqual(600, result[1].I);
+            //Assert.AreEqual(0.454m, decimal.Round(result[3].L, 3));
+            ////intentionIndex
+            //Assert.AreEqual(0.33, result[0].B);
         }
     }
 }
